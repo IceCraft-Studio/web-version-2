@@ -1,0 +1,59 @@
+# WOW
+- idk what this is
+- what is this???
+[icecraft](https://icecraft.studio)
+
+_crazy_ **wow**
+
+> IKR
+>
+> COOL
+>> Very COol
+
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+
+:joy:
+
+## ANOTHER
+
+<ins>text</ins>
+
+```
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "age": 25
+}
+```
+
+***
+
+we need that SHIT
+
+| abc | defghi |
+:-: | -----------:
+bar | baz
+
+### AND YET AGAIN
+
+www.commonmark.org
+
+![marvel zombies](https://static0.polygonimages.com/wordpress/wp-content/uploads/2025/10/marvel-rivals-zombies.jpg)
+
+<strong> <title> <style> <em>
+
+<blockquote>
+  <xmp> is disallowed.  <XMP> is also disallowed.
+</blockquote>
+
+crazy
+
+- [x] foo
+  - [ ] bar
+  - [x] baz
+- [ ] bim
+
+cool

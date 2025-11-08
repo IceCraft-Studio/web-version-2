@@ -1,0 +1,71 @@
+
+:root {
+	--responsive-threshold: 59rem; /* Useless for now */
+	/* Light Colors */
+	--color-primary-toned-light: hsl(216, 94%, 70%);
+	--color-1-light: hsla(215, 30%, 90%, 0.8);
+	--color-2-light: hsl(215, 30%, 80%);
+	--color-2-trans-light: hsla(215, 30%, 80%, 0.7);
+	--text-color-light: hsl(215, 10%, 5%);
+	--svg-icon-color-light: invert(4%) sepia(7%) saturate(916%)
+		hue-rotate(155deg) brightness(94%) contrast(98%);
+	--color-pure-contrast-light: hsl(0, 0%, 0%);
+	--color-contrast-light: hsl(0, 0%, 13%);
+	--color-link-light: hsl(210, 100%, 40%);
+	--color-link-hover-light: hsl(210, 100%, 40%);
+	--color-link-visitied-light: hsl(210, 100%, 40%);
+	/* Dark Colors */
+	--color-primary-toned-dark: hsl(229, 70%, 31%);
+	--color-1-dark: hsla(215, 15%, 10%, 0.925);
+	--color-2-dark: hsl(215, 25%, 15%);
+	--color-2-trans-dark: hsla(215, 15%, 20%, 0.8);
+	--text-color-dark: hsl(215, 100%, 95%);
+	--svg-icon-color-dark: invert(97%) sepia(96%) saturate(2553%)
+		hue-rotate(178deg) brightness(105%) contrast(108%);
+	--color-pure-contrast-dark: hsl(0, 0%, 100%);
+	--color-contrast-dark: hsl(0, 0%, 87%);
+	--color-link-dark: hsl(240, 100%, 77%);
+	--color-link-hover-dark: hsl(240, 100%, 77%);
+	--color-link-visitied-dark: hsl(240, 100%, 77%);
+	/* Common Colors */
+	--color-focus-outline: hsl(56, 100%, 50%);
+	--color-black: hsl(0, 0%, 0%);
+	--color-lighter-black: hsl(227, 25%, 10%);
+	--color-primary: hsl(224, 80%, 45%);
+	--color-primary-trans: hsla(224, 80%, 45%, 0.8);
+	--color-required-field: hsl(0, 100%, 60%);
+    --color-primary-disabled:  hsl(224, 80%, 30%);
+    --color-background-overlay: rgba(0, 0, 0, 0.3);
+}
+
+:root[legacy] {
+	--color-primary: hsl(215, 75%, 50%);
+	--color-primary-trans: hsla(215, 75%, 50%, 0.8);
+}
+
+:root[data-theme='light'] {
+	color-scheme: light;
+	--color-primary-toned: var(--color-primary-toned-light);
+	--color-1: var(--color-1-light);
+	--color-2: var(--color-2-light);
+	--color-2-trans: var(--color-2-trans-light);
+	--color-text: var(--text-color-light);
+	--svg-icon-color: var(--svg-icon-color-light);
+	--color-pure-contrast: var(--color-pure-contrast-light);
+	--color-contrast: var(--color-contrast-light);
+	--color-pure-anticontrast: var(--color-pure-contrast-dark);
+	--color-anticontrast: var(--color-contrast-dark);
+}
+
+:root[data-theme='dark'] {
+	color-scheme: dark;
+	--color-primary-toned: var(--color-primary-toned-dark);
+	--color-1: var(--color-1-dark);
+	--color-2: var(--color-2-dark);
+	--color-2-trans: var(--color-2-trans-dark);
+	--color-text: var(--text-color-dark);
+	--color-text-disabled: gray;
+	--svg-icon-color: var(--svg-icon-color-dark);
+	--color-pure-anticontrast: var(--color-pure-contrast-light);
+	--color-anticontrast: var(--color-contrast-light);
+}

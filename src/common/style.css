@@ -1,0 +1,66 @@
+/* Styles */
+/*
+* {
+    transition-duration: 0.2s;
+    transition-property: background-color, color, border-color, text-shadow, box-shadow;
+}
+*/
+
+@import url("/~dobiapa2/common/styles/fonts.css");
+@import url("/~dobiapa2/common/styles/colors.css");
+
+
+/* Styles */
+body {
+	margin: 0px;
+
+	background-image: url('../assets/background/blue-ice.png');
+	background-repeat: repeat;
+	background-attachment: fixed;
+	background-size: 6em;
+
+	image-rendering: pixelated;
+
+	color: var(--text-color);
+}
+
+main {
+	display: flex;
+	box-sizing: border-box;
+	flex-direction: column;
+	margin: 0;
+	padding: 4.2em 1em 1em 1em; /* Fill in space that fixed topbar takes.*/
+	align-items: center;
+	min-height: 100vh;
+
+	background-color: var(--color-1);
+
+	image-rendering: auto;
+
+	font-family: Ubuntu;
+}
+
+textarea:focus-visible,
+button:focus-visible,
+input:focus-visible {
+	outline: 0.15rem solid rgb(255, 238, 0);
+}
+
+input {
+	font-family: 'Gantari', sans-serif;
+}
+
+input[type='text'],
+input[type='password'] {
+    border-radius: 0;
+    border: 0.2rem solid var(--color-primary);
+    margin: 0.1rem;
+	padding: 0.1em;
+}
+
+textarea {
+	padding: 0.1em;
+}
+.color-required {
+	color: var(--color-required-field)
+}

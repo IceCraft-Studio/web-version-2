@@ -1,0 +1,16 @@
+async function markdownRawGithub(data) {
+    const reqHeaders = new Headers();
+    reqHeaders.set("Accept", "text/html");
+    reqHeaders.set("Content-Type", "text/plain");
+    reqHeaders.set("X-GitHub-Api-Version", "2022-11-28");
+
+    const options = {
+        method: "POST",
+        headers: reqHeaders,
+        body: data
+    };
+    const req = new Request(MARKDOWN_RAW_URL, options);
+
+    const response = await fetch(req)
+    return response.text()
+}

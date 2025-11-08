@@ -1,0 +1,4 @@
+
+header, footer, nav { display: none; }
+* { border: none !important; }
+#content > article > img { float: none  }

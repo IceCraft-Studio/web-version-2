@@ -1,0 +1,69 @@
+body {
+    font-family: Ubuntu;
+    font-size: 1.2em;
+    color: hsl(120, 18%, 22%);
+    background-color: hsl(240, 60%, 90%);
+}
+
+header {
+    background-color: hsl(29, 80%, 61%);
+    padding: 0.5em 0.75em;
+    border-radius: 0.5em;
+}
+
+.box {
+    border-width: 0.5em;
+    border-style: groove;
+    border-color: hsl(228, 18%, 22%);
+    padding: 0.2em;
+}
+
+.clear {
+    clear: both;
+}
+
+#content > article > img {
+    float: left;
+    width: 40%;
+    max-width: 25em;
+    min-width: 5em;
+    border-width: 0.1em;
+    border-style: double;
+    border-color: hsl(108, 82%, 38%);;
+    padding: 0.2em;
+    margin-right: 0.8em;
+}
+
+#content > article > p {
+    margin: 0.6em;
+}
+
+#content {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#content > * {
+    padding: 1em;
+    border: 0.5em solid hsl(108, 82%, 38%);
+    border-radius: 2em;
+    margin: 0.2em;
+}
+
+#content > nav {
+    flex-shrink: 0;
+}
+
+footer li {
+    display: inline-block;
+    margin: 4em;
+    padding: 3em;
+    height: 3.5em;
+    background-color: hsl(29, 80%, 61%);
+}
+
+@media screen and (max-width:725px) {
+    #content {
+        flex-direction: column-reverse;
+    }
+}

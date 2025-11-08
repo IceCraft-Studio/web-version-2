@@ -1,0 +1,218 @@
+const MARKDOWN_URL = 'https://api.github.com/markdown';
+
+const BUTTON_EDIT_ID = 'btn-edit-article';
+const BUTTON_PREVIEW_ID = 'btn-preview-article';
+const ARTICLE_PREVIEW_ID = 'md-preview';
+const ARTICLE_EDIT_ID = 'md-input';
+const GALLERY_UPLOAD_ZONE_ID = 'gallery-upload-zone';
+const GALLERY_UPLOAD_SELECT = `#${GALLERY_UPLOAD_ZONE_ID} > input[type='file']`;
+const GALLERY_PREVIEW_ID = 'gallery-preview';
+const CATEGORY_SELECT_ID = 'input-category';
+
+const HIDDEN_CLASS = 'hidden';
+const COPIED_CLASS = 'copied';
+
+async function main() {
+	let galleryIndex = 0;
+	let markdownEdited = false;
+	const elements = {
+		descriptionInput: document.querySelector(
+			'textarea[name="description"]'
+		),
+		markdownInput: document.getElementById(ARTICLE_EDIT_ID),
+		markdownOutput: document.getElementById(ARTICLE_PREVIEW_ID),
+		previewButton: document.getElementById(BUTTON_PREVIEW_ID),
+		editButton: document.getElementById(BUTTON_EDIT_ID),
+		galleryUploadInput: document.querySelector(GALLERY_UPLOAD_SELECT),
+		dropUploadInput: document.getElementById(GALLERY_UPLOAD_ZONE_ID),
+		galleryPreview: document.getElementById(GALLERY_PREVIEW_ID),
+		categorySelect: document.getElementById(CATEGORY_SELECT_ID),
+	};
+	// Dynamically fetch available categories
+	fillCategories(elements.categorySelect);
+	// Remove Empty Category on selection
+	elements.categorySelect.addEventListener('change', removeEmptyCategory);
+	// Markdown preview functionality
+	elements.editButton.addEventListener('click', (e) => {
+		showEdit(e, elements);
+	});
+	elements.previewButton.addEventListener('click', (e) => {
+		showPreview(e, elements, markdownEdited);
+	});
+	elements.markdownInput.addEventListener('change', () => {
+		markdownEdited = true;
+	});
+	// Prevent newlines in description
+	elements.descriptionInput.addEventListener('input', () => {
+		elements.descriptionInput.value = textarea.value.replace(
+			/\r?\n|\r/g,
+			' '
+		);
+	});
+	// Gallery
+	elements.galleryUploadInput.addEventListener('change', (e) => {
+		galleryUpdate(e, elements, galleryIndex);
+		fileBlob(e, elements, galleryIndex);
+	});
+	elements.dropUploadInput.addEventListener('drop', (e) => {
+		e.preventDefault();
+	});
+	//TODO - INPUT VALIDATION
+	//TODO - Refactor the logic, shorten, strighten, maybe use html templates
+	//TODO - Add Drag-n-drop to the image upload
+}
+
+main();
+
+function removeEmptyCategory(event) {
+	if (event.target.value != '') {
+		event.target.querySelector('option[value=""]').remove();
+		event.target.removeEventListener('change', removeEmptyCategory);
+	}
+}
+
+function fillCategories(selectElement) {
+	selectElement.innerHTML += `<option value=""></option>`;
+	selectElement.innerHTML += `
+                        <option value="bedrock-addon">MC Bedrock - Add-on</option>
+                        <option value="bedrock-map">MC Bedrock - Map</option>
+                        <option value="java-map">MC Java - Map</option>
+                        <option value="java-mod">MC Java - Mod</option>
+                        <option value="java-datapack">MC Java - Datapack</option>
+                        <option value="vscode-extension">VSCode - Extension</option>
+                        <option value="steam-workshop">Steam - Workshop Item</option>`;
+	// TODO Replace with php json API endpoint /api/categories
+}
+
+function galleryUpdate(event, elements, galleryIndex) {
+	elements.dropUploadInput.classList.add(HIDDEN_CLASS);
+	elements.dropUploadInput.removeAttribute('id');
+	galleryIndex++;
+	elements.galleryPreview.insertAdjacentHTML(
+		'beforeend',
+		generateGalleryItem(galleryIndex)
+	);
+	elements.dropUploadInput = document.getElementById(GALLERY_UPLOAD_ZONE_ID);
+	elements.galleryUploadInput = document.querySelector(GALLERY_UPLOAD_SELECT);
+
+	elements.galleryUploadInput.addEventListener('change', (e) => {
+		galleryUpdate(e, elements, galleryIndex);
+		fileBlob(e, elements, galleryIndex);
+	});
+	elements.dropUploadInput.addEventListener('drop', (e) => {
+		e.preventDefault();
+	});
+}
+
+function fileBlob(event, elements, galleryIndex) {
+	let file = event.target.files[0];
+	let objectUrl = URL.createObjectURL(file);
+	console.log(objectUrl);
+	let imgElement = document.querySelector(
+		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] img`
+	);
+	imgElement?.setAttribute('src', objectUrl);
+	// Unhide the image and make it clickable
+	let imgButtonElement = document.querySelector(
+		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] button`
+	);
+	imgButtonElement?.classList.remove(HIDDEN_CLASS);
+	let copyMsgTimeoutId = null;
+	imgButtonElement.addEventListener('click', (e) => {
+		e.preventDefault();
+		navigator.clipboard.writeText(objectUrl.slice(5)); // remove blob: as GitHub Markdown API destroyes it
+		imgButtonElement.classList.add(COPIED_CLASS);
+		if (copyMsgTimeoutId != null) clearTimeout(copyMsgTimeoutId);
+		copyMsgTimeoutId = setTimeout(() => {
+			imgButtonElement.classList.remove(COPIED_CLASS);
+			copyMsgTimeoutId = null;
+		}, 4000);
+	});
+	let hiddenInput = document.querySelector(
+		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] input[type="hidden"]`
+	);
+	hiddenInput?.setAttribute('value', objectUrl);
+}
+
+function generateGalleryItem(i) {
+	return `
+<li class="gallery-image" data-gallery-index="${i}">
+  <div class="field">
+    <label for="gallery-caption[${i}]">Image #${i + 1}</label>
+    <input id="gallery-caption-${i}" name="gallery-caption[${i}]" type="text" placeholder="Caption of Image #${
+		i + 1
+	}.">
+  </div>
+  <label id="gallery-upload-zone" for="gallery-upload[${i}]">
+    Drop images here, or click to upload.
+    <input id="gallery-upload-${i}" name="gallery-upload[${i}]" type="file" accept=".jpeg,.jpg,.png,.gif,.webp"/>
+  </label>
+  <button class="gallery-container hidden">
+    <img alt="Image #${i + 1}">
+  </button>
+  <div class="gallery-include-checkbox">
+    <label for="gallery-include[${i}]">Image #${i + 1} in gallery:</label>
+    <input id="gallery-include-${i}" name="gallery-include[${i}]" type="checkbox" checked>
+  </div>
+  <input name="gallery-browser-url[${i}]" type="hidden">
+</li>`;
+}
+
+function replaceUploadZone() {
+	const html = ``;
+}
+
+async function generatePreview(inputElement, outputElement) {
+	let markdownData = inputElement.value;
+	const htmlResult = await markdownGithub(markdownData);
+	outputElement.innerHTML = htmlResult;
+	// fix markdown removing images
+	outputElement
+		.querySelectorAll('a > img[data-canonical-src]')
+		.forEach((img) => {
+			const a = img.parentElement;
+			const canonical = img.getAttribute('data-canonical-src');
+			if (!canonical.startsWith(`${location.protocol}//${location.host}`))
+				return;
+			img.src = 'blob:' + canonical;
+			a.replaceWith(img);
+		});
+}
+
+async function markdownGithub(data) {
+	const reqHeaders = new Headers();
+	reqHeaders.set('Accept', 'application/vnd.github+json');
+	reqHeaders.set('Content-Type', 'application/json');
+	reqHeaders.set('X-GitHub-Api-Version', '2022-11-28');
+
+	const options = {
+		method: 'POST',
+		headers: reqHeaders,
+		body: JSON.stringify({
+			text: data,
+			mode: 'gfm',
+		}),
+	};
+	const req = new Request(MARKDOWN_URL, options);
+
+	const response = await fetch(req);
+	return response.text();
+}
+
+function showEdit(event, elements) {
+	event.target.disabled = true;
+	elements.previewButton.disabled = false;
+	elements.markdownOutput.classList.add(HIDDEN_CLASS);
+	elements.markdownInput.classList.remove(HIDDEN_CLASS);
+}
+
+function showPreview(event, elements, markdownEdited) {
+	event.target.disabled = true;
+	if (markdownEdited) {
+		generatePreview(elements.markdownInput, elements.markdownOutput);
+	}
+	elements.editButton.disabled = false;
+	elements.markdownOutput.classList.remove(HIDDEN_CLASS);
+	elements.markdownInput.classList.add(HIDDEN_CLASS);
+	markdownEdited = false;
+}

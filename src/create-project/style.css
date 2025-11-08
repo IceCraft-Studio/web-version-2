@@ -1,0 +1,309 @@
+.introduction-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 45%;
+}
+
+.introduction-part {
+    display: flex;
+    align-items: stretch;
+}
+
+.introduction-preview {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.introduction-preview > div {
+    flex: 1;
+    width: auto;
+    height: auto;
+    padding: 0.6rem;
+    margin: 0.4rem;
+    background-color: var(--color-background-overlay);
+    border-radius: 0.2em;
+}
+
+.details-part {
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+}
+
+.slug-editor {
+    flex: 1 1 40%;
+}
+
+.category-selection { 
+    flex: 1 1 8rem;
+}
+
+.article-part {
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+}
+
+
+.article-gallery {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    flex-grow: 1;
+
+    padding: 0.6rem;
+    margin: 0.4rem;
+    background-color: var(--color-background-overlay);
+    border-radius: 0.2em;
+}
+
+.article-editor {
+    flex: 1 1 180%;
+}
+
+.gallery-info {
+    padding: 0.6rem;
+    text-align: left;
+}
+
+.gallery-image {
+    display: flex;
+    flex-direction: column;
+    
+    padding: 0.6rem;
+    background-color: var(--color-background-overlay);
+    border-radius: 0.2em;
+
+    width: 100%;
+    max-width: 20rem;
+    box-sizing: border-box;
+}
+
+.gallery-image input[type='text'] {
+    margin: 0.5rem 0;
+    max-width: 20rem;
+}
+
+div.gallery-include-checkbox {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+div.gallery-include-checkbox * {
+    display: inline;
+}
+
+.gallery-image input[type='checkbox'] {
+    width: 1.3rem;
+    height: 1.3rem;
+    accent-color: var(--color-primary);
+}
+
+.gallery-image label {
+    margin: 0;
+}
+
+button.gallery-container {
+    position: relative;
+    max-width: 20rem;
+    border: 0.2rem solid var(--color-primary);
+    padding: 0;
+}
+
+button.gallery-container::after {
+    content: "Click to copy link.";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 0.4rem;
+  
+    color: var(--color-text-dark);
+    background-color: rgba(0,0,0,0.6);
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+
+button.gallery-container:hover::after {
+    text-decoration: underline;
+}
+
+button.gallery-container.copied::after {
+    text-decoration: none;
+    content: "Copied!";
+}
+
+
+button.gallery-container img {
+    width: 100%;
+    display: block;
+}
+
+button.gallery-container img:hover {
+    filter: brightness(1.6);
+}
+
+button.gallery-container:active img {
+    filter: blur(3px);
+}
+
+button.gallery-container:active {
+    transform: scale(102%);
+}
+
+form #gallery-preview div.field {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+#gallery-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 0.6rem;
+    padding: 0;
+    margin: 0;
+}
+
+#gallery-upload-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    aspect-ratio: 16/9;
+    max-width: 20rem;
+
+    border: 0.2rem dashed var(--color-primary);
+    padding: 0.5rem;
+    text-align: center;
+    font-family: 'Gantari', sans-serif;
+}
+
+#gallery-upload-zone input {
+    display: block;
+    max-width: 80%;
+}
+
+
+div#md-preview {
+    border: 0.2rem solid var(--color-primary);
+    max-width: 60rem;
+    height: 40rem;
+    padding: 0.1rem;
+    overflow: auto;
+}
+
+div.field:has(*[required]) label::after {
+  content: " *";
+  color: var(--color-required-field);
+}
+
+form div.field {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.6rem;
+    margin: 0.4rem;
+    background-color: var(--color-background-overlay);
+    border-radius: 0.2em;
+}
+
+input,
+label {
+    display: block;
+}
+
+label {
+    margin: 0.2em;
+}
+
+input[type="text"] {
+    font-size: 1rem;
+    border-radius: 0;
+    border: 0.2rem solid var(--color-primary);
+    margin: 0.1rem;
+}
+
+select {
+  font-size: 1rem;
+  border-radius: 0;
+  border: 0.2rem solid var(--color-primary);
+  margin: 0.1rem;
+}
+
+textarea {
+    border-radius: 0;
+    border: 0.2rem solid var(--color-primary);
+    margin: 0;
+    resize: none;
+}
+
+textarea[name="description"] {
+    font-size: 1rem;
+    font-family: 'Gantari', sans-serif;
+    height: 4.7em;
+}
+
+textarea#md-input {
+    height: 40rem;
+    padding: 0.1rem;
+}
+
+select:focus-visible,
+textarea:focus-visible,
+input:focus-visible,
+button:focus-visible {
+    outline: 0.15rem solid var(--color-focus-outline);
+}
+
+form {
+    width: 100%;
+}
+
+form h2 {
+    padding-left: 0.6rem;
+    margin-bottom: 0.3rem;
+}
+
+.switch-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.switch-buttons>button {
+    width: 6em;
+    border: none;
+    padding: 0.2rem 0.2rem 0.3rem 0.2rem;
+    margin: 0 0.25rem;
+}
+
+.switch-buttons>button:not(:disabled):hover {
+    cursor: pointer;
+}
+
+.switch-buttons>button:disabled {
+    background-color: var(--color-primary);
+    color: var(--text-color-dark);
+}
+
+.hidden {
+    display: none;
+}
+
+.article-part:has(ul#gallery-preview li.gallery-image[data-gallery-index="2"]) {
+    flex-direction: column;
+}
+
+@media screen and (max-width:825px) {
+    .introduction-part,.article-part,.details-part {
+        flex-direction: column;
+    }
+}
