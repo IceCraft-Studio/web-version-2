@@ -195,7 +195,6 @@ form #gallery-preview div.field {
 
 div#md-preview {
     border: 0.2rem solid var(--color-primary);
-    max-width: 60rem;
     height: 40rem;
     padding: 0.1rem;
     overflow: auto;

@@ -42,7 +42,8 @@ main {
 
 textarea:focus-visible,
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+a:focus-visible {
 	outline: 0.15rem solid rgb(255, 238, 0);
 }
 
