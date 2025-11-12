@@ -11,7 +11,7 @@ $day = $exploded[0];
 $month = $exploded[1];
 $year = $exploded[2];
 $timestamp = mktime(0,0,0,$month,$day,$year);
-echo $date + " je " + hezkyCesky(date('N'));
+echo $date . " je " . hezkyCesky(date('N'));
 echo $timestamp;
 
 ?>
