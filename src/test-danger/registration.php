@@ -3,6 +3,7 @@
   foreach ($_POST AS $key=>$value) {
     $trimmed[$key] = trim($value);
   }
+  $errorNames = ['Username' => 'Username needs to be more than 4 chars long!'];
   $errors = [];
   if (isset($_POST['register'])) {
     if (strlen($trimmed['username']) < 4) {
@@ -17,7 +18,7 @@
     if ($trimmed['confirm_password'] != $trimmed['password']) {
         $errors[] = 'confirm_password';
     }
-    if (count($errors) > 0) {
+    if (count($errors) == 0) {
 
     }
   }
@@ -41,7 +42,7 @@
     <form action="" method="POST" enctype="multipart/form-data">
 	<div class="row">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required ->
+            <input type="text" id="username" name="username" required value="<?= $trimmed['username'] ?>">
             <?php
             if (in_array('username', $errors)) {
                 echo "<span class=\"error\"> Username needs to be more than 4 chars long!</span>";
