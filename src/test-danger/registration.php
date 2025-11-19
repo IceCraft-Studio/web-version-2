@@ -19,7 +19,7 @@
         $errors[] = 'confirm_password';
     }
     if (count($errors) == 0) {
-
+        header('Location: welcome.php');
     }
   }
 ?>
