@@ -1,4 +1,6 @@
-
+<?php
+  var_dump($POST)
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
