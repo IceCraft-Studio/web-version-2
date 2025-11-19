@@ -22,9 +22,9 @@ function includeTemplateFile($basePath) {
         return '';
     }
 
-    //ob_start();
+    ob_start();
     include $file;
-    //return ob_get_clean();
+    return ob_get_clean();
 }
 
 // Check if route exists with at least one head and body file
@@ -42,11 +42,11 @@ if (!is_dir(__DIR__ . '/' . $route) || !$headExists || !$bodyExists) {
 // Constructor of all output documents
 echo '<!DOCTYPE html><html>';
 echo '<head>';
-includeTemplateFile($commonHead);
-includeTemplateFile($routeHead);
+echo includeTemplateFile($commonHead);
+echo includeTemplateFile($routeHead);
 echo '</head>';
 echo '<body>';
-includeTemplateFile($commonBody);
-includeTemplateFile($routeBody);
+echo includeTemplateFile($commonBody);
+echo includeTemplateFile($routeBody);
 echo '</body>';
 echo '</html>';
