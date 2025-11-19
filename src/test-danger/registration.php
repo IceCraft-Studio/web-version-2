@@ -4,7 +4,7 @@
     $trimmed[$key] = trim($value);
   }
   $errors = [];
-  if (isset($trimmed['register'])) {
+  if (isset($_POST['register'])) {
     if (strlen($trimmed['username']) < 4) {
         $errors[] = 'username';
     }
