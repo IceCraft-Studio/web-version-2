@@ -3,7 +3,12 @@
   foreach ($_POST AS $key=>$value) {
     $trimmed[$key] = trim($value);
   }
-  $errorNames = ['Username' => 'Username needs to be more than 4 chars long!'];
+  $errorNames = [
+    'username' => 'Username needs to be more than 4 chars long!',
+    'email' => 'Format of email is name@domain.tld!',
+    'password' => 'Password needs to be at least 8 chars long!',
+    'confirm_password' => 'Passwords don\'t match!'
+  ];
   $errors = [];
   if (isset($_POST['register'])) {
     if (strlen($trimmed['username']) < 4) {

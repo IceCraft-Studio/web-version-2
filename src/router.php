@@ -32,7 +32,6 @@ $headExists = file_exists($routeHead . '.php') || file_exists($routeHead . '.htm
 $bodyExists = file_exists($routeBody . '.php') || file_exists($routeBody . '.html');
 
 if (!is_dir(__DIR__ . '/' . $route) || !$headExists || !$bodyExists) {
-    // 404 fallback
     http_response_code(404);
 
     $routeHead = __DIR__ . '/404/head';
