@@ -1,0 +1,86 @@
+<main>
+    <h1>Create a new Project</h1>
+    <div>
+        Fields marked with <span class="color-required">*</span> are required!
+    </div>
+    <form method="post" enctype="multipart/form-data" action="https://zwa.toad.cz/~xklima/vypisform.php">
+        <h2>Introduction</h2>
+        <div class="introduction-part">
+            <div class="introduction-details">
+                <div class="field">
+                    <label for="title">Title of your project:</label>
+                    <input name="title" type="text" required>
+                </div>
+                <div class="field">
+                    <label for="description">Brief description:</label>
+                    <textarea name="description" type="text" required></textarea>
+                </div>
+                <div class="field">
+                    <label for="thumbnail">Thumbnail:</label>
+                    <input name="thumbnail" type="file" accept=".jpeg,.jpg,.png,.webp" required></input>
+                </div>
+            </div>
+            <div class="introduction-preview">
+                <div>
+                    Crazy
+                </div>
+            </div>
+        </div>
+        <h2>Project Details</h2>
+        <div class="details-part">
+            <div class="field slug-editor">
+                <label for="input-slug">URL under /projects - leave empty to set automatically:</label>
+                <input name="slug" id="input-slug" type="text" placeholder="">
+            </div>
+            <div class="field category-selection">
+                <label for="input-category">Category:</label>
+                <select name="category" id="input-category" required></select>
+            </div>
+        </div>
+        <h2>Article Contents</h2>
+        <div class="article-part">
+            <div class="article-editor field">
+                <label for="md-input">Your project's article (use <a href="https://github.github.com/gfm/"
+                        title="GFM Spec" target="_blank">GitHub Flavored Markdown</a>):</label>
+                <div class="switch-buttons">
+                    <button id="btn-edit-article" disabled>Edit</button>
+                    <button id="btn-preview-article">Preview</button>
+                </div>
+                <textarea id="md-input" name="md-input" required></textarea>
+                <div id="md-preview" class="hidden"></div>
+            </div>
+            <div class="article-gallery">
+                <div class="gallery-info">
+                    You can upload images to accompany your article. Click them to get
+                    their link to use them in markdown of your article.
+                </div>
+                <ul id="gallery-preview">
+                    <li class="gallery-image" data-gallery-index="0">
+                        <div class="field">
+                            <label for="gallery-caption[0]">
+                                Image #1
+                            </label>
+                            <input name="gallery-caption[0]" type="text" placeholder="Caption of Image #1.">
+                        </div>
+                        <label id="gallery-upload-zone" for="gallery-upload[0]">
+                            Drop images here, or click to upload.
+                            <input name="gallery-upload[0]" type="file" accept=".jpeg,.jpg,.png,.gif,.webp" />
+                        </label>
+                        <button class="gallery-container hidden">
+                            <img>
+                        </button>
+                        <div class="gallery-include-checkbox">
+                            <label for="gallery-include[0]">Image #1 in gallery:</label>
+                            <input name="gallery-include[0]" type="checkbox" checked>
+                        </div>
+                        <input name="gallery-browser-url[0]" type="hidden">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <h2>Downloads & Links</h2>
+        <div class="downloads-part">
+            <input type="submit">
+        </div>
+    </form>
+</main>
