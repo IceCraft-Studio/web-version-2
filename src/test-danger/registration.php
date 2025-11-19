@@ -42,7 +42,7 @@
     <form action="" method="POST" enctype="multipart/form-data">
 	<div class="row">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required value="<?= isset($trimmed['username']) ? $trimmed['username'] : '' ?>">
+            <input type="text" id="username" name="username" required value="<?= isset($trimmed['username']) ? htmlspecialchars($trimmed['username']) : '' ?>">
             <?php
             if (in_array('username', $errors)) {
                 echo "<span class=\"error\"> Username needs to be more than 4 chars long!</span>";
