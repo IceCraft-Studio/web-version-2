@@ -1,6 +1,26 @@
 <?php
-  var_dump($_POST)
-  if ()
+  $trimmed = [];
+  foreach ($_POST AS $key=>$value) {
+    $trimmed[$key] = trim($value);
+  }
+  $errors = [];
+  if (isset($trimmed['register'])) {
+    if (strlen($trimmed['username']) < 4) {
+        $errors[] = 'username';
+    }
+    if (!filter_var($trimmed['email'],FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'email';
+    }
+    if (strlen($trimmed['password']) < 8) {
+        $errors[] = 'password';
+    }
+    if ($trimmed['confirm_password'] != $trimmed['password']) {
+        $errors[] = 'confirm_password';
+    }
+    if (count($errors) > 0) {
+
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,11 +42,21 @@
 	<div class="row">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required ->
+            <?php
+            if (in_array('username', $errors)) {
+                echo "<span class=\"error\"> Username needs to be more than 4 chars long!</span>";
+            }
+            ?>
         </div>
 
         <div class="row">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required >
+            <?php
+            if (in_array('email', $errors)) {
+                echo "<span class=\"error\"> Format of email is name@domain.tld!</span>";
+            }
+            ?>
         </div>	
 
         <div class="row">
@@ -37,10 +67,20 @@
         <div class="row">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
+            <?php
+            if (in_array('password', $errors)) {
+                echo "<span class=\"error\"> Password needs to be at least 8 characters long!</span>";
+            }
+            ?>
         </div>
         <div class="row">
             <label for="confirm_password">Confirm Password:</label>
             <input type="password" id="confirm_password" name="confirm_password" required>
+            <?php
+            if (in_array('confirm_password', $errors)) {
+                echo "<span class=\"error\"> Passwords don't match!</span>";
+            }
+            ?>
         </div>
 
         <input type="submit" name="register" value="Register">
