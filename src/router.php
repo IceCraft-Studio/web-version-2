@@ -1,14 +1,20 @@
 <?php
 
-$uri = trim(parse_url(substr($_SERVER['REQUEST_URI'],11), PHP_URL_PATH),'/');
+$route = trim(parse_url(substr($_SERVER['REQUEST_URI'],11), PHP_URL_PATH),'/');
 
-$route = $uri === '' ? 'home' : $uri;
+if ($route == '') {
+    header("Location: ./home", true, 301);
+    exit;
+}
+
+
 
 // These files have to exist because they are included without checking
 $commonHead = __DIR__ . '/common/page/head.html';
 $commonBodyStart = __DIR__ . '/common/page/body-start.html';
 $commonBodyEnd = __DIR__ . '/common/page/body-end.html';
-
+// These are specific templates files for the route, can be .html or .php
+// If they are missing, 404 is used instead
 $routeHead  = __DIR__ . '/' . $route . '/head';
 $routeBody  = __DIR__ . '/' . $route . '/body';
 
