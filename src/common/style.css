@@ -14,7 +14,7 @@ body {
 
 	image-rendering: pixelated;
 
-	color: var(--text-color);
+	color: var(--color-text);
 }
 
 main {
@@ -133,7 +133,7 @@ textarea {
     display: block;
     margin: auto 0.1rem;
 
-    color: var(--text-color);
+    color: var(--color-text);
     font-family: MinecraftTen;
     font-size: 1.2rem;
     text-decoration: none;
@@ -153,7 +153,7 @@ textarea {
 #topbar > .links-container > a {
     padding: 0.6rem 1rem 0.6rem 1rem;
 
-    color: var(--text-color);
+    color: var(--color-text);
     text-decoration: none;
     font-family: InterBlack;
 
@@ -171,7 +171,7 @@ textarea {
 
 #topbar > .links-container > a.current-page {
     background-color: var(--color-primary);
-    color: var(--text-color-dark);
+    color: var(--color-text-dark);
     border-color: var(--color-pure-anticontrast);
 }
 
@@ -230,7 +230,7 @@ textarea {
     padding: 1.2em 0 1.2em 0;
     margin: 0.4em 0;
 
-    color: var(--text-color);
+    color: var(--color-text);
     text-decoration: none;
     text-align: center;
     font-family: InterBlack;
@@ -249,7 +249,7 @@ textarea {
 
 #topbar > .tri-dash-menu.open > .links-dropdown > a.current-page {
     background-color: var(--color-primary);
-    color: var(--text-color-dark);
+    color: var(--color-text-dark);
     border-color: var(--color-pure-anticontrast);
 }
 
@@ -272,7 +272,7 @@ textarea {
 #footer {
     display: flex;
 
-    color: var(--text-color-dark);
+    color: var(--color-text-dark);
     font-family: Gantari;
 
     background-color: var(--color-lighter-black);

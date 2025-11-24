@@ -6,7 +6,7 @@
 	--color-1-light: hsla(215, 30%, 90%, 0.8);
 	--color-2-light: hsl(215, 30%, 80%);
 	--color-2-trans-light: hsla(215, 30%, 80%, 0.7);
-	--text-color-light: hsl(215, 10%, 5%);
+	--color-text-light: hsl(215, 10%, 5%);
 	--svg-icon-color-light: invert(4%) sepia(7%) saturate(916%)
 		hue-rotate(155deg) brightness(94%) contrast(98%);
 	--color-pure-contrast-light: hsl(0, 0%, 0%);
@@ -19,7 +19,7 @@
 	--color-1-dark: hsla(215, 15%, 10%, 0.925);
 	--color-2-dark: hsl(215, 25%, 15%);
 	--color-2-trans-dark: hsla(215, 15%, 20%, 0.8);
-	--text-color-dark: hsl(215, 100%, 95%);
+	--color-text-dark: hsl(215, 100%, 95%);
 	--svg-icon-color-dark: invert(97%) sepia(96%) saturate(2553%)
 		hue-rotate(178deg) brightness(105%) contrast(108%);
 	--color-pure-contrast-dark: hsl(0, 0%, 100%);
@@ -49,7 +49,7 @@
 	--color-1: var(--color-1-light);
 	--color-2: var(--color-2-light);
 	--color-2-trans: var(--color-2-trans-light);
-	--color-text: var(--text-color-light);
+	--color-text: var(--color-text-light);
 	--svg-icon-color: var(--svg-icon-color-light);
 	--color-pure-contrast: var(--color-pure-contrast-light);
 	--color-contrast: var(--color-contrast-light);
@@ -63,7 +63,7 @@
 	--color-1: var(--color-1-dark);
 	--color-2: var(--color-2-dark);
 	--color-2-trans: var(--color-2-trans-dark);
-	--color-text: var(--text-color-dark);
+	--color-text: var(--color-text-dark);
 	--color-text-disabled: gray;
 	--svg-icon-color: var(--svg-icon-color-dark);
 	--color-pure-anticontrast: var(--color-pure-contrast-light);

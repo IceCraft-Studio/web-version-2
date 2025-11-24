@@ -1,6 +1,6 @@
 <nav id="topbar">
     <a class="icon-container" href="/home" title="IceCraft Studio">
-        <img src="/~dobiapa2/assets/icecraft-icon.svg" alt="IceCraft Icon">
+        <img src="/~dobiapa2/assets/icecraft-logo.svg" alt="IceCraft Icon">
         <span translate="no">IceCraft Studio</span>
     </a>
     <button class="theme-toggle" title="Toggle Website Theme">
