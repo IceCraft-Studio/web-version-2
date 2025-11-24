@@ -4,9 +4,10 @@ $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),'/');
 
 $route = $uri === '' ? 'home' : $uri;
 
-$commonHead = __DIR__ . '/common/page/head';
-$commonBodyStart = __DIR__ . '/common/page/body-start';
-$commonBodyEnd = __DIR__ . '/common/page/body-end';
+// These files have to exist because they are included without checking
+$commonHead = __DIR__ . '/common/page/head.html';
+$commonBodyStart = __DIR__ . '/common/page/body-start.html';
+$commonBodyEnd = __DIR__ . '/common/page/body-end.html';
 
 $routeHead  = __DIR__ . '/' . $route . '/head';
 $routeBody  = __DIR__ . '/' . $route . '/body';
@@ -40,12 +41,12 @@ if (!is_dir(__DIR__ . '/' . $route) || !$headExists || !$bodyExists) {
 // Constructor of all output documents
 echo '<!DOCTYPE html><html>';
 echo '<head>';
-includeTemplateFile($commonHead);
+include $commonHead;
 includeTemplateFile($routeHead);
 echo '</head>';
 echo '<body>';
-includeTemplateFile($commonBodyStart);
+include $commonBodyStart;
 includeTemplateFile($routeBody);
-includeTemplateFile($commonBodyEnd);
+include $commonBodyEnd;
 echo '</body>';
 echo '</html>';
