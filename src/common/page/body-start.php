@@ -1,19 +1,19 @@
 <nav id="topbar">
-    <a class="icon-container" href="/" title="IceCraft Studio">
-        <img src="/sprites/images/icecraft-icon.svg" alt="IceCraft icon">
+    <a class="icon-container" href="/home" title="IceCraft Studio">
+        <img src="/assets/icecraft-icon.svg" alt="IceCraft Icon">
         <span translate="no">IceCraft Studio</span>
     </a>
     <button class="theme-toggle" title="Toggle Website Theme">
-        <img src="/sprites/images/moon-icon.png" alt="moon icon">
+        <img src="/assets/icons/sun-moon-icon.png" alt="Theme Icon">
     </button>
     <div class="links-container">
-        <a class="current-page" href="/" hreflang="en" title="The home page of our web.">
+        <a class="current-page" href="/home" hreflang="en" title="The homepage of our web.">
             Home
         </a>
-        <a href="/projects/" hreflang="en" title="Check out our maps, addons and more.">
+        <a href="/projects" hreflang="en" title="Check out our maps, addons and more content.">
             Projects
         </a>
-        <a href="/links/" hreflang="en" title="Links to our social media accounts and other platforms.">
+        <a href="/links" hreflang="en" title="Links to our social media accounts and other platforms.">
             Links
         </a>
     </div>
@@ -23,15 +23,7 @@
             <img src="/sprites/images/tri-dash-icon.svg">
         </button>
         <div class="links-dropdown">
-            <a class="current-page" href="/" hreflang="en" title="The home page of our web.">
-                Home
-            </a>
-            <a href="/projects/" hreflang="en" title="Check out our maps, addons and more.">
-                Projects
-            </a>
-            <a href="/links/" hreflang="en" title="Links to our social media accounts and other platforms.">
-                Links
-            </a>
+            <!-- Contents of this element are inserted via a script (to avoid duplicate) from #topbar > .links-container -->
         </div>
     </div>
 </nav>
