@@ -10,9 +10,9 @@ if ($route == '') {
 
 
 // These files have to exist because they are included without checking
-$commonHead = __DIR__ . '/common/page/head.html';
-$commonBodyStart = __DIR__ . '/common/page/body-start.html';
-$commonBodyEnd = __DIR__ . '/common/page/body-end.html';
+$commonHead = __DIR__ . '/common/page/head.php';
+$commonBodyStart = __DIR__ . '/common/page/body-start.php';
+$commonBodyEnd = __DIR__ . '/common/page/body-end.php';
 // These are specific templates files for the route, can be .html or .php
 // If they are missing, 404 is used instead
 $routeHead  = __DIR__ . '/' . $route . '/head';

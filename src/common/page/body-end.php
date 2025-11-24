@@ -1,7 +1,7 @@
 <footer id="footer">
     <div class="left-part">
         <span>Made by PavelDobCZ23</span>
-        <span>IceCraft Studio 2020 - 2024 ©</span>
+        <span>IceCraft Studio 2020 - <?=date('Y')?> ©</span>
     </div>
     <div class="right-part">
         <span>Not affiliated with Mojang Studios or Microsoft Corporation</span>
