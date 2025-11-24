@@ -1,6 +1,6 @@
 <?php
 
-$uri = trim(parse_url(str_replace("~dobiapa2","",$_SERVER['REQUEST_URI'],1), PHP_URL_PATH),'/');
+$uri = trim(parse_url(substr($_SERVER['REQUEST_URI'],11), PHP_URL_PATH),'/');
 
 $route = $uri === '' ? 'home' : $uri;
 
