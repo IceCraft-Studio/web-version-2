@@ -45,3 +45,13 @@ div.info-table,div.media-table {
     flex: 0 0 6em;
     text-align: center;
 }
+
+main > * {
+    max-width: 70%;
+}
+
+@media only screen and (max-width: 59rem) {
+    main > * {
+        max-width: 100%;
+    }
+}
