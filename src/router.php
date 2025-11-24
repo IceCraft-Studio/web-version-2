@@ -1,15 +1,6 @@
 <?php
 
 $uri = trim(parse_url(substr($_SERVER['REQUEST_URI'],11), PHP_URL_PATH),'/');
-$fsPath = __DIR__ . '/' . $uri;
-
-// If the requested path is a real file then serve it directly
-if (is_file($fsPath)) {
-    $mime = mime_content_type($fsPath);
-    header("Content-Type: $mime");
-    readfile($fsPath);
-    exit;
-}
 
 $route = $uri === '' ? 'home' : $uri;
 
