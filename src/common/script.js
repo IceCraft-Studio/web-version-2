@@ -75,9 +75,9 @@ function toggleLinkDropdown(eventData) {
     const iconElement = document.querySelector('#topbar > .tri-dash-menu > .dash-menu-toggle > img');
     if (menuElement.classList.contains('open')) {
         menuElement.classList.remove('open');
-        iconElement.src = "/sprites/images/tri-dash-icon.svg";
+        iconElement.src = "/~dobiapa2/assets/icons/tri-dash-icon.svg";
     } else {
         menuElement.classList.add('open');
-        iconElement.src = "/sprites/images/tri-dash-icon-open.svg";
+        iconElement.src = "/~dobiapa2/assets/icons/tri-dash-icon-open.svg";
     }
 }

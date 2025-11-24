@@ -1,10 +1,10 @@
 <nav id="topbar">
     <a class="icon-container" href="/home" title="IceCraft Studio">
-        <img src="/assets/icecraft-icon.svg" alt="IceCraft Icon">
+        <img src="/~dobiapa2/assets/icecraft-icon.svg" alt="IceCraft Icon">
         <span translate="no">IceCraft Studio</span>
     </a>
     <button class="theme-toggle" title="Toggle Website Theme">
-        <img src="/assets/icons/sun-moon-icon.png" alt="Theme Icon">
+        <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
     </button>
     <div class="links-container">
         <a class="current-page" href="/home" hreflang="en" title="The homepage of our web.">
@@ -20,7 +20,7 @@
     <!-- Small viewport fallback (doesn't work without scripts)-->
     <div class="tri-dash-menu">
         <button class="dash-menu-toggle">
-            <img src="/sprites/images/tri-dash-icon.svg">
+            <img src="/~dobiapa2/assets/icons/tri-dash-icon.svg">
         </button>
         <div class="links-dropdown">
             <!-- Contents of this element are inserted via a script (to avoid duplicate) from #topbar > .links-container -->
