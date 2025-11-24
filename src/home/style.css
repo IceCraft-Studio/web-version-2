@@ -404,26 +404,7 @@ main > * {
     }
 }
 
-/*noscript*/
-noscript {
-    position: fixed;
-    bottom: 10px;
-    left: 5%;
 
-    width: 90%;
-    height: auto;
-    margin: auto;
-}
-
-noscript #noscript-text {
-    padding: 1.2em;
-
-    color: white;
-    font-family: Arial;
-    text-align: center;
-
-    background-color: rgba(15, 15, 15, 0.85);
-}
 
 main p {
     max-width: 65ch;
