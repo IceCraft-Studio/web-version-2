@@ -1,5 +1,5 @@
 <nav id="topbar">
-    <a class="icon-container" href="/home" title="IceCraft Studio">
+    <a class="icon-container" href="/~dobiapa2/home" title="IceCraft Studio">
         <img src="/~dobiapa2/assets/icecraft-logo.svg" alt="IceCraft Icon">
         <span translate="no">IceCraft Studio</span>
     </a>
