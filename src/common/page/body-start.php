@@ -22,18 +22,18 @@ if (str_starts_with($uri,'home')) {
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
     </button>
     <div class="links-container">
-        <a href="/~dobiapa2/home" class="<?echo($currentHome ? CURRENT_PAGE_CLASS : "")?>" hreflang="en" title="The homepage of our web.">
+        <a href="/~dobiapa2/home" class="<?= $currentHome ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="The homepage of our web.">
             Home
         </a>
-        <a href="/~dobiapa2/projects" class="<?echo($currentProjects ? CURRENT_PAGE_CLASS : "")?>" hreflang="en" title="Check out our maps, addons and more content.">
+        <a href="/~dobiapa2/projects" class="<?= $currentProjects ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="Check out our maps, addons and more content.">
             Projects
         </a>
-        <a href="/~dobiapa2/about" class="<?echo($currentAbout ? CURRENT_PAGE_CLASS : "")?>" hreflang="en" title="Links to our social media accounts and other platforms.">
+        <a href="/~dobiapa2/about" class="<?= $currentAbout ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="Links to our social media accounts and other platforms.">
             About
         </a>
     </div>
     <div class="login-container">
-        <a id="user-button-link" class="<?echo($currentUser ? CURRENT_PAGE_CLASS : "")?>" href="/~dobiapa2/login" hreflang="en" title="Login">      
+        <a id="user-button-link" class="<?= $currentUser ? CURRENT_PAGE_CLASS : "" ?>" href="/~dobiapa2/login" hreflang="en" title="Login">      
             <img id="user-button-picture" src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture">
             <span id="user-button-label">Login</span>
         </a>
