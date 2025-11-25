@@ -7,14 +7,14 @@
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
     </button>
     <div class="links-container">
-        <a class="current-page" href="/home" hreflang="en" title="The homepage of our web.">
+        <a href="/~dobiapa2/home" class="current-page" hreflang="en" title="The homepage of our web.">
             Home
         </a>
-        <a href="/projects" hreflang="en" title="Check out our maps, addons and more content.">
+        <a href="/~dobiapa2/projects" hreflang="en" title="Check out our maps, addons and more content.">
             Projects
         </a>
-        <a href="/links" hreflang="en" title="Links to our social media accounts and other platforms.">
-            Links
+        <a href="/~dobiapa2/about" hreflang="en" title="Links to our social media accounts and other platforms.">
+            About
         </a>
     </div>
     <!-- Small viewport fallback (doesn't work without scripts)-->

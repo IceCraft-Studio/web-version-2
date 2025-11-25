@@ -5,8 +5,7 @@
     </div>
     <div class="right-part">
         <span>Not affiliated with Mojang Studios or Microsoft Corporation</span>
-        <a href="/~dobiapa2/license" target="_blank" rel="noopener noreferrer">Our
-            Content's License</a>
+        <a href="/~dobiapa2/license">Our Content's License</a>
     </div>
 </footer>
 <!-- Disabled JavaScript -->

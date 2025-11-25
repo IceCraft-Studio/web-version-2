@@ -6,6 +6,7 @@
 
 body {
 	margin: 0px;
+	min-height: 100vh;
 
 	background-image: url('../assets/background/blue-ice.png');
 	background-repeat: repeat;
@@ -21,11 +22,10 @@ main {
 	display: flex;
 	box-sizing: border-box;
 	flex-direction: column;
+	flex: 1;
 	margin: 0;
-	padding: 4.2em 1em 1em 1em; /* Fill in space that fixed topbar takes.*/
+	padding: 1em 1em 1em 1em; /* Fill in space that fixed topbar takes.*/
 	align-items: center;
-	min-height: 100vh;
-
 	background-color: var(--color-1);
 
 	image-rendering: auto;
@@ -64,7 +64,7 @@ textarea {
 /* NAVBAR */
 
 #topbar {
-    position: fixed;
+    position: sticky;
     width: 100vw;
     top: 0px;
 
