@@ -167,7 +167,7 @@ textarea {
 	padding: 0.2rem;
 	text-decoration: none;
 
-    border-width: 0.15em 0 0 0;
+    border-width: 0.15rem 0 0 0;
     border-style: solid;
     border-color: transparent;
 }
@@ -216,7 +216,7 @@ textarea {
 
     background-color: transparent;
 
-    border-width: 0.15em 0 0 0;
+    border-width: 0.15rem 0 0 0;
     border-style: solid;
     border-color: transparent;
 }
@@ -240,10 +240,10 @@ textarea {
 }
 
 #topbar .dash-menu-toggle {
-    border-width: 0.15em 0 0 0;
+    border-width: 0.15rem 0 0 0;
     border-style: solid;
     border-color: transparent;
-	
+
     background-color: transparent;
     padding: 0.3rem;
 
