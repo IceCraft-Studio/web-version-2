@@ -160,7 +160,8 @@ textarea {
 	align-items: center;
 	font-family: 'Gantari', sans-serif;
 	font-size: 1.2em;
-	padding: 0 0.1rem;
+	padding: 0 0.2rem;
+	text-decoration: none;
 }
 
 #topbar > .login-container img {
