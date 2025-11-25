@@ -7,8 +7,6 @@ if ($route == '') {
     exit;
 }
 
-
-
 // These files have to exist because they are included without checking
 $commonHead = __DIR__ . '/common/page/head.php';
 $commonBodyStart = __DIR__ . '/common/page/body-start.php';
