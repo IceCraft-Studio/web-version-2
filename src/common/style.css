@@ -5,6 +5,7 @@
 
 
 body {
+	display: flex;
 	margin: 0px;
 	min-height: 100vh;
 
@@ -22,14 +23,14 @@ main {
 	display: flex;
 	box-sizing: border-box;
 	flex-direction: column;
+
 	flex: 1;
 	margin: 0;
-	padding: 1em 1em 1em 1em; /* Fill in space that fixed topbar takes.*/
+	padding: 1rem;
 	align-items: center;
+
 	background-color: var(--color-1);
-
 	image-rendering: auto;
-
 	font-family: Ubuntu;
 }
 
