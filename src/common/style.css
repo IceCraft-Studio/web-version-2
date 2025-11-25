@@ -88,7 +88,7 @@ textarea {
     padding-top: 0.3rem;
 
     background-color: var(--color-2-trans);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(4px);
 
     border-color: var(--color-primary);
     border-width: 0 0 0.2rem 0;
