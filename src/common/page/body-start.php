@@ -6,12 +6,6 @@
     <button class="theme-toggle" title="Toggle Website Theme">
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
     </button>
-    <div class="login-container">
-        <img src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture">
-        <a href="/~dobiapa2/login" hreflang="en" title="Login">
-            Login
-        </a>
-    </div>
     <div class="links-container">
         <a href="/~dobiapa2/home" class="current-page" hreflang="en" title="The homepage of our web.">
             Home
@@ -21,6 +15,12 @@
         </a>
         <a href="/~dobiapa2/about" hreflang="en" title="Links to our social media accounts and other platforms.">
             About
+        </a>
+    </div>
+    <div class="login-container">
+        <a id="user-button-link" href="/~dobiapa2/login" hreflang="en" title="Login">      
+            <img id="user-button-picture" src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture">
+            <span id="user-button-label">Login</span>
         </a>
     </div>
     <!-- Small viewport fallback (doesn't work without scripts)-->

@@ -81,11 +81,13 @@ textarea {
     width: 100vw;
     top: 0px;
 
-    display: flex;
+	padding: 0.25rem 0.75rem 0 0.75rem;
+    box-sizing: border-box;   
+
+	display: flex;
     flex-direction: row;
     justify-content: space-between;
     z-index: 99;
-    padding-top: 0.3rem;
 
     background-color: var(--color-2-trans);
     backdrop-filter: blur(4px);
@@ -153,7 +155,7 @@ textarea {
     text-shadow: 1px 2px 1px var(--color-primary);
 }
 
-#topbar > .login-container {
+#topbar > .login-container a {
 	display: flex;
 	align-items: center;
 	font-family: 'Gantari', sans-serif;
@@ -161,7 +163,7 @@ textarea {
 	padding: 0 0.1rem;
 }
 
-#topbar > .login-container > img {
+#topbar > .login-container img {
 	width: 2.2rem;
 	height: 2.2rem;
 
@@ -170,7 +172,7 @@ textarea {
 	border-radius: 50%;
 }
 
-#topbar > .login-container > a {
+#topbar > .login-container span {
 	margin: 0.2rem;
 	font-weight: bold;
 	color: var(--color-text);
@@ -180,7 +182,7 @@ textarea {
     display: flex;
     flex-direction: row;
     flex: 0 0 auto;
-    margin: 0.25rem 14px 0 0.4rem;
+    margin: 0.25rem 0.4rem 0 0.4rem;
 
     text-decoration: none;
 }
