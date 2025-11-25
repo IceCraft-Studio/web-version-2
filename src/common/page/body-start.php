@@ -7,7 +7,7 @@
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
     </button>
     <div class="login-container">
-        <img src="/~dobiapa2/assets/steve.webp" alt="Placeholder profile picture">
+        <img src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture">
         <a href="/~dobiapa2/login" hreflang="en" title="Login">
             Login
         </a>
