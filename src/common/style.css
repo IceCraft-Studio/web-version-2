@@ -93,7 +93,7 @@ textarea {
     backdrop-filter: blur(4px);
 
     border-color: var(--color-primary);
-    border-width: 0 0 0.2rem 0;
+    border-width: 0 0 0.3rem 0;
     border-style: solid;
 
     user-select: none;
@@ -123,7 +123,7 @@ textarea {
 
 #topbar > .theme-toggle img {
     width: 1.5rem;
-    border: 0.25em var(--color-primary) solid;
+    border: 0.25rem var(--color-primary) solid;
     image-rendering: pixelated;
 }
 
