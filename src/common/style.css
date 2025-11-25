@@ -173,7 +173,7 @@ textarea {
 	height: 2.2rem;
 
 	margin: 0.2rem;
-	border: 0.15rem var(--color-anticontrast) solid;
+	border: 0.15rem var(--color-primary) solid;
 	border-radius: 50%;
 }
 
@@ -181,6 +181,16 @@ textarea {
 	margin: 0.2rem;
 	font-weight: bold;
 	color: var(--color-text);
+}
+
+#topbar > .login-container > a:hover {
+    background-color: var(--color-primary-toned);
+    border-color: var(--color-anticontrast);
+}
+
+#topbar > .login-container > a.current-page {
+    background-color: var(--color-primary);
+    color: var(--color-text-dark);
 }
 
 #topbar > .links-container {
