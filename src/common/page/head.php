@@ -4,4 +4,5 @@
 <link href="/~dobiapa2/common/style.css" rel="stylesheet" type="text/css">
 <script src="/~dobiapa2/common/script.js" defer></script>
 <link href="./style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/~dobiapa2/common/print.css" media="print">
 <script src="./script.js" defer></script>
