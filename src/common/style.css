@@ -285,7 +285,7 @@ textarea {
     background-color: var(--color-2);
 
     border-color: var(--color-primary);
-    border-width: 0.2rem 0 0.2rem 0.2rem;
+    border-width: 0.3rem 0 0.3rem 0.3rem;
     border-style: solid;
 }
 
