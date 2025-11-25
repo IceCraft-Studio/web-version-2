@@ -3,6 +3,7 @@
 @import url("/~dobiapa2/common/styles/fonts.css");
 @import url("/~dobiapa2/common/styles/colors.css");
 
+/* BASIC ELEMENTS */
 
 body {
 	display: flex;
@@ -33,6 +34,16 @@ main {
 	background-color: var(--color-1);
 	image-rendering: auto;
 	font-family: Ubuntu;
+}
+
+main > * {
+    max-width: 80%;
+}
+
+@media only screen and (max-width: 59rem) {
+    main > * {
+        max-width: 100%;
+    }
 }
 
 /* FORM ELEMENTS */
