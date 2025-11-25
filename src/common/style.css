@@ -240,7 +240,10 @@ textarea {
 }
 
 #topbar .dash-menu-toggle {
-    border: none;
+    border-width: 0.15em 0 0 0;
+    border-style: solid;
+    border-color: transparent;
+	
     background-color: transparent;
     padding: 0.3rem;
 
@@ -250,10 +253,12 @@ textarea {
 
 #topbar > .tri-dash-menu:hover > .dash-menu-toggle {
     background-color: var(--color-primary-toned);
+	border-color: var(--color-anticontrast);
 }
 
 #topbar > .tri-dash-menu.open > .dash-menu-toggle {
     background-color: var(--color-primary);
+	border-color: var(--color-pure-anticontrast);
 }
 
 #topbar > .tri-dash-menu.open > .dash-menu-toggle > img {
