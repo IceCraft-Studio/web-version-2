@@ -166,6 +166,10 @@ textarea {
 	font-size: 1.2em;
 	padding: 0.2rem;
 	text-decoration: none;
+
+    border-width: 0.15em 0 0 0;
+    border-style: solid;
+    border-color: transparent;
 }
 
 #topbar > .login-container img {
@@ -191,6 +195,7 @@ textarea {
 #topbar > .login-container > a.current-page {
     background-color: var(--color-primary);
     color: var(--color-text-dark);
+	border-color: var(--color-pure-anticontrast);
 }
 
 #topbar > .links-container {
@@ -231,6 +236,7 @@ textarea {
 #topbar .tri-dash-menu {
     display: none;
     margin: 0 0.2rem;
+	align-self: end;
 }
 
 #topbar .dash-menu-toggle {
