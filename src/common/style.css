@@ -155,13 +155,22 @@ textarea {
 
 #topbar > .login-container {
 	display: flex;
-
+	align-items: center;
+	font-family: 'Gantari', sans-serif;
+	font-size: 1.2em;
 }
 
 #topbar > .login-container > img {
-	width: 2rem;
-	height: 2rem;
-	border: 0.25em var(--color-primary) solid;
+	width: 2.2rem;
+	height: 2.2rem;
+
+	margin: 0.2rem;
+	border: 0.15rem var(--color-primary) solid;
+	border-radius: 50%;
+}
+
+#topbar > .login-container > a {
+	color: var(--color-text);
 }
 
 #topbar > .links-container {
