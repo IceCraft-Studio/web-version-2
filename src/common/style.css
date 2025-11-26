@@ -345,6 +345,13 @@ textarea {
 	}
 }
 
+@media only screen and (max-width: 28rem) {
+	/* Hide Icon Title */
+	#topbar > .icon-container > span {
+		display: none;
+	}
+}
+
 /* FOOTER */
 
 #footer {
