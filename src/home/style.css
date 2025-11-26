@@ -5,6 +5,8 @@ main p {
 
 #main-logo {
     width: 62rem;
+
+    max-width: 100%;
     padding: 0 5%;
     height: min-content;
     align-self: center;
