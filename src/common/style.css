@@ -306,7 +306,7 @@ textarea {
     font-family: InterBlack;
 
 
-    border-color: var(--color-2);
+    border-color: transparent;
     border-width: 0.15em 0 0 0;
     border-style: solid;
 }
