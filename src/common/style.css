@@ -278,8 +278,8 @@ textarea {
     cursor: pointer;
 }
 
-#topbar > .tri-dash-menu.open > .links-dropdown {
-    position: absolute;
+.links-dropdown {
+    position: fixed;
     right: 0;
 
     display: flex;
@@ -296,7 +296,7 @@ textarea {
     border-style: solid;
 }
 
-#topbar > .tri-dash-menu.open > .links-dropdown > a {
+.links-dropdown > a {
     padding: 1.2em 0 1.2em 0;
     margin: 0.4em 0;
 
@@ -311,12 +311,12 @@ textarea {
     border-style: solid;
 }
 
-#topbar > .tri-dash-menu.open > .links-dropdown > a:hover {
+.links-dropdown > a:hover {
     background-color: var(--color-primary-toned);
     border-color: var(--color-anticontrast);
 }
 
-#topbar > .tri-dash-menu.open > .links-dropdown > a.current-page {
+.links-dropdown > a.current-page {
     background-color: var(--color-primary);
     color: var(--color-text-dark);
     border-color: var(--color-pure-anticontrast);

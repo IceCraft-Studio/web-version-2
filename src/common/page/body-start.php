@@ -21,7 +21,7 @@ if (str_starts_with($uri,'home')) {
     <button class="theme-toggle" title="Toggle Website Theme">
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
     </button>
-    <div class="links-container">
+    <div class="links-dropdown">
         <a href="/~dobiapa2/home" class="<?= $currentHome ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="The homepage of our web.">
             Home
         </a>
