@@ -294,7 +294,7 @@ textarea {
 
     justify-content: space-evenly;
     flex-direction: column;
-    width: 8rem;
+    width: 10rem;
 
     background-color: var(--color-2-trans);
     backdrop-filter: blur(4px);
