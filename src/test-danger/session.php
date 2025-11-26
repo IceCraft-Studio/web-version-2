@@ -5,7 +5,7 @@
     } else {
         $count = 1;
     }
-    setcookie('counter',"$count",time()+24*60*60);
+    setcookie('counter',"$count",time()+24*60*60,"/~dobiapa2/test-danger");
 ?>
 
 <!DOCTYPE html>
