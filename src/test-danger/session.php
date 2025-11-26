@@ -16,6 +16,6 @@
     <title>Session</title>
 </head>
 <body>
-    <div>Tuto stránku jste již navštívili <?= isset($_COOKIE['counter']) ? $_COOKIE['counter'] : "0"; ?> krát.</div>
+    <div>Tuto stránku jste již navštívili <?= isset($_COOKIE['counter']) ? htmlspecialchars($_COOKIE['counter']) : "0"; ?> krát.</div>
 </body>
 </html>
