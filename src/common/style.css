@@ -175,11 +175,11 @@ textarea {
 }
 
 #topbar > .login-container img {
-	width: 2.2rem;
-	height: 2.2rem;
+	width: 2rem;
+	height: 2rem;
 
 	margin: 0.2rem;
-	border: 0.15rem var(--color-primary) solid;
+	border: 0.25rem var(--color-primary) solid;
 	border-radius: 50%;
 }
 
