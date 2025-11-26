@@ -159,6 +159,7 @@ textarea {
 
 #topbar > .login-container {
     margin: 0 0.2rem;
+	max-width: 12rem;
 	align-self: end;
 }
 
@@ -166,7 +167,7 @@ textarea {
 	display: flex;
 	align-items: center;
 	font-family: 'Gantari', sans-serif;
-	font-size: 1.2em;
+	font-size: 1.1em;
 	padding: 0.2rem;
 	text-decoration: none;
 
@@ -185,6 +186,9 @@ textarea {
 }
 
 #topbar > .login-container span {
+	height: 2.5rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	margin: 0.2rem;
 	font-weight: bold;
 	color: var(--color-text);
