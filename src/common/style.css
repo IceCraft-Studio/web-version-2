@@ -228,6 +228,7 @@ textarea {
     color: var(--color-text);
     text-decoration: none;
     font-family: Gantari, sans-serif;
+	font-size: 1.2rem;
 
     background-color: transparent;
 
@@ -311,6 +312,7 @@ textarea {
     text-decoration: none;
     text-align: center;
     font-family: Gantari, sans-serif;
+	font-size: 1.2rem;
 
     border-color: transparent;
     border-width: 0.15em 0 0 0;
