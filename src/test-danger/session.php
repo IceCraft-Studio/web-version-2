@@ -1,4 +1,11 @@
 <?php
+    session_start();
+    if (isset($_POST['username'])) {
+        $_SESSION['username'] = $_POST['username'];
+    }
+    if (isset($_POST['theme'])) {
+        $_SESSION['theme'] = $_POST['theme'];
+    }
     // Cookies or headers can only be set before any body contents (i.e. HTML) is sent!!!!!!
     if (isset($_COOKIE['counter'])) {
         $count = $_COOKIE['counter'] + 1;
@@ -9,13 +16,32 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?= isset($_SESSION['theme']) ? htmlspecialchars($_SESSION['theme']) : 'dark'?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Session</title>
+    <style>
+        :root[data-theme="light"] body {
+            background-color: wheat;
+            color: black;
+        }
+        :root[data-theme="dark"] body {
+            background-color: darkblue;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <div>Tuto stránku jste již navštívili <?= isset($_COOKIE['counter']) ? htmlspecialchars($_COOKIE['counter']) : "0"; ?> krát.</div>
+    <form action="/~dobiapa2/test-danger/session.php" method="POST">
+        <input type="text" name="username">
+        <select name="theme">
+            <option value="light">light</option>
+            <option value="dark">dark</option>
+        </select>
+        <input type="submit" name="sent" value="true">
+    </form>
+<div>Tuto stránku jste již navštívili <?= isset($_COOKIE['counter']) ? htmlspecialchars($_COOKIE['counter']) : "0"; ?> krát.</div>
+<div>Session [username]=<?=isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : '';?></div>
 </body>
 </html>
