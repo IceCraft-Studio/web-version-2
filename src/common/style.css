@@ -187,10 +187,10 @@ textarea {
 }
 
 #topbar > .login-container span {
-	max-height: 2.5rem;
+	max-height: 2.9rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	margin: 0.2rem;
+	margin: 0 0.2rem;
 	font-weight: bold;
 	color: var(--color-text);
 }
