@@ -159,6 +159,7 @@ textarea {
 
 #topbar > .login-container {
     margin: 0 0.2rem;
+	align-self: end;
 }
 
 #topbar > .login-container a {
