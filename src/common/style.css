@@ -160,7 +160,6 @@ textarea {
 #topbar > .login-container {
     margin: 0 0.2rem;
 	max-width: 12rem;
-	height: 2.9rem;
 	align-self: end;
 }
 
@@ -169,6 +168,7 @@ textarea {
 	align-items: center;
 	font-family: 'Gantari', sans-serif;
 	font-size: 1.1em;
+	height: 2.9rem;
 	padding: 0.2rem;
 	text-decoration: none;
 
