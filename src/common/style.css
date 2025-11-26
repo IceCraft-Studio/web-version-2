@@ -196,8 +196,11 @@ textarea {
 
 #topbar > .login-container > a.current-page {
     background-color: var(--color-primary);
-    color: var(--color-text-dark);
 	border-color: var(--color-pure-anticontrast);
+}
+
+#topbar > .login-container > a.current-page > span {
+    color: var(--color-text-dark);
 }
 
 #topbar > .login-container > a.current-page > img {
