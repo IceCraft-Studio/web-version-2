@@ -330,7 +330,7 @@ textarea {
     border-color: var(--color-pure-anticontrast);
 }
 
-@media only screen and (max-width: 37.5rem) {
+@media only screen and (max-width: 41rem) {
 	/* Hide full width links */
     #topbar > .links-container {
         display: none;
