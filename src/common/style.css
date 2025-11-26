@@ -197,6 +197,10 @@ textarea {
 	border-color: var(--color-pure-anticontrast);
 }
 
+#topbar > .login-container > a.current-page > img {
+	border-color: var(--color-pure-anticontrast);
+}
+
 #topbar > .links-container {
     display: flex;
     flex-direction: row;
@@ -297,7 +301,8 @@ textarea {
     text-align: center;
     font-family: InterBlack;
 
-    background-color: var(--color-2);
+    background-color: var(--color-2-trans);
+    backdrop-filter: blur(4px);
 
     border-color: var(--color-2);
     border-width: 0.15em 0 0 0;
