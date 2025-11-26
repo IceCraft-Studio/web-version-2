@@ -37,12 +37,14 @@ main {
 }
 
 main > * {
-    max-width: 80%;
+    margin-left: 10%;
+	margin-right: 10%;
 }
 
 @media only screen and (max-width: 59rem) {
     main > * {
-        max-width: 100%;
+        margin-left: 2%;
+		margin-right: 2%;
     }
 }
 
