@@ -223,11 +223,11 @@ textarea {
 }
 
 #topbar > .links-container > a {
-    padding: 0.6rem 1rem 0.6rem 1rem;
+    padding: 0.5rem 0.8rem;
 
     color: var(--color-text);
     text-decoration: none;
-    font-family: InterBlack;
+    font-family: Gantari, sans-serif;
 
     background-color: transparent;
 
@@ -293,7 +293,7 @@ textarea {
 
     justify-content: space-evenly;
     flex-direction: column;
-    width: 10rem;
+    width: 8rem;
 
     background-color: var(--color-2-trans);
     backdrop-filter: blur(4px);
@@ -304,13 +304,13 @@ textarea {
 }
 
 #links-dropdown > a {
-    padding: 1.2em 0 1.2em 0;
-    margin: 0.4em 0;
+    padding: 1rem 0;
+    margin: 0.4rem 0;
 
     color: var(--color-text);
     text-decoration: none;
     text-align: center;
-    font-family: InterBlack;
+    font-family: Gantari, sans-serif;
 
     border-color: transparent;
     border-width: 0.15em 0 0 0;
@@ -349,7 +349,7 @@ textarea {
     display: flex;
 
     color: var(--color-text-dark);
-    font-family: Gantari;
+    font-family: Ubuntu, sans-serif;
 
     background-color: var(--color-lighter-black);
 }
