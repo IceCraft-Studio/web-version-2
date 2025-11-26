@@ -36,8 +36,8 @@
     <form action="/~dobiapa2/test-danger/session.php" method="POST">
         <input type="text" name="username">
         <select name="theme">
-            <option value="light">light</option>
-            <option value="dark">dark</option>
+            <option value="light" <?=isset($_SESSION['theme']) && $_SESSION['theme'] == 'light' ? 'selected' : '';?>light</option>
+            <option value="dark" <?=isset($_SESSION['theme']) && $_SESSION['theme'] == 'dark' ? 'selected' : '';?>>dark</option>
         </select>
         <input type="submit" name="sent" value="true">
     </form>
