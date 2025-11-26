@@ -287,7 +287,9 @@ textarea {
     flex-direction: column;
     width: 10rem;
 
-    background-color: var(--color-2);
+    background-color: var(--color-2-trans);
+    backdrop-filter: blur(4px);
+
 
     border-color: var(--color-primary);
     border-width: 0.3rem 0 0.3rem 0.3rem;
@@ -303,8 +305,6 @@ textarea {
     text-align: center;
     font-family: InterBlack;
 
-    background-color: var(--color-2-trans);
-    backdrop-filter: blur(4px);
 
     border-color: var(--color-2);
     border-width: 0.15em 0 0 0;
