@@ -200,6 +200,10 @@ textarea {
     border-color: var(--color-anticontrast);
 }
 
+#topbar > .login-container > a:hover > img {
+    border-color: var(--color-anticontrast);
+}
+
 #topbar > .login-container > a.current-page {
     background-color: var(--color-primary);
 	border-color: var(--color-pure-anticontrast);
