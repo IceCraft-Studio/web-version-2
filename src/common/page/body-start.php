@@ -21,17 +21,7 @@ if (str_starts_with($uri,'home')) {
     <button class="theme-toggle" title="Toggle Website Theme">
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
     </button>
-    <div class="links-dropdown">
-        <a href="/~dobiapa2/home" class="<?= $currentHome ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="The homepage of our web.">
-            Home
-        </a>
-        <a href="/~dobiapa2/projects" class="<?= $currentProjects ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="Check out our maps, addons and more content.">
-            Projects
-        </a>
-        <a href="/~dobiapa2/about" class="<?= $currentAbout ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="Links to our social media accounts and other platforms.">
-            About
-        </a>
-    </div>
+
     <div class="login-container">
         <a id="user-button-link" class="<?= $currentUser ? CURRENT_PAGE_CLASS : "" ?>" href="/~dobiapa2/login" hreflang="en" title="Login">      
             <img id="user-button-picture" src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture">
@@ -48,3 +38,14 @@ if (str_starts_with($uri,'home')) {
         </div>
     </div>
 </nav>
+    <div class="links-dropdown">
+        <a href="/~dobiapa2/home" class="<?= $currentHome ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="The homepage of our web.">
+            Home
+        </a>
+        <a href="/~dobiapa2/projects" class="<?= $currentProjects ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="Check out our maps, addons and more content.">
+            Projects
+        </a>
+        <a href="/~dobiapa2/about" class="<?= $currentAbout ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="Links to our social media accounts and other platforms.">
+            About
+        </a>
+    </div>
