@@ -16,7 +16,7 @@ if (str_starts_with($uri,'home')) {
 <nav id="topbar">
     <a class="icon-container" href="/~dobiapa2/home" title="IceCraft Studio">
         <img src="/~dobiapa2/assets/icecraft-logo.svg" alt="IceCraft Icon">
-        <span translate="no">IceCraft Studio</span>
+        <span translate="no">ICECRAFT STUDIO</span>
     </a>
     <button class="theme-toggle" title="Toggle Website Theme">
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
