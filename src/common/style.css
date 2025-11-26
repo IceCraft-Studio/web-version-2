@@ -243,6 +243,7 @@ textarea {
 #topbar .burger-menu-toggle {
     display: none;
 
+	background-color: transparent;
     border-width: 0.15rem 0 0 0;
     border-style: solid;
     border-color: transparent;
