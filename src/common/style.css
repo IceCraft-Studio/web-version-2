@@ -283,6 +283,9 @@ textarea {
     width: 2.4rem;
     filter: var(--svg-icon-color);
     cursor: pointer;
+	user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 #links-dropdown {
