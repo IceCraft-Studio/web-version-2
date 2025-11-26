@@ -8,7 +8,7 @@ async function main() {
     setThemeIcon(document.documentElement.dataset.theme);
 
     document.querySelector('#topbar > .theme-toggle').addEventListener('pointerdown', toggleTheme);
-    document.querySelector('#topbar > .tri-dash-menu > .dash-menu-toggle').addEventListener('pointerdown', toggleLinkDropdown);
+    document.querySelector('#topbar > .burger-menu-toggle').addEventListener('pointerdown', toggleLinkDropdown);
 }
 
 main();
@@ -66,13 +66,13 @@ function toggleTheme(eventData) {
 
 function initializeDropdownLinks() {
 	const links = document.querySelector('#topbar > .links-container').innerHTML;
-	const dropdownElement = document.querySelector('#topbar > .tri-dash-menu > .links-dropdown');
+	const dropdownElement = document.querySelector('#links-dropdown');
 	dropdownElement.innerHTML = links;
 }
 
 function toggleLinkDropdown(eventData) {
-    const menuElement = document.querySelector('#topbar > .tri-dash-menu');
-    const iconElement = document.querySelector('#topbar > .tri-dash-menu > .dash-menu-toggle > img');
+    const menuElement = document.querySelector('#topbar > .burger-menu-toggle');
+    const iconElement = document.querySelector('#topbar > .burger-menu-toggle > img');
     if (menuElement.classList.contains('open')) {
         menuElement.classList.remove('open');
         iconElement.src = "/~dobiapa2/assets/icons/tri-dash-icon.svg";

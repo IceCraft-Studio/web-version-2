@@ -21,24 +21,7 @@ if (str_starts_with($uri,'home')) {
     <button class="theme-toggle" title="Toggle Website Theme">
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
     </button>
-
-    <div class="login-container">
-        <a id="user-button-link" class="<?= $currentUser ? CURRENT_PAGE_CLASS : "" ?>" href="/~dobiapa2/login" hreflang="en" title="Login">      
-            <img id="user-button-picture" src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture">
-            <span id="user-button-label">Login</span>
-        </a>
-    </div>
-    <!-- Small viewport fallback (doesn't work without scripts)-->
-    <div class="tri-dash-menu">
-        <button class="dash-menu-toggle">
-            <img src="/~dobiapa2/assets/icons/tri-dash-icon.svg">
-        </button>
-        <div class="links-dropdown">
-            <!-- Contents of this element are inserted via a script (to avoid duplicate) from #topbar > .links-container -->
-        </div>
-    </div>
-</nav>
-    <div class="links-dropdown">
+    <div class="links-container">
         <a href="/~dobiapa2/home" class="<?= $currentHome ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="The homepage of our web.">
             Home
         </a>
@@ -49,3 +32,17 @@ if (str_starts_with($uri,'home')) {
             About
         </a>
     </div>
+    <div class="login-container">
+        <a id="user-button-link" class="<?= $currentUser ? CURRENT_PAGE_CLASS : "" ?>" href="/~dobiapa2/login" hreflang="en" title="Login">      
+            <img id="user-button-picture" src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture">
+            <span id="user-button-label">Login</span>
+        </a>
+    </div>
+    <!-- Small viewport fallback hamburger menu (doesn't work without scripts)-->
+    <button class="burger-menu-toggle">
+        <img src="/~dobiapa2/assets/icons/tri-dash-icon.svg">
+    </button>
+</nav>
+<div id="links-dropdown">
+    <!-- Contents of this element are inserted via a script (to avoid duplicate) from #topbar > .links-container -->
+</div>
