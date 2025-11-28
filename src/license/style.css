@@ -4,12 +4,15 @@ ul {
 
 .font-minecraft-ten {
     font-family: "MinecraftTen", sans-serif;
+    font-size: 0.9em;
 }
 
 .font-gantari {
     font-family: "Gantari", sans-serif;
+    font-size: 1.15em;
 }
 
 .font-ubuntu {
     font-family: "Ubuntu", sans-serif;
+    font-size: 1.1em;
 }
