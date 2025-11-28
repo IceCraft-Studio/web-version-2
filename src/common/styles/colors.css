@@ -1,6 +1,5 @@
 
 :root {
-	--responsive-threshold: 59rem; /* Useless for now */
 	/* Light Colors */
 	--color-primary-toned-light: hsl(216, 94%, 70%);
 	--color-1-light: hsla(215, 30%, 90%, 0.8);
@@ -14,6 +13,8 @@
 	--color-link-light: hsl(210, 100%, 40%);
 	--color-link-hover-light: hsl(210, 100%, 40%);
 	--color-link-visitied-light: hsl(210, 100%, 40%);
+	--color-input-background-light: hsl(247, 10%, 98%);
+    --color-background-overlay-light: hsla(0, 0%, 100%, 0.3);
 	/* Dark Colors */
 	--color-primary-toned-dark: hsl(229, 70%, 31%);
 	--color-1-dark: hsla(215, 15%, 10%, 0.925);
@@ -27,6 +28,8 @@
 	--color-link-dark: hsl(240, 100%, 77%);
 	--color-link-hover-dark: hsl(240, 100%, 77%);
 	--color-link-visitied-dark: hsl(240, 100%, 77%);
+	--color-input-background-dark: hsl(247, 10%, 18%);
+    --color-background-overlay-dark: hsla(0, 0%, 0%, 0.3);
 	/* Common Colors */
 	--color-focus-outline: hsl(56, 100%, 50%);
 	--color-black: hsl(0, 0%, 0%);
@@ -35,7 +38,6 @@
 	--color-primary-trans: hsla(224, 80%, 45%, 0.8);
 	--color-required-field: hsl(0, 100%, 60%);
     --color-primary-disabled:  hsl(224, 80%, 30%);
-    --color-background-overlay: rgba(0, 0, 0, 0.3);
 }
 
 :root[legacy] {
@@ -55,6 +57,8 @@
 	--color-contrast: var(--color-contrast-light);
 	--color-pure-anticontrast: var(--color-pure-contrast-dark);
 	--color-anticontrast: var(--color-contrast-dark);
+	--color-input-background: var(--color-input-background-light);
+    --color-background-overlay: var(--color-background-overlay-light);
 }
 
 :root[data-theme='dark'] {
@@ -68,4 +72,6 @@
 	--svg-icon-color: var(--svg-icon-color-dark);
 	--color-pure-anticontrast: var(--color-pure-contrast-light);
 	--color-anticontrast: var(--color-contrast-light);
+	--color-input-background: var(--color-input-background-dark);
+	--color-background-overlay: var(--color-background-overlay-dark);
 }

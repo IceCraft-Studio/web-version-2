@@ -65,6 +65,7 @@ input[type='text'],
 input[type='password'] {
     border-radius: 0;
     border: 0.2rem solid var(--color-primary);
+    background-color: var(--color-input-background);
     margin: 0.1rem;
 	padding: 0.1em;
 }
