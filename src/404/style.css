@@ -3,6 +3,10 @@ main img {
     max-width: 40rem;
 }
 
+p {
+    text-align: center;
+}
+
 .bold {
     font-weight: bold;
 }
