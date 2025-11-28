@@ -40,7 +40,6 @@
 	--color-primary-trans: hsla(224, 80%, 45%, 0.8);
 	--color-required-field: hsl(0, 100%, 60%);
     --color-primary-disabled:  hsl(224, 80%, 30%);
-	--color-text-disabled: hsl(210, 8%, 52%);
 }
 
 :root[legacy] {
@@ -55,6 +54,7 @@
 	--color-2: var(--color-2-light);
 	--color-2-trans: var(--color-2-trans-light);
 	--color-text: var(--color-text-light);
+	--color-text-disabled: var(--color-text-disabled-light);
 	--svg-icon-color: var(--svg-icon-color-light);
 	--color-pure-contrast: var(--color-pure-contrast-light);
 	--color-contrast: var(--color-contrast-light);
@@ -71,6 +71,7 @@
 	--color-2: var(--color-2-dark);
 	--color-2-trans: var(--color-2-trans-dark);
 	--color-text: var(--color-text-dark);
+	--color-text-disabled: var(--color-text-disabled-dark);
 	--svg-icon-color: var(--svg-icon-color-dark);
 	--color-pure-anticontrast: var(--color-pure-contrast-light);
 	--color-anticontrast: var(--color-contrast-light);
