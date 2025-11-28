@@ -61,7 +61,7 @@ input[type="submit"]:hover {
 input[type="submit"]:disabled {
     border-color: var(--color-text-disabled);
     background-color: var(--color-primary-trans);
-    color: var(--color-text-disabled);
+    color: var(--color-text-disabled-dark);
 }
 
 button {

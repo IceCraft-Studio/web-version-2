@@ -6,6 +6,7 @@
 	--color-2-light: hsl(215, 30%, 80%);
 	--color-2-trans-light: hsla(215, 30%, 80%, 0.68);
 	--color-text-light: hsl(215, 10%, 5%);
+	--color-text-disabled-light: hsl(215, 5%, 40%);
 	--svg-icon-color-light: invert(4%) sepia(7%) saturate(916%)
 		hue-rotate(155deg) brightness(94%) contrast(98%);
 	--color-pure-contrast-light: hsl(0, 0%, 0%);
@@ -20,7 +21,8 @@
 	--color-1-dark: hsla(215, 15%, 10%, 0.925);
 	--color-2-dark: hsl(215, 25%, 15%);
 	--color-2-trans-dark: hsla(215, 15%, 20%, 0.84);
-	--color-text-dark: hsl(215, 100%, 95%);
+	--color-text-dark: hsl(215, 10%, 95%);
+	--color-text-disabled-dark: hsl(215, 5%, 60%);
 	--svg-icon-color-dark: invert(97%) sepia(96%) saturate(2553%)
 		hue-rotate(178deg) brightness(105%) contrast(108%);
 	--color-pure-contrast-dark: hsl(0, 0%, 100%);
