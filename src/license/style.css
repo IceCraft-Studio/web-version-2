@@ -1,3 +1,15 @@
 ul {
     align-self: self-start;
 }
+
+.font-minecraft-ten {
+    font-family: "Minecraft Ten", sans-serif;
+}
+
+.font-gantari {
+    font-family: "Gantari", sans-serif;
+}
+
+.font-ubuntu {
+    font-family: "Ubuntu", sans-serif;
+}
