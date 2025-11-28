@@ -74,6 +74,7 @@ button {
 
 button:hover:not(:disabled) {
     background-color: var(--color-primary);
+    color: var(--color-text-dark);
 }
 
 button:disabled {
