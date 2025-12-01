@@ -78,6 +78,8 @@ textarea {
 
 select {
     background-color: var(--color-input-background);
+    margin: 0.1em;
+	padding: 0.1em;
 }
 
 .color-required {
