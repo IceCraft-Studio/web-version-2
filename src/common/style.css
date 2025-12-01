@@ -59,6 +59,7 @@ a:focus-visible {
 
 input {
 	font-family: 'Gantari', sans-serif;
+    font-size: 1em;
 }
 
 input[type='text'],
@@ -78,7 +79,6 @@ textarea {
 }
 
 input[type="submit"] {
-    font-size: 1em;
     padding: 0.1em 0.5em;
     border-radius: 0em; /* 0.35em */
     border: 0.2em solid var(--color-text);
