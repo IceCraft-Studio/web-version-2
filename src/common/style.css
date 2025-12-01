@@ -14,7 +14,7 @@ body {
 	background-image: url('../assets/background/blue-ice.png');
 	background-repeat: repeat;
 	background-attachment: fixed;
-	background-size: 6em;
+	background-size: 6rem;
 
 	image-rendering: pixelated;
 
@@ -54,7 +54,7 @@ textarea:focus-visible,
 button:focus-visible,
 input:focus-visible,
 a:focus-visible {
-	outline: 0.15rem solid rgb(255, 238, 0);
+	outline: 0.1em solid rgb(255, 238, 0);
 }
 
 input {
@@ -64,9 +64,9 @@ input {
 input[type='text'],
 input[type='password'] {
     border-radius: 0;
-    border: 0.2rem solid var(--color-primary);
+    border: 0.2em solid var(--color-primary);
     background-color: var(--color-input-background);
-    margin: 0.1rem;
+    margin: 0.1em;
 	padding: 0.1em;
 }
 
@@ -78,15 +78,15 @@ textarea {
 }
 
 input[type="submit"] {
-    padding: 0.2rem 0.7rem;
-    border-radius: 0rem; /* 0.35rem */
-    border: 0.2rem solid var(--color-text);
+    padding: 0.2em 0.7em;
+    border-radius: 0em; /* 0.35em */
+    border: 0.2em solid var(--color-text);
     background-color: var(--color-primary);
     color: var(--color-text-dark);
 }
 
 input[type="submit"]:hover {
-    border: 0.2rem solid var(--color-primary);
+    border: 0.2em solid var(--color-primary);
 }
 
 input[type="submit"]:disabled {
@@ -96,9 +96,9 @@ input[type="submit"]:disabled {
 }
 
 button {
-    padding: 0.2rem 0.7rem;
-    border-radius: 0rem; /* 0.35rem */
-    border: 0.2rem solid var(--color-primary);
+    padding: 0.2em 0.7em;
+    border-radius: 0em; /* 0.35rem */
+    border: 0.2em solid var(--color-primary);
     background-color: transparent;
 }
 

@@ -1,3 +1,6 @@
+:root {
+    font-size: 1;
+}
 .row {
     display: flex;
     justify-content: space-evenly;
@@ -22,12 +25,12 @@ input {
     border: 0.15em solid transparent;
     border-radius: 0.2em;
     margin: 0.2em;
-    width: 1rem;
-    height: 1rem;
+    width: 1em;
+    height: 1em;
 }
 
 .indicator > svg {
-    padding: 0.1rem;
+    padding: 0.1em;
 }
 
 .indication-good {
