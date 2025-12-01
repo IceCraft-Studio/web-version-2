@@ -1,6 +1,7 @@
-:root {
-    font-size: 1;
+main {
+    font-size: 1.25rem;
 }
+
 .row {
     display: flex;
     justify-content: space-evenly;
