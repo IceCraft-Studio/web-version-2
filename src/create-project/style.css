@@ -301,4 +301,7 @@ form h2 {
     .introduction-part,.article-part,.details-part {
         flex-direction: column;
     }
+    .category-selection {
+        flex-basis: 3rem;
+    }
 }
