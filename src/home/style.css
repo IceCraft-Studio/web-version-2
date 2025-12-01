@@ -12,12 +12,6 @@ main p {
     align-self: center;
     margin: 2rem 0 2rem 0;
     box-sizing: border-box;
-
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-
-    pointer-events: none;
 }
 
 main > h1 {

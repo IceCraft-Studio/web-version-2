@@ -15,11 +15,11 @@ if (str_starts_with($uri,'home')) {
 ?>
 <nav id="topbar">
     <a class="icon-container" href="/~dobiapa2/home" title="IceCraft Studio">
-        <img src="/~dobiapa2/assets/icecraft-logo.svg" alt="IceCraft Icon">
+        <img src="/~dobiapa2/assets/icecraft-logo.svg" alt="IceCraft Icon" class="no-select">
         <span translate="no">ICECRAFT STUDIO</span>
     </a>
     <button class="theme-toggle" title="Toggle Website Theme">
-        <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon">
+        <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon" class="no-select">
     </button>
     <div class="links-container">
         <a href="/~dobiapa2/home" class="<?= $currentHome ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="The homepage of our web.">
@@ -34,13 +34,13 @@ if (str_starts_with($uri,'home')) {
     </div>
     <div class="login-container">
         <a id="user-button-link" class="<?= $currentUser ? CURRENT_PAGE_CLASS : "" ?>" href="/~dobiapa2/login" hreflang="en" title="Login">      
-            <img id="user-button-picture" src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture">
+            <img id="user-button-picture" src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture" class="no-select">
             <span id="user-button-label">Login</span>
         </a>
     </div>
     <!-- Small viewport fallback hamburger menu (doesn't work without scripts)-->
     <button class="burger-menu-toggle">
-        <img src="/~dobiapa2/assets/icons/tri-dash-icon.svg">
+        <img src="/~dobiapa2/assets/icons/tri-dash-icon.svg" alt="Burger Menu Icon" class="no-select">
     </button>
 </nav>
 <div id="links-dropdown">

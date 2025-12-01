@@ -77,6 +77,41 @@ textarea {
 	color: var(--color-required-field)
 }
 
+input[type="submit"] {
+    padding: 0.2rem 0.7rem;
+    border-radius: 0rem; /* 0.35rem */
+    border: 0.2rem solid var(--color-text);
+    background-color: var(--color-primary);
+    color: var(--color-text-dark);
+}
+
+input[type="submit"]:hover {
+    border: 0.2rem solid var(--color-primary);
+}
+
+input[type="submit"]:disabled {
+    border-color: var(--color-text-disabled);
+    background-color: var(--color-primary-trans);
+    color: var(--color-text-disabled-dark);
+}
+
+button {
+    padding: 0.2rem 0.7rem;
+    border-radius: 0rem; /* 0.35rem */
+    border: 0.2rem solid var(--color-primary);
+    background-color: transparent;
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--color-primary);
+    color: var(--color-text-dark);
+}
+
+button:disabled {
+    border-color: var(--color-primary-disabled);
+    color: var(--color-text-disabled);
+}
+
 /* NAVBAR */
 
 #topbar {
@@ -257,6 +292,7 @@ textarea {
 
 #topbar .burger-menu-toggle {
     display: none;
+    box-sizing: content-box;
 
 	background-color: transparent;
     border-width: 0.15rem 0 0 0;
@@ -267,7 +303,7 @@ textarea {
 	margin: 0 0.2rem;
 	align-self: end;
 
-    box-sizing: content-box;
+    cursor: pointer;
 }
 
 #topbar > .burger-menu-toggle:hover {
@@ -287,10 +323,6 @@ textarea {
 #topbar > .burger-menu-toggle > img {
     width: 2.4rem;
     filter: var(--svg-icon-color);
-    cursor: pointer;
-	user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
 }
 
 #links-dropdown {
@@ -434,4 +466,16 @@ noscript #noscript-text {
     text-align: center;
 
     background-color: rgba(15, 15, 15, 0.85);
+}
+
+/* GENERIC CLASSES */
+img.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;
 }
