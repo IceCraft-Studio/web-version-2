@@ -290,11 +290,7 @@ form h2 {
 
 .switch-buttons>button:disabled {
     background-color: var(--color-primary);
-    color: var(--text-color-dark);
-}
-
-.hidden {
-    display: none;
+    color: var(--color-text-dark);
 }
 
 .article-part:has(ul#gallery-preview li.gallery-image[data-gallery-index="2"]) {

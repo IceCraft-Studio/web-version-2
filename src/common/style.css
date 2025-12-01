@@ -73,7 +73,13 @@ input[type='password'] {
 
 textarea {
 	padding: 0.1em;
+    background-color: var(--color-input-background);
 }
+
+select {
+    background-color: var(--color-input-background);
+}
+
 .color-required {
 	color: var(--color-required-field)
 }
