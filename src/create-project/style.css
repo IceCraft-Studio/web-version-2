@@ -326,3 +326,8 @@ form h2 {
         flex-basis: 3rem;
     }
 }
+
+.warning-highlight {
+    font-weight: bold;
+    color: var(--color-required-field);
+}

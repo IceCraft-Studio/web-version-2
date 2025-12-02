@@ -8,9 +8,11 @@ const GALLERY_UPLOAD_ZONE_ID = 'gallery-upload-zone';
 const GALLERY_UPLOAD_SELECT = `#${GALLERY_UPLOAD_ZONE_ID} > input[type='file']`;
 const GALLERY_PREVIEW_ID = 'gallery-preview';
 const CATEGORY_SELECT_ID = 'input-category';
+const ALLOWED_ASPECT_RATIO = 16/9;
 
 const HIDDEN_CLASS = 'hidden';
 const COPIED_CLASS = 'copied';
+const WARNING_HIGHLIGHT_CLASS = 'warning-highlight';
 
 async function main() {
 	let galleryIndex = -1;
@@ -50,7 +52,7 @@ async function main() {
 		);
 	});
 	// Gallery
-	galleryUpdate(null, elements, galleryIndex)
+	galleryUpdate(null, elements, galleryIndex);
 	//TODO - INPUT VALIDATION
 	//TODO - Refactor the logic, shorten, strighten, maybe use html templates
 	//TODO - Add Drag-n-drop to the image upload
@@ -92,18 +94,56 @@ function galleryUpdate(event, elements, galleryIndex) {
 	elements.galleryUploadInput = document.querySelector(GALLERY_UPLOAD_SELECT);
 
 	elements.galleryUploadInput.addEventListener('change', (e) => {
-		galleryUpdate(e, elements, galleryIndex);
-		fileBlob(e, elements, galleryIndex);
+		processFileUpload(e.target.files[0],elements,galleryIndex);
 	});
 	elements.dropUploadInput.addEventListener('drop', (e) => {
 		e.preventDefault();
+		processFileUpload(e.dataTransfer.files[0],elements,galleryIndex);
 	});
 }
 
-function fileBlob(event, elements, galleryIndex) {
-	let file = event.target.files[0];
+async function processFileUpload(file,elements,galleryIndex) {
+	const imageObjectUrl = await createImageObjectUrl(file);
+	if (imageObjectUrl == null || imageObjectUrl.length == 0) {
+		let ratioWarningElement = document.querySelector(
+			`#${GALLERY_UPLOAD_ZONE_ID} > .ratio-warning`
+		);
+		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		return;
+	}
+	galleryUpdate(e, elements, galleryIndex);
+	insertFileUrl(imageObjectUrl, elements, galleryIndex);
+}
+
+async function createImageObjectUrl(file) {
+	if (!(file instanceof File)) {
+  		throw new Error('File is not correct.');
+	}
 	let objectUrl = URL.createObjectURL(file);
-	console.log(objectUrl);
+	if (await validateImageAspectRatio(objectUrl,ALLOWED_ASPECT_RATIO)) {
+		return objectUrl;
+	}
+	return null;
+}
+async function validateImageAspectRatio(objectUrl,targetRatio) {
+	return new Promise((resolve, reject) => {
+		const image = new Image();
+		image.src = objectUrl;
+		image.addEventListener('error', () => {
+			reject('image error');
+		})
+		image.addEventListener('load', () => {
+			const imageRatio = image.width / img.height;
+			if (Math.abs(imageRatio - targetRatio) < 0.01) {
+				resolve(true);
+			} else {
+				resolve(false);
+			}
+		})
+	});
+}
+
+function insertFileUrl(objectUrl, elements, galleryIndex) {
 	let imgElement = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] img`
 	);
@@ -140,7 +180,8 @@ function generateGalleryItem(i) {
 	}.">
   </div>
   <label id="gallery-upload-zone" for="gallery-upload-${i}">
-    Drop images here, or click to upload.
+	<span class="ratio-warning">The image needs to be in 16:9 aspect ratio.</span>
+    <span>Drop images here, or click to upload.</span>
     <input id="gallery-upload-${i}" name="gallery-upload[${i}]" type="file" accept=".jpeg,.jpg,.png,.gif,.webp"/>
   </label>
   <button class="gallery-container hidden">
