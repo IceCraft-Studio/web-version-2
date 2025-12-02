@@ -8,11 +8,12 @@ const GALLERY_UPLOAD_ZONE_ID = 'gallery-upload-zone';
 const GALLERY_UPLOAD_SELECT = `#${GALLERY_UPLOAD_ZONE_ID} > input[type='file']`;
 const GALLERY_PREVIEW_ID = 'gallery-preview';
 const CATEGORY_SELECT_ID = 'input-category';
-const ALLOWED_ASPECT_RATIO = 16/9;
+const ALLOWED_ASPECT_RATIO = 16 / 9;
 
 const HIDDEN_CLASS = 'hidden';
 const COPIED_CLASS = 'copied';
 const WARNING_HIGHLIGHT_CLASS = 'warning-highlight';
+const WARNING_POP_CLASS = 'warning-pop'
 
 async function main() {
 	let galleryIndex = -1;
@@ -53,6 +54,12 @@ async function main() {
 	});
 	// Gallery
 	galleryUpdate(elements, galleryIndex);
+	// Drag n drop make it work
+	window.addEventListener('drop', (e) => {
+		if ([...e.dataTransfer.items].some((item) => item.kind === 'file')) {
+			e.preventDefault();
+		}
+	});
 	//TODO - INPUT VALIDATION
 	//TODO - Refactor the logic, shorten, strighten, maybe use html templates
 	//TODO - Add Drag-n-drop to the image upload
@@ -94,17 +101,24 @@ async function galleryUpdate(elements, galleryIndex) {
 	elements.galleryUploadInput = document.querySelector(GALLERY_UPLOAD_SELECT);
 
 	elements.galleryUploadInput.addEventListener('change', async (e) => {
-		await processFileUpload(e.target.files[0],elements,galleryIndex);
+		await processFileUpload(e.target.files[0], elements, galleryIndex);
 	});
 	elements.dropUploadInput.addEventListener('drop', async (e) => {
+		console.log('coool');
 		e.preventDefault();
-		if (await processFileUpload(e.dataTransfer.files[0],elements,galleryIndex)) {
+		if (
+			await processFileUpload(
+				e.dataTransfer.files[0],
+				elements,
+				galleryIndex
+			)
+		) {
 			elements.galleryUploadInput.files = e.dataTransfer.files;
 		}
 	});
 }
 
-async function processFileUpload(file,elements,galleryIndex) {
+async function processFileUpload(file, elements, galleryIndex) {
 	const imageObjectUrl = await createImageObjectUrl(file);
 	if (imageObjectUrl == null || imageObjectUrl.length == 0) {
 		elements.galleryUploadInput.value = null;
@@ -112,6 +126,7 @@ async function processFileUpload(file,elements,galleryIndex) {
 			`#${GALLERY_UPLOAD_ZONE_ID} > .ratio-warning`
 		);
 		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		tempClassForTime(ratioWarningElement,WARNING_POP_CLASS,1500);
 		return false;
 	}
 	await galleryUpdate(elements, galleryIndex);
@@ -121,21 +136,21 @@ async function processFileUpload(file,elements,galleryIndex) {
 
 async function createImageObjectUrl(file) {
 	if (!(file instanceof File)) {
-  		throw new Error('File is not correct.');
+		throw new Error('File is not correct.');
 	}
 	let objectUrl = URL.createObjectURL(file);
-	if (await validateImageAspectRatio(objectUrl,ALLOWED_ASPECT_RATIO)) {
+	if (await validateImageAspectRatio(objectUrl, ALLOWED_ASPECT_RATIO)) {
 		return objectUrl;
 	}
 	return null;
 }
-async function validateImageAspectRatio(objectUrl,targetRatio) {
+async function validateImageAspectRatio(objectUrl, targetRatio) {
 	return new Promise((resolve, reject) => {
 		const image = new Image();
 		image.src = objectUrl;
 		image.addEventListener('error', () => {
 			reject('image error');
-		})
+		});
 		image.addEventListener('load', () => {
 			const imageRatio = image.width / image.height;
 			if (Math.abs(imageRatio - targetRatio) < 0.01) {
@@ -143,8 +158,18 @@ async function validateImageAspectRatio(objectUrl,targetRatio) {
 			} else {
 				resolve(false);
 			}
-		})
+		});
 	});
+}
+
+async function tempClassForTime(element,className,duration) {
+	const ds = element.dataset;
+	element.classList.add(className);
+	if (ds[`${className}-timeout-id`] != "") clearTimeout(Number(ds[`${className}-timeout-id`]));
+	ds[`${className}-timeout-id`] = setTimeout(() => {
+		element.classList.remove(className);
+		ds[`${className}-timeout-id`] = "";
+	}, duration);
 }
 
 async function insertFileUrl(objectUrl, elements, galleryIndex) {
@@ -157,16 +182,10 @@ async function insertFileUrl(objectUrl, elements, galleryIndex) {
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] button`
 	);
 	imgButtonElement?.classList.remove(HIDDEN_CLASS);
-	let copyMsgTimeoutId = null;
 	imgButtonElement.addEventListener('click', (e) => {
 		e.preventDefault();
 		navigator.clipboard.writeText(objectUrl.slice(5)); // remove blob: as GitHub Markdown API destroyes it
-		imgButtonElement.classList.add(COPIED_CLASS);
-		if (copyMsgTimeoutId != null) clearTimeout(copyMsgTimeoutId);
-		copyMsgTimeoutId = setTimeout(() => {
-			imgButtonElement.classList.remove(COPIED_CLASS);
-			copyMsgTimeoutId = null;
-		}, 4000);
+		tempClassForTime(imgButtonElement,COPIED_CLASS,4000);
 	});
 	let hiddenInput = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] input[type="hidden"]`
@@ -184,7 +203,7 @@ function generateGalleryItem(i) {
 	}.">
   </div>
   <label id="gallery-upload-zone" for="gallery-upload-${i}">
-	<span class="ratio-warning">The image needs to be in 16:9 aspect ratio.</span>
+	<span class="ratio-warning">The image needs to have 16:9 aspect ratio!</span>
     <span>Drop images here, or click to upload.</span>
     <input id="gallery-upload-${i}" name="gallery-upload[${i}]" type="file" accept=".jpeg,.jpg,.png,.gif,.webp"/>
   </label>
