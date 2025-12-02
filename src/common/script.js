@@ -1,5 +1,9 @@
 async function main() {
     console.log(window.location.href);
+    const elements = {
+        themeToggleBtn: document.querySelector('#topbar > .theme-toggle'),
+        burgerMenuToggleBtn: document.querySelector('#topbar > .burger-menu-toggle')
+    }
     screenSizeAlert();
     initializeTheme()
 
@@ -7,8 +11,15 @@ async function main() {
 
     setThemeIcon(document.documentElement.dataset.theme);
 
-    document.querySelector('#topbar > .theme-toggle').addEventListener('pointerdown', toggleTheme);
-    document.querySelector('#topbar > .burger-menu-toggle').addEventListener('pointerdown', toggleLinkDropdown);
+    elements.themeToggleBtn.addEventListener('pointerdown', toggleTheme);
+    elements.themeToggleBtn.addEventListener('keydown', e => {
+        if (e.key === "Enter") { toggleTheme(); }
+    });
+
+    elements.burgerMenuToggleBtn.addEventListener('pointerdown', toggleLinkDropdown);
+    elements.burgerMenuToggleBtn.addEventListener('keydown', e => {
+        if (e.key === "Enter") { toggleLinkDropdown(); }
+    });
 }
 
 main();
