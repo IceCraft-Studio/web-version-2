@@ -10,15 +10,25 @@ body {
 	flex-direction: column;
 	margin: 0px;
 	min-height: 100vh;
+	color: var(--color-text);
+    background-color: transparent;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vh;
+    height: 100vh;
+    z-index: -1; 
 
 	background-image: url('../assets/background/blue-ice.png');
 	background-repeat: repeat;
 	background-attachment: fixed;
 	background-size: 6rem;
-
-	image-rendering: pixelated;
-
-	color: var(--color-text);
+    pointer-events: none; 
+    image-rendering: pixelated;
 }
 
 main {
@@ -32,7 +42,6 @@ main {
 	align-items: center;
 
 	background-color: var(--color-1);
-	image-rendering: auto;
 	font-family: Ubuntu;
 }
 
