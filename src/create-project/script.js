@@ -13,7 +13,7 @@ const HIDDEN_CLASS = 'hidden';
 const COPIED_CLASS = 'copied';
 
 async function main() {
-	let galleryIndex = 0;
+	let galleryIndex = -1;
 	let markdownEdited = false;
 	const elements = {
 		descriptionInput: document.querySelector(
@@ -50,13 +50,7 @@ async function main() {
 		);
 	});
 	// Gallery
-	elements.galleryUploadInput.addEventListener('change', (e) => {
-		galleryUpdate(e, elements, galleryIndex);
-		fileBlob(e, elements, galleryIndex);
-	});
-	elements.dropUploadInput.addEventListener('drop', (e) => {
-		e.preventDefault();
-	});
+	galleryUpdate(null, elements, galleryIndex)
 	//TODO - INPUT VALIDATION
 	//TODO - Refactor the logic, shorten, strighten, maybe use html templates
 	//TODO - Add Drag-n-drop to the image upload
@@ -85,8 +79,10 @@ function fillCategories(selectElement) {
 }
 
 function galleryUpdate(event, elements, galleryIndex) {
-	elements.dropUploadInput.classList.add(HIDDEN_CLASS);
-	elements.dropUploadInput.removeAttribute('id');
+	if (elements.dropUploadInput != null) {
+		elements.dropUploadInput.classList.add(HIDDEN_CLASS);
+		elements.dropUploadInput.removeAttribute('id');
+	}
 	galleryIndex++;
 	elements.galleryPreview.insertAdjacentHTML(
 		'beforeend',
@@ -138,12 +134,12 @@ function generateGalleryItem(i) {
 	return `
 <li class="gallery-image" data-gallery-index="${i}">
   <div class="field">
-    <label for="gallery-caption[${i}]">Image #${i + 1}</label>
+    <label for="gallery-caption-${i}">Image #${i + 1}</label>
     <input id="gallery-caption-${i}" name="gallery-caption[${i}]" type="text" placeholder="Caption of Image #${
 		i + 1
 	}.">
   </div>
-  <label id="gallery-upload-zone" for="gallery-upload[${i}]">
+  <label id="gallery-upload-zone" for="gallery-upload-${i}">
     Drop images here, or click to upload.
     <input id="gallery-upload-${i}" name="gallery-upload[${i}]" type="file" accept=".jpeg,.jpg,.png,.gif,.webp"/>
   </label>
@@ -151,7 +147,7 @@ function generateGalleryItem(i) {
     <img alt="Image #${i + 1}">
   </button>
   <div class="gallery-include-checkbox">
-    <label for="gallery-include[${i}]">Image #${i + 1} in gallery:</label>
+    <label for="gallery-include-${i}">Image #${i + 1} in gallery:</label>
     <input id="gallery-include-${i}" name="gallery-include[${i}]" type="checkbox" checked>
   </div>
   <input name="gallery-browser-url[${i}]" type="hidden">
