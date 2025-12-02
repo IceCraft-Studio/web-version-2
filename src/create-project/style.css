@@ -328,11 +328,11 @@ form h2 {
 }
 
 .warning-highlight {
-    transition: all 0.5s;
+    transition: all 0.3s;
     font-weight: bold;
     color: var(--color-required-field);
 }
 
 .warning-pop {
-    transform: scale(102%);
+    transform: scale(105%);
 }

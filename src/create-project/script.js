@@ -125,8 +125,10 @@ async function processFileUpload(file, elements, galleryIndex) {
 		let ratioWarningElement = document.querySelector(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .ratio-warning`
 		);
-		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-		tempClassForTime(ratioWarningElement,WARNING_POP_CLASS,1500);
+		setTimeout(() => {
+			ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+			tempClassForTime(ratioWarningElement,WARNING_POP_CLASS,1500);
+		},1000);
 		return false;
 	}
 	await galleryUpdate(elements, galleryIndex);
