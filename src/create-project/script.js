@@ -93,26 +93,30 @@ function galleryUpdate(event, elements, galleryIndex) {
 	elements.dropUploadInput = document.getElementById(GALLERY_UPLOAD_ZONE_ID);
 	elements.galleryUploadInput = document.querySelector(GALLERY_UPLOAD_SELECT);
 
-	elements.galleryUploadInput.addEventListener('change', (e) => {
-		processFileUpload(e.target.files[0],elements,galleryIndex);
+	elements.galleryUploadInput.addEventListener('change', async (e) => {
+		await processFileUpload(e.target.files[0],elements,galleryIndex);
 	});
-	elements.dropUploadInput.addEventListener('drop', (e) => {
+	elements.dropUploadInput.addEventListener('drop', async (e) => {
 		e.preventDefault();
-		processFileUpload(e.dataTransfer.files[0],elements,galleryIndex);
+		if (await processFileUpload(e.dataTransfer.files[0],elements,galleryIndex)) {
+			elements.galleryUploadInput.files = e.dataTransfer.files;
+		}
 	});
 }
 
 async function processFileUpload(file,elements,galleryIndex) {
 	const imageObjectUrl = await createImageObjectUrl(file);
 	if (imageObjectUrl == null || imageObjectUrl.length == 0) {
+		elements.galleryUploadInput.value = null;
 		let ratioWarningElement = document.querySelector(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .ratio-warning`
 		);
 		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-		return;
+		return false;
 	}
 	galleryUpdate(e, elements, galleryIndex);
 	insertFileUrl(imageObjectUrl, elements, galleryIndex);
+	return true;
 }
 
 async function createImageObjectUrl(file) {
