@@ -80,7 +80,7 @@ function fillCategories(selectElement) {
 	// TODO Replace with php json API endpoint /api/categories
 }
 
-function galleryUpdate(event, elements, galleryIndex) {
+async function galleryUpdate(event, elements, galleryIndex) {
 	if (elements.dropUploadInput != null) {
 		elements.dropUploadInput.classList.add(HIDDEN_CLASS);
 		elements.dropUploadInput.removeAttribute('id');
@@ -114,8 +114,8 @@ async function processFileUpload(file,elements,galleryIndex) {
 		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
 		return false;
 	}
-	galleryUpdate(e, elements, galleryIndex);
-	insertFileUrl(imageObjectUrl, elements, galleryIndex);
+	await galleryUpdate(e, elements, galleryIndex);
+	await insertFileUrl(imageObjectUrl, elements, galleryIndex);
 	return true;
 }
 
@@ -147,7 +147,7 @@ async function validateImageAspectRatio(objectUrl,targetRatio) {
 	});
 }
 
-function insertFileUrl(objectUrl, elements, galleryIndex) {
+async function insertFileUrl(objectUrl, elements, galleryIndex) {
 	let imgElement = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] img`
 	);
