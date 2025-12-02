@@ -127,7 +127,7 @@ async function processFileUpload(file, elements, galleryIndex) {
 		);
 		setTimeout(() => {
 			ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-			tempClassForTime(ratioWarningElement,WARNING_POP_CLASS,1500);
+			tempClassForTime(ratioWarningElement,WARNING_POP_CLASS,1000);
 		},1000);
 		return false;
 	}

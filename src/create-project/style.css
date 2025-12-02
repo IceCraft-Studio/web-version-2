@@ -328,7 +328,7 @@ form h2 {
 }
 
 .warning-highlight {
-    transition: all 0.3s;
+    transition: all 0.25s;
     font-weight: bold;
     color: var(--color-required-field);
 }
