@@ -133,7 +133,7 @@ async function validateImageAspectRatio(objectUrl,targetRatio) {
 			reject('image error');
 		})
 		image.addEventListener('load', () => {
-			const imageRatio = image.width / img.height;
+			const imageRatio = image.width / image.height;
 			if (Math.abs(imageRatio - targetRatio) < 0.01) {
 				resolve(true);
 			} else {
