@@ -35,6 +35,33 @@
     flex: 1 1 40%;
 }
 
+.slug-container > div {
+    font-size: 1rem;
+    font-family: 'Gantari', sans-serif;
+    color: var(--color-text-disabled);
+    user-select: none;
+
+    border-radius: 0;
+    border: 0.2rem solid var(--color-primary);
+    border-right: none;
+    margin: 0.1rem;
+    margin-right: 0;
+    padding: 0.1em;
+    padding-right: 0.2em;
+
+    background-color: var(--color-input-background);
+}
+
+.slug-container {
+    display: flex;
+}
+
+input#input-slug {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
 .category-selection { 
     flex: 1 1 8rem;
 }
@@ -256,12 +283,6 @@ textarea#md-input {
     padding: 0.1rem;
 }
 
-select:focus-visible,
-textarea:focus-visible,
-input:focus-visible,
-button:focus-visible {
-    outline: 0.15rem solid var(--color-focus-outline);
-}
 
 form {
     width: 100%;
