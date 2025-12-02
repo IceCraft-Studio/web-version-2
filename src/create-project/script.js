@@ -9,6 +9,7 @@ const GALLERY_UPLOAD_SELECT = `#${GALLERY_UPLOAD_ZONE_ID} > input[type='file']`;
 const GALLERY_PREVIEW_ID = 'gallery-preview';
 const CATEGORY_SELECT_ID = 'input-category';
 const ALLOWED_ASPECT_RATIO = 16 / 9;
+const MAX_ALLOWED_FILE_SIZE_MB = 8;
 
 const HIDDEN_CLASS = 'hidden';
 const COPIED_CLASS = 'copied';
@@ -119,6 +120,17 @@ async function galleryUpdate(elements, galleryIndex) {
 }
 
 async function processFileUpload(file, elements, galleryIndex) {
+	const sizeMB = file.size / (1024 * 1024);
+	if (sizeMB > MAX_ALLOWED_FILE_SIZE_MB) {
+		let sizeWarningElement = document.querySelector(
+			`#${GALLERY_UPLOAD_ZONE_ID} > .size-warning`
+		);
+		setTimeout(() => {
+			sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+			tempClassForTime(sizeWarningElement,WARNING_POP_CLASS,750);
+		},500);
+		return false;
+	}
 	const imageObjectUrl = await createImageObjectUrl(file);
 	if (imageObjectUrl == null || imageObjectUrl.length == 0) {
 		elements.galleryUploadInput.value = null;
@@ -146,6 +158,7 @@ async function createImageObjectUrl(file) {
 	}
 	return null;
 }
+
 async function validateImageAspectRatio(objectUrl, targetRatio) {
 	return new Promise((resolve, reject) => {
 		const image = new Image();
@@ -208,6 +221,7 @@ function generateGalleryItem(i) {
 	}.">
   </div>
   <label id="gallery-upload-zone" for="gallery-upload-${i}">
+	<span class="size-warning">The image must be JPEG, PNG, GIF or WEBP of 8MB at most!</span>
 	<span class="ratio-warning">The image needs to have 16:9 aspect ratio!</span>
     <span>Drop images here, or click to upload.</span>
     <input id="gallery-upload-${i}" name="gallery-upload[${i}]" type="file" accept=".jpeg,.jpg,.png,.gif,.webp"/>
