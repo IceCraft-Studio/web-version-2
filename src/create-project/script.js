@@ -52,7 +52,7 @@ async function main() {
 		);
 	});
 	// Gallery
-	galleryUpdate(null, elements, galleryIndex);
+	galleryUpdate(elements, galleryIndex);
 	//TODO - INPUT VALIDATION
 	//TODO - Refactor the logic, shorten, strighten, maybe use html templates
 	//TODO - Add Drag-n-drop to the image upload
@@ -80,7 +80,7 @@ function fillCategories(selectElement) {
 	// TODO Replace with php json API endpoint /api/categories
 }
 
-async function galleryUpdate(event, elements, galleryIndex) {
+async function galleryUpdate(elements, galleryIndex) {
 	if (elements.dropUploadInput != null) {
 		elements.dropUploadInput.classList.add(HIDDEN_CLASS);
 		elements.dropUploadInput.removeAttribute('id');
@@ -114,7 +114,7 @@ async function processFileUpload(file,elements,galleryIndex) {
 		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
 		return false;
 	}
-	await galleryUpdate(e, elements, galleryIndex);
+	await galleryUpdate(elements, galleryIndex);
 	await insertFileUrl(imageObjectUrl, elements, galleryIndex);
 	return true;
 }
