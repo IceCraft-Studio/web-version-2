@@ -121,7 +121,7 @@ async function galleryUpdate(elements, galleryIndex) {
 
 async function processFileUpload(file, elements, galleryIndex) {
 	console.log(file.size);
-	const sizeMB = file.size / (1024 * 1024);
+	const sizeMB = file.size / (1000**2);
 	if (sizeMB > MAX_ALLOWED_FILE_SIZE_MB) {
 		let sizeWarningElement = document.querySelector(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .size-warning`
