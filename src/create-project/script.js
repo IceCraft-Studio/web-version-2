@@ -163,13 +163,16 @@ async function validateImageAspectRatio(objectUrl, targetRatio) {
 }
 
 async function tempClassForTime(element,className,duration) {
-	const ds = element.dataset;
+	let timeoutId = element.getAttribute(`${className}-timeout-id`);
 	element.classList.add(className);
-	if (ds[`${className}-timeout-id`] != "") clearTimeout(Number(ds[`${className}-timeout-id`]));
-	ds[`${className}-timeout-id`] = setTimeout(() => {
+	if (element.getAttribute(`${className}-timeout-id`) != "") {
+		clearTimeout(Number(timeoutId));
+	}
+	timeoutId = setTimeout(() => {
 		element.classList.remove(className);
-		ds[`${className}-timeout-id`] = "";
+		element.setAttribute(`${className}-timeout-id`,"");
 	}, duration);
+	element.setAttribute(`${className}-timeout-id`,timeoutId);
 }
 
 async function insertFileUrl(objectUrl, elements, galleryIndex) {
