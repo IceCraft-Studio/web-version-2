@@ -120,6 +120,7 @@ async function galleryUpdate(elements, galleryIndex) {
 }
 
 async function processFileUpload(file, elements, galleryIndex) {
+	console.log(file.size);
 	const sizeMB = file.size / (1024 * 1024);
 	if (sizeMB > MAX_ALLOWED_FILE_SIZE_MB) {
 		let sizeWarningElement = document.querySelector(
