@@ -35,7 +35,7 @@
     flex: 1 1 40%;
 }
 
-.slug-container > div {
+.slug-container > label {
     font-size: 1rem;
     font-family: 'Gantari', sans-serif;
     color: var(--color-text-disabled);
