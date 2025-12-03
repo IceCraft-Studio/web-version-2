@@ -309,6 +309,7 @@ form h2 {
 
 .switch-buttons>button:not(:disabled):hover {
     background-color: var(--color-primary-toned);
+    color: var(--color-text);
     cursor: pointer;
 }
 
