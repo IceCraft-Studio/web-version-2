@@ -15,6 +15,12 @@ function list_users() {
 }
 
 function get_user($id) {
+    global $db;
+    foreach ($db as $user) {
+        if ($id == $user['id']) {
+            return $user;
+        }
+    }
     return null;
 }
 
