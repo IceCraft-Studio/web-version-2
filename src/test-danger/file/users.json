@@ -1,0 +1,12 @@
+[
+	{"id":"zlt", "name":"Zlatovláska", "email":"zlaty.vlas@castle.eu", "avatar":"👸"},
+	{"id":"ckr", "name":"Červená Karkulka", "email":"karkulka.cervena@seznam.cz", "avatar":"🔴"},
+	{"id":"gnd", "name":"Gandalf", "email":"wiz@gmail.com", "avatar":"🧙"},
+	{"id":"jck", "name":"Jack Sparrow", "email":"jack@blackpearl.com", "avatar":"🏴‍☠️"},
+	{"id":"drk", "name":"Drak Šmak", "email":"me@smaug.cz", "avatar":"🐉"},
+	{"id":"arl", "name":"Ariel", "email":"ariel@henkel.de", "avatar":"🧜‍♀️"},
+	{"id":"snh", "name":"Sněhurka", "email":"snow-white@kingdom.gov", "avatar":"🍎"},
+	{"id":"drc", "name":"Dr. Acula", "email":"dr.acula@gmail.com", "avatar":"🧛‍♂️"},
+	{"id":"rbh", "name":"Robin Hood", "email":"robin@hood.com", "avatar":"🏹"},
+	{"id":"mrv", "name":"Marvin", "email":"marvin@dont.panic.cz", "avatar":"🤖"}
+]
