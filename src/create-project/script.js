@@ -111,10 +111,11 @@ async function galleryUpdate(elements, galleryIndex) {
 		await processGalleryFileUpload(e.target.files[0], elements, galleryIndex);
 	});
 	elements.dropUploadInput.addEventListener("dragover", (e) => {
+		console.log('dragover');
   		e.preventDefault();
 	});
 	elements.dropUploadInput.addEventListener('drop', async (e) => {
-		console.log('coool');
+		console.log('drop');
 		e.preventDefault();
 		if (
 			await processGalleryFileUpload(
