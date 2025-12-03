@@ -56,7 +56,7 @@ async function main() {
 	elements.descriptionInput.addEventListener('input', () => {
 		elements.descriptionInput.value = elements.descriptionInput.value.replace(
 			/\r?\n|\r/g,
-			' '
+			''
 		);
 	});
 	// Gallery
