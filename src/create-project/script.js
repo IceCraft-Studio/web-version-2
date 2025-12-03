@@ -8,6 +8,7 @@ const GALLERY_UPLOAD_ZONE_ID = 'gallery-upload-zone';
 const GALLERY_UPLOAD_SELECT = `#${GALLERY_UPLOAD_ZONE_ID} > input[type='file']`;
 const GALLERY_PREVIEW_ID = 'gallery-preview';
 const CATEGORY_SELECT_ID = 'input-category';
+const ALLOWED_IMAGE_TYPES = Object.freeze(["image/jpeg", "image/png", "image/gif", "image/webp"]);
 const ALLOWED_ASPECT_RATIO = 16 / 9;
 const MAX_ALLOWED_FILE_SIZE_MB = 8;
 
@@ -122,7 +123,7 @@ async function galleryUpdate(elements, galleryIndex) {
 async function processFileUpload(file, elements, galleryIndex) {
 	console.log(file.size);
 	const sizeMB = file.size / (1000**2);
-	if (sizeMB > MAX_ALLOWED_FILE_SIZE_MB) {
+	if (sizeMB > MAX_ALLOWED_FILE_SIZE_MB || !ALLOWED_IMAGE_TYPES.includes(file.type)) {
 		let sizeWarningElement = document.querySelector(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .size-warning`
 		);
