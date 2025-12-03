@@ -304,9 +304,11 @@ form h2 {
     border: none;
     padding: 0.2rem 0.2rem 0.3rem 0.2rem;
     margin: 0 0.25rem;
+    background-color: var(--color-input-background);
 }
 
 .switch-buttons>button:not(:disabled):hover {
+    background-color: var(--color-primary-toned);
     cursor: pointer;
 }
 
