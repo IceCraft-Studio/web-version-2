@@ -27,7 +27,7 @@ async function main() {
 	let markdownEdited = false;
 	const elements = {
 		descriptionInput: document.querySelector(
-			'textarea[name="description"]'
+			'textarea#input-description'
 		),
 		markdownInput: document.getElementById(ARTICLE_EDIT_ID),
 		markdownOutput: document.getElementById(ARTICLE_PREVIEW_ID),
@@ -69,7 +69,7 @@ async function main() {
 	});
 	//TODO - INPUT VALIDATION
 	//TODO - Refactor the logic, shorten, strighten, maybe use html templates
-	//TODO - Add Drag-n-drop to the image upload
+	//TODO - Consider making Drag-n-drop animations
 }
 
 main();
@@ -111,11 +111,9 @@ async function galleryUpdate(elements, galleryIndex) {
 		await processGalleryFileUpload(e.target.files[0], elements, galleryIndex);
 	});
 	elements.dropUploadInput.addEventListener("dragover", (e) => {
-		console.log('dragover');
   		e.preventDefault();
 	});
 	elements.dropUploadInput.addEventListener('drop', async (e) => {
-		console.log('drop');
 		e.preventDefault();
 		if (
 			await processGalleryFileUpload(
