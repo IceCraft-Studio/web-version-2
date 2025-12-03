@@ -64,7 +64,8 @@ input#input-slug {
 }
 
 .thumbnail-size, .thumbnail-ratio {
-    margin: 0.1em;
+    display: inline-block;
+    margin: 0.15em;
 }
 
 .category-selection { 
