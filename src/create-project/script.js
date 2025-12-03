@@ -108,13 +108,16 @@ async function galleryUpdate(elements, galleryIndex) {
 	elements.galleryUploadInput = document.querySelector(GALLERY_UPLOAD_SELECT);
 
 	elements.galleryUploadInput.addEventListener('change', async (e) => {
-		await processFileUpload(e.target.files[0], elements, galleryIndex);
+		await processGalleryFileUpload(e.target.files[0], elements, galleryIndex);
+	});
+	elements.dropUploadInput.addEventListener("dragover", (e) => {
+  		e.preventDefault();
 	});
 	elements.dropUploadInput.addEventListener('drop', async (e) => {
 		console.log('coool');
 		e.preventDefault();
 		if (
-			await processFileUpload(
+			await processGalleryFileUpload(
 				e.dataTransfer.files[0],
 				elements,
 				galleryIndex
@@ -125,7 +128,7 @@ async function galleryUpdate(elements, galleryIndex) {
 	});
 }
 
-async function processFileUpload(file, elements, galleryIndex) {
+async function processGalleryFileUpload(file, elements, galleryIndex) {
 	//Check file size and type
 	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
 	if (
