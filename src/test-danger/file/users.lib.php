@@ -1,7 +1,17 @@
 <?php
 
+const DB_FILE_NAME = 'users.json';
+
+$file = file_get_contents(DB_FILE_NAME);
+// handle errors bitch
+
+$db = json_decode($file,true);
+
+
+
 function list_users() {
-    return [];
+    global $db;
+    return $db;
 }
 
 function get_user($id) {
