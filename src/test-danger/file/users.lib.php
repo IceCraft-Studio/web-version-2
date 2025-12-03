@@ -42,9 +42,25 @@ function add_user($name, $email, $avatar) {
 }
 
 function delete_user($id) {
+    global $db;
+    foreach ($db as $user) {
+        if ($id == $user['id']) {
+            unset($user);
+        }
+    }
+    save();
 }
 
 function edit_user($id, $name, $email, $avatar) {
+    global $db;
+    $user = array(
+        'id'=>$id,
+        'name'=> $name,
+        'email'=> $email,
+        'avatar'=> $avatar
+        );
+    $db[$id] = $user;
+    save();
 }
 
 ?>
