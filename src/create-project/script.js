@@ -8,14 +8,19 @@ const GALLERY_UPLOAD_ZONE_ID = 'gallery-upload-zone';
 const GALLERY_UPLOAD_SELECT = `#${GALLERY_UPLOAD_ZONE_ID} > input[type='file']`;
 const GALLERY_PREVIEW_ID = 'gallery-preview';
 const CATEGORY_SELECT_ID = 'input-category';
-const ALLOWED_IMAGE_TYPES = Object.freeze(["image/jpeg", "image/png", "image/gif", "image/webp"]);
+const ALLOWED_IMAGE_TYPES = Object.freeze([
+	'image/jpeg',
+	'image/png',
+	'image/gif',
+	'image/webp',
+]);
 const ALLOWED_ASPECT_RATIO = 16 / 9;
 const MAX_ALLOWED_FILE_SIZE_MB = 8;
 
 const HIDDEN_CLASS = 'hidden';
 const COPIED_CLASS = 'copied';
 const WARNING_HIGHLIGHT_CLASS = 'warning-highlight';
-const WARNING_POP_CLASS = 'warning-pop'
+const WARNING_POP_CLASS = 'warning-pop';
 
 async function main() {
 	let galleryIndex = -1;
@@ -121,44 +126,52 @@ async function galleryUpdate(elements, galleryIndex) {
 }
 
 async function processFileUpload(file, elements, galleryIndex) {
-	console.log(file.size);
-	const sizeMB = file.size / (1000**2);
-	if (sizeMB > MAX_ALLOWED_FILE_SIZE_MB || !ALLOWED_IMAGE_TYPES.includes(file.type)) {
+	//Check file size and type
+	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
+	if (
+		sizeMB > MAX_ALLOWED_FILE_SIZE_MB ||
+		!ALLOWED_IMAGE_TYPES.includes(file.type)
+	) {
+		elements.galleryUploadInput.value = null;
 		let sizeWarningElement = document.querySelector(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .size-warning`
 		);
 		setTimeout(() => {
 			sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-			tempClassForTime(sizeWarningElement,WARNING_POP_CLASS,750);
-		},500);
+			tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 750);
+		}, 500);
 		return false;
 	}
+	// Create image object url and ensure the correct aspect ratio
 	const imageObjectUrl = await createImageObjectUrl(file);
-	if (imageObjectUrl == null || imageObjectUrl.length == 0) {
+	const validAspectRatio = await validateImageAspectRatio(
+		imageObjectUrl,
+		ALLOWED_ASPECT_RATIO
+	);
+	if (!validAspectRatio) {
+		URL.revokeObjectURL(imageObjectUrl);
 		elements.galleryUploadInput.value = null;
 		let ratioWarningElement = document.querySelector(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .ratio-warning`
 		);
 		setTimeout(() => {
 			ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-			tempClassForTime(ratioWarningElement,WARNING_POP_CLASS,750);
-		},500);
+			tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
+		}, 500);
 		return false;
 	}
+	// Finish procedure if checks are fine
 	await galleryUpdate(elements, galleryIndex);
 	await insertFileUrl(imageObjectUrl, elements, galleryIndex);
 	return true;
 }
 
 async function createImageObjectUrl(file) {
-	if (!(file instanceof File)) {
+	if (!(file instanceof File || !file.type.startsWith('image/'))) {
 		throw new Error('File is not correct.');
 	}
 	let objectUrl = URL.createObjectURL(file);
-	if (await validateImageAspectRatio(objectUrl, ALLOWED_ASPECT_RATIO)) {
-		return objectUrl;
-	}
-	return null;
+	return objectUrl;
 }
 
 async function validateImageAspectRatio(objectUrl, targetRatio) {
@@ -179,17 +192,25 @@ async function validateImageAspectRatio(objectUrl, targetRatio) {
 	});
 }
 
-async function tempClassForTime(element,className,duration) {
-	let timeoutId = element.getAttribute(`${className}-timeout-id`);
+/**
+ * Temporarily assigns a class to an element for the set duration of time.
+ * The timer is reset when called again by storing timeout IDs in data-* attributes.
+ * @param {HTMLElement} element - The element to apply the class to.
+ * @param {string} className - Name of the class to switch.
+ * @param {number} duration - The amount of time in ms.
+ */
+async function tempClassForTime(element, className, duration) {
+	const dataAttributeName = `data-${className}-timeout-id`;
+	let timeoutId = element.getAttribute(dataAttributeName);
 	element.classList.add(className);
-	if (element.getAttribute(`${className}-timeout-id`) != "") {
+	if (element.getAttribute(dataAttributeName) != '') {
 		clearTimeout(Number(timeoutId));
 	}
 	timeoutId = setTimeout(() => {
 		element.classList.remove(className);
-		element.setAttribute(`${className}-timeout-id`,"");
+		element.setAttribute(dataAttributeName, '');
 	}, duration);
-	element.setAttribute(`${className}-timeout-id`,timeoutId);
+	element.setAttribute(dataAttributeName, timeoutId);
 }
 
 async function insertFileUrl(objectUrl, elements, galleryIndex) {
@@ -205,7 +226,7 @@ async function insertFileUrl(objectUrl, elements, galleryIndex) {
 	imgButtonElement.addEventListener('click', (e) => {
 		e.preventDefault();
 		navigator.clipboard.writeText(objectUrl.slice(5)); // remove blob: as GitHub Markdown API destroyes it
-		tempClassForTime(imgButtonElement,COPIED_CLASS,4000);
+		tempClassForTime(imgButtonElement, COPIED_CLASS, 4000);
 	});
 	let hiddenInput = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] input[type="hidden"]`
