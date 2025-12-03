@@ -1,6 +1,6 @@
 <?php
 
-const DB_FILE_NAME = 'users.json';
+const DB_FILE_NAME = '/users/dobiapa2/data/users.json';
 
 $file = file_get_contents(DB_FILE_NAME);
 // handle errors bitch
