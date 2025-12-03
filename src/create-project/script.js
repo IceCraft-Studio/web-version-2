@@ -264,23 +264,38 @@ function replaceUploadZone() {
 	const html = ``;
 }
 
+/**
+ * Takes user's Markdown from a TextArea element and outputs it to a content element.
+ * @param {HTMLTextAreaElement} inputElement HTML textarea element with user's input.
+ * @param {HTMLElement} outputElement Element to output HTML generated from the MD into.
+ */
 async function generatePreview(inputElement, outputElement) {
 	let markdownData = inputElement.value;
 	const htmlResult = await markdownGithub(markdownData);
 	outputElement.innerHTML = htmlResult;
-	// fix markdown removing images
+	// fix markdown removing images (added comments cause it's a lil' strange behavior)
 	outputElement
 		.querySelectorAll('a > img[data-canonical-src]')
 		.forEach((img) => {
+			// GitHub MD wraps a link around a broken image
 			const a = img.parentElement;
+			// The links has the original URL stored in 'data-canonical-src' attribute
 			const canonical = img.getAttribute('data-canonical-src');
+			// Check if it actually points to our website
 			if (!canonical.startsWith(`${location.protocol}//${location.host}`))
 				return;
+			// Add the blob prefix to the img src to make the browser interpret it as url object
 			img.src = 'blob:' + canonical;
+			// Replace the link with the img alone
 			a.replaceWith(img);
 		});
 }
 
+/**
+ * Calls GitHub Markdown API and returns a safe HTML.
+ * @param {string} data Markdown data sent in the request's body 
+ * @returns {string} Safe HTML generated from the input MD.
+ */
 async function markdownGithub(data) {
 	const reqHeaders = new Headers();
 	reqHeaders.set('Accept', 'application/vnd.github+json');
@@ -301,6 +316,12 @@ async function markdownGithub(data) {
 	return response.text();
 }
 
+/**
+ * The action assigned to a button used to show the edit field.
+ * @param {Event} event The event (usually a click) on the "Edit" element.
+ * @param {*} elements Interal object storing important reused elements.
+ * @param {boolean} markdownEdited If markdown is edited, preview is regenerated.
+ */
 function showEdit(event, elements) {
 	event.target.disabled = true;
 	elements.previewButton.disabled = false;
@@ -308,6 +329,12 @@ function showEdit(event, elements) {
 	elements.markdownInput.classList.remove(HIDDEN_CLASS);
 }
 
+/**
+ * The action assigned to a button used to show the preview.
+ * @param {Event} event The event (usually a click) on the "Preview" element.
+ * @param {*} elements Interal object storing important reused elements.
+ * @param {boolean} markdownEdited If markdown is edited, preview is regenerated.
+ */
 function showPreview(event, elements, markdownEdited) {
 	event.target.disabled = true;
 	if (markdownEdited) {
