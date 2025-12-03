@@ -54,7 +54,7 @@ async function main() {
 	});
 	// Prevent newlines in description
 	elements.descriptionInput.addEventListener('input', () => {
-		elements.descriptionInput.value = textarea.value.replace(
+		elements.descriptionInput.value = elements.descriptionInput.value.replace(
 			/\r?\n|\r/g,
 			' '
 		);
