@@ -53,13 +53,13 @@ function delete_user($id) {
 
 function edit_user($id, $name, $email, $avatar) {
     global $db;
-    $user = array(
-        'id'=>$id,
-        'name'=> $name,
-        'email'=> $email,
-        'avatar'=> $avatar
-        );
-    $db[$id] = $user;
+    foreach (array_keys($db) as $key) {
+        if ($id == $db[$key]['id']) {
+            $db[$key]['name'] = $name;
+            $db[$key]['email'] = $email;
+            $db[$key]['avatar'] = $avatar;
+        }
+    }
     save();
 }
 
