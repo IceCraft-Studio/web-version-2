@@ -43,9 +43,9 @@ function add_user($name, $email, $avatar) {
 
 function delete_user($id) {
     global $db;
-    foreach ($db as $user) {
-        if ($id == $user['id']) {
-            unset($user);
+    foreach (array_keys($db) as $key) {
+        if ($id == $db[$key]['id']) {
+            unset($db[$key]);
         }
     }
     save();
