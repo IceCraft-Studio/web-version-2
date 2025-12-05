@@ -1,4 +1,5 @@
 const MARKDOWN_URL = 'https://api.github.com/markdown';
+const LIST_CATEGORIES_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/list-categories.php`
 
 const BUTTON_EDIT_ID = 'btn-edit-article';
 const BUTTON_PREVIEW_ID = 'btn-preview-article';
