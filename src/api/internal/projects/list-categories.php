@@ -3,7 +3,7 @@
     API Endpoint - /api/internal/projects/categories
     Request Method - POST
     Input Parameters:
-    url_path {string} - Part of the URL path one level above `/projects`.
+    None
     Response Parameters:
     categories {string[]} - String array of all available categories.
 */
