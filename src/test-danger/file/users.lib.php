@@ -59,8 +59,8 @@ function edit_user($id, $name, $email, $avatar) {
             $db[$key]['email'] = $email;
             $db[$key]['avatar'] = $avatar;
         }
+        save();
     }
-    save();
 }
 
 ?>
