@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
+// Headers
+header('Content-Type: application/json');
 
 if (isset($postData['url_path'])) {
     $url = $postData['url_path'];
