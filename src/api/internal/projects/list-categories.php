@@ -32,4 +32,4 @@ $categories = [
     ["id" => "steam-workshop", "displayName" => "Steam - Workshop Item"]
 ];
 
-echo json_encode([["categories"] => $categories]);
+echo json_encode(["categories" => $categories]);
