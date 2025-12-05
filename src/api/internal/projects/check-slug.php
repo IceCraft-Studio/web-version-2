@@ -11,6 +11,7 @@
 
 //?? Could define it by category in the future so /projects/java-datapacks/*project-title* in the future
 
+//Common Headers
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -21,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
-// Headers
 
 if (isset($postData['url_path'])) {
     $url = $postData['url_path'];
