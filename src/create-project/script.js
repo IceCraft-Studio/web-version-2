@@ -95,7 +95,7 @@ async function fillCategories(selectElement) {
 	const response = await fetch(req);
 	const jsonData = await response.json();
 
-	for (const category in jsonData['categories']) {
+	for (const category of jsonData['categories']) {
 		selectElement.insertAdjacentHTML(
 			'beforeend',
 			`<option value="${category.id}">${category.displayName}</option>`
