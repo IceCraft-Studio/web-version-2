@@ -26,9 +26,7 @@ async function main() {
 	let galleryIndex = -1;
 	let markdownEdited = false;
 	const elements = {
-		descriptionInput: document.querySelector(
-			'textarea#input-description'
-		),
+		descriptionInput: document.querySelector('textarea#input-description'),
 		markdownInput: document.getElementById(ARTICLE_EDIT_ID),
 		markdownOutput: document.getElementById(ARTICLE_PREVIEW_ID),
 		previewButton: document.getElementById(BUTTON_PREVIEW_ID),
@@ -54,10 +52,8 @@ async function main() {
 	});
 	// Prevent newlines in description
 	elements.descriptionInput.addEventListener('input', () => {
-		elements.descriptionInput.value = elements.descriptionInput.value.replace(
-			/\r?\n|\r/g,
-			''
-		);
+		elements.descriptionInput.value =
+			elements.descriptionInput.value.replace(/\r?\n|\r/g, '');
 	});
 	// Gallery
 	galleryUpdate(elements, galleryIndex);
@@ -81,17 +77,29 @@ function removeEmptyCategory(event) {
 	}
 }
 
-function fillCategories(selectElement) {
-	selectElement.innerHTML += `<option value=""></option>`;
-	selectElement.innerHTML += `
-                        <option value="bedrock-addon">MC Bedrock - Add-on</option>
-                        <option value="bedrock-map">MC Bedrock - Map</option>
-                        <option value="java-map">MC Java - Map</option>
-                        <option value="java-mod">MC Java - Mod</option>
-                        <option value="java-datapack">MC Java - Datapack</option>
-                        <option value="vscode-extension">VSCode - Extension</option>
-                        <option value="steam-workshop">Steam - Workshop Item</option>`;
-	// TODO Replace with php json API endpoint /api/categories
+async function fillCategories(selectElement) {
+	selectElement.insertAdjacentHTML('beforeend', `<option value=""></option>`);
+
+	const reqHeaders = new Headers();
+	reqHeaders.set('Accept', 'application/json');
+	reqHeaders.set('Content-Type', 'application/json');
+
+	const options = {
+		method: 'POST',
+		headers: reqHeaders,
+		body: '',
+	};
+	const req = new Request(LIST_CATEGORIES_ENDPOINT, options);
+
+	const response = await fetch(req);
+	const jsonData = await response.json();
+
+	for (const category in jsonData['categories']) {
+		selectElement.insertAdjacentHTML(
+			'beforeend',
+			`<option value="${category.id}">${category.displayName}</option>`
+		);
+	}
 }
 
 async function galleryUpdate(elements, galleryIndex) {
@@ -108,10 +116,14 @@ async function galleryUpdate(elements, galleryIndex) {
 	elements.galleryUploadInput = document.querySelector(GALLERY_UPLOAD_SELECT);
 
 	elements.galleryUploadInput.addEventListener('change', async (e) => {
-		await processGalleryFileUpload(e.target.files[0], elements, galleryIndex);
+		await processGalleryFileUpload(
+			e.target.files[0],
+			elements,
+			galleryIndex
+		);
 	});
-	elements.dropUploadInput.addEventListener("dragover", (e) => {
-  		e.preventDefault();
+	elements.dropUploadInput.addEventListener('dragover', (e) => {
+		e.preventDefault();
 	});
 	elements.dropUploadInput.addEventListener('drop', async (e) => {
 		e.preventDefault();
@@ -200,21 +212,21 @@ async function validateImageAspectRatio(objectUrl, targetRatio) {
  * @returns {string} Camel case text.
  */
 function parseKebabToCamelCase(text) {
-	let newText = ""; 
+	let newText = '';
 	let nextCharUpper = false;
-	for (let i = 0;i < text.length; i++) {
+	for (let i = 0; i < text.length; i++) {
 		const currentChar = text[i];
-		if (currentChar == "-") {
+		if (currentChar == '-') {
 			nextCharUpper = true;
-			continue
+			continue;
 		}
-		if (currentChar == " ") {
-			continue
+		if (currentChar == ' ') {
+			continue;
 		}
 		if (nextCharUpper) {
 			newText += currentChar.toUpperCase();
 			nextCharUpper = false;
-			continue
+			continue;
 		}
 		newText += currentChar.toLowerCase();
 	}
@@ -298,7 +310,7 @@ function replaceUploadZone() {
  */
 async function generatePreview(inputElement, outputElement) {
 	let markdownData = inputElement.value;
-	const htmlResult = await markdownGithub(markdownData);
+	const htmlResult = markdownGithub(markdownData);
 	outputElement.innerHTML = htmlResult;
 	// fix markdown removing images (added comments cause it's a lil' strange behavior)
 	outputElement
@@ -320,7 +332,7 @@ async function generatePreview(inputElement, outputElement) {
 
 /**
  * Calls GitHub Markdown API and returns a safe HTML.
- * @param {string} data Markdown data sent in the request's body 
+ * @param {string} data Markdown data sent in the request's body
  * @returns {string} Safe HTML generated from the input MD.
  */
 async function markdownGithub(data) {
@@ -340,7 +352,7 @@ async function markdownGithub(data) {
 	const req = new Request(MARKDOWN_URL, options);
 
 	const response = await fetch(req);
-	return response.text();
+	return await response.text();
 }
 
 /**
