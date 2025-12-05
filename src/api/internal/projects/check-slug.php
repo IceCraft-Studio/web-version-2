@@ -3,11 +3,15 @@
     API Endpoint - /api/internal/projects/check-slug
     Request Method - POST
     Input Parameters:
-    url_path - Part of the URL path one level above `/projects`.
+    url_path {string} - Part of the URL path one level above `/projects`.
+    Response Parameters:
+    available {boolean} - `true` if the URL path is available, else `false`.
     Example: {"url_path": "project-title"} checks for availability of `/projects/project-title`
 */
 
 //?? Could define it by category in the future so /projects/java-datapacks/*project-title* in the future
+
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -18,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
 // Headers
-header('Content-Type: application/json');
 
 if (isset($postData['url_path'])) {
     $url = $postData['url_path'];
