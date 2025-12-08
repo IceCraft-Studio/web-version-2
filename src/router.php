@@ -33,16 +33,24 @@ function includeTemplateFile($basePath) {
 
 $headExists = file_exists($routeHead . '.php') || file_exists($routeHead . '.html');
 $bodyExists = file_exists($routeBody . '.php') || file_exists($routeBody . '.html');
-header("Test: $route $headExists $bodyExists " . !is_dir(__DIR__ . '/' . $route));
 
 if (!is_dir(__DIR__ . '/' . $route) || !$headExists || !$bodyExists) {
     http_response_code(404);
-
     $routeHead = __DIR__ . '/404/head';
     $routeBody = __DIR__ . '/404/body';
 }
 
 // Constructor of all output documents
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $routePost  = __DIR__ . '/' . $route . '/post.php';
+    $postExists = file_exists($routePost);
+    if (!$postExists) {
+        http_response_code(405);
+        echo "POST is not allowed on this URL!";
+        exit();
+    }
+    include $routePost;
+}
 echo '<!DOCTYPE html><html>';
 echo '<head>';
 include $commonHead;

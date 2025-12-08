@@ -1,6 +1,15 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_POST['login_username'] == "user" && $_POST['login_password'] == "password") {
+        
+    } else {
+
+    }
+}
+?>
 <main>
     <h1>Login</h1>
-    <form method="post">
+    <form action="" method="POST">
         <div class="row">
             <label for="login_username">Username:</label>
             <input type="text" minlength="4" maxlength="32" name="login_username">
