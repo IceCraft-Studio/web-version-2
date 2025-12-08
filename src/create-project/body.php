@@ -1,3 +1,6 @@
+<?php
+
+?>
 <main>
     <h1>Create a new Project</h1>
     <div>
@@ -70,11 +73,27 @@
         <div class="downloads-part">
             <div class="field">
             <h3>Upload a file</h3>
-
+            <div id="file-adder">
+                <div>
+                    <p>File #1 to download the project.</p>
+                    <label for="input-link-url-0">URL:</label>
+                    <input type="text" name="link-url[0]" id="input-link-url-0">
+                    <label for="input-link-name-0">Display Name:</label>
+                    <input type="text" name="link-name[0]" id="input-link-name-0">
+                </div>
+            </div>
             </div>
             <div class="field">
             <h3>Add a link</h3>
-
+            <div id="link-adder">
+                <div>
+                    <p>Link #1 to download the project.</p>
+                    <label for="input-link-url-0">URL:</label>
+                    <input type="text" name="link-url[0]" id="input-link-url-0">
+                    <label for="input-link-name-0">Display Name:</label>
+                    <input type="text" name="link-name[0]" id="input-link-name-0">
+                </div>
+            </div>
             </div>
             <input type="submit" value="Create Project">
         </div>
