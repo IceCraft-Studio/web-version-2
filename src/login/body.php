@@ -1,18 +1,12 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['login_username'] == "user" && $_POST['login_password'] == "password") {
-        
-    } else {
-
-    }
-}
+$prefillUsername = isset($_POST['login_username']) ? htmlspecialchars($_POST['login_username']) : '';
 ?>
 <main>
     <h1>Login</h1>
     <form action="" method="POST">
         <div class="row">
             <label for="login_username">Username:</label>
-            <input type="text" minlength="4" maxlength="32" name="login_username">
+            <input type="text" minlength="4" maxlength="32" name="login_username" value="<?= $prefillUsername ?>">
         </div>
         <div class="row">
             <label for="login_password">Password:</label>
