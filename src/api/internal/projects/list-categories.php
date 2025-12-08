@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
 
+// TODO Save in SQL database
 $categories = [
     ["id" => "bedrock-addon", "displayName" => "MC Bedrock - Add-on"],
     ["id" => "bedrock-map", "displayName" => "MC Bedrock - Map"],

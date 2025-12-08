@@ -38,7 +38,8 @@
 	--color-lighter-black: hsl(227, 25%, 10%);
 	--color-primary: hsl(224, 80%, 45%);
 	--color-primary-trans: hsla(224, 80%, 45%, 0.8);
-	--color-required-field: hsl(0, 100%, 60%);
+	--color-important-red: hsl(0, 100%, 60%);
+	--color-required-field: var(--color-important-red);
     --color-primary-disabled:  hsl(224, 80%, 30%);
 }
 
