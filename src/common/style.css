@@ -64,7 +64,7 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 a:focus-visible {
-	outline: 0.15em solid var(--color-focus-outline);
+	outline: 0.12em solid var(--color-focus-outline);
 }
 
 input {
