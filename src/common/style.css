@@ -151,7 +151,7 @@ button:disabled {
     z-index: 99;
 
     background-color: var(--color-2-trans);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(3px);
 
     border-color: var(--color-primary);
     border-width: 0 0 0.3rem 0;

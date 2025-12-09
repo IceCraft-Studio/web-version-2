@@ -1,4 +1,9 @@
 <?php
+// Prefill the form in case it's sent back
+$prefillTitle = isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '';
+$prefillDescription = isset($_POST['description']) ? htmlspecialchars($_POST['description']) : '';
+$prefillCategory = isset($_POST['category']) ? htmlspecialchars($_POST['category']) : '';
+$prefillMarkdown = isset($_POST['markdown-article']) ? htmlspecialchars($_POST['markdown-article']) : '';
 
 ?>
 <main>
@@ -6,7 +11,7 @@
     <div>
         Fields marked with <span class="color-required">*</span> are required!
     </div>
-    <form method="post" enctype="multipart/form-data" action="https://zwa.toad.cz/~xklima/vypisform.php">
+    <form method="post" enctype="multipart/form-data" action="">
         <h2>Introduction</h2>
         <div class="introduction-part">
             <div class="introduction-details">
@@ -56,7 +61,7 @@
                     <button id="btn-edit-article" disabled>Edit</button>
                     <button id="btn-preview-article">Preview</button>
                 </div>
-                <textarea id="md-input" name="md-input" required></textarea>
+                <textarea id="md-input" name="markdown-article" required></textarea>
                 <div id="md-preview" class="hidden"></div>
             </div>
             <div class="article-gallery">
