@@ -28,6 +28,7 @@ async function main() {
 	let markdownEdited = false;
 	const elements = {
 		descriptionInput: document.querySelector('textarea#input-description'),
+		slugInput: document.querySelector('textarea#input-slug'),
 		markdownInput: document.getElementById(ARTICLE_EDIT_ID),
 		markdownOutput: document.getElementById(ARTICLE_PREVIEW_ID),
 		previewButton: document.getElementById(BUTTON_PREVIEW_ID),
@@ -56,6 +57,11 @@ async function main() {
 		elements.descriptionInput.value =
 			elements.descriptionInput.value.replace(/\r?\n|\r/g, '');
 	});
+	// Prevent crap in slug
+	elements.slugInput.addEventListener('input', () => {
+		elements.slugInput.value =
+			elements.slugInput.value.replace(/[^a-z0-9-]+/g, '');
+	});
 	// Gallery
 	galleryUpdate(elements, galleryIndex);
 	// Drag n drop make it work
@@ -77,6 +83,8 @@ function removeEmptyCategory(event) {
 		event.target.removeEventListener('change', removeEmptyCategory);
 	}
 }
+
+
 
 async function fillCategories(selectElement) {
 	selectElement.insertAdjacentHTML('beforeend', `<option value=""></option>`);
