@@ -176,7 +176,7 @@ button.gallery-container img {
 }
 
 button.gallery-container img:hover {
-    filter: brightness(1.6);
+    filter: brightness(1.4);
 }
 
 button.gallery-container:active img {

@@ -16,6 +16,7 @@
 	--color-link-visitied-light: hsl(210, 100%, 40%);
 	--color-input-background-light: hsl(247, 10%, 98%);
     --color-background-overlay-light: hsla(0, 0%, 100%, 0.36);
+	--color-focus-outline-light: hsl(30, 100%, 50%);
 	/* Dark Colors */
 	--color-primary-toned-dark: hsl(229, 70%, 31%);
 	--color-1-dark: hsla(215, 15%, 10%, 0.925);
@@ -32,8 +33,8 @@
 	--color-link-visitied-dark: hsl(240, 100%, 77%);
 	--color-input-background-dark: hsl(247, 10%, 18%);
     --color-background-overlay-dark: hsla(0, 0%, 0%, 0.3);
+	--color-focus-outline-dark: hsl(60, 100%, 50%);
 	/* Common Colors */
-	--color-focus-outline: hsl(56, 100%, 50%);
 	--color-black: hsl(0, 0%, 0%);
 	--color-lighter-black: hsl(227, 25%, 10%);
 	--color-primary: hsl(224, 80%, 45%);
@@ -63,6 +64,7 @@
 	--color-anticontrast: var(--color-contrast-dark);
 	--color-input-background: var(--color-input-background-light);
     --color-background-overlay: var(--color-background-overlay-light);
+	--color-focus-outline: var(--color-focus-outline-light);
 }
 
 :root[data-theme='dark'] {
@@ -78,4 +80,5 @@
 	--color-anticontrast: var(--color-contrast-light);
 	--color-input-background: var(--color-input-background-dark);
 	--color-background-overlay: var(--color-background-overlay-dark);
+	--color-focus-outline: var(--color-focus-outline-dark);
 }
