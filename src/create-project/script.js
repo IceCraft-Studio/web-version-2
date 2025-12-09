@@ -28,7 +28,7 @@ async function main() {
 	let markdownEdited = false;
 	const elements = {
 		descriptionInput: document.querySelector('textarea#input-description'),
-		slugInput: document.querySelector('textarea#input-slug'),
+		slugInput: document.querySelector('input#input-slug'),
 		markdownInput: document.getElementById(ARTICLE_EDIT_ID),
 		markdownOutput: document.getElementById(ARTICLE_PREVIEW_ID),
 		previewButton: document.getElementById(BUTTON_PREVIEW_ID),
