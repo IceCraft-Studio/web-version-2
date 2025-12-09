@@ -5,3 +5,26 @@
 #footer {
     display: none;
 }
+
+body {
+	display: flex;
+	flex-direction: column;
+	margin: 0px;
+	min-height: 100vh;
+	color: black;
+    background-color: white;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; 
+
+	background: none;
+    pointer-events: none; 
+    image-rendering: pixelated;
+}
