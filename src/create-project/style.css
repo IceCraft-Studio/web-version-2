@@ -286,6 +286,7 @@ textarea[name="description"] {
 
 textarea#md-input {
     font-size: 1rem;
+    font-family: JetBrainsMono;
     height: 40rem;
     padding: 0.1rem;
 }

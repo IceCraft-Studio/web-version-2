@@ -12,3 +12,8 @@
     font-family: "Gantari";
     src: url("/~dobiapa2/assets/fonts/gantari-regular.ttf");
 }
+
+@font-face {
+    font-family: "JetBrainsMono";
+    src: url("/~dobiapa2/assets/fonts/jetbrains-mono.woff2");
+}
