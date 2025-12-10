@@ -10,11 +10,17 @@ require __DIR__ . "/api/libs/helpers.php";
  */
 function rerouteMiddleware($currentRoute)
 {
+    // projects/* (* - category id from database)
     if (preg_match("/^projects\/[^\/]*$/",$currentRoute)) {
         return "middleware/projects";
     }
+    // projects/**/* (* - project slug from database)
     if (preg_match("/^projects\/[^\/]*\/[^\/]*$/",$currentRoute)) {
         return "middleware/projects-page";
+    }
+    // users/* (* - username from database)
+    if (preg_match("/^users\/[^\/]*\/[^\/]*$/",$currentRoute)) {
+        return "middleware/users-page";
     }
     return $currentRoute;
 }
