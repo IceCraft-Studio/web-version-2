@@ -1,6 +1,6 @@
 <?php
 //# Libs
-require __DIR__ . "api/libs/helpers.php";
+require __DIR__ . "/api/libs/helpers.php";
 
 //# Functions
 /**
