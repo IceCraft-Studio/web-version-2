@@ -1,6 +1,4 @@
 <?php
-require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/helpers.php';
-
 const CURRENT_PAGE_CLASS = "current-page";
 $currentHome = $currentProjects = $currentAbout = $currentUser = false;
 $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
