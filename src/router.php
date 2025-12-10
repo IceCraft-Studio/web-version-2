@@ -43,7 +43,7 @@ function includeTemplateFile($basePath) {
 // GET pre-processor (optional)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $routeGet  = __DIR__ . '/' . $route . '/get.php';
-    $getExists = file_exists($getExists);
+    $getExists = file_exists($routeGet);
     if ($getExists) {
         include $routeGet;
     }
