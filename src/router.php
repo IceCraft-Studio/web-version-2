@@ -19,7 +19,7 @@ function rerouteMiddleware($currentRoute)
         return "middleware/projects-page";
     }
     // users/* (* - username from database)
-    if (preg_match("/^users\/[^\/]*\/[^\/]*$/",$currentRoute)) {
+    if (preg_match("/^users\/[^\/]*$/",$currentRoute)) {
         return "middleware/users-page";
     }
     return $currentRoute;
