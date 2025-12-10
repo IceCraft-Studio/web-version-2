@@ -30,6 +30,11 @@ function includeTemplateFile($basePath) {
 $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
 
 // Redirects
+// This router is for non-files only, so everything should be interperted as directory!!
+if (!str_ends_with($_SERVER['REQUEST_URI'], "/")) {
+    header("Location: {$_SERVER['REQUEST_URI']}/",true,301);
+}
+// Nothing goes home
 if ($route == '') {
     header("Location: ./home", true, 301);
     exit;
