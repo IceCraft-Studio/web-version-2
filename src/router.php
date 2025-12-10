@@ -1,7 +1,8 @@
 <?php
-echo $_SERVER['REQUEST_URI'] . " ";
-$route = trim(parse_url(substr($_SERVER['REQUEST_URI'],11), PHP_URL_PATH),'/');
-echo $route;
+require "api/libs/helpers.php";
+
+$route = normalizeUriRoute($_SERVER['REQUEST_URI']);
+
 // Redirects
 if ($route == '') {
     header("Location: ./home", true, 301);
