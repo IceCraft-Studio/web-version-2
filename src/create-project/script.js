@@ -52,12 +52,12 @@ async function main() {
 	elements.markdownInput.addEventListener('change', () => {
 		markdownEdited = true;
 	});
-	// Prevent newlines in description
+	// Input validation in #input-description
 	elements.descriptionInput.addEventListener('input', () => {
 		elements.descriptionInput.value =
 			elements.descriptionInput.value.replace(/\r?\n|\r/g, '');
 	});
-	// Prevent crap in slug
+	// Input validation in #input-slug
 	elements.slugInput.addEventListener('input', () => {
 		elements.slugInput.value =
 			elements.slugInput.value.replace(/[^a-z0-9-]+/g, '');
@@ -85,7 +85,10 @@ function removeEmptyCategory(event) {
 }
 
 
-
+/**
+ * Fetches categories from our API and fills them as OPTION elements.
+ * @param {HTMLSelectElement} selectElement Select element to fill with OPTION elements.
+ */
 async function fillCategories(selectElement) {
 	selectElement.insertAdjacentHTML('beforeend', `<option value=""></option>`);
 
@@ -166,7 +169,7 @@ async function processGalleryFileUpload(file, elements, galleryIndex) {
 		return false;
 	}
 	// Create image object url and ensure the correct aspect ratio
-	const imageObjectUrl = await createImageObjectUrl(file);
+	const imageObjectUrl = createImageObjectUrl(file);
 	const validAspectRatio = await validateImageAspectRatio(
 		imageObjectUrl,
 		ALLOWED_ASPECT_RATIO
@@ -188,8 +191,12 @@ async function processGalleryFileUpload(file, elements, galleryIndex) {
 	await insertFileUrl(imageObjectUrl, elements, galleryIndex);
 	return true;
 }
-
-async function createImageObjectUrl(file) {
+/**
+ * Creates an URL object from an image file. Throws if it's not a file or an image.
+ * @param {File} file The file to create the URL object from.
+ * @returns {string} The newly created object URL.
+ */
+function createImageObjectUrl(file) {
 	if (!(file instanceof File || !file.type.startsWith('image/'))) {
 		throw new Error('File is not correct.');
 	}
@@ -306,10 +313,6 @@ function generateGalleryItem(i) {
   </div>
   <input name="gallery-browser-url[${i}]" type="hidden">
 </li>`;
-}
-
-function replaceUploadZone() {
-	const html = ``;
 }
 
 /**

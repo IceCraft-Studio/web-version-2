@@ -2,6 +2,7 @@
 
 $route = trim(parse_url(substr($_SERVER['REQUEST_URI'],11), PHP_URL_PATH),'/');
 
+// Redirects
 if ($route == '') {
     header("Location: ./home", true, 301);
     exit;
@@ -15,32 +16,40 @@ $commonBodyEnd = __DIR__ . '/common/page/body-end.php';
 // If they are missing, 404 is used instead
 $routeHead  = __DIR__ . '/' . $route . '/head';
 $routeBody  = __DIR__ . '/' . $route . '/body';
+echo $route;
+
+/**
+ * 
+ * @param string $currentRoute
+ * @return string 
+ */
+function rerouteMiddleware($currentRoute) {
+    $newRoute = $currentRoute;
+    if (str_starts_with($currentRoute,"projects/")) {
+
+    }
+    return $newRoute;
+}
 
 function includeTemplateFile($basePath) {
     $file = null;
-    if (file_exists($basePath . '.php')) {
-        $file = $basePath . '.php';
-    } elseif (file_exists($basePath . '.html')) {
-        $file = $basePath . '.html';
+    if (file_exists("$basePath.php")) {
+        $file = "$basePath.php";
+    } elseif (file_exists("$basePath.html")) {
+        $file = "$basePath.html";
     }
-
-    if (!$file) {
-        return;
-    }
-
     include $file;
 }
 
-$headExists = file_exists($routeHead . '.php') || file_exists($routeHead . '.html');
-$bodyExists = file_exists($routeBody . '.php') || file_exists($routeBody . '.html');
-
-if (!is_dir(__DIR__ . '/' . $route) || !$headExists || !$bodyExists) {
-    http_response_code(404);
-    $routeHead = __DIR__ . '/404/head';
-    $routeBody = __DIR__ . '/404/body';
+// GET pre-processor (optional)
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $routeGet  = __DIR__ . '/' . $route . '/get.php';
+    $getExists = file_exists($routePost);
+    if ($getExists) {
+        include $routeGet;
+    }
 }
-
-// Constructor of all output documents
+// POST pre-processor (required)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $routePost  = __DIR__ . '/' . $route . '/post.php';
     $postExists = file_exists($routePost);
@@ -51,7 +60,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     include $routePost;
 }
-echo '<!DOCTYPE html><html>';
+
+// Checks from existing path, otherwise sends a 404 page
+$headExists = file_exists($routeHead . '.php') || file_exists($routeHead . '.html');
+$bodyExists = file_exists($routeBody . '.php') || file_exists($routeBody . '.html');
+
+if (!is_dir(__DIR__ . '/' . $route) || !$headExists || !$bodyExists) {
+    http_response_code(404);
+    $routeHead = __DIR__ . '/404/head';
+    $routeBody = __DIR__ . '/404/body';
+}
+
+// Constructor of the HTML response
+echo '<!DOCTYPE html>';
+echo '<html data-theme="dark">';
 echo '<head>';
 include $commonHead;
 includeTemplateFile($routeHead);
