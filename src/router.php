@@ -1,5 +1,5 @@
 <?php
-
+echo $_SERVER['REQUEST_URI'];
 $route = trim(parse_url(substr($_SERVER['REQUEST_URI'],11), PHP_URL_PATH),'/');
 
 // Redirects
@@ -16,7 +16,6 @@ $commonBodyEnd = __DIR__ . '/common/page/body-end.php';
 // If they are missing, 404 is used instead
 $routeHead  = __DIR__ . '/' . $route . '/head';
 $routeBody  = __DIR__ . '/' . $route . '/body';
-echo $route;
 
 /**
  * 
@@ -44,7 +43,7 @@ function includeTemplateFile($basePath) {
 // GET pre-processor (optional)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $routeGet  = __DIR__ . '/' . $route . '/get.php';
-    $getExists = file_exists($routePost);
+    $getExists = file_exists($getExists);
     if ($getExists) {
         include $routeGet;
     }
