@@ -1,10 +1,8 @@
 <?php
     require_once('_db_file.php');
-    session_start();
     if (!isset($_SESSION['user'])) {
         header('Location: login.php');
     }
-    session_abort();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +19,11 @@
     <!-- TODO: vypsat logout odkaz  a jmeno uzivatele -->
      <header>
     <?php
-        '<p>' . ($_SESSION['user']['name'] ?? 'Go Login') . '</p><a href="logout.php">Logout</a>'
+        if (isset($_SESSION['user'])) {
+            echo '<p>' . htmlspecialchars($_SESSION['user']['name']) . '</p><a href="logout.php">Logout</a>';
+        } else {
+            echo '<a href="login.php">Login</a>';
+        }
 
     ?>
     </header>

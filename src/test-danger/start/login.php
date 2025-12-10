@@ -13,7 +13,6 @@
             if (password_verify($password,$user['password'])) {
                 session_start();
                 $_SESSION['user'] = $user;
-                session_write_close();
                 header('Location: list.php');
             } else {
                 $error = "U stupid, wrong username or password!";
