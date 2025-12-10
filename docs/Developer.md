@@ -23,5 +23,11 @@ respond with status 404. This is done to prevent executing them arbitrarily with
 Based on the backend setup mentioned above, the frontend implementation needs to be adjusted to be compatible.
 
 
+Middleware is used on the backend side to intercept routes that aren't defined in the filesystem and are instead
+rerouted to a "middleware" resource that handles them by serving content dynamically based on the request URL. 
+All middleware MUST NOT use relative resources on the server as the files are at a static place
+and the URL is variable based on the client's request.
+
+
 
 # Design Guidelines
