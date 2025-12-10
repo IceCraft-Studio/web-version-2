@@ -1,5 +1,5 @@
 <?php
     $_SESSION['user'] = null;
     session_unset();
-    setcookie('PHPSESSID','',date()-1);
+    setcookie('PHPSESSID','',time()-1);
 ?>
