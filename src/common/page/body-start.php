@@ -1,15 +1,16 @@
 <?php
+require '/../../api/libs/helpers.php';
 const CURRENT_PAGE_CLASS = "current-page";
 $currentHome = $currentProjects = $currentAbout = $currentUser = false;
-$uri = substr($_SERVER['REQUEST_URI'],11);
+$route = normalizeUriRoute($_SERVER['REQUEST_URI']);
 
-if (str_starts_with($uri,'home')) {
+if (str_starts_with($route,'home')) {
     $currentHome = true;
-} elseif (str_starts_with($uri,'projects')) {
+} elseif (str_starts_with($route,'projects') || str_starts_with($route,'users')) {
     $currentProjects = true;
-} elseif (str_starts_with($uri,'about')) {
+} elseif (str_starts_with($route,'about')) {
     $currentAbout = true;
-} elseif (str_starts_with($uri,'login') || str_starts_with($uri,'register')  || str_starts_with($uri,'user')  ) {
+} elseif (str_starts_with($route,'login') || str_starts_with($route,'register')  || str_starts_with($route,'user')  ) {
     $currentUser = true;
 }
 ?>

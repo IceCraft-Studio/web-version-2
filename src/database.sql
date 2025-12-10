@@ -31,11 +31,11 @@ CREATE TABLE `category` (
 );
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `timestamp` datetime NOT NULL,
   `expires` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`token`)
 );
 
 INSERT INTO `user` (`username`, `password_hash` `role`) VALUES
