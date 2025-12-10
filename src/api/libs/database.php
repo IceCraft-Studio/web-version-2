@@ -1,3 +1,2 @@
 <?php
-echo "CANT TOUCH THIS"
-?>
+echo "CANT TOUCH THIS";

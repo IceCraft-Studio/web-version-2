@@ -8,15 +8,19 @@ require __DIR__ . "/api/libs/helpers.php";
  * @param string $currentRoute Current **normalized** route URI.
  * @return string The new nornalized route URI, it returns the input one if no rerouting occurs.
  */
-function rerouteMiddleware($currentRoute) {
-    $newRoute = $currentRoute;
-    if (str_starts_with($currentRoute,"projects/")) {
-        $newRoute = "home";
+function rerouteMiddleware($currentRoute)
+{
+    if (preg_match("/^projects\/[^\/]*$/",$currentRoute)) {
+        return "home";
     }
-    return $newRoute;
+    if (preg_match("/^projects\/[^\/]*\/[^\/]*$/",$currentRoute)) {
+        return "create-project";
+    }
+    return $currentRoute;
 }
 
-function includeTemplateFile($basePath) {
+function includeTemplateFile($basePath)
+{
     $file = null;
     if (file_exists("$basePath.php")) {
         $file = "$basePath.php";
@@ -26,19 +30,25 @@ function includeTemplateFile($basePath) {
     include $file;
 }
 
+function redirects($route)
+{
+    // This router is for non-files only, so everything should be interperted as directory!!
+    if (!str_ends_with($_SERVER['REQUEST_URI'], "/")) {
+        header("Location: {$_SERVER['REQUEST_URI']}/", true, 301);
+        exit;
+    }
+    // Nothing goes home
+    if ($route == '') {
+        header("Location: ./home", true, 301);
+        exit;
+    }
+}
+
 //# Script
 $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
 
 // Redirects
-// This router is for non-files only, so everything should be interperted as directory!!
-if (!str_ends_with($_SERVER['REQUEST_URI'], "/")) {
-    header("Location: {$_SERVER['REQUEST_URI']}/",true,301);
-}
-// Nothing goes home
-if ($route == '') {
-    header("Location: ./home", true, 301);
-    exit;
-}
+redirects($route);
 
 // These are files defining parts of the HTML common to all pages
 $commonHead = __DIR__ . '/common/page/head.php';
@@ -49,12 +59,12 @@ $route = rerouteMiddleware($route);
 
 // These are specific templates files for the route, can be .html or .php
 // If they are missing, 404 is used instead
-$routeHead  = __DIR__ . '/' . $route . '/head';
-$routeBody  = __DIR__ . '/' . $route . '/body';
+$routeHead = __DIR__ . '/' . $route . '/head';
+$routeBody = __DIR__ . '/' . $route . '/body';
 
 // GET pre-processor (optional)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $routeGet  = __DIR__ . '/' . $route . '/get.php';
+    $routeGet = __DIR__ . '/' . $route . '/get.php';
     $getExists = file_exists($routeGet);
     if ($getExists) {
         include $routeGet;
@@ -63,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 // POST pre-processor (required)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $routePost  = __DIR__ . '/' . $route . '/post.php';
+    $routePost = __DIR__ . '/' . $route . '/post.php';
     $postExists = file_exists($routePost);
     if (!$postExists) {
         http_response_code(405);
