@@ -2,5 +2,5 @@
 ?>
 <main>
     this is a specific profile of a user with all their projects
-    <?= var_dump($_SERVER) ?>
+    <?= $_SERVER['CONTEXT_DOCUMENT_ROOT'] ?>
 </main>
