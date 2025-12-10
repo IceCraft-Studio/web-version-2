@@ -50,7 +50,10 @@ $routeBody  = __DIR__ . '/' . $route . '/body';
 // GET pre-processor (optional)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $routeGet  = __DIR__ . '/' . $route . '/get.php';
-    include $routeGet;
+    $getExists = file_exists($routeGet);
+    if ($getExists) {
+        include $routeGet;
+    }
 }
 
 // POST pre-processor (required)
