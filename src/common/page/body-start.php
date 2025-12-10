@@ -1,8 +1,9 @@
 <?php
-//require '/../../api/libs/helpers.php';
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/helpers.php';
+
 const CURRENT_PAGE_CLASS = "current-page";
 $currentHome = $currentProjects = $currentAbout = $currentUser = false;
-$route = $_SERVER['REQUEST_URI'];
+$route = normalizeUriRoute($_SERVER['REQUEST_URI']);
 
 if (str_starts_with($route,'home')) {
     $currentHome = true;
