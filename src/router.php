@@ -1,5 +1,5 @@
 <?php
-echo $_SERVER['REQUEST_URI'];
+echo $_SERVER['REQUEST_URI'] . '\n';
 $route = trim(parse_url(substr($_SERVER['REQUEST_URI'],11), PHP_URL_PATH),'/');
 echo $route;
 // Redirects
