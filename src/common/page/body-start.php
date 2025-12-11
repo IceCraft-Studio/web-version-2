@@ -5,7 +5,7 @@ $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
 
 if (str_starts_with($route,'home')) {
     $currentHome = true;
-} elseif (str_starts_with($route,'projects') || str_starts_with($route,'users')) {
+} elseif (str_starts_with($route,'projects') || str_starts_with($route,'users/')) {
     $currentProjects = true;
 } elseif (str_starts_with($route,'about')) {
     $currentAbout = true;
