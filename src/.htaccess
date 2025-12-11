@@ -4,7 +4,4 @@ RewriteRule ^api/libs/.*$ router.php [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 
-RewriteCond %{REQUEST_URI} !^api/.*$
-RewriteCond %{REQUEST_URI} ^.*\.(html|php)$
-
 RewriteRule ^(.*)$ router.php [L,QSA]
