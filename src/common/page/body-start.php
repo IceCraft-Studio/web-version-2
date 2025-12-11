@@ -1,4 +1,5 @@
 <?php
+// Current Page Logic
 const CURRENT_PAGE_CLASS = "current-page";
 $currentHome = $currentProjects = $currentAbout = $currentUser = false;
 $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
@@ -12,6 +13,13 @@ if (str_starts_with($route,'home')) {
 } elseif (str_starts_with($route,'login') || str_starts_with($route,'register')  || str_starts_with($route,'profile')  ) {
     $currentUser = true;
 }
+
+//User Logic
+$userLink = "/~dobiapa2/login";
+$userName = "Login";
+$userPictureLink = "/~dobiapa2/assets/icons/steve.webp";
+
+
 ?>
 <nav id="topbar">
     <a class="icon-container" href="/~dobiapa2/home" title="IceCraft Studio">
@@ -33,9 +41,9 @@ if (str_starts_with($route,'home')) {
         </a>
     </div>
     <div class="login-container">
-        <a id="user-button-link" class="<?= $currentUser ? CURRENT_PAGE_CLASS : "" ?>" href="/~dobiapa2/login" hreflang="en" title="Login">      
-            <img id="user-button-picture" src="/~dobiapa2/assets/icons/steve.webp" alt="Placeholder profile picture" class="no-select">
-            <span id="user-button-label">Login</span>
+        <a id="user-button-link" class="<?= $currentUser ? CURRENT_PAGE_CLASS : "" ?>" href="<?= $userLink ?>" hreflang="en" title="<?= $userName ?>">      
+            <img id="user-button-picture" src="<?= $userPictureLink ?>" alt="Profile picture" class="no-select">
+            <span id="user-button-label"><?= $userName ?></span>
         </a>
     </div>
     <!-- Small viewport fallback hamburger menu (doesn't work without scripts)-->
