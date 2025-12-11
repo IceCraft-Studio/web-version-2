@@ -18,11 +18,13 @@ $csrfToken = $_SESSION['csrf-token'];
             <div class="introduction-details">
                 <div class="field">
                     <label for="input-title">Title of your project:</label>
-                    <input id="input-title" name="title" type="text" required>
+                    <input id="input-title" name="title" type="text" value="<?= $prefillTitle ?>" required>
                 </div>
                 <div class="field">
                     <label for="input-description">Brief description:</label>
-                    <textarea id="input-description" name="description" type="text" required></textarea>
+                    <textarea id="input-description" name="description" type="text" required>
+                        <?= $prefillDescription ?>
+                    </textarea>
                 </div>
                 <div class="field">
                     <label for="input-thumbnail">Thumbnail:</label>
@@ -50,7 +52,7 @@ $csrfToken = $_SESSION['csrf-token'];
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
-                <select id="input-category" name="category" required></select>
+                <select id="input-category" name="category" value="<?= $prefillCategory ?>" required></select>
             </div>
         </div>
         <h2>Article Contents</h2>
@@ -62,7 +64,9 @@ $csrfToken = $_SESSION['csrf-token'];
                     <button id="btn-edit-article" disabled>Edit</button>
                     <button id="btn-preview-article">Preview</button>
                 </div>
-                <textarea id="md-input" name="markdown-article" required></textarea>
+                <textarea id="md-input" name="markdown-article" required>
+                    <?= $prefillMarkdown ?>
+                </textarea>
                 <div id="md-preview" class="hidden"></div>
             </div>
             <div class="article-gallery">
