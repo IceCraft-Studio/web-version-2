@@ -11,7 +11,7 @@ if (!isset($_POST['csrf-token']) || !isset($_SESSION['csrf-token']) || ($_POST['
     exit;
 }
 setcookie('csrf-violation','0',time()+60);
-session_write_close();
+header('Location: /projects', true, 302);
 
 // Processing
 

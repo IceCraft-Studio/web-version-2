@@ -6,6 +6,7 @@ $prefillCategory = isset($_POST['category']) ? htmlspecialchars($_POST['category
 $prefillMarkdown = isset($_POST['markdown-article']) ? htmlspecialchars($_POST['markdown-article']) : '';
 // Get session csrf-token
 $csrfToken = $_SESSION['csrf-token'];
+session_write_close();
 ?>
 <main>
     <h1>Create a new Project</h1>
