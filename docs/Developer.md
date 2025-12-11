@@ -17,6 +17,7 @@ sending HTML data in the body. If the file isn't present, it is assumed POST req
 - All **files** located under the directory of `/src/api/libs/*` are also rerouted to this logic, meaning they always
 respond with status 404. This is done to prevent executing them arbitrarily with HTTP requests.
 - This logic is all implemented in `/src/router.php` and achieved by route rewrites in `/src/.htaccess`.
+- user shouldnt interact with file uri or query parameters unless it makes semantic sense
 
 # Frontend Implemenataion
 
