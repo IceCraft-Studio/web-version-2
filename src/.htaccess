@@ -1,7 +1,5 @@
 RewriteEngine On
 
-RewriteRule ^users/([^/]+)/picture$ api/internal/users/profile-picture.php?username=$1 [L]
-
 RewriteRule ^api/libs/.*$ router.php [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f

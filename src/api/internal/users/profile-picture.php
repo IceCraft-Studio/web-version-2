@@ -1,5 +1,4 @@
 <?php
-
 $username = $_GET['username'];
 $image_path = "/home/dobiapa2/data/profile-pictures/$username.webp";
 

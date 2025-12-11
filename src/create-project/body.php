@@ -5,6 +5,13 @@ $prefillDescription = isset($_POST['description']) ? htmlspecialchars($_POST['de
 $prefillCategory = isset($_POST['category']) ? htmlspecialchars($_POST['category']) : '';
 $prefillMarkdown = isset($_POST['markdown-article']) ? htmlspecialchars($_POST['markdown-article']) : '';
 
+session_start();
+if (!isset($_SESSION['csrf-token'])) {
+    $_SESSION['csrf-token'] = bin2hex(random_bytes(32));
+}
+$csrfToken = $_SESSION['csrf-token'];
+session_write_close();
+
 ?>
 <main>
     <h1>Create a new Project</h1>
@@ -100,6 +107,7 @@ $prefillMarkdown = isset($_POST['markdown-article']) ? htmlspecialchars($_POST['
                 </div>
             </div>
             </div>
+            <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
             <input type="submit" value="Create Project">
         </div>
     </form>
