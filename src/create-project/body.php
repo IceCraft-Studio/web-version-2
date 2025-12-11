@@ -23,9 +23,7 @@ session_write_close();
                 </div>
                 <div class="field">
                     <label for="input-description">Brief description:</label>
-                    <textarea id="input-description" name="description" type="text" required>
-                        <?= $prefillDescription ?>
-                    </textarea>
+                    <textarea id="input-description" name="description" type="text" required><?= $prefillDescription ?></textarea>
                 </div>
                 <div class="field">
                     <label for="input-thumbnail">Thumbnail:</label>
@@ -65,9 +63,7 @@ session_write_close();
                     <button id="btn-edit-article" disabled>Edit</button>
                     <button id="btn-preview-article">Preview</button>
                 </div>
-                <textarea id="md-input" name="markdown-article" required>
-                    <?= $prefillMarkdown ?>
-                </textarea>
+                <textarea id="md-input" name="markdown-article" required><?= $prefillMarkdown ?></textarea>
                 <div id="md-preview" class="hidden"></div>
             </div>
             <div class="article-gallery">
