@@ -9,4 +9,6 @@ if (!$link) {
     echo "Nepodařilo se spojit s DB.<br>";
     echo mysqli_connect_error();
     exit;
+} else { 
+    echo "Asi se podařilo lol."
 }
