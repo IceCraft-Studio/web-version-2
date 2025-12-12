@@ -2,7 +2,7 @@
 const DB_HOST = "localhost";
 const DB_NAME = "dobiapa2";
 const DB_USER = "dobiapa2";
-const DB_PASS = "webove aplikace";
+const DB_PASS = "webove aplikac";
 // pokusim se pripojit k DB stroji
 $link = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
 if (!$link) {
