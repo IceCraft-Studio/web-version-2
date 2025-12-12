@@ -21,7 +21,7 @@ $userPictureLink = "/~dobiapa2/assets/icons/steve.webp";
 
 
 ?>
-<nav id="topbar">
+<header id="topbar">
     <a class="icon-container" href="/~dobiapa2/home" title="IceCraft Studio">
         <img src="/~dobiapa2/assets/icecraft-logo.svg" alt="IceCraft Icon" class="no-select">
         <span translate="no">ICECRAFT STUDIO</span>
@@ -29,7 +29,7 @@ $userPictureLink = "/~dobiapa2/assets/icons/steve.webp";
     <button class="theme-toggle" title="Toggle Website Theme">
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon" class="no-select">
     </button>
-    <div class="links-container">
+    <nav class="links-container">
         <a href="/~dobiapa2/home" class="<?= $currentHome ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="The homepage of our web.">
             Home
         </a>
@@ -39,7 +39,7 @@ $userPictureLink = "/~dobiapa2/assets/icons/steve.webp";
         <a href="/~dobiapa2/about" class="<?= $currentAbout ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="Links to our social media accounts and other platforms.">
             About
         </a>
-    </div>
+    </nav>
     <div class="login-container">
         <a id="user-button-link" class="<?= $currentUser ? CURRENT_PAGE_CLASS : "" ?>" href="<?= $userLink ?>" hreflang="en" title="<?= $userName ?>">      
             <img id="user-button-picture" src="<?= $userPictureLink ?>" alt="Profile picture" class="no-select">
@@ -50,7 +50,7 @@ $userPictureLink = "/~dobiapa2/assets/icons/steve.webp";
     <button class="burger-menu-toggle">
         <img src="/~dobiapa2/assets/icons/tri-dash-icon.svg" alt="Burger Menu Icon" class="no-select">
     </button>
-</nav>
-<div id="links-dropdown">
+</header>
+<nav id="links-dropdown">
     <!-- Contents of this element are inserted via a script (to avoid duplicate) from #topbar > .links-container -->
-</div>
+</nav>
