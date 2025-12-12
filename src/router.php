@@ -52,6 +52,7 @@ function redirects($route)
 
 //# Script
 $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
+setcookie('message',$route,time()+60);
 
 // Redirects
 redirects($route);
