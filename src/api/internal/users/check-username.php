@@ -22,7 +22,7 @@ $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
 
 if (isset($postData['username'])) {
-    $username = $postData['username'];
+    $username = strtolower($postData['username']);
 
     if ($username == "JohnDoe") {
         echo json_encode(['available' => false]);
