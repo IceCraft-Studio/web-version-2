@@ -10,5 +10,5 @@ if (!$link) {
     echo mysqli_connect_error();
     exit;
 } else { 
-    echo "Asi se podařilo lol."
+    echo "Asi se podařilo lol.";
 }
