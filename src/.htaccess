@@ -2,6 +2,8 @@ RewriteEngine On
 
 RewriteRule ^api/libs/.*$ router.php [L,QSA]
 
+RewriteRule ^(?!api\/).*\.(html|php)$ router.php [L,QSA]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^(.*)$ router.php [L,QSA]
