@@ -19,7 +19,7 @@ CREATE TABLE `project` (
 );
 
 CREATE TABLE `project_download` (
-  `id` int AUTO_INCREMENT,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `category` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
 )
