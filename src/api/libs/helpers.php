@@ -18,3 +18,5 @@ function normalizeUriRoute($uriPath)
         )
     );
 }
+
+$viewData = ["test" => "something"];
