@@ -1,41 +1,14 @@
 <?php
 //# Libs
 require __DIR__ . "/api/libs/helpers.php";
+require __DIR__ . "/api/libs/view-data.php";
 
 //# Functions
 /**
- * Primitive middleware that works by rerouting the request based on the route.
- * @param string $currentRoute Current **normalized** route URI.
- * @return string The new nornalized route URI, it returns the input one if no rerouting occurs.
+ * Sets up rules to redirect specific routes and exits the script when redirecting.
+ * @param string $route Requested URI as **normalized** route to check against. Some rules may not use it.
+ * @return void
  */
-function rerouteMiddleware($currentRoute)
-{
-    // projects/* (* - category id from database)
-    if (preg_match("/^projects\/[^\/]*$/",$currentRoute)) {
-        return "middleware/projects";
-    }
-    // projects/**/* (* - project slug from database)
-    if (preg_match("/^projects\/[^\/]*\/[^\/]*$/",$currentRoute)) {
-        return "middleware/projects-page";
-    }
-    // users/* (* - username from database)
-    if (preg_match("/^users\/[^\/]*$/",$currentRoute)) {
-        return "middleware/users-page";
-    }
-    return $currentRoute;
-}
-
-function includeTemplateFile($basePath)
-{
-    $file = null;
-    if (file_exists("$basePath.php")) {
-        $file = "$basePath.php";
-    } elseif (file_exists("$basePath.html")) {
-        $file = "$basePath.html";
-    }
-    include $file;
-}
-
 function redirects($route)
 {
     // This router is for non-files only, so everything should be interperted as directory!!
@@ -50,66 +23,114 @@ function redirects($route)
     }
 }
 
-//# Script
-$route = normalizeUriRoute($_SERVER['REQUEST_URI']);
-setcookie('message',$route,time()+60);
+/**
+ * Primitive middleware that works by rerouting the request based on a regex match of the route.
+ * @param string $requestRoute Requested URI as **normalized** route.
+ * @return string The new normalized route URI, it returns the input one if no rerouting occurs.
+ */
+function rerouteMiddleware($requestRoute)
+{
+    // projects/* (* - category id from database)
+    if (preg_match("/^projects\/[^\/]*$/", $requestRoute)) {
+        return "middleware/projects";
+    }
+    // projects/**/* (* - project slug from database)
+    if (preg_match("/^projects\/[^\/]*\/[^\/]*$/", $requestRoute)) {
+        return "middleware/projects-page";
+    }
+    // users/* (* - username from database)
+    if (preg_match("/^users\/[^\/]*$/", $requestRoute)) {
+        return "middleware/users-page";
+    }
+    return $requestRoute;
+}
 
-// Redirects
+/**
+ * Checks if the current requested URI points to a directory, otherwise returns 404 route and set the HTTP status code.
+ * @param string $requestRoute Requested URI as **normalized** route.
+ * @return string Route where 404 controller exists if it's not a directory, otherwise the input route.
+ */
+function rerouteNotFound($requestRoute)
+{
+    if (!is_dir(__DIR__ . '/' . $requestRoute)) {
+        http_response_code(404);
+        return "middleware/404";
+    }
+    ;
+    return $requestRoute;
+}
+
+/**
+ * Loads controller for the specific page and method. Exits if the method isn't allowed.
+ * The controller file should fill the static instance of `ViewData` class used by route views.
+ * @param string $requestRoute Requested URI as **normalized** route.
+ * @param string $requestMethod The method to load the controller for. Usually from `$_SERVER['REQUEST_METHOD']`.
+ * @return void
+ */
+function loadMethodController($requestRoute, $requestMethod)
+{
+    $requestMethod = strtolower($requestMethod);
+    $controllerPath = __DIR__ . '/' . $requestRoute . '/controller.' . $requestMethod . '.php';
+    if (!file_exists($controllerPath)) {
+        http_response_code(405);
+        echo 'Method ' . strtoupper($requestMethod) . ' is not allowed on this URL!';
+        exit;
+    }
+    include $controllerPath;
+}
+
+/**
+ * Loads controller for the specific route based on its name.
+ * The view file should expect data in the static instance of `ViewData` class.
+ * @param string $requestRoute Requested URI as **normalized** route.
+ * @param string $requestMethod The method to load the controller for. Usually from `$_SERVER['REQUEST_METHOD']`.
+ * @return void
+ */
+function loadRouteView($requestRoute, $viewName)
+{
+    $viewPath = __DIR__ . '/' . $requestRoute . '/view.' . $viewName . '.php';
+    if (!file_exists($viewPath)) {
+        return;
+    }
+    include $viewPath;
+}
+
+/**
+ * Echo's the final HTML file composed of common and route specific components.
+ * @param string $requestRoute URI for route specific components as **normalized** route.
+ * @param string $commonRoute URI for common components as **normalized** route.
+ * @return void
+ */
+function composeHtmlViews($requestRoute, $commonRoute)
+{
+    echo '<!DOCTYPE html>';
+    echo '<html data-theme="dark">';
+    echo '<head>';
+    loadRouteView($commonRoute, 'head');
+    loadRouteView($requestRoute, 'head');
+    echo '</head>';
+    echo '<body>';
+    loadRouteView($commonRoute, 'body-start');
+    loadRouteView($requestRoute, 'body');
+    loadRouteView($commonRoute, 'body-end');
+    echo '</body>';
+    echo '</html>';
+}
+//# Script
+/**
+ * There are views and controllers common for all pages.
+ * @var string
+ */
+const COMMON_ROUTE = 'common/page';
+
+$route = normalizeUriRoute($_SERVER['REQUEST_URI']);
+
 redirects($route);
 
-// These are files defining parts of the HTML common to all pages
-$commonHead = __DIR__ . '/common/page/head.php';
-$commonBodyStart = __DIR__ . '/common/page/body-start.php';
-$commonBodyEnd = __DIR__ . '/common/page/body-end.php';
-
 $route = rerouteMiddleware($route);
+$route = rerouteNotFound($route);
 
-// These are specific templates files for the route, can be .html or .php
-// If they are missing, 404 is used instead
-$routeHead = __DIR__ . '/' . $route . '/head';
-$routeBody = __DIR__ . '/' . $route . '/body';
+loadMethodController(COMMON_ROUTE, $_SERVER['REQUEST_METHOD']);
+loadMethodController($route, $_SERVER['REQUEST_METHOD']);
 
-// GET pre-processor (optional)
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $routeGet = __DIR__ . '/' . $route . '/get.php';
-    $getExists = file_exists($routeGet);
-    if ($getExists) {
-        include $routeGet;
-    }
-}
-
-// POST pre-processor (required)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $routePost = __DIR__ . '/' . $route . '/post.php';
-    $postExists = file_exists($routePost);
-    if (!$postExists) {
-        http_response_code(405);
-        echo "POST is not allowed on this URL!";
-        exit; // `post.php` is required to allow POST on a URL, hence the `exit` function
-    }
-    include $routePost;
-}
-
-// Checks from existing path, otherwise sends a 404 page
-$headExists = file_exists($routeHead . '.php') || file_exists($routeHead . '.html');
-$bodyExists = file_exists($routeBody . '.php') || file_exists($routeBody . '.html');
-
-if (!is_dir(__DIR__ . '/' . $route) || !$headExists || !$bodyExists) {
-    http_response_code(404);
-    $routeHead = __DIR__ . '/404/head';
-    $routeBody = __DIR__ . '/404/body';
-}
-
-// Constructor of the HTML response
-echo '<!DOCTYPE html>';
-echo '<html data-theme="dark">';
-echo '<head>';
-include $commonHead;
-includeTemplateFile($routeHead);
-echo '</head>';
-echo '<body>';
-include $commonBodyStart;
-includeTemplateFile($routeBody);
-include $commonBodyEnd;
-echo '</body>';
-echo '</html>';
+composeHtmlViews($route, COMMON_ROUTE);
