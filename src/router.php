@@ -123,13 +123,19 @@ function composeHtmlViews($requestRoute, $commonRoute)
  */
 const COMMON_ROUTE = 'common/page';
 
+/**
+ * The normalized route used to determine which controllers and views to load.
+ * @var string
+ */
 $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
 
+// Redirects and reroutes can occur here. Redirects are HTTP 3xx, reroutes are for internal logic only. 
 redirects($route);
 
 $route = rerouteMiddleware($route);
 $route = rerouteNotFound($route);
 
+// From here on the route doesn't change and the controllers and views kick in.
 loadMethodController(COMMON_ROUTE, $_SERVER['REQUEST_METHOD']);
 loadMethodController($route, $_SERVER['REQUEST_METHOD']);
 

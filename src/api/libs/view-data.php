@@ -14,7 +14,7 @@ class ViewData
      * Here the models can write data and views can read them.
      * @var array
      */
-    public readonly array $state;
+    public array $state; // try with readonly, otherwise object , constructor: $this->state = (object) [];
 
     private function __construct()
     {
