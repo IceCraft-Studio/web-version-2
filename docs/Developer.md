@@ -2,7 +2,7 @@
 
 This project is designed to work with Apache 2.4 and PHP 8.1 running on a modern Linux system (kernel 6.0+).
 The `/src` directory contains what is intended to be in the root folder for the Apache instance to start the web server.
-The information required to access the database must be passed using environment variables. Currently a file hidden from version control `/src/api/lib/secure/database-env.php` is used to inject the env vars.
+The information required to access the database must be passed using environment variables. Currently a file hidden from version control `/src/api/libs/secure/database-env.php` is used to inject the env vars.
 
 # Backend Architecture and Code Structure
 
