@@ -16,7 +16,8 @@ const ALLOWED_IMAGE_TYPES = Object.freeze([
 	'image/webp',
 ]);
 const ALLOWED_ASPECT_RATIO = 16 / 9;
-const MAX_ALLOWED_FILE_SIZE_MB = 8;
+const MAX_ALLOWED_IMAGE_SIZE_MB = 8;
+const MAX_ALLOWED_UPLOAD_SIZE_MB = 20;
 
 const HIDDEN_CLASS = 'hidden';
 const COPIED_CLASS = 'copied';
@@ -83,7 +84,6 @@ function removeEmptyCategory(event) {
 		event.target.removeEventListener('change', removeEmptyCategory);
 	}
 }
-
 
 /**
  * Fetches categories from our API and fills them as OPTION elements.
@@ -155,7 +155,7 @@ async function processGalleryFileUpload(file, elements, galleryIndex) {
 	//Check file size and type
 	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
 	if (
-		sizeMB > MAX_ALLOWED_FILE_SIZE_MB ||
+		sizeMB > MAX_ALLOWED_IMAGE_SIZE_MB ||
 		!ALLOWED_IMAGE_TYPES.includes(file.type)
 	) {
 		elements.galleryUploadInput.value = null;

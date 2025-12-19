@@ -11,10 +11,10 @@ class ViewData
     private static ?self $instance = null;
 
     /**
-     * Here the models can write data and views can read them.
+     * Here are the data stored, accessed by `getState` method.
      * @var array
      */
-    public array $state; // try with readonly, otherwise object , constructor: $this->state = (object) [];
+    private array $state;
 
     private function __construct()
     {
@@ -22,15 +22,15 @@ class ViewData
     }
 
     /**
-     * Static function to return the only instance or initialise it. 
-     * @return ViewData
+     * Static function to return the state of the only instance. 
+     * @return array
      */
-    public static function getInstance(): self
+    public static function getState(): array
     {
         if (self::$instance === null) {
             self::$instance = new self();
         }
-        return self::$instance;
+        return self::$instance->state;
     }
 
     // Prevent cloning and unserializing
