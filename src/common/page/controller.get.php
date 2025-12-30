@@ -1,7 +1,7 @@
 <?php
 $viewState = ViewData::getState();
-$keys = array_keys($viewState);
 echo "first";
+$keys = array_keys($viewState);
 print_r($keys);
 
 // Current Page Logic
@@ -22,7 +22,11 @@ $viewState['username'] = "Login";
 $viewState['user-link'] = "/~dobiapa2/login";
 $viewState['user-profile-picture'] = "/~dobiapa2/assets/icons/steve.webp";
 
-$viewState = ViewData::getState();
 $keys = array_keys($viewState);
-echo "seconds";
+echo "second";
+print_r($keys);
+
+$viewState = ViewData::getState();
+echo "third";
+$keys = array_keys($viewState);
 print_r($keys);
