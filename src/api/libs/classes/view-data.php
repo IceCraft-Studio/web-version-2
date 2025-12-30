@@ -22,15 +22,36 @@ class ViewData
     }
 
     /**
-     * Static function to return the state of the only instance. 
-     * @return array
+     * Static function to return the the only instance. 
+     * @return self
      */
-    public static function getState(): array
+    public static function getInstance(): self
     {
         if (self::$instance === null) {
             self::$instance = new self();
         }
-        return self::$instance->state;
+        return self::$instance;
+    }
+
+    /**
+     * Set a value in the state.
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    public function set(string $key, $value): void
+    {
+        $this->state[$key] = $value;
+    }
+
+    /**
+     * Get a value from the state.
+     * @param string $key
+     * @param mixed $default
+     */
+    public function get(string $key, $default = null)
+    {
+        return $this->state[$key] ?? $default;
     }
 
     // Prevent cloning and unserializing

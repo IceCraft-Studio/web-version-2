@@ -1,32 +1,20 @@
 <?php
-$viewState = ViewData::getState();
-echo "first";
-$keys = array_keys($viewState);
-print_r($keys);
+$viewState = ViewData::getInstance();
 
 // Current Page Logic
 $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
 
 if (str_starts_with($route,'home')) {
-    $viewState['current-page'] = "home";
+    $viewState->set('current-page', 'home');
 } elseif (str_starts_with($route,'projects') || str_starts_with($route,'users/')) {
-    $viewState['current-page'] = "projects";
+    $viewState->set('current-page', "projects");
 } elseif (str_starts_with($route,'about')) {
-    $viewState['current-page'] = "about";
+    $viewState->set('current-page', 'about');
 } elseif (str_starts_with($route,'login') || str_starts_with($route,'register')  || str_starts_with($route,'profile')  ) {
-    $viewState['current-page'] = "user";
+    $viewState->set('current-page', 'user');
 }
 
 // User Display Logic
-$viewState['username'] = "Login";
-$viewState['user-link'] = "/~dobiapa2/login";
-$viewState['user-profile-picture'] = "/~dobiapa2/assets/icons/steve.webp";
-
-$keys = array_keys($viewState);
-echo "second";
-print_r($keys);
-
-$viewState = ViewData::getState();
-echo "third";
-$keys = array_keys($viewState);
-print_r($keys);
+$viewState->set('username', 'Login');
+$viewState->set('user-link', '/~dobiapa2/login');
+$viewState->set('user-profile-picture', '/~dobiapa2/assets/icons/steve.webp');

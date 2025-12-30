@@ -1,15 +1,14 @@
 <?php
-$viewState = ViewData::getState();
+$viewState = ViewData::getInstance();
 
 // Current Page Logic
 const CURRENT_PAGE_CLASS = "current-page";
-$currentPage = $viewState['current-page'];
+$currentPage = $viewState->get('current-page');
 
 //User Logic
-$userLink = $viewState['user-link'];
-$userName = $viewState['username'];
-$userPictureLink = $viewState['user-profile-picture'];
-
+$userLink = $viewState->get('user-link');
+$userName = $viewState->get('username');
+$userPictureLink = $viewState->get('user-profile-picture');
 
 ?>
 <header id="topbar">
