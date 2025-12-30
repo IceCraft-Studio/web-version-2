@@ -55,7 +55,7 @@ function rerouteNotFound($requestRoute)
 {
     if (!is_dir(__DIR__ . '/' . $requestRoute)) {
         http_response_code(404);
-        return "middleware/404";
+        return "middleware/error";
     }
     ;
     return $requestRoute;
