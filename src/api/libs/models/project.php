@@ -1,16 +1,14 @@
 <?php
-const DB_ACCESS = getDbAccessObject();
-
 function createProject() {
-
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
 }
 
 function getProjectPreview() {
-
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
 }
 
 function getProjectFull() {
-
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
 }
 
 /**
@@ -23,7 +21,7 @@ function getProjectFull() {
  * @return array
  */
 function getProjectList($listNumber, $listItems, $category = '', $sortBy = 'modified', $isAscending = false) { 
-    $dbConnection = DbConnect::getConnection(DB_ACCESS);
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
     // Prevent SQL Injection but keep the statement dynamic
     $order = $isAscending ? 'ASC' : 'DESC';
     switch ($sortBy) {

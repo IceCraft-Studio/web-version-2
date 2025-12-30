@@ -1,5 +1,4 @@
 <?php
-const DB_ACCESS = getDbAccessObject();
 /**
  * 2 days in seconds.
  */
@@ -13,7 +12,7 @@ const DEFAULT_SESSION_LENGTH = 60*60*24*2;
  * @return string|null Session token.
  */
 function createSession($username,$password,$duration = DEFAULT_SESSION_LENGTH) {
-    $dbConnection = DbConnect::getConnection(DB_ACCESS);
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
     // Generate Extremely Random Token
     $timeNow = time();
     $timeExpire = $timeNow + $duration;
@@ -39,7 +38,7 @@ function createSession($username,$password,$duration = DEFAULT_SESSION_LENGTH) {
  * @return string|null The username or null if the session's invalid.
  */
 function verifySession($token) {
-    $dbConnection = DbConnect::getConnection(DB_ACCESS);
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $stmt = $dbConnection->prepare("SELECT `username`, `expires` FROM `session` WHERE `token` = ? LIMIT 1");
     $stmt->bind_param("s", $token);
     $stmt->execute();
@@ -66,7 +65,7 @@ function verifySession($token) {
  * @return void 
  */
 function destroySession($token) {
-    $dbConnection = DbConnect::getConnection(DB_ACCESS);
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $stmt = $dbConnection->prepare('DELETE FROM `session` WHERE `token` = ?');
     $stmt->bind_param("s", $token);
     $stmt->execute();
