@@ -1,43 +1,77 @@
 CREATE TABLE `user` (
-  `username` varchar(255) NOT NULL,
+  `username` varchar(255) PRIMARY KEY,
   `password_hash` varchar(255) NOT NULL,
-  `role` int(2) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `display_name` varchar(255),
   `email` varchar(255) UNIQUE,
   `social_reddit` varchar(255),
+  `social_twitter` varchar(255),
   `social_instagram` varchar(255),
   `social_discord` varchar(255),
-  PRIMARY KEY (`username`)
+  `social_website` varchar(255),
+  `datetime_created` datetime NOT NULL,
+  FOREIGN KEY (`role`) REFERENCES `role`(`id`)
 );
 
 CREATE TABLE `project` (
   `category` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  PRIMARY KEY (`category`, `slug`)
+  `datetime_created` datetime NOT NULL,
+  `datetime_modified` datetime NOT NULL,
+  PRIMARY KEY (`category`, `slug`),
+  FOREIGN KEY (`category`) REFERENCES `category`(`id`),
+  FOREIGN KEY (`username`) REFERENCES `user`(`username`)
 );
 
-CREATE TABLE `project_download` (
+CREATE TABLE `project_gallery` (
   `id` int AUTO_INCREMENT PRIMARY KEY,
   `category` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `caption` varchar(255),
+  `in_gallery` BOOLEAN NOT NULL DEFAULT TRUE,
+  FOREIGN KEY (`category`, `slug`)
+    REFERENCES `project`(`category`, `slug`)
+)
+
+CREATE TABLE `project_link` (
+  `id` int AUTO_INCREMENT PRIMARY KEY,
+  `category` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `display_name` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  FOREIGN KEY (`category`, `slug`)
+    REFERENCES `project`(`category`, `slug`)
+)
+
+CREATE TABLE `project_upload` (
+  `id` int AUTO_INCREMENT PRIMARY KEY,
+  `category` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `display_name` varchar(255) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  FOREIGN KEY (`category`, `slug`)
+    REFERENCES `project`(`category`, `slug`)
 )
 
 CREATE TABLE `category` (
-  `id` varchar(255) NOT NULL,
+  `id` varchar(255) PRIMARY KEY,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `sessions` (
+CREATE TABLE `role` (
+  `id` varchar(255) PRIMARY KEY,
+  `name` varchar(255) NOT NULL,
+);
+
+CREATE TABLE `session` (
   `token` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `timestamp` datetime NOT NULL,
   `expires` datetime DEFAULT NULL,
-  PRIMARY KEY (`token`)
+  PRIMARY KEY (`token`,`username`),
+  FOREIGN KEY (`username`) REFERENCES `user`(`username`)
 );
-
-INSERT INTO `user` (`username`, `password_hash` `role`) VALUES
-('admin', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec',2),
-('pavel', '4d0b24ccade22df6d154778cd66baf04288aae26df97a961f3ea3dd616fbe06dcebecc9bbe4ce93c8e12dca21e5935c08b0954534892c568b8c12b92f26a2448',2);

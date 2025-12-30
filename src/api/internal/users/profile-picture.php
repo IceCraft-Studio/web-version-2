@@ -1,6 +1,9 @@
 <?php
+require "../../libs/helpers.php";
+
 $username = $_GET['username'];
-$image_path = "/home/dobiapa2/data/profile-pictures/$username.webp";
+
+$image_path = resolveDataPath('user/' . $username . '/profile-picture.webp');
 
 if (file_exists($image_path)) {
     header('Content-Type: image/webp',true);
