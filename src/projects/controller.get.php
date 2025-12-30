@@ -1,5 +1,5 @@
 <?php
-require "../api/libs/models/project.php";
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/models/project.php";
 
 const ORDER_ASCENDING = 'asc';
 const ORDER_DESCENDING = 'asc';
