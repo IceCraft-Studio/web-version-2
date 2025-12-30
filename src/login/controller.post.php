@@ -1,7 +1,5 @@
 <?php
-if ($_POST['login_username'] == "user" && $_POST['login_password'] == "password") {
-    header("Location: ../home");
-    exit();
-} else {
-    
+session_start();
+if (!isset($_POST['csrf-token']) || !isset($_SESSION['csrf-token']) || ($_POST['csrf-token'] !== $_SESSION['csrf-token'])) {
+    $_SESSION['csrf-token'] = bin2hex(random_bytes(32));
 }

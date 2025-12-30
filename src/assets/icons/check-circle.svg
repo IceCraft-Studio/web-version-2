@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   class="w-6 h-6 text-gray-800 dark:text-white"
-   aria-hidden="true"
-   fill="none"
-   viewBox="0 0 24 24"
-   version="1.1"
-   id="svg1"
-   sodipodi:docname="check-circle.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs1" />
-  <sodipodi:namedview
-     id="namedview1"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"/>
-  <path
-     stroke="currentColor"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="2.2"
-     d="m 8.15,11.446855 2.75,2.750001 4.4,-4.4000027 m 6.599999,2.2000017 a 9.8999998,9.900006 0 1 1 -19.7999986,0 9.8999998,9.900006 0 0 1 19.7999986,0 z"
-     id="path1" />
+<svg xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 24 24" version="1.1" id="svg1" sodipodi:docname="check-circle.svg">
+   <defs id="defs1"/>
+   <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25"/>
+   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="m 8.15,11.446855 2.75,2.750001 4.4,-4.4000027 m 6.599999,2.2000017 a 9.8999998,9.900006 0 1 1 -19.7999986,0 9.8999998,9.900006 0 0 1 19.7999986,0 z" id="path1"/>
 </svg>

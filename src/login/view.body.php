@@ -1,5 +1,6 @@
 <?php
 $prefillUsername = isset($_POST['login_username']) ? htmlspecialchars($_POST['login_username']) : '';
+$csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
     <h1>Login</h1>
@@ -15,6 +16,7 @@ $prefillUsername = isset($_POST['login_username']) ? htmlspecialchars($_POST['lo
         <div class="row">
             <input type="submit">
         </div>
+        <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     </form>
     <div>
         New to IceCraft Projects? <a href="/~dobiapa2/register">Register a new account!</a>

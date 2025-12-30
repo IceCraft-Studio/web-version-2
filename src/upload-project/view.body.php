@@ -44,8 +44,8 @@ session_write_close();
         <div class="details-part">
             <div class="field slug-editor">
                 <label for="input-slug">URL path on the website - leave empty to set automatically:</label>
-                <div class="slug-container">
-                    <label for="input-slug" id="slug-prefix">/projects/</label>
+                <div class="prefix-container">
+                    <label for="input-slug">/projects/</label>
                     <input id="input-slug" name="slug" type="text" value="">
                 </div>
             </div>

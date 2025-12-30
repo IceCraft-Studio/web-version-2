@@ -16,6 +16,7 @@
             <input type="password" maxlength="128" name="confirm_password">
             <div class="indicator" data-for="confirm_password"></div>
         </div>
+        <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
         <div class="row">
             <input type="submit" disabled>
             <button disabled>Button</button>
