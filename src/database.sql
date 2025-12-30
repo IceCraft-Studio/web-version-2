@@ -1,3 +1,13 @@
+CREATE TABLE `category` (
+  `id` varchar(255) PRIMARY KEY,
+  `name` varchar(255) NOT NULL
+);
+
+CREATE TABLE `role` (
+  `id` varchar(255) PRIMARY KEY,
+  `name` varchar(255) NOT NULL
+);
+
 CREATE TABLE `user` (
   `username` varchar(255) PRIMARY KEY,
   `password_hash` varchar(255) NOT NULL,
@@ -35,7 +45,7 @@ CREATE TABLE `project_gallery` (
   `in_gallery` BOOLEAN NOT NULL DEFAULT TRUE,
   FOREIGN KEY (`category`, `slug`)
     REFERENCES `project`(`category`, `slug`)
-)
+);
 
 CREATE TABLE `project_link` (
   `id` int AUTO_INCREMENT PRIMARY KEY,
@@ -45,7 +55,7 @@ CREATE TABLE `project_link` (
   `url` varchar(255) NOT NULL,
   FOREIGN KEY (`category`, `slug`)
     REFERENCES `project`(`category`, `slug`)
-)
+);
 
 CREATE TABLE `project_upload` (
   `id` int AUTO_INCREMENT PRIMARY KEY,
@@ -55,23 +65,13 @@ CREATE TABLE `project_upload` (
   `file_name` varchar(255) NOT NULL,
   FOREIGN KEY (`category`, `slug`)
     REFERENCES `project`(`category`, `slug`)
-)
-
-CREATE TABLE `category` (
-  `id` varchar(255) PRIMARY KEY,
-  `name` varchar(255) NOT NULL,
-);
-
-CREATE TABLE `role` (
-  `id` varchar(255) PRIMARY KEY,
-  `name` varchar(255) NOT NULL,
 );
 
 CREATE TABLE `session` (
   `token` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `timestamp` datetime NOT NULL,
-  `expires` datetime DEFAULT NULL,
-  PRIMARY KEY (`token`,`username`),
+  `expires` datetime NOT NULL,
+  PRIMARY KEY (`token`),
   FOREIGN KEY (`username`) REFERENCES `user`(`username`)
 );

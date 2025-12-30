@@ -1,4 +1,5 @@
 <?php
+const DB_ACCESS = getDbAccessObject();
 
 function createUser($username) {
 

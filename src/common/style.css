@@ -67,10 +67,35 @@ a:focus-visible {
 	outline: 0.12em solid var(--color-focus-outline);
 }
 
+input,
+label {
+    display: block;
+}
+
+label {
+    margin: 0.2em;
+}
+
 input {
 	font-family: 'Gantari', sans-serif;
     font-size: 1em;
 }
+
+div.field:has(*[required]) label::after {
+  content: " *";
+  color: var(--color-required-field);
+}
+
+form div.field {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.6em;
+    margin: 0.4em;
+    background-color: var(--color-background-overlay);
+    border-radius: 0.2em;
+}
+
 
 input[type='text'],
 input[type='password'] {
@@ -82,6 +107,10 @@ input[type='password'] {
 }
 
 textarea {
+    border-radius: 0;
+    border: 0.2em solid var(--color-primary);
+    margin: 0;
+    resize: none;
 	padding: 0.1em;
     background-color: var(--color-input-background);
 }
@@ -90,6 +119,8 @@ select {
     background-color: var(--color-input-background);
     margin: 0.1em;
 	padding: 0.1em;
+    border-radius: 0;
+    border: 0.2em solid var(--color-primary);
 }
 
 .color-required {
@@ -500,4 +531,12 @@ img.no-select {
 
 .hidden {
     display: none !important;
+}
+
+.monospace {
+    font-family: monospace;
+}
+
+.bold {
+    font-weight: bold;
 }

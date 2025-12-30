@@ -1,1 +1,1 @@
-<title>IceCraft Studio</title>
+<title>Profile | IceCraft Studio</title>
