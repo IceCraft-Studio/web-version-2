@@ -2,7 +2,7 @@
 //# Libs
 require __DIR__ . "/api/libs/secure/database-env.php";
 require __DIR__ . "/api/libs/helpers.php";
-require __DIR__ . "/api/libs/view-data.php";
+require __DIR__ . "/api/libs/classes/view-data.php";
 
 //# Functions
 /**
