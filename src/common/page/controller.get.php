@@ -1,5 +1,8 @@
 <?php
 $viewState = ViewData::getState();
+$keys = array_keys($viewState);
+echo "first";
+print_r($keys);
 
 // Current Page Logic
 $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
@@ -18,3 +21,8 @@ if (str_starts_with($route,'home')) {
 $viewState['username'] = "Login";
 $viewState['user-link'] = "/~dobiapa2/login";
 $viewState['user-profile-picture'] = "/~dobiapa2/assets/icons/steve.webp";
+
+$viewState = ViewData::getState();
+$keys = array_keys($viewState);
+echo "seconds";
+print_r($keys);
