@@ -540,3 +540,31 @@ img.no-select {
 .bold {
     font-weight: bold;
 }
+
+/* Form Classes */
+.prefix-container > label {
+    font-family: 'Gantari', sans-serif;
+    color: var(--color-text-disabled);
+    user-select: none;
+    text-wrap: nowrap;
+
+    border-radius: 0;
+    border: 0.2em solid var(--color-primary);
+    border-right: none;
+    margin: 0.1em;
+    margin-right: 0;
+    padding: 0.1em;
+    padding-right: 0.2em;
+
+    background-color: var(--color-input-background);
+}
+
+.prefix-container {
+    display: flex;
+}
+
+.prefix-container > input {
+    border-left: none;
+    margin-left: 0;
+    width: 100%;
+}

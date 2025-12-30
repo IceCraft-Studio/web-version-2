@@ -80,7 +80,7 @@ textarea {
     flex: 1 1 40%;
 }
 
-.slug-container > label {
+.prefix-container > label {
     font-size: 1rem;
     font-family: 'Gantari', sans-serif;
     color: var(--color-text-disabled);
@@ -98,11 +98,11 @@ textarea {
     background-color: var(--color-input-background);
 }
 
-.slug-container {
+.prefix-container {
     display: flex;
 }
 
-.slug-container > input {
+.prefix-container > input {
     border-left: none;
     margin-left: 0;
     width: 100%;
