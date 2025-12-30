@@ -1,3 +1,48 @@
+div.field:has(*[required]) label::after {
+  content: " *";
+  color: var(--color-required-field);
+}
+
+form div.field {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.6rem;
+    margin: 0.4rem;
+    background-color: var(--color-background-overlay);
+    border-radius: 0.2em;
+}
+
+input,
+label {
+    display: block;
+}
+
+label {
+    margin: 0.2em;
+}
+
+input[type="text"] {
+    font-size: 1rem;
+    border-radius: 0;
+    border: 0.2rem solid var(--color-primary);
+    margin: 0.1rem;
+}
+
+select {
+  font-size: 1rem;
+  border-radius: 0;
+  border: 0.2rem solid var(--color-primary);
+  margin: 0.1rem;
+}
+
+textarea {
+    border-radius: 0;
+    border: 0.2rem solid var(--color-primary);
+    margin: 0;
+    resize: none;
+}
+
 .introduction-details {
     display: flex;
     flex-direction: column;
