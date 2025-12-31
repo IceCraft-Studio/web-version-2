@@ -64,11 +64,22 @@ and the URL is variable based on the client's request.
 
 # Forms
 
+This is a comprehensive list of all forms
+
 ## User Facing
 
 ### Login
 
+Fields:
+- `login_username`
+- `login_password`
+
 ### Register
+
+Fields:
+- `register_username`
+- `register_password`
+- `confirm_password`
 
 ### User Profile
 
@@ -76,7 +87,7 @@ and the URL is variable based on the client's request.
 
 ### Edit Project
 
-## Admin
+## Admin Only
 
 ### Manage User
 

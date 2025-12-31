@@ -4,6 +4,18 @@ require __DIR__ . "/api/libs/secure/database-env.php";
 require __DIR__ . "/api/libs/helpers.php";
 require __DIR__ . "/api/libs/classes/view-data.php";
 
+//# Constants
+/**
+ * There are views and controllers common for all pages.
+ * @var string
+ */
+const COMMON_ROUTE = 'common/page';
+/**
+ * This is a fallback route for error responses.
+ * @var string
+ */
+const ERROR_ROUTE = 'middleware/error';
+
 //# Functions
 /**
  * Sets up rules to redirect specific routes and exits the script when redirecting.
@@ -46,42 +58,40 @@ function rerouteMiddleware($requestRoute)
     return $requestRoute;
 }
 
-/**
- * Checks if the current requested URI points to a directory, otherwise returns 404 route and set the HTTP status code.
- * @param string $requestRoute Requested URI as **normalized** route.
- * @return string Route where 404 controller exists if it's not a directory, otherwise the input route.
- */
-function rerouteNotFound($requestRoute)
-{
-    if (!is_dir(__DIR__ . '/' . $requestRoute)) {
-        http_response_code(404);
-        return "middleware/error";
-    }
-    ;
-    return $requestRoute;
-}
-
+//! Handle 404 here and make it work for general errors. By checking if directory is missing AFTER checking the file
+//! and there setting a global response code and load an error controller instead
 /**
  * Loads controller for the specific page and method. Exits if the method isn't allowed.
  * The controller file should fill the static instance of `ViewData` class used by route views.
  * @param string $requestRoute Requested URI as **normalized** route.
  * @param string $requestMethod The method to load the controller for. Usually from `$_SERVER['REQUEST_METHOD']`.
- * @return void
+ * @return string When the controller is missing the route is replaced with the error route
  */
 function loadMethodController($requestRoute, $requestMethod)
 {
     $requestMethod = strtolower($requestMethod);
-    // HEAD method should respond with identical headers to GET
+    // HEAD method should respond with identical headers to GET.
     if ($requestMethod === 'head') {
         $requestMethod = 'get';
     }
+    // Check for exisiting controller 
     $controllerPath = __DIR__ . '/' . $requestRoute . '/controller.' . $requestMethod . '.php';
     if (!file_exists($controllerPath)) {
-        http_response_code(405);
-        echo 'Method ' . strtoupper($requestMethod) . ' is not allowed on this URL!';
-        exit;
+        if (is_dir(__DIR__ . '/' . $requestRoute)) {
+            http_response_code(405); // Directory exists so method is disallowed.
+        } else {
+            http_response_code(404); // Directory is missing so the resource is not found.
+        }
+        // Invoke error controller when the requested is missing.
+        $controllerPath = __DIR__ . '/' . ERROR_ROUTE . '/controller.' . $requestMethod . '.php';
     }
     include $controllerPath;
+
+    // Rerouting to a designated error page occurs when there is an error. The status code may be set by this function or the controller itself.
+    if (http_response_code() >= 400) {
+        return ERROR_ROUTE;
+    }
+    return $requestRoute;
 }
 
 /**
@@ -123,26 +133,17 @@ function composeHtmlViews($requestRoute, $commonRoute)
 }
 //# Script
 /**
- * There are views and controllers common for all pages.
- * @var string
- */
-const COMMON_ROUTE = 'common/page';
-
-/**
  * The normalized route used to determine which controllers and views to load.
  * @var string
  */
 $route = normalizeUriRoute($_SERVER['REQUEST_URI']);
 
-// Redirects and reroutes can occur here. Redirects are HTTP 3xx, reroutes are for internal logic only. 
 redirects($route);
 
 $route = rerouteMiddleware($route);
-$route = rerouteNotFound($route);
 
-// From here on the route doesn't change and the controllers and views kick in.
 loadMethodController(COMMON_ROUTE, $_SERVER['REQUEST_METHOD']);
-loadMethodController($route, $_SERVER['REQUEST_METHOD']);
+$route = loadMethodController($route, $_SERVER['REQUEST_METHOD']);
 
 // HEAD method doesn't have response contents
 if ($_SERVER['REQUEST_METHOD'] === 'HEAD') {
