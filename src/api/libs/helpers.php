@@ -53,7 +53,8 @@ function getDbAccessObject()
  */
 function initCsrf($force = false)
 {
-    session_start();
+    if (session_status() === PHP_SESSION_NONE)
+        session_start();
     if (isset($_SESSION['csrf-token']) && !$force) {
         return;
     }
@@ -66,7 +67,8 @@ function initCsrf($force = false)
  */
 function validateCsrf()
 {
-    session_start();
+    if (session_status() === PHP_SESSION_NONE)
+        session_start();
     if (!isset($_POST['csrf-token']) || !isset($_SESSION['csrf-token']) || ($_POST['csrf-token'] !== $_SESSION['csrf-token'])) {
         initCsrf(true);
         return false;
@@ -86,16 +88,19 @@ function dbQuery($connection, $sqlQuery, $types = "", $parameters = [])
 {
     // Compose and run the query
     $stmt = $connection->prepare($sqlQuery);
-    if (!$stmt) return false;
+    if (!$stmt)
+        return false;
     if ($types !== "") {
         if (strlen($types) != count($parameters)) {
             throw new RuntimeException("Types must match the parameters.");
         }
         $bindStatus = $stmt->bind_param($types, ...$parameters);
-        if (!$bindStatus) return false;
+        if (!$bindStatus)
+            return false;
     }
     $executeStatus = $stmt->execute();
-    if (!$executeStatus) return false;
+    if (!$executeStatus)
+        return false;
     // Get results
     $result = $stmt->get_result();
     $returnValue = $result === false ? $stmt->affected_rows : $result->fetch_all(MYSQLI_ASSOC);
