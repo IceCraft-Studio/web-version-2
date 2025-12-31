@@ -1,6 +1,6 @@
 <?php
-require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
-require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
+require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
+require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
 
 enum RegisterFormError {
     case CsrfInvalid;

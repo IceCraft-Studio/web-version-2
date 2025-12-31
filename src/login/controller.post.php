@@ -1,6 +1,6 @@
 <?php
-require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
-require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
+require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
+require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
 
 const TWO_DAYS_IN_SECONDS = 60*60*24*2;
 $csrfLegit = validateCsrf();
