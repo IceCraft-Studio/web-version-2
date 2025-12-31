@@ -54,7 +54,7 @@ if ($password != $passwordConfirm) {
 $created = createUser($username,$password);
 if ($created) {
     $token = createSession($username,$password,TWO_DAYS_IN_SECONDS);
-    setcookie('token',$token,expires_or_options:time()+TWO_DAYS_IN_SECONDS,secure:true);
+    setcookie('token',$token,expires_or_options:time()+TWO_DAYS_IN_SECONDS,path:'/~dobiapa2',secure:true);
     header('Location: /~dobiapa2/profile',true,302);
     exit;
 } else {
