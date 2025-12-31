@@ -52,7 +52,7 @@ $csrfToken = $_SESSION['csrf-token'];
             <input type="submit" value="Register" disabled>
         </div>
         <?php if ($showError): ?>
-        <div class="row bold color required">
+        <div class="row bold color-required">
             <?= $errorMessage ?>
         </div>
         <?php endif; ?>

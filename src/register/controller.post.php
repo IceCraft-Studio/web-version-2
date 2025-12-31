@@ -35,12 +35,7 @@ if (!$usernameValid) {
 }
 // Check if username is taken
 $userData = getUserData($username);
-if ($userData != false) {
-    $usernameAvailable = (count($userData) > 0);
-} else {
-    $usernameAvailable = false;
-}
-if (!$usernameAvailable) {
+if ($userData !== false) {
     $viewState->set('register-error',RegisterFormError::UsernameTaken);
     return;
 }
