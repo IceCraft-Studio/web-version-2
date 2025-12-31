@@ -9,24 +9,24 @@ enum RegisterFormError {
     case PasswordInvalid;
     case PasswordMismatch;
     case ServerDatabase;
-
+    case None;
 }
 const TWO_DAYS_IN_SECONDS = 60*60*24*2;
-
-$viewState = ViewData::getInstance();
-
-$csrfLegit = validateCsrf();
-if (!$csrfLegit) {
-    $viewState->set('register-error',RegisterFormError::CsrfInvalid);
-    return;
-}
 
 $username = $_POST['username'];
 $password = $_POST['password'];
 $passwordConfirm = $_POST['confirm-password'];
 
+$viewState = ViewData::getInstance();
+
 $viewState->set('form-username',$username);
 
+// Validate CSRF
+$csrfLegit = validateCsrf();
+if (!$csrfLegit) {
+    $viewState->set('register-error',RegisterFormError::CsrfInvalid);
+    return;
+}
 // Check if username is valid
 $usernameValid = validateUsername($username);
 if (!$usernameValid) {
