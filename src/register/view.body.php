@@ -1,6 +1,7 @@
 <?php
 $viewState = ViewData::getInstance();
 $prefillUsername = htmlspecialchars($viewState->get('form-username'));
+$csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
     <h1>Register</h1>
