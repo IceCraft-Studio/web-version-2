@@ -1,4 +1,7 @@
 <?php
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
+
 $viewState = ViewData::getInstance();
 
 // Current Page Logic
