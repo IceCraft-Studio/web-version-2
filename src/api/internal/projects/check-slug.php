@@ -9,8 +9,6 @@
     Example: {"url_path": "project-title"} checks for availability of `/projects/project-title`
 */
 
-//?? Could define it by category in the future so /projects/java-datapacks/*project-title* in the future
-
 //Common Headers
 header('Content-Type: application/json');
 

@@ -71,6 +71,10 @@ function rerouteNotFound($requestRoute)
 function loadMethodController($requestRoute, $requestMethod)
 {
     $requestMethod = strtolower($requestMethod);
+    // HEAD method should respond with identical headers to GET
+    if ($requestMethod === 'head') {
+        $requestMethod = 'get';
+    }
     $controllerPath = __DIR__ . '/' . $requestRoute . '/controller.' . $requestMethod . '.php';
     if (!file_exists($controllerPath)) {
         http_response_code(405);
@@ -140,4 +144,8 @@ $route = rerouteNotFound($route);
 loadMethodController(COMMON_ROUTE, $_SERVER['REQUEST_METHOD']);
 loadMethodController($route, $_SERVER['REQUEST_METHOD']);
 
+// HEAD method doesn't have response contents
+if ($_SERVER['REQUEST_METHOD'] === 'HEAD') {
+    exit;
+}
 composeHtmlViews($route, COMMON_ROUTE);

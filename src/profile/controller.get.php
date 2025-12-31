@@ -16,9 +16,7 @@ if ($username == null) {
     exit;
 }
 
-// CSRF Protection
-session_start();
-$_SESSION['csrf-token'] = bin2hex(random_bytes(32));
+initCsrf();
 
 // Prepare fields for the page
 $viewState->set('username', $username);

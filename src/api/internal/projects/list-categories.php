@@ -8,8 +8,6 @@
     categories {string[]} - String array of all available categories.
 */
 
-//!! Will define it by category so /projects/java-datapacks/*project-title*
-
 //Common Headers
 header('Content-Type: application/json');
 

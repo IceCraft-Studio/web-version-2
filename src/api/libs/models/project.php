@@ -1,4 +1,10 @@
 <?php
+enum ProjectSort: string{
+    case Modified = 'datetime_modified';
+    case Title = 'title';
+    case Created = 'datetime_created';
+}
+
 function createProject() {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
 }
@@ -16,31 +22,18 @@ function getProjectFull() {
  * @param int $listNumber The page number.
  * @param int $listItems Amount of items per page.
  * @param string $category Filter specific category. Empty string means no filtering.
- * @param string $sortBy How to sort the projects. Valid is 'title', 'modified' or 'created'.
+ * @param ProjectSort $sortBy How to sort the projects.
  * @param bool $isAscending When `true` 'ASC' is used in the SQL query.
  * @return array
  */
-function getProjectList($listNumber, $listItems, $category = '', $sortBy = 'modified', $isAscending = false) { 
+function getProjectList($listNumber, $listItems, $category = '', $sortBy = ProjectSort::Modified, $isAscending = false) { 
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    // Prevent SQL Injection but keep the statement dynamic
     $order = $isAscending ? 'ASC' : 'DESC';
-    switch ($sortBy) {
-        case 'title':
-            $sortColumn = 'title';
-            break;
-        case 'created':
-            $sortColumn = 'datetime_created';
-            break;
-        case 'modified':
-        default:
-            $sortColumn = 'datetime_modified';
-    }
+    $offset = ($listNumber - 1) * $listItems;
+    $sortColumn = $sortBy->value;
     if ($category == '') {
-        $dbConnection->prepare("SELECT * FROM `project` ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?");
-    } else {
-
+        return dbQuery($dbConnection,"SELECT * FROM `project` ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","ii",[$listItems,$offset]);
     }
-
-    return [];
+    return dbQuery($dbConnection,"SELECT * FROM `project` WHERE `category` = ? ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","iis",[$category,$listItems,$offset]);
 }
 
