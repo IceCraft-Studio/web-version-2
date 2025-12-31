@@ -151,9 +151,9 @@ input[type="submit"]:disabled {
 }
 
 button {
-    font-size: 1em;
-    padding: 0.15em 0.5em;
-    border-radius: 0em; /* 0.35rem */
+    font-size: 1.1em;
+    padding: 0.3em 0.8em;
+    border-radius: 0em;
     border: 0.2em solid var(--color-primary);
     background-color: transparent;
 }
@@ -244,7 +244,7 @@ button:disabled {
     margin: auto 0.1rem;
 
     color: var(--color-text);
-    font-family: MinecraftTen;
+    font-family: 'MinecraftTen';
     font-size: 1.1rem;
     text-decoration: none;
     text-shadow: 1px 2px 1px var(--color-primary);
