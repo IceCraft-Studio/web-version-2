@@ -42,7 +42,11 @@ main {
 	align-items: center;
 
 	background-color: var(--color-1);
-	font-family: Ubuntu;
+	font-family: 'Ubuntu';
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Gantari', sans-serif;
 }
 
 main > * {
@@ -320,7 +324,7 @@ button:disabled {
 
     color: var(--color-text);
     text-decoration: none;
-    font-family: Gantari, sans-serif;
+    font-family: 'Gantari', sans-serif;
 	font-size: 1.2rem;
 
     background-color: transparent;
@@ -404,7 +408,7 @@ button:disabled {
     color: var(--color-text);
     text-decoration: none;
     text-align: center;
-    font-family: Gantari, sans-serif;
+    font-family: 'Gantari', sans-serif;
 	font-size: 1.2rem;
 
     border-color: transparent;

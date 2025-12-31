@@ -1,6 +1,6 @@
 <main>
     <img id="main-logo" src="/~dobiapa2/assets/icecraft-logo-wide.webp" class="no-select">
-    <h1>Free Minecraft: Bedrock Edition maps, addons and other content</h1>
+    <h1>Free Minecraft mods, VS Code extensions, Steam Workshop items and more!</h1>
     <span id="tagline">Stayin' Icy and Cool</span>
     <div id="about-us" class="info-table">
         <h2>About Us</h2>
