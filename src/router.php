@@ -82,13 +82,13 @@ function loadMethodController($requestRoute, $requestMethod)
         } else {
             http_response_code(404); // Directory is missing so the resource is not found.
         }
-        // Invoke error controller when the requested is missing.
-        $controllerPath = __DIR__ . '/' . ERROR_ROUTE . '/controller.' . $requestMethod . '.php';
+    } else {
+        include $controllerPath;
     }
-    include $controllerPath;
 
     // Rerouting to a designated error page occurs when there is an error. The status code may be set by this function or the controller itself.
     if (http_response_code() >= 400) {
+        include __DIR__ . '/' . ERROR_ROUTE . '/controller.' . $requestMethod . '.php';
         return ERROR_ROUTE;
     }
     return $requestRoute;
