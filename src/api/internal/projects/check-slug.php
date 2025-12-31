@@ -3,13 +3,13 @@
     API Endpoint - /api/internal/projects/check-slug
     Request Method - POST
     Input Parameters:
-    url_path {string} - Part of the URL path one level above `/projects`.
+    category {string} - The first segment of the url after `/projects`.
+    slug {string} - The last segment of the url after `/projects`.
     Response Parameters:
     available {boolean} - `true` if the URL path is available, else `false`.
-    Example: {"url_path": "project-title"} checks for availability of `/projects/project-title`
+    Example: {"category": "apps","slug": "project-title"} checks for availability of `/projects/apps/project-title`
 */
 
-//Common Headers
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

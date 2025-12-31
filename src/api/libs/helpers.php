@@ -107,3 +107,21 @@ function dbQuery($connection, $sqlQuery, $types = "", $parameters = [])
     $stmt->close();
     return $returnValue;
 }
+
+/**
+ * Checks if the given string is to be used as a safe and fine looking URL.
+ * @param string $str
+ * @return bool
+ */
+function isStringSafeUrl($str) {
+    return (preg_match_all('/^[a-z0-9]+(-[a-z0-9]+)*$/',$str) > 0);
+}
+
+/**
+ * Returns the same string with any potential new line removed.
+ * @param string $str
+ * @return string
+ */
+function removeNewLines($str) {
+    return preg_replace('/\R/', '', $str);
+}

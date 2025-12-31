@@ -27,6 +27,13 @@ function createUser($username,$password,$role = UserRole::User) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
 }
 
+function validateUsername($username) {
+    if (4 > strlen($username) || strlen($username) > 48) {
+        return false;
+    }
+    return isStringSafeUrl($username);
+}
+
 /**
  * Retrieves all user data from the database.
  * @param string $username Username to look for in the database.

@@ -1,14 +1,9 @@
 <?php
 require "../../libs/secure/database-env.php";
 
-const DB_HOST = getenv("DB_HOSTNAME");
-const DB_NAME = getenv("DB_DATABASE");
-const DB_USER = getenv("DB_USERNAME");
-const DB_PASS = getenv("DB_PASSWORD");
-
 function connectToDatabase()
 {
-    $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
+    $connection = mysqli_connect(getenv("DB_HOSTNAME"), getenv("DB_USERNAME"), password: getenv("DB_PASSWORD"));
     if (!$connection) {
         echo "Nepodařilo se spojit s DB.<br>";
         echo mysqli_connect_error();
@@ -17,7 +12,7 @@ function connectToDatabase()
         echo "Asi se podařilo lol.";
     }
 
-    $success = mysqli_select_db($connection, DB_NAME);
+    $success = mysqli_select_db($connection, getenv("DB_DATABASE"));
     if (!$success) {
         echo "Nepodařilo se přepnout na správnou databázi";
         return;

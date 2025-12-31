@@ -9,6 +9,13 @@ function createProject() {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
 }
 
+function validateProjectSlug($username) {
+    if (6 > strlen($username) || strlen($username) > 64) {
+        return false;
+    }
+    return isStringSafeUrl($username);
+}
+
 /**
  * Takes a specified file on the server and sets it as the profile picture for the given user. If empty deleted the file.
  * @param mixed $username
