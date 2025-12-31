@@ -37,7 +37,7 @@ function getStatusMessage(int $statusCode): string {
     return $map[$statusCode] ?? 'Error';
 }
 
-if (http_response_code() === 419) {
+if (http_response_code() === 418) {
     $errorImage = "/~dobiapa2/assets/errors/teapot.webp"; // https://www.reddit.com/r/Minecraftbuilds/comments/t0kz1j/simple_cottagecore_teapot_house_tutorial/
 } else {
     $errorImage = "/~dobiapa2/assets/errors/cracked-ice.webp";
