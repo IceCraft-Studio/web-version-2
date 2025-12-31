@@ -15,6 +15,8 @@ $statusMessage = $viewState->get('response-message');
     <?php endif; ?>
     <img src="<?= $errorImage ?>" alt="Error Illustration">
     <?php if ($statusCode === 418): ?>
-        <a href="https://www.reddit.com/r/Minecraftbuilds/comments/t0kz1j/simple_cottagecore_teapot_house_tutorial/">Taken from post by u/EXPeaches on Reddit.</a>
+        <a href="https://www.reddit.com/r/Minecraftbuilds/comments/t0kz1j/simple_cottagecore_teapot_house_tutorial/" target="_blank">
+            Taken from post by u/EXPeaches on Reddit.
+        </a>
     <?php endif; ?>
 </main>
