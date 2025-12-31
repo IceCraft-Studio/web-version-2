@@ -2,18 +2,18 @@
     <h1 id="icecraft-website-licenses">IceCraft Studio Website License & Credits</h1>
     <p>
         All of this website's source code is licensed as all IceCraft Studio software, see
-        <a href="#icecraft-software-licenses">IceCraft Studio Software Licenses</a>. Source 
+        <a href="#icecraft-software-licenses" target="_blank">IceCraft Studio Software Licenses</a>. Source 
         code for this website is available at 
-        <a href="https://github.com/IceCraft-Studio/web-version-2">website's GitHub repository</a>.
+        <a href="https://github.com/IceCraft-Studio/web-version-2" target="_blank">website's GitHub repository</a>.
     </p>
     <h2>Assets</h2>
     <p>
         This website uses some icons from the 
-        <a href="https://flowbite.com/icons/" target="_blank" rel="noopener noreferrer">Flowbite Icons</a> repository. 
+        <a href="https://flowbite.com/icons/" target="_blank">Flowbite Icons</a> repository. 
         These icons are licensed under the 
-        <a href="https://github.com/themesberg/flowbite-icons/blob/main/LICENSE">MIT license</a>.
+        <a href="https://github.com/themesberg/flowbite-icons/blob/main/LICENSE" target="_blank">MIT license</a>.
         Some assets (images/icons) used on this website are part of the Minecraft brand and are used in compliance 
-        with <a href="https://www.minecraft.net/en-us/usage-guidelines">Minecraft Usage Guidelines</a> as this 
+        with <a href="https://www.minecraft.net/en-us/usage-guidelines" target="_blank">Minecraft Usage Guidelines</a> as this 
         project is non-commercial fan-made community driven project following the rules set by Mojang and Microsoft. 
         This work is NOT endorsed, affiliated, associated or approved by Mojang or Microsoft in any way.
     </p>
@@ -22,17 +22,17 @@
         There are several fonts used on this website taken from external repositories.
         List of the fonts with links to their licenses is as follows:
         <ul>
-            <li class="font-minecraft-ten"><a href="https://fontstruct.com/fontstructions/show/2483916/minecraft-ten-14">Minecraft Ten</a></li>
-            <li class="font-gantari"><a href="https://fonts.google.com/specimen/Gantari/license">Gantari</a></li>
-            <li class="font-ubuntu"><a href="https://fonts.google.com/specimen/Ubuntu/license">Ubuntu</a></li>
-            <li class="font-jetbrains-mono"><a href="https://www.jetbrains.com/lp/mono/#license">JetBrains Mono</a></li>
+            <li class="font-minecraft-ten"><a href="https://fontstruct.com/fontstructions/show/2483916/minecraft-ten-14" target="_blank">Minecraft Ten</a></li>
+            <li class="font-gantari"><a href="https://fonts.google.com/specimen/Gantari/license" target="_blank">Gantari</a></li>
+            <li class="font-ubuntu"><a href="https://fonts.google.com/specimen/Ubuntu/license" target="_blank">Ubuntu</a></li>
+            <li class="font-jetbrains-mono"><a href="https://www.jetbrains.com/lp/mono/#license" target="_blank">JetBrains Mono</a></li>
         </ul>
     </p>
     <h1 id="icecraft-software-licenses">IceCraft Studio Software Licenses</h1>
     <p>
         All software made by <span>IceCraft Studio is licensed under the 
         <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU GPLv3 license</a> and available 
-        at GitHub either at personal <a href="https://github.com/PavelDobCZ23">profile PavelDobCZ23</a> or 
-        preferably at <a href="https://github.com/IceCraft-Studio">IceCraft Studio profile</a>.
+        at GitHub either at personal <a href="https://github.com/PavelDobCZ23" target="_blank">profile PavelDobCZ23</a> or 
+        preferably at <a href="https://github.com/IceCraft-Studio" target="_blank">IceCraft Studio profile</a>.
     </p>
 </main>
