@@ -14,4 +14,7 @@ $statusMessage = $viewState->get('response-message');
         <p>You can't use method <span class="bold"><?= $_SERVER['REQUEST_METHOD']; ?></span> on this URL <span class="bold">/<?= $route; ?></span>.</p>
     <?php endif; ?>
     <img src="<?= $errorImage ?>" alt="Error Illustration">
+    <?php if ($statusCode === 418): ?>
+        <a href="https://www.reddit.com/r/Minecraftbuilds/comments/t0kz1j/simple_cottagecore_teapot_house_tutorial/">Taken from post by u/EXPeaches on Reddit.</a>
+    <?php endif; ?>
 </main>
