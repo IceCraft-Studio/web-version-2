@@ -14,7 +14,7 @@ $csrfToken = $_SESSION['csrf-token'];
             <input type="password" minlength="8" maxlength="128" name="login_password">
         </div>
         <div class="row">
-            <input type="submit">
+            <input type="submit" value="Login">
         </div>
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     </form>

@@ -18,8 +18,7 @@
         </div>
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
         <div class="row">
-            <input type="submit" disabled>
-            <button disabled>Button</button>
+            <input type="submit" value="Register" disabled>
         </div>
     </form>
     <div>
