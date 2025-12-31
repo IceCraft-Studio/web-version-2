@@ -27,11 +27,27 @@ function createUser($username,$password,$role = UserRole::User) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
 }
 
+/**
+ * Retrieves all user data from the database.
+ * @param string $username Username to look for in the database.
+ * @return array|bool All rows of the user from the database or `false` if the user isn't found.
+ */
 function getUserData($username) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection,"SELECT * FROM `user` WHERE `username` = ? LIMIT 1","s",[$username]);
+    if (!$result || count($result) === 0) {
+        return false;
+    }
+    return $result[0];
 }
 
-function saveUserProfilePicture($username) {
+/**
+ * Takes a specified file on the server and sets it as the profile picture for the given user. If empty deleted the file.
+ * @param mixed $username
+ * @param mixed $fileLocation
+ * @return void
+ */
+function saveUserProfilePicture($username,$fileLocation) {
 
 }
 

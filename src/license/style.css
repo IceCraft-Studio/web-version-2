@@ -16,3 +16,8 @@ ul {
     font-family: "Ubuntu", sans-serif;
     font-size: 1.1em;
 }
+
+.font-jetbrains-mono {
+    font-family: "JetBrainsMono", sans-serif;
+    font-size: 0.95em;
+}

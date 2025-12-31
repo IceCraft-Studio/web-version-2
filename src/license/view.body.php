@@ -25,6 +25,7 @@
             <li class="font-minecraft-ten"><a href="https://fontstruct.com/fontstructions/show/2483916/minecraft-ten-14">Minecraft Ten</a></li>
             <li class="font-gantari"><a href="https://fonts.google.com/specimen/Gantari/license">Gantari</a></li>
             <li class="font-ubuntu"><a href="https://fonts.google.com/specimen/Ubuntu/license">Ubuntu</a></li>
+            <li class="font-jetbrains-mono"><a href="https://www.jetbrains.com/lp/mono/#license">JetBrains Mono</a></li>
         </ul>
     </p>
     <h1 id="icecraft-software-licenses">IceCraft Studio Software Licenses</h1>

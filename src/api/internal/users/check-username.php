@@ -5,7 +5,8 @@
     Input Parameters:
     username {string} - The username to check for its availability.
     Response Parameters:
-    available {boolean} - `true` if the username is available, else `false`.
+    available {boolean} - `true` if the username is available AND valid, else `false`.
+    valid {boolean} - `false` if the username is invalid, else `true`.
     Example: {"username": "john-doe"} checks for availability of username `JohnDoe`.
 */
 
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
 
-if (isset($postData['username'])) {
+if (isset($postData['username']) && $postData['username'] !== '') {
     $username = strtolower($postData['username']);
 
     if ($username == "JohnDoe") {
