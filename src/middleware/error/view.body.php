@@ -1,6 +1,6 @@
 <?php
 $route = trim(parse_url(substr($_SERVER['REQUEST_URI'],11), PHP_URL_PATH),'/');
-$code = http_response_code();
+$statusCode = http_response_code();
 $viewState = ViewData::getInstance();
 $errorImage = $viewState->get('error-image');
 $statusMessage = $viewState->get('response-message');
