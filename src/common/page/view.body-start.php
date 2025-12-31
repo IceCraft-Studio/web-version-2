@@ -31,7 +31,7 @@ $userPictureLink = $viewState->get('user-profile-picture');
         </a>
     </nav>
     <div class="login-container">
-        <a id="user-button-link" class="<?= $currentpage == 'user' ? CURRENT_PAGE_CLASS : "" ?>" href="<?= $userLink ?>" hreflang="en" title="<?= $userName ?>">      
+        <a id="user-button-link" class="<?= $currentPage == 'user' ? CURRENT_PAGE_CLASS : "" ?>" href="<?= $userLink ?>" hreflang="en" title="<?= $userName ?>">      
             <img id="user-button-picture" src="<?= $userPictureLink ?>" alt="Profile picture" class="no-select">
             <span id="user-button-label"><?= $userName ?></span>
         </a>

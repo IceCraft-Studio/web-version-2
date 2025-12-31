@@ -15,3 +15,7 @@ label {
     margin-right: 0.4em;
 }
 
+input[type="submit"] {
+    margin: 0.6em;
+}
+
