@@ -1,6 +1,6 @@
 <?php
 $viewState = ViewData::getInstance();
-$prefillUsername = htmlspecialchars($viewState->get('username'));
+$prefillUsername = htmlspecialchars($viewState->get('form-username'));
 ?>
 <main>
     <h1>Register</h1>

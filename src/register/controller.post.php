@@ -25,7 +25,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 $passwordConfirm = $_POST['confirm-password'];
 
-$viewState->set('username',$username);
+$viewState->set('form-username',$username);
 
 // Check if username is valid
 $usernameValid = validateUsername($username);
