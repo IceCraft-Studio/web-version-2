@@ -132,7 +132,7 @@ select {
 }
 
 input[type="submit"] {
-    padding: 0.1em 0.5em;
+    padding: 0.4em 0.8em;
     border-radius: 0em; /* 0.35em */
     border: 0.2em solid var(--color-text);
     background-color: var(--color-primary);
