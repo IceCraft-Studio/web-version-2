@@ -1,5 +1,4 @@
 <?php
-require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
 
 if (isset($_COOKIE['token'])) {
     setcookie('token','',expires_or_options:time()-99999,path: '/~dobiapa2',secure: true);
