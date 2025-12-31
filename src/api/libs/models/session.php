@@ -28,7 +28,7 @@ function createSession($username,$password,$duration = DEFAULT_SESSION_LENGTH) {
     $stmt->bind_param("ssss", $token, $username, $timestamp, $expires);
     $stmt->execute();
     $stmt->close();
-
+    //!! Check if it was saved to database
     return $token;
 }
 
@@ -37,7 +37,10 @@ function createSession($username,$password,$duration = DEFAULT_SESSION_LENGTH) {
  * @param string $token Token of the session to verify.
  * @return string|null The username or null if the session's invalid.
  */
-function verifySession($token) {
+function verifySession($token = '') {
+    if ($token == '') {
+        return null;
+    }
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $stmt = $dbConnection->prepare("SELECT `username`, `expires` FROM `session` WHERE `token` = ? LIMIT 1");
     $stmt->bind_param("s", $token);

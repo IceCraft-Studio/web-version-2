@@ -1,21 +1,34 @@
 <?php
-$prefillUsername = isset($_POST['login_username']) ? htmlspecialchars($_POST['login_username']) : '';
+$viewState = ViewData::getInstance();
+$loginError = $viewState->get('login-error');
+$csrfError = $viewState->get('csrf-error');
+$prefillUsername = htmlspecialchars($viewState->get('login-form-username'));
 $csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
     <h1>Login</h1>
     <form action="" method="POST">
         <div class="row">
-            <label for="login_username">Username:</label>
-            <input type="text" minlength="4" maxlength="32" name="login_username" value="<?= $prefillUsername ?>">
+            <label for="username">Username:</label>
+            <input type="text" maxlength="32" name="username" value="<?= $prefillUsername ?>" required>
         </div>
         <div class="row">
-            <label for="login_password">Password:</label>
-            <input type="password" minlength="8" maxlength="128" name="login_password">
+            <label for="password">Password:</label>
+            <input type="password" maxlength="128" name="password" required>
         </div>
         <div class="row">
-            <input type="submit" value="Login">
+            <input type="submit" value="Login" disabled>
         </div>
+        <?php if ($loginError === 1): ?>
+        <div class="row bold color-required">
+            Wrong username or password! Please try again.
+        </div>
+        <?php endif; ?>
+        <?php if ($csrfError === 1): ?>
+        <div class="row bold color-required">
+            Critical client error! Please try resending the form.
+        </div>
+        <?php endif; ?>
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     </form>
     <div>

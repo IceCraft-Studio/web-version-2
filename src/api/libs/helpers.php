@@ -46,6 +46,9 @@ function getDbAccessObject()
     ];
 }
 
+//?? Each Form could have its own CSRF, then there would be no overlap and it could be used acttually one time, destroyed after use.
+//?? Implemented as an optional string parameter to append to the a suffix name for the token.
+
 /**
  * Initializes the CSRF token into the `$_SESSION['csrf-token']`.
  * @param bool $force Set to `true` to force replacing an exisiting token. 

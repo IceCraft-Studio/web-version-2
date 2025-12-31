@@ -1,11 +1,9 @@
 <?php
+const CURRENT_PAGE_CLASS = "current-page";
+
 $viewState = ViewData::getInstance();
 
-// Current Page Logic
-const CURRENT_PAGE_CLASS = "current-page";
 $currentPage = $viewState->get('current-page');
-
-//User Logic
 $userLink = $viewState->get('user-link');
 $userName = $viewState->get('username');
 $userPictureLink = $viewState->get('user-profile-picture');
@@ -20,18 +18,22 @@ $userPictureLink = $viewState->get('user-profile-picture');
         <img src="/~dobiapa2/assets/icons/sun-moon-icon.png" alt="Theme Icon" class="no-select">
     </button>
     <nav class="links-container">
-        <a href="/~dobiapa2/home" class="<?= $currentPage == 'home' ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="The homepage of our web.">
+        <a href="/~dobiapa2/home" class="<?= $currentPage == 'home' ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en"
+            title="The homepage of our web.">
             Home
         </a>
-        <a href="/~dobiapa2/projects" class="<?= $currentPage == 'projects' ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="Check out our maps, addons and more content.">
+        <a href="/~dobiapa2/projects" class="<?= $currentPage == 'projects' ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en"
+            title="Check out all the published project.">
             Projects
         </a>
-        <a href="/~dobiapa2/about" class="<?= $currentPage == 'about' ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en" title="Links to our social media accounts and other platforms.">
+        <a href="/~dobiapa2/about" class="<?= $currentPage == 'about' ? CURRENT_PAGE_CLASS : "" ?>" hreflang="en"
+            title="Links to our social media accounts and other platforms.">
             About
         </a>
     </nav>
     <div class="login-container">
-        <a id="user-button-link" class="<?= $currentPage == 'user' ? CURRENT_PAGE_CLASS : "" ?>" href="<?= $userLink ?>" hreflang="en" title="<?= $userName ?>">      
+        <a id="user-button-link" class="<?= $currentPage == 'user' ? CURRENT_PAGE_CLASS : "" ?>" href="<?= $userLink ?>"
+            hreflang="en" title="<?= $userName ?>">
             <img id="user-button-picture" src="<?= $userPictureLink ?>" alt="Profile picture" class="no-select">
             <span id="user-button-label"><?= $userName ?></span>
         </a>

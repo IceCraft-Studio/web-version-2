@@ -1,20 +1,24 @@
+<?php
+$viewState = ViewData::getInstance();
+$prefillUsername = htmlspecialchars($viewState->get('username'));
+?>
 <main>
     <h1>Register</h1>
     <form method="POST" action="">
         <div class="row">
-            <label for="register_username">Username:</label>
-            <input type="text" maxlength="32" name="register_username">
-            <div class="indicator" data-for="register_username"></div>
+            <label for="username">Username:</label>
+            <input type="text" maxlength="32" name="username" value="<?= $prefillUsername ?>" required>
+            <div class="indicator" data-for="username"></div>
         </div>
         <div class="row">
-            <label for="register_password">Password:</label>
-            <input type="password" maxlength="128" name="register_password">
-            <div class="indicator" data-for="register_password"></div>
+            <label for="password">Password:</label>
+            <input type="password" maxlength="128" name="password" required>
+            <div class="indicator" data-for="password"></div>
         </div>
         <div class="row">
-            <label for="confirm_password">Confirm Password:</label>
-            <input type="password" maxlength="128" name="confirm_password">
-            <div class="indicator" data-for="confirm_password"></div>
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" maxlength="128" name="confirm-password" required>
+            <div class="indicator" data-for="confirm-password"></div>
         </div>
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
         <div class="row">

@@ -21,10 +21,16 @@ enum UserSocial: string {
  * @param mixed $username
  * @param mixed $password
  * @param UserRole $role
- * @return void
+ * @return bool
  */
 function createUser($username,$password,$role = UserRole::User) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $passwordHash = password_hash($password,PASSWORD_BCRYPT);
+    $result = dbQuery($dbConnection,'INSERT INTO `user` (`username`, `password_hash`, `role`) VALUES (?, ?, ?)',"sss",[$username,$passwordHash,$role->value]);
+    if ($result === 1) {
+        return true;
+    }
+    return false;
 }
 
 function validateUsername($username) {
@@ -32,6 +38,13 @@ function validateUsername($username) {
         return false;
     }
     return isStringSafeUrl($username);
+}
+
+function validatePassword($password) {
+    if (8 > strlen($password) || strlen($password) > 128) {
+        return false;
+    }
+    return true;
 }
 
 /**

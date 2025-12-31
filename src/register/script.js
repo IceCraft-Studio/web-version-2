@@ -1,7 +1,7 @@
 const HIDDEN_CLASS = 'hidden';
-const NAME_USERNAME = 'register_username';
-const NAME_PASSWORD = 'register_password';
-const NAME_CONFIRM = 'confirm_password';
+const NAME_USERNAME = 'username';
+const NAME_PASSWORD = 'password';
+const NAME_CONFIRM = 'confirm-password';
 const CHECK_CIRCLE_URL = '/~dobiapa2/assets/icons/check-circle.svg'
 const BANG_CIRCLE_URL = '/~dobiapa2/assets/icons/exclamation-circle.svg'
 
