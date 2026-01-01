@@ -37,4 +37,5 @@
 button.picture-container img {
     width: 100%;
     display: block;
+    border-radius: 50%;
 }
