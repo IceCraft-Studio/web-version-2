@@ -26,6 +26,7 @@ $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
 
 if (isset($postData['username'])) {
+    $username = $postData['username'];
     $available = (getUserData($username) === false) ? true : false;
     
     echo json_encode(['available' => $available]);
