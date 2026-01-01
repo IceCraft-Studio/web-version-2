@@ -116,6 +116,7 @@ async function verifyUsernameAvailability(username) {
 	const req = new Request(VERIFY_USERNAME_ENDPOINT, options);
 
 	const response = await fetch(req);
+	console.log(response);
 	const jsonData = await response.json();
 
 	return jsonData?.available;
