@@ -72,12 +72,6 @@ function validateForm(validValues, elements) {
 
 }
 
-function validatePassword(password) {
-	let isGood = password.length >= 8;
-	setIndicator(NAME_PASSWORD, isGood);
-	return isGood;
-}
-
 /**
  * Prepares verification 1.5 seconds in advance and clears any previously prepared verification.
  * @param {string} username username to verify
@@ -134,6 +128,12 @@ function correctUsernameInput(username) {
 function validateUsername(username,available) {
 	let isGood = (username.length >= 4 && username.length <= 48 && available == "1");
 	setIndicator(NAME_USERNAME, isGood);
+	return isGood;
+}
+
+function validatePassword(password) {
+	let isGood = password.length >= 8 && password.match(/[0-9]/) != null && password.match(/[a-z]/) != null && password.match(/[A-Z]/) != null;
+	setIndicator(NAME_PASSWORD, isGood);
 	return isGood;
 }
 
