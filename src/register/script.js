@@ -65,7 +65,7 @@ function validatePassword(password) {
  * @param {string} username - The username to verify.
  * @returns {bool} `true` when the username is available.
  */
-async function verifyUsernameAvailability(slug) {
+async function verifyUsernameAvailability(username) {
 
 }
 

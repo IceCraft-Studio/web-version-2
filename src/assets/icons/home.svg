@@ -2,5 +2,5 @@
 <svg xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24" version="1.1" id="svg1" sodipodi:docname="home.svg">
    <defs id="defs1"/>
    <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25"/>
-   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.44445" d="M 2.2222231,11.999972 12,2.2221722 21.777777,11.999972 M 4.6666673,10.166634 v 10.388914 a 1.222222,1.222225 0 0 0 1.222222,1.222224 h 3.6666662 v -3.666675 a 1.222222,1.222225 0 0 1 1.2222225,-1.222225 h 2.444444 a 1.222222,1.222225 0 0 1 1.222223,1.222225 v 3.666675 h 3.666665 a 1.222222,1.222225 0 0 0 1.222223,-1.222224 V 10.166634" id="path1"/>
+   <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.44445" d="M 2.2222231,11.999972 12,2.2221722 21.777777,11.999972 M 4.6666673,10.166634 v 10.388914 a 1.222222,1.222225 0 0 0 1.222222,1.222224 h 3.6666662 v -3.666675 a 1.222222,1.222225 0 0 1 1.2222225,-1.222225 h 2.444444 a 1.222222,1.222225 0 0 1 1.222223,1.222225 v 3.666675 h 3.666665 a 1.222222,1.222225 0 0 0 1.222223,-1.222224 V 10.166634" id="path1"/>
 </svg>
