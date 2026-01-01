@@ -1,4 +1,5 @@
 <?php
+require $_SERVER['CONTEXT_DOCUMENT_ROOT']. "/api/libs/secure/database-env.php";
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/helpers.php';
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/classes/db-connect.php';
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
