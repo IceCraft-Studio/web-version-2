@@ -554,6 +554,16 @@ img.no-select {
     text-align: center;
 }
 
+.warning-highlight {
+    transition: all 0.25s;
+    font-weight: bold;
+    color: var(--color-required-field);
+}
+
+.warning-pop {
+    transform: scale(105%);
+}
+
 /* Form Classes */
 .prefix-container > label {
     font-family: 'Gantari', sans-serif;

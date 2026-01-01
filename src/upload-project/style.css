@@ -337,13 +337,3 @@ form h2 {
         flex-basis: 3rem;
     }
 }
-
-.warning-highlight {
-    transition: all 0.25s;
-    font-weight: bold;
-    color: var(--color-required-field);
-}
-
-.warning-pop {
-    transform: scale(105%);
-}
