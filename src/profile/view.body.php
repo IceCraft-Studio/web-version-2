@@ -23,14 +23,22 @@ $csrfToken = $_SESSION['csrf-token'];
             <div class="picture-upload-container field">
                 <label for="input-profile-picture">Profile Picture:</label>
                 <button class="picture-container">
-                    <img src="/~dobiapa2/api/internal/users/profile-picture.php?username=<?= $username ?>" alt="Your Profile Picture" id="profile-picture-image">
+                    <img src="/~dobiapa2/api/internal/users/profile-picture.php?username=<?= $username ?>"
+                        alt="Your Profile Picture" id="profile-picture-image">
                 </button>
                 <input type="file" name="profile-picture" id="input-profile-picture">
             </div>
             <div class="stats-container field">
-                Your username is <span class="monospace"><?= $username ?></span>.<br>
-                Your account is <span class="bold"><?= $accountAge ?></span> old.<br>
-                Your role is <span class="bold"><?= $roleName ?></span>.<br>
+                <div>
+                    Your username is <span class="monospace"><?= $username ?></span>.
+                </div>
+                <div>
+
+                    Your account is <span class="bold"><?= $accountAge ?></span> old.
+                </div>
+                <div>
+                    Your role is <span class="bold"><?= $roleName ?></span>.
+                </div>
                 <a href="/~dobiapa2/users/<?= $username ?>">View all your projects.</a>
             </div>
         </div>
