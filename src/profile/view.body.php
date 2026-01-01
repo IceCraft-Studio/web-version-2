@@ -47,7 +47,7 @@ $csrfToken = $_SESSION['csrf-token'];
         <div class="field">
             <label for="input-display-name">Display Name:</label>
             <input id="input-display-name" name="display-name" placeholder="<?= $username ?>" type="text"
-                value="<?= $prefillDisplayName ?>" required>
+                value="<?= $prefillDisplayName ?>">
             <label for="input-email">E-mail Address:</label>
             <input id="input-email" name="email" type="text" value="<?= $prefillEmail ?>">
             <label for="input-socials-website">Personal Website:</label>
