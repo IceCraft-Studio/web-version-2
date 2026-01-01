@@ -40,7 +40,7 @@ $csrfToken = $_SESSION['csrf-token'];
                 <div class="indicator" data-for="username"></div>
             </div>
             <div class="hint">
-                <div  id="username-hint">Needs at least 4 characters, may contain only lowercase letters,
+                <div  id="username-hint">At least 4 characters, may contain only letters,
                     numbers and single hyphens between words.</div>
                 <div id="username-available">This username is available.</div>
                 <div id="username-taken">This username is taken! Please try another one.</div>
@@ -52,7 +52,7 @@ $csrfToken = $_SESSION['csrf-token'];
                 <input type="password" maxlength="128" name="password" required>
                 <div class="indicator" data-for="password"></div>
             </div>
-            <div class="hint">Needs at least 8 characters long, may contain at least 1 number, uppercase letter and
+            <div class="hint">At least 8 characters, may contain at least 1 number, uppercase letter and
                 lowercase letter.</div>
         </div>
         <div class="row">
