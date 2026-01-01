@@ -1,7 +1,7 @@
 <?php
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
-require __DIR__ . "enums.php";
+require __DIR__ . "/enums.php";
 
 $csrfLegit = validateCsrf();
 $userPasswordLegit = verifyUserPassword(trim($_POST['username']),$_POST['password']);
