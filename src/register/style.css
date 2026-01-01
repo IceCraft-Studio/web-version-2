@@ -25,7 +25,8 @@ input {
     flex-direction: row;
 }
 input[type="text"],input[type="password"] {
-    width: 100%;
+    box-sizing: border-box;
+    width: 85%;
 }
 
 input[type="submit"] {
