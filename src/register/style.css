@@ -4,7 +4,7 @@ main {
 
 .row {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     padding: 0.2em;
 }
@@ -20,9 +20,12 @@ input {
 }
 
 .input-group {
-    width: 20em;
+    width: 25em;
     display: flex;
     flex-direction: row;
+}
+input[type="text"],input[type="password"] {
+    width: 100%;
 }
 
 input[type="submit"] {
