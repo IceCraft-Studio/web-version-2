@@ -74,3 +74,14 @@ input[type="submit"] {
     }
 }
 
+#username-taken {
+    color: var(--color-required-field);
+}
+
+.row:has(input[name="username"][data-available="1"]) #username-taken {
+    display: none;
+}
+
+.row:has(input[name="username"][data-available="0"]) #username-available {
+    display: none;
+}

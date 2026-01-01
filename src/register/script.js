@@ -127,7 +127,7 @@ async function verifyUsernameAvailability(username) {
  * @returns {string} Corrected string.
  */
 function correctUsernameInput(username) {
-	username.toLowerCase().replace(/(-$)|(^-)|[^a-z0-9-]/gm,'');
+	return username.toLowerCase().replace(/(-$)|(^-)|[^a-z0-9-]/gm,'');
 }
 
 function validateUsername(username,available) {
