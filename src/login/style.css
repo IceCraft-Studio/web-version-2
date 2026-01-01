@@ -4,9 +4,10 @@ main {
 
 .row {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     padding: 0.2em;
+    text-align: center;
 }
 
 label {
@@ -18,4 +19,39 @@ label {
 input[type="submit"] {
     margin: 0.6em;
 }
+
+main {
+    font-size: 1.25rem;
+}
+
+label {
+    text-align: right;
+    width: 10em;
+    margin-right: 0.4em;
+}
+
+input {
+    transition: transform 0.3s ease;
+    width: 20em
+}
+
+input[type="text"],input[type="password"] {
+    width: 100%;
+}
+
+@media only screen and (max-width: 41rem) {
+    .row {
+        flex-direction: column;
+        align-items: normal;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    label {
+        text-align: left;
+    }
+}
+
 

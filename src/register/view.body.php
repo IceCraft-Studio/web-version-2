@@ -64,6 +64,6 @@ $csrfToken = $_SESSION['csrf-token'];
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     </form>
     <div>
-        Already have an IceCraft Projects account? <a href="/~dobiapa2/login">Login right here!</a>
+        Already have an IceCraft Projects account? <a href="/~dobiapa2/login" class="inline-block">Login right here!</a>
     </div>
 </main>
