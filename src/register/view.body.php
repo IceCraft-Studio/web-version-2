@@ -36,31 +36,37 @@ $csrfToken = $_SESSION['csrf-token'];
             <label for="username">Username:</label>
             <div class="input-group">
                 <input type="text" maxlength="48" name="username" value="<?= $prefillUsername ?>" data-available="1"
-                    required>
+                    id="input-username" required>
                 <div class="indicator" data-for="username"></div>
             </div>
+        </div>
+        <div class="hint-container">
             <div class="hint">
-                <div  id="username-hint">At least 4 characters, may contain only letters,
+                <div id="username-hint">At least 4 characters, may contain only letters,
                     numbers and single hyphens between words.</div>
                 <div id="username-available">This username is available.</div>
                 <div id="username-taken">This username is taken! Please try another one.</div>
             </div>
         </div>
         <div class="row">
-            <label for="password">Password:</label>
+            <label for="input-password">Password:</label>
             <div class="input-group">
-                <input type="password" maxlength="128" name="password" required>
+                <input type="password" maxlength="128" name="password" id="input-password" required>
                 <div class="indicator" data-for="password"></div>
             </div>
+        </div>
+        <div class="hint-container">
             <div class="hint">At least 8 characters, may contain at least 1 number, uppercase letter and
                 lowercase letter.</div>
         </div>
         <div class="row">
-            <label for="confirm-password">Confirm Password:</label>
+            <label for="input-confirm-password">Confirm Password:</label>
             <div class="input-group">
-                <input type="password" maxlength="128" name="confirm-password" required>
+                <input type="password" maxlength="128" name="confirm-password" id="input-confirm-password" required>
                 <div class="indicator" data-for="confirm-password"></div>
             </div>
+        </div>
+        <div class="hint-container">
             <div class="hint">The passwords must match.</div>
         </div>
         <?php if ($showError): ?>
