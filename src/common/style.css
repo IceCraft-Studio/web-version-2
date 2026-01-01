@@ -539,7 +539,7 @@ img.no-select {
 }
 
 .monospace {
-    font-family: monospace;
+    font-family: JetBrainsMono, monospace;
 }
 
 .bold {

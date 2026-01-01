@@ -3,6 +3,7 @@
  * 2 days in seconds.
  */
 const DEFAULT_SESSION_LENGTH = 60*60*24*2;
+const TOKEN_COOKIE_NAME = 'token';
 
 /**
  * Creates a new session entry in the database and returns its token.
@@ -63,14 +64,31 @@ function verifySession($token = '') {
 }
 
 /**
- * Removes the session based on the token.
+ * Removes a session based on the token.
  * @param string $token Token of the session to remove.
  * @return void 
  */
 function destroySession($token) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $stmt = $dbConnection->prepare('DELETE FROM `session` WHERE `token` = ?');
-    $stmt->bind_param("s", $token);
-    $stmt->execute();
-    $stmt->close();
+    dbQuery($dbConnection,'DELETE FROM `session` WHERE `token` = ?',"s",[$token]);
+}
+
+/**
+ * Removes sessions based on the username.
+ * @param string $username Username to remove all sessions of.
+ * @return void 
+ */
+function destroyUserSessions($username) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    dbQuery($dbConnection,'DELETE FROM `session` WHERE `username` = ?',"s",[$username]);
+}
+
+/**
+ * Runs the `setcookie` function with all the correct parameters to update the session token.
+ * @param mixed $token The session token.
+ * @param int $duration Amount of seconds the session lasts for.
+ * @return void
+ */
+function updateSessionCookie($token,$duration = DEFAULT_SESSION_LENGTH) {
+    setcookie(TOKEN_COOKIE_NAME,$token,expires_or_options:time()+TWO_DAYS_IN_SECONDS,path:'/~dobiapa2',secure:true);
 }

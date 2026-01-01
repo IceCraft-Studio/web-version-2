@@ -9,9 +9,11 @@ if (!isset($_GET['project']) || $_GET['project'] === '' || !isset($_GET['categor
 
 $project = $_GET['project'];
 $category = $_GET['category'];
-$variant = $_GET['variant'] ?? 'full'; //  'full' or 'preview'
+$variant = $_GET['variant']; //  'full' or 'preview'
 
-$image_path = resolveDataPath('project/' . $category . '/' . $project . '/thumbnail.webp');
+$variantPart = $variant == 'preview' ? '-preview' : '';
+
+$image_path = resolveDataPath('project/' . $category . '/' . $project . '/thumbnail' . $variantPart . '.webp');
 
 if (file_exists($image_path)) {
     header('Content-Type: image/webp',true);

@@ -55,9 +55,18 @@ function validateForm(validValues, elements) {
 }
 
 function validatePassword(password) {
-	let isGood = password.length >= 8 && password.length <= 128;
+	let isGood = password.length >= 8;
 	setIndicator(NAME_PASSWORD, isGood);
 	return isGood;
+}
+
+/**
+ * Verifies with the server if the username is available.
+ * @param {string} username - The username to verify.
+ * @returns {bool} `true` when the username is available.
+ */
+async function verifyUsernameAvailability(slug) {
+
 }
 
 function validateUsername(username) {

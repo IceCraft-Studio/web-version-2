@@ -1,32 +1,38 @@
 <?php
 $viewState = ViewData::getInstance();
 $loginError = $viewState->get('login-error');
-$csrfError = $viewState->get('csrf-error');
-$prefillUsername = htmlspecialchars($viewState->get('login-form-username'));
+$showError = true;
+switch ($viewState->get('register-error',LoginFormError::None)) {
+    case LoginFormError::None:
+        $showError = false;
+        break;
+    case LoginFormError::CsrfInvalid:
+        $errorMessage = 'Critical client error! Please try resending the form.';
+        break;
+    case LoginFormError::WrongCredentials:
+        $errorMessage = 'Wrong username or password! Please try again.';
+        break;
+}
+$prefillUsername = htmlspecialchars($viewState->get('form-username'));
 $csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
     <h1>Login</h1>
     <form action="" method="POST">
         <div class="row">
-            <label for="username">Username:</label>
-            <input type="text" maxlength="32" name="username" value="<?= $prefillUsername ?>" required>
+            <label for="input-username">Username:</label>
+            <input type="text" id="input-username" name="username" value="<?= $prefillUsername ?>" required>
         </div>
         <div class="row">
-            <label for="password">Password:</label>
-            <input type="password" maxlength="128" name="password" required>
+            <label for="input-password">Password:</label>
+            <input type="password" id="input-password" name="password" required>
         </div>
         <div class="row">
-            <input type="submit" value="Login" disabled>
+            <input type="submit" value="Login">
         </div>
-        <?php if ($loginError === 1): ?>
+        <?php if ($showError): ?>
         <div class="row bold color-required">
-            Wrong username or password! Please try again.
-        </div>
-        <?php endif; ?>
-        <?php if ($csrfError === 1): ?>
-        <div class="row bold color-required">
-            Critical client error! Please try resending the form.
+            <?= $errorMessage ?>
         </div>
         <?php endif; ?>
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">

@@ -128,3 +128,14 @@ function isStringSafeUrl($str) {
 function removeNewLines($str) {
     return preg_replace('/\R/', '', $str);
 }
+
+/**
+ * Redirects the user and ends the entire script.
+ * @param string $where URL to redirect to.
+ * @param int $code HTTP status code to use.
+ * @return void
+ */
+function redirect($where,$code = 302) {
+    header('Location: ' . $where,true,$code);
+    exit;
+}

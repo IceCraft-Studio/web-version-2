@@ -10,7 +10,9 @@ if (!isset($_GET['username']) || $_GET['username'] === '') {
 $username = $_GET['username'];
 $variant = $_GET['variant'] ?? 'full'; //  'full' or 'preview'
 
-$image_path = resolveDataPath('user/' . $username . '/profile-picture.webp');
+$variantPart = $variant == 'preview' ? '-preview' : '';
+
+$image_path = resolveDataPath('user/' . $username . '/profile-picture' . $variantPart . '.webp');
 
 if (file_exists($image_path)) {
     header('Content-Type: image/webp',true);

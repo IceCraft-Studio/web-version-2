@@ -5,7 +5,8 @@ enum ProjectSort: string{
     case Created = 'datetime_created';
 }
 
-function createProject() {
+// Creating Project
+function createProject($category,$slug,$username,$title,$description) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
 }
 
@@ -14,6 +15,15 @@ function validateProjectSlug($username) {
         return false;
     }
     return isStringSafeUrl($username);
+}
+
+// Basic Edits
+function changeProjectTitle($category,$slug,$newTitle) {
+
+}
+
+function changeProjectDescription($category,$slug,$description) {
+    
 }
 
 /**
@@ -26,13 +36,51 @@ function saveProjectThumbnail($username,$fileLocation) {
 
 }
 
+// Project Article
+function loadProjectArticle($category,$slug) {
 
-function getProjectPreview() {
-    $dbConnection = DbConnect::getConnection(getDbAccessObject());
 }
 
-function getProjectFull() {
+function saveProjectArticle($category,$slug,$markdown) {
+
+}
+// Project Gallery
+function addProjectGalleryImage() {
+
+}
+// Project Links
+function addProjectLink($category,$slug,$displayName,$url) {
+
+}
+
+function removeProjectLinks($category,$slug,$displayName,$url) {
+
+}
+
+// Project Files
+function addProjectFile($category,$slug,$displayName,$fileName) {
+
+}
+
+function removeProjectFiles($category,$slug) {
+
+}
+
+function loadProjectFiles($category,$slug) {
+
+}
+
+function deleteProject($category,$slug) {
+
+}
+
+function getProjectData($category,$slug) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, "SELECT * FROM `user` WHERE `category` = ? AND `slug` = ? LIMIT 1", "s", [$category,$slug]);
+    if (!$result || count($result) === 0) {
+        return false;
+    }
+    return $result[0];
 }
 
 /**
@@ -60,5 +108,14 @@ function getProjectList($listNumber, $listItems, $filters = ['category' => '', '
         return dbQuery($dbConnection,"SELECT * FROM `project` WHERE `category` = ? ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","sii",[$filters['category'],$listItems,$offset]);
     }
     return dbQuery($dbConnection,"SELECT * FROM `project` WHERE `category` = ? AND `username` = ? ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","ssii",[$filters['category'],$filters['username'],$listItems,$offset]);
+}
+
+/**
+ * Retrieves the list of all categories from the database.
+ * @return array|bool Array of all catagories or `false` if the query fails.
+ */
+function getCategories() {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    return dbQuery($dbConnection,'SELECT * FROM `category`');
 }
 

@@ -1,4 +1,5 @@
 <?php
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/project.php';
 /*
     API Endpoint - /api/internal/projects/categories
     Request Method - POST
@@ -19,15 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
 
-// TODO Save in SQL database
-$categories = [
-    ["id" => "bedrock-addon", "displayName" => "MC Bedrock - Add-on"],
-    ["id" => "bedrock-map", "displayName" => "MC Bedrock - Map"],
-    ["id" => "java-map", "displayName" => "MC Java - Map"],
-    ["id" => "java-mod", "displayName" => "MC Java - Mod"],
-    ["id" => "java-datapack", "displayName" => "MC Java - Datapack"],
-    ["id" => "vscode-extension", "displayName" => "VSCode - Extension"],
-    ["id" => "steam-workshop", "displayName" => "Steam - Workshop Item"]
-];
+$categories = getCategories();
+if ($categories === false) {
+    http_response_code(500);
+    json_encode(["error" => "Database Error"]);
+    exit;
+}
 
 echo json_encode(["categories" => $categories]);

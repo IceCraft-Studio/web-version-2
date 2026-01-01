@@ -1,11 +1,10 @@
 <?php
+require __DIR__ . "enums.php";
+
 if (verifySession($_COOKIE['token'] ?? '') != null) {
-    header('Location: /~dobiapa2/profile',true,302);
-    exit;
+    redirect('/~dobiapa2/profile');
 }
 initCsrf();
 
 $viewState = ViewData::getInstance();
-$viewState->set('login-error',0);
-$viewState->set('csrf-error',0);
-$viewState->set('login-form-username','');
+$viewState->set('form-username','');

@@ -1,5 +1,6 @@
 const MARKDOWN_URL = 'https://api.github.com/markdown';
-const LIST_CATEGORIES_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/list-categories.php`
+const LIST_CATEGORIES_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/list-categories.php`;
+const VERIFY_SLUG_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/check-slug.php`;
 
 const BUTTON_EDIT_ID = 'btn-edit-article';
 const BUTTON_PREVIEW_ID = 'btn-preview-article';
@@ -109,7 +110,7 @@ async function fillCategories(selectElement) {
 	for (const category of jsonData['categories']) {
 		selectElement.insertAdjacentHTML(
 			'beforeend',
-			`<option value="${category.id}">${category.displayName}</option>`
+			`<option value="${category.id}">${category.name}</option>`
 		);
 	}
 }
@@ -220,6 +221,19 @@ async function validateImageAspectRatio(objectUrl, targetRatio) {
 			}
 		});
 	});
+}
+
+async function validateImageRes(objectUrl,maxRes) {
+
+}
+
+/**
+ * Verifies with the server if the slug is available.
+ * @param {string} slug - The slug to verify.
+ * @returns {bool} `true` when the slug is available.
+ */
+async function verifySlugAvailability(slug) {
+
 }
 
 /**

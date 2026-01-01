@@ -9,5 +9,4 @@ if (!$csrfLegit) {
 
 // Processing
 
-header('Location: /~dobiapa2/projects/' . $category . '/' . $slug, true, 302);
-exit;
+redirect('/~dobiapa2/projects/' . $category . '/' . $slug);

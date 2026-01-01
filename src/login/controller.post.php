@@ -1,24 +1,21 @@
 <?php
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
+require __DIR__ . "enums.php";
 
-const TWO_DAYS_IN_SECONDS = 60*60*24*2;
 $csrfLegit = validateCsrf();
 $userPasswordLegit = verifyUserPassword(trim($_POST['username']),$_POST['password']);
 
 if ($userPasswordLegit && $csrfLegit) {
-    $token = createSession($_POST['username'],$_POST['password'],TWO_DAYS_IN_SECONDS);
-    setcookie('token',$token,expires_or_options:time()+TWO_DAYS_IN_SECONDS,path:'/~dobiapa2',secure:true);
-    header('Location: /~dobiapa2/profile',true,302);
-    exit;
+    $token = createSession($_POST['username'],$_POST['password']);
+    updateSessionCookie($token);
+    redirect('/~dobiapa2/profile');
 }
 // Resending
 $viewState = ViewData::getInstance();
-$viewState->set('login-form-username',$_POST['username'] ?? '');
+$viewState->set('form-username',$_POST['username'] ?? '');
 if ($csrfLegit) {
-    $viewState->set('login-error',1);
-    $viewState->set('csrf-error',0);
+    $viewState->set('login-error',LoginFormError::CsrfInvalid);
 } else {
-    $viewState->set('login-error',0);
-    $viewState->set('csrf-error',1);
+    $viewState->set('login-error',LoginFormError::WrongCredentials);
 }

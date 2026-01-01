@@ -1,13 +1,13 @@
 <?php
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
 /*
-    API Endpoint - /api/internal/users/check-username
+    API Endpoint - /api/internal/users/verify-username
     Request Method - POST
     Input Parameters:
     username {string} - The username to check for its availability.
     Response Parameters:
-    available {boolean} - `true` if the username is available AND valid, else `false`.
-    valid {boolean} - `false` if the username is invalid, else `true`.
-    Example: {"username": "john-doe"} checks for availability of username `JohnDoe`.
+    available {boolean} - `true` if the username is available , else `false`.
+    Example: {"username": "john-doe"} checks for availability of username `john-doe`.
 */
 
 //Common Headers
@@ -22,14 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
 
-if (isset($postData['username']) && $postData['username'] !== '') {
-    $username = strtolower($postData['username']);
-
-    if ($username == "JohnDoe") {
-        echo json_encode(['available' => false]);
-    } else {
-        echo json_encode(['available' => true]);
-    }
+if (isset($postData['username'])) {
+    $available = (getUserData($username) === false) ? true : false;
+    
+    echo json_encode(['available' => $available]);
 } else {
     http_response_code(400); 
     echo json_encode(['error' => 'Format of this request is `{"username": string}` The string is the username.']);

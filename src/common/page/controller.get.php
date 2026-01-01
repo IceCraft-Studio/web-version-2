@@ -28,7 +28,7 @@ if ($username != null) {
     }
     $viewState->set('username', $displayName);
     $viewState->set('user-link', '/~dobiapa2/profile');
-    $viewState->set('user-profile-picture', '/~dobiapa2/api/internal/users/profile-picture.php?username=' . $username);
+    $viewState->set('user-profile-picture', '/~dobiapa2/api/internal/users/profile-picture.php?variant=preview&username=' . $username);
 } else {
     $viewState->set('username', 'Login');
     $viewState->set('user-link', '/~dobiapa2/login');

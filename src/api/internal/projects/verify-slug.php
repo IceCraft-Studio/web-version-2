@@ -1,6 +1,7 @@
 <?php
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/project.php';
 /*
-    API Endpoint - /api/internal/projects/check-slug
+    API Endpoint - /api/internal/projects/verify-slug
     Request Method - POST
     Input Parameters:
     category {string} - The first segment of the url after `/projects`.
@@ -21,15 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $rawJsonPostData = file_get_contents('php://input');
 $postData = json_decode($rawJsonPostData, true);
 
-if (isset($postData['url_path'])) {
-    $url = $postData['url_path'];
+if (isset($postData['category']) && isset($postData['slug'])) {
+    $category = $postData['category'];
+    $slug = $postData['slug'];
 
-    if ($url == "something") {
-        echo json_encode(['available' => false]);
-    } else {
-        echo json_encode(['available' => true]);
-    }
+    $available = (getProjectData($category,$slug) === false) ? true : false;
+    
+    echo json_encode(['available' => $available]);
 } else {
     http_response_code(400); 
-    echo json_encode(['error' => 'Format of this request is `{"url_path": string}` The string is a part of the URL one level above `/projects`.']);
+    echo json_encode(['error' => 'Format of this request is `{"category": string, "slug": string}`.']);
 }

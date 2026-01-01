@@ -1,16 +1,8 @@
 <?php
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
+require __DIR__ . "enums.php";
 
-enum RegisterFormError {
-    case CsrfInvalid;
-    case UsernameInvalid;
-    case UsernameTaken;
-    case PasswordInvalid;
-    case PasswordMismatch;
-    case ServerDatabase;
-    case None;
-}
 const TWO_DAYS_IN_SECONDS = 60*60*24*2;
 
 $username = $_POST['username'];
@@ -53,10 +45,9 @@ if ($password != $passwordConfirm) {
 // Create user and session
 $created = createUser($username,$password);
 if ($created) {
-    $token = createSession($username,$password,TWO_DAYS_IN_SECONDS);
-    setcookie('token',$token,expires_or_options:time()+TWO_DAYS_IN_SECONDS,path:'/~dobiapa2',secure:true);
-    header('Location: /~dobiapa2/profile',true,302);
-    exit;
+    $token = createSession($username,$password);
+    updateSessionCookie($token);
+    redirect('/~dobiapa2/profile');
 } else {
     $viewState->set('register-error',RegisterFormError::ServerDatabase);
 }
