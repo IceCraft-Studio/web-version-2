@@ -28,7 +28,7 @@ $csrfToken = $_SESSION['csrf-token'];
             <input type="password" id="input-password" name="password" required>
         </div>
         <?php if ($showError): ?>
-        <div class="row bold color-required">
+        <div class="row bold color-required center-text">
             <?= $errorMessage ?>
         </div>
         <?php endif; ?>
@@ -37,7 +37,7 @@ $csrfToken = $_SESSION['csrf-token'];
         </div>
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     </form>
-    <div>
+    <div class="center-text">
         New to IceCraft Projects? <a href="/~dobiapa2/register" class="inline-block">Register a new account!</a>
     </div>
 </main>

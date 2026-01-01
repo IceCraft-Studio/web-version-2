@@ -7,7 +7,6 @@ main {
     justify-content: center;
     align-items: center;
     padding: 0.2em;
-    text-align: center;
 }
 
 label {
@@ -32,11 +31,10 @@ label {
 
 input {
     transition: transform 0.3s ease;
-    width: 20em
 }
 
 input[type="text"],input[type="password"] {
-    width: 100%;
+    width: 20em
 }
 
 @media only screen and (max-width: 41rem) {

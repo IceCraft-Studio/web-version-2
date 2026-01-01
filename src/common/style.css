@@ -550,6 +550,10 @@ img.no-select {
     display: inline-block;
 }
 
+.center-text {
+    text-align: center;
+}
+
 /* Form Classes */
 .prefix-container > label {
     font-family: 'Gantari', sans-serif;
