@@ -1,6 +1,11 @@
+.profile-part {
+    display: flex;
+}
+
 #profile-picture-image {
     border-radius: 50%;
     border: 0.2em solid var(--color-primary);
+    width: 10em;
 }
 
 #profile-picture-image:hover {
@@ -9,7 +14,7 @@
 }
 
 
-#profile-picture-image:hover::after {
+#profile-picture-image::after {
     content: "Upload new picture.";
     position: absolute;
     top: 50%;
