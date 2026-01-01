@@ -48,3 +48,17 @@ input[type="submit"] {
     background-color: rgb(255, 30, 0);
 }
 
+@media only screen and (max-width: 41rem) {
+    .row {
+        flex-direction: column;
+    }
+
+    input {
+        max-width: 100%;
+    }
+
+    label {
+        text-align: left;
+    }
+}
+
