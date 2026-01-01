@@ -85,3 +85,8 @@ input[type="submit"] {
 .row:has(input[name="username"][data-available="0"]) #username-available {
     display: none;
 }
+
+.hint {
+    font-size: 0.75em;
+    font-family: JetBrainsMono, monospace;
+}

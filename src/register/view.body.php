@@ -35,11 +35,16 @@ $csrfToken = $_SESSION['csrf-token'];
         <div class="row">
             <label for="username">Username:</label>
             <div class="input-group">
-                <input type="text" maxlength="32" name="username" value="<?= $prefillUsername ?>" data-available="1" required>
+                <input type="text" maxlength="32" name="username" value="<?= $prefillUsername ?>" data-available="1"
+                    required>
                 <div class="indicator" data-for="username"></div>
             </div>
-            <div id="username-instructions">The username has to be at least 4 characters long containing only lowercase letters, numbers and single hyphens between words.</div>
-            <div id="username-available">This username is available.</div><div id="username-taken">This username is taken. Please try another one.</div>
+            <div class="hint">
+                <div  id="username-hint">Needs at least 4 characters, may contain only lowercase letters,
+                    numbers and single hyphens between words.</div>
+                <div id="username-available">This username is available.</div>
+                <div id="username-taken">This username is taken! Please try another one.</div>
+            </div>
         </div>
         <div class="row">
             <label for="password">Password:</label>
@@ -47,7 +52,8 @@ $csrfToken = $_SESSION['csrf-token'];
                 <input type="password" maxlength="128" name="password" required>
                 <div class="indicator" data-for="password"></div>
             </div>
-            <div>The password has to be at least 8 characters long containing at least 1 number, uppercase letter and lowercase letter.</div>
+            <div class="hint">Needs at least 8 characters long, may contain at least 1 number, uppercase letter and
+                lowercase letter.</div>
         </div>
         <div class="row">
             <label for="confirm-password">Confirm Password:</label>
@@ -55,7 +61,7 @@ $csrfToken = $_SESSION['csrf-token'];
                 <input type="password" maxlength="128" name="confirm-password" required>
                 <div class="indicator" data-for="confirm-password"></div>
             </div>
-            <div>The password must match.</div>
+            <div class="hint">The passwords must match.</div>
         </div>
         <?php if ($showError): ?>
             <div class="row bold color-required center-text">

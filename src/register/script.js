@@ -45,9 +45,10 @@ async function main() {
 		if (newValue.length < e.target.value.length) {
 			tempClassForTime(elements.usernameHelp,'warning-highlight', 4000);
 		}
-		usernameVerificationTimer = queueAvailibilityVerification(e.target.value,elements,validValues, usernameVerificationTimer);
+		e.target.value = newValue;
+		usernameVerificationTimer = queueAvailibilityVerification(newValue,elements,validValues, usernameVerificationTimer);
 
-		validValues.username = validateUsername(e.target.value,e.target.dataset.available);
+		validValues.username = validateUsername(newValue,e.target.dataset.available);
         validateForm(validValues,elements);
 	});
 	elements.inputConfirm.addEventListener('input', (e) => {
@@ -116,7 +117,6 @@ async function verifyUsernameAvailability(username) {
 	const req = new Request(VERIFY_USERNAME_ENDPOINT, options);
 
 	const response = await fetch(req);
-	console.log(response);
 	const jsonData = await response.json();
 
 	return jsonData?.available;
@@ -128,7 +128,7 @@ async function verifyUsernameAvailability(username) {
  * @returns {string} Corrected string.
  */
 function correctUsernameInput(username) {
-	return username.toLowerCase().replace(/(-$)|(^-)|[^a-z0-9-]/gm,'');
+	return username.toLowerCase().replaceAll(/(-$)|(^-)|[^a-z0-9-]/g,'').replaceAll(/-*/g,'-');
 }
 
 function validateUsername(username,available) {
