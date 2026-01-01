@@ -20,7 +20,7 @@ input {
 }
 
 .input-group {
-    width: 25em;
+    width: 20em;
     display: flex;
     flex-direction: row;
 }
