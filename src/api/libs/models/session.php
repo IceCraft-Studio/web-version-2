@@ -90,5 +90,5 @@ function destroyUserSessions($username) {
  * @return void
  */
 function updateSessionCookie($token,$duration = DEFAULT_SESSION_LENGTH) {
-    setcookie(TOKEN_COOKIE_NAME,$token,expires_or_options:time()+TWO_DAYS_IN_SECONDS,path:'/~dobiapa2',secure:true);
+    setcookie(TOKEN_COOKIE_NAME,$token,expires_or_options:time()+$duration,path:'/~dobiapa2',secure:true);
 }
