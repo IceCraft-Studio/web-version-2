@@ -2,20 +2,21 @@
     display: flex;
 }
 
-#profile-picture-image {
+.picture-container {
+    position: relative;
+    max-width: 10rem;
+    border: 0.2rem solid var(--color-primary);
     border-radius: 50%;
-    border: 0.2em solid var(--color-primary);
-    width: 10em;
+    padding: 0;
 }
 
-#profile-picture-image:hover {
+.picture-container:hover {
     border-radius: 50%;
     border: 0.2em dashed var(--color-primary);
 }
 
-
-#profile-picture-image::after {
-    content: "Upload new picture.";
+.picture-container:hover::after {
+    content: "Upload a new picture.";
     position: absolute;
     top: 50%;
     left: 50%;

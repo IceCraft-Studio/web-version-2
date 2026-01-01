@@ -20,12 +20,14 @@ $csrfToken = $_SESSION['csrf-token'];
     <form method="post" enctype="multipart/form-data" action="">
         <h1>Your User Profile</h1>
         <div class="profile-part">
-            <div class="picture-container">
+            <div class="picture-container field">
                 <label for="input-profile-picture">Profile Picture:</label>
-                <img src="/~dobiapa2/api/internal/users/profile-picture.php?username=<?= $username ?>" alt="Your Profile Picture" id="profile-picture-image">
+                <button class="picture-container">
+                    <img src="/~dobiapa2/api/internal/users/profile-picture.php?username=<?= $username ?>" alt="Your Profile Picture" id="profile-picture-image">
+                </button>
                 <input type="file" name="profile-picture" id="input-profile-picture">
             </div>
-            <div class="stats-container">
+            <div class="stats-container field">
                 Your username is <span class="monospace"><?= $username ?></span>.<br>
                 Your account is <span class="bold"><?= $accountAge ?></span> old.<br>
                 Your role is <span class="bold"><?= $roleName ?></span>.<br>
