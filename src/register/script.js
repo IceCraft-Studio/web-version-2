@@ -87,13 +87,13 @@ function validatePassword(password) {
  */
 function queueAvailibilityVerification(username,elements,validValues,timer) {
 	clearTimeout(timer);
-	setTimeout(async () => {
+	let newTimer = setTimeout(async () => {
 		let available = await verifyUsernameAvailability(username);
 		elements.inputUsername.dataset.available = available ? '1' : '0';
 		validateUsername(username,elements.inputUsername.dataset.available);
 		validateForm(validValues,elements);
 	},1500);
-	return timer;
+	return newTimer;
 }
 
 /**
