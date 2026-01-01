@@ -20,7 +20,7 @@ $csrfToken = $_SESSION['csrf-token'];
     <form method="post" enctype="multipart/form-data" action="">
         <h1>Your User Profile</h1>
         <div class="profile-part">
-            <div class="picture-container field">
+            <div class="picture-upload-container field">
                 <label for="input-profile-picture">Profile Picture:</label>
                 <button class="picture-container">
                     <img src="/~dobiapa2/api/internal/users/profile-picture.php?username=<?= $username ?>" alt="Your Profile Picture" id="profile-picture-image">
