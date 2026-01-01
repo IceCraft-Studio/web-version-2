@@ -35,7 +35,7 @@ $csrfToken = $_SESSION['csrf-token'];
         <div class="row">
             <label for="username">Username:</label>
             <div class="input-group">
-                <input type="text" maxlength="32" name="username" value="<?= $prefillUsername ?>" data-available="1"
+                <input type="text" maxlength="48" name="username" value="<?= $prefillUsername ?>" data-available="1"
                     required>
                 <div class="indicator" data-for="username"></div>
             </div>
