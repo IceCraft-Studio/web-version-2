@@ -21,7 +21,7 @@ async function main() {
 		form: document.querySelector(`form`),
 	};
 	const validValues = {
-		username: validateUsername(elements.inputUsername.value),
+		username: validateUsername(elements.inputUsername.value,elements.inputUsername.dataset.available),
 		password: validatePassword(elements.inputPassword.value),
 		confirm: confirmPassword(
 			elements.inputConfirm.value,

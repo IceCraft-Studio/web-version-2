@@ -1,8 +1,13 @@
 <?php
+const CLASS_HIGHLIGHT = 'warning-highlight';
 $viewState = ViewData::getInstance();
 $prefillUsername = htmlspecialchars($viewState->get('form-username'));
 $showError = true;
 $errorMessage = '';
+$available = '1';
+$hintUsername = false;
+$hintPassword = false;
+$hintConfirm = false;
 
 switch ($viewState->get('register-error', RegisterFormError::None)) {
     case RegisterFormError::None:
@@ -12,16 +17,16 @@ switch ($viewState->get('register-error', RegisterFormError::None)) {
         $errorMessage = 'Critical client error! Please try resending the form.';
         break;
     case RegisterFormError::UsernameInvalid:
-        $errorMessage = 'Username must be between 4 and 48 characters long! It can only contain lowercase letters, numbers and singular hyphens between words!';
+        $hintUsername = true;
         break;
     case RegisterFormError::UsernameTaken:
-        $errorMessage = 'Selected username is already taken. Please try another one.';
+        $available = '0';
         break;
     case RegisterFormError::PasswordInvalid:
-        $errorMessage = 'The password must be between 8 and 128 (inclusive) characters long!';
+        $hintPassword = true;
         break;
     case RegisterFormError::PasswordMismatch:
-        $errorMessage = 'Passwords don\'t match!';
+        $hintConfirm = true;
         break;
     case RegisterFormError::ServerDatabase:
         $errorMessage = 'Critical server error! Please try again later.';
@@ -35,14 +40,14 @@ $csrfToken = $_SESSION['csrf-token'];
         <div class="row">
             <label for="username">Username:</label>
             <div class="input-group">
-                <input type="text" maxlength="48" name="username" value="<?= $prefillUsername ?>" data-available="1"
+                <input type="text" maxlength="48" name="username" value="<?= $prefillUsername ?>" data-available="<?= $available ?>"
                     id="input-username" required>
                 <div class="indicator" data-for="username"></div>
             </div>
         </div>
         <div class="hint-container">
-            <div class="hint">
-                <div id="username-hint">At least 4 characters, may contain only letters,
+            <div class="hint ">
+                <div id="username-hint" class="<?= $hintUsername ? CLASS_HIGHLIGHT : '' ?>">At least 4 characters, may contain only letters,
                     numbers and single hyphens between words.</div>
                 <div id="username-taken">This username is taken! Please try another one.</div>
             </div>
@@ -55,7 +60,7 @@ $csrfToken = $_SESSION['csrf-token'];
             </div>
         </div>
         <div class="hint-container">
-            <div class="hint">At least 8 characters, may contain at least 1 number, uppercase letter and
+            <div class="hint <?= $hintPassword ? CLASS_HIGHLIGHT : '' ?>">At least 8 characters, may contain at least 1 number, uppercase letter and
                 lowercase letter.</div>
         </div>
         <div class="row">
@@ -66,7 +71,7 @@ $csrfToken = $_SESSION['csrf-token'];
             </div>
         </div>
         <div class="hint-container">
-            <div class="hint">The passwords must match.</div>
+            <div class="hint <?= $hintConfirm ? CLASS_HIGHLIGHT : '' ?>">The passwords must match.</div>
         </div>
         <?php if ($showError): ?>
             <div class="row bold color-required center-text">

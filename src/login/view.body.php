@@ -1,8 +1,7 @@
 <?php
 $viewState = ViewData::getInstance();
-$loginError = $viewState->get('login-error');
 $showError = true;
-switch ($viewState->get('register-error',LoginFormError::None)) {
+switch ($viewState->get('login-error',LoginFormError::None)) {
     case LoginFormError::None:
         $showError = false;
         break;
