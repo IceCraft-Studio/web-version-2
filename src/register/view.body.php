@@ -53,15 +53,15 @@ $csrfToken = $_SESSION['csrf-token'];
                 <div class="indicator" data-for="confirm-password"></div>
             </div>
         </div>
-        <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
-        <div class="row">
-            <input type="submit" value="Register" disabled>
-        </div>
         <?php if ($showError): ?>
             <div class="row bold color-required">
                 <?= $errorMessage ?>
             </div>
         <?php endif; ?>
+        <div class="row">
+            <input type="submit" value="Register" disabled>
+        </div>
+        <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     </form>
     <div>
         Already have an IceCraft Projects account? <a href="/~dobiapa2/login">Login right here!</a>
