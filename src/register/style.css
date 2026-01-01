@@ -40,8 +40,8 @@ input[type="submit"] {
     border: 0.15em solid transparent;
     border-radius: 0.2em;
     margin: 0.2em;
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
 }
 
 .indicator > svg {
@@ -65,7 +65,7 @@ input[type="submit"] {
     }
 
     .input-group {
-        max-width: 100%;
+        width: 100%;
     }
 
     label {
