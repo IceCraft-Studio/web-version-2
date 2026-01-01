@@ -59,21 +59,6 @@ input[type="submit"] {
     background-color: rgb(255, 30, 0);
 }
 
-@media only screen and (max-width: 41rem) {
-    .row {
-        flex-direction: column;
-        align-items: normal;
-    }
-
-    .input-group {
-        width: 100%;
-    }
-
-    label {
-        text-align: left;
-    }
-}
-
 #username-taken {
     color: var(--color-required-field);
     font-weight: bold;
@@ -97,3 +82,25 @@ form:has(input[name="username"][data-available="0"]) #username-available {
     font-size: 0.75em;
     font-family: JetBrainsMono, monospace;
 }
+
+@media only screen and (max-width: 41rem) {
+    .row {
+        flex-direction: column;
+        align-items: normal;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    label {
+        text-align: left;
+    }
+
+    .hint-container {
+        width: 100%;
+        padding: 0.2em;
+    }
+}
+
+
