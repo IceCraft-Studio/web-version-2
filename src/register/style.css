@@ -68,9 +68,6 @@ form:has(input[name="username"][data-available="1"]) #username-taken {
     display: none;
 }
 
-form:has(input[name="username"][data-available="0"]) #username-available {
-    display: none;
-}
 
 .hint-container {
     width: 20em;

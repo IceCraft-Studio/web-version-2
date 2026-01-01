@@ -44,7 +44,6 @@ $csrfToken = $_SESSION['csrf-token'];
             <div class="hint">
                 <div id="username-hint">At least 4 characters, may contain only letters,
                     numbers and single hyphens between words.</div>
-                <div id="username-available">This username is available.</div>
                 <div id="username-taken">This username is taken! Please try another one.</div>
             </div>
         </div>
