@@ -21,6 +21,8 @@ input {
 
 .input-group {
     width: 20em;
+    display: flex;
+    flex-direction: row;
 }
 
 input[type="submit"] {
