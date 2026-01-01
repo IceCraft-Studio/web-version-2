@@ -5,15 +5,8 @@ const SECONDS_IN_DAY = SECONDS_IN_HOUR*24;
 
 $viewState = ViewData::getInstance();
 
-// Redirect if token isn't in cookie
-$userToken = $_COOKIE['token'];
-if (!isset($userToken)) {
-    redirect('/~dobiapa2/login');
-    exit;
-}
-
 // Redirect if token is invalid
-$username = verifySession($userToken);
+$username = verifySession($_COOKIE['token'] ?? '');
 if ($username == null) {
     updateSessionCookie('',-99999);
     redirect('/~dobiapa2/login');
