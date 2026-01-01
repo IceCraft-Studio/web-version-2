@@ -17,7 +17,7 @@ async function main() {
 		inputPassword: document.querySelector(`input[name=${NAME_PASSWORD}]`),
 		inputConfirm: document.querySelector(`input[name=${NAME_CONFIRM}]`),
         submitButton: document.querySelector(`input[type=submit]`),
-		usernameHelp: document.querySelector(`#username-instructions`),
+		usernameHelp: document.querySelector(`#username-hint`),
 		form: document.querySelector(`form`),
 	};
 	const validValues = {
