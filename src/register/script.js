@@ -11,7 +11,7 @@ const CIRCLE_SVG = {};
 
 async function main() {
 	CIRCLE_SVG.bang = await(await fetch(BANG_CIRCLE_URL)).text();
-	CIRCLE_SVG.check = await(await fetch(BANG_CIRCLE_URL)).text();
+	CIRCLE_SVG.check = await(await fetch(CHECK_CIRCLE_URL)).text();
 	const elements = {
 		inputUsername: document.querySelector(`input[name=${NAME_USERNAME}]`),
 		inputPassword: document.querySelector(`input[name=${NAME_PASSWORD}]`),
