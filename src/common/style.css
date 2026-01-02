@@ -131,6 +131,12 @@ select {
     border: 0.2em solid var(--color-primary);
 }
 
+input[type='checkbox'] {
+    width: 1.3rem;
+    height: 1.3rem;
+    accent-color: var(--color-primary);
+}
+
 .color-required {
 	color: var(--color-required-field)
 }
