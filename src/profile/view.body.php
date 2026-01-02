@@ -1,15 +1,43 @@
 <?php
 $viewState = ViewData::getInstance();
 
-$showUpdateBanner = true;
+$showProfileUpdateBanner = true;
+$showPasswordUpdateBanner = true;
 $updateSuccess = true;
 switch ($viewState->get('profile-update-status',ProfileUpdateState::NoUpdate)) {
     case ProfileUpdateState::NoUpdate:
-        $showUpdateBanner = false;
+        $showProfileUpdateBanner = false;
         break;
     case ProfileUpdateState::CsrfInvalid:
-
+        $showPasswordUpdateBanner = false;
+        $profileMessage = 'Critical Client Error! Please try resending the form.';
+        break;
+    case ProfileUpdateState::Failure:
+        $profileMessage = 'Critical Server Error! Please try again later.';
+        break;
+    case ProfileUpdateState::Success:
+        $profileMessage = 'Profile updated successfully!';
+        break;
 }
+
+switch ($viewState->get('password-update-status',PasswordUpdateState::NoUpdate)) {
+    case PasswordUpdateState::NoUpdate:
+        $showPasswordUpdateBanner = false;
+        break;
+    case PasswordUpdateState::PasswordInvalid:
+        $passwordMessage = 'Password change failed! Password must have at least 8 characters, containing at least 1 number, uppercase letter and lowercase letter.';
+        break;
+    case PasswordUpdateState::PasswordWrong:
+        $passwordMessage = 'Password change failed!. Incorrect original password. Please try again.';
+        break;
+    case PasswordUpdateState::PasswordMismatch:
+        $passwordMessage = 'Password change failed!. Passwords don\'t match.';
+        break;
+    case PasswordUpdateState::Success:
+        $passwordMessage = 'Password changed successfully! You need to login again on other browsers and devices.';
+        break;
+}
+
 
 $username = $viewState->get('verified-username');
 $accountAge = $viewState->get('profile-age');
@@ -27,9 +55,14 @@ $prefillSocialDiscord = htmlspecialchars($viewState->get('form-social-discord'))
 $csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
+    <?php if ($showProfileUpdateBanner): ?>
+        <div class="update-banner">
+                <?= $profileMessage ?>
+        </div>
+    <?php endif; ?>
     <?php if ($showUpdateBanner): ?>
         <div class="update-banner">
-                <?= $errorMessage ?>
+                <?= $passwordMessage ?>
         </div>
     <?php endif; ?>
     <form method="post" enctype="multipart/form-data" action="">

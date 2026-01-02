@@ -96,6 +96,9 @@ if ($passwordNew != '') {
         include __DIR__ . '/controller.get.php';
         return;        
     }
+    destroyUserSessions($username);
+    $token = createSession($username,$passwordNew);
+    updateSessionCookie($token);
     $viewState->set('profile-update-state',PasswordUpdateState::Success);
 }
 
