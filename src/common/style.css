@@ -404,6 +404,8 @@ button:disabled {
     border-color: var(--color-primary);
     border-width: 0.3rem 0 0.3rem 0.3rem;
     border-style: solid;
+
+    z-index: 999;
 }
 
 #links-dropdown > a {
