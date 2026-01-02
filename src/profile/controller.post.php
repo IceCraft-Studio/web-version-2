@@ -34,6 +34,9 @@ $originalUserData = getUserData($username);
 
 if ($originalUserData['display_name'] != $displayName) {
     $changeSuccess = changeUserDisplayName($username,$displayName);
+    if ($changeSuccess) {
+        $viewState->set('user-display-name', $displayName);
+    }
     $profileUpdated = true;
     $profileUpdateSuccess = $profileUpdateSuccess ? $changeSuccess : false;
 }
