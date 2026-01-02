@@ -18,7 +18,8 @@
     display: flex;
 }
 
-button.picture-container {
+
+#profile-picture-container  {
     position: relative;
     max-width: 10rem;
     border: 0.2rem solid var(--color-primary);
@@ -26,13 +27,20 @@ button.picture-container {
     padding: 0;
 }
 
-button.picture-container:hover {
+.disabled#profile-picture-container {
+    filter: grayscale(1);
+    border-color: var(--color-primary-disabled);
+}
+
+
+#profile-picture-container:hover:not(.disabled) {
     border-radius: 50%;
     border: 0.2em dashed var(--color-primary);
     background-color: transparent;
 }
 
-.picture-container:hover::after {
+
+#profile-picture-container:hover::after:not(.disabled) {
     content: "Upload a new picture.";
     position: absolute;
     top: 50%;
@@ -54,7 +62,7 @@ button.picture-container:hover {
     align-items: center;
 }
 
-button.picture-container img {
+#profile-picture-container img {
     width: 100%;
     display: block;
     border-radius: 50%;

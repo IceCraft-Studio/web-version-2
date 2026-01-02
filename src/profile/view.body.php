@@ -1,6 +1,16 @@
 <?php
 $viewState = ViewData::getInstance();
 
+$showUpdateBanner = true;
+$updateSuccess = true;
+switch ($viewState->get('profile-update-status',ProfileUpdateState::NoUpdate)) {
+    case ProfileUpdateState::NoUpdate:
+        $showUpdateBanner = false;
+        break;
+    case ProfileUpdateState::CsrfInvalid:
+
+}
+
 $username = $viewState->get('username');
 $accountAge = $viewState->get('profile-age');
 $roleName = $viewState->get('profile-role');
@@ -17,16 +27,28 @@ $prefillSocialsDiscord = htmlspecialchars($viewState->get('profile-form-socials-
 $csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
+    <?php if ($showUpdateBanner): ?>
+        <div class="update-banner">
+                <?= $errorMessage ?>
+        </div>
+    <?php endif; ?>
     <form method="post" enctype="multipart/form-data" action="">
         <h1>Your User Profile</h1>
         <div class="profile-part">
             <div class="picture-upload-container field">
                 <label for="input-profile-picture">Profile Picture:</label>
-                <button class="picture-container">
+                <button id="profile-picture-container">
                     <img src="/~dobiapa2/api/internal/users/profile-picture.php?username=<?= $username ?>"
                         alt="Your Profile Picture" id="profile-picture-image">
                 </button>
-                <input type="file" name="profile-picture" id="input-profile-picture">
+                <input type="file" accept=".jpeg,.jpg,.png,.webp" name="profile-picture" id="input-profile-picture">
+                <div>
+                    The image must be JPEG, PNG or WEBP of 8MB at most with aspect ratio 1:1.
+                </div>
+                <div class="input-row">
+                    <label for="input-delete-profile-picture">Delete Picture:</label>
+                    <input type="checkbox" name="delete-profile-picture" id="input-delete-profile-picture">
+                </div>
             </div>
             <div class="stats-container field">
                 <div class="stat-row">
@@ -102,8 +124,8 @@ $csrfToken = $_SESSION['csrf-token'];
         </div>
         <h2>Change Password</h2>
         <div class="field">
-            <p>You can change your password here. Make sure it's at least 8 characters long. Contains at least a single
-                number, uppercase letter and lowercase letter.</p>
+            <p>You can change your password here. It needs at least 8 characters, containing at least a single
+                number, uppercase letter and lowercase letter. Changing it logs you out of all other sessions!</p>
             <label for="input-password">Current Password:</label>
             <input id="input-password" name="password" type="password" value="">
             <label for="input-password-new">New Password:</label>

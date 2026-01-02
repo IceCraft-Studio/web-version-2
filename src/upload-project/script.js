@@ -20,10 +20,7 @@ const ALLOWED_ASPECT_RATIO = 16 / 9;
 const MAX_ALLOWED_IMAGE_SIZE_MB = 8;
 const MAX_ALLOWED_UPLOAD_SIZE_MB = 20;
 
-const HIDDEN_CLASS = 'hidden';
 const COPIED_CLASS = 'copied';
-const WARNING_HIGHLIGHT_CLASS = 'warning-highlight';
-const WARNING_POP_CLASS = 'warning-pop';
 
 async function main() {
 	let galleryIndex = -1;
@@ -73,8 +70,6 @@ async function main() {
 		}
 	});
 	//TODO - INPUT VALIDATION
-	//TODO - Refactor the logic, shorten, strighten, maybe use html templates
-	//TODO - Consider making Drag-n-drop animations
 }
 
 main();
@@ -192,40 +187,7 @@ async function processGalleryFileUpload(file, elements, galleryIndex) {
 	await insertFileUrl(imageObjectUrl, elements, galleryIndex);
 	return true;
 }
-/**
- * Creates an URL object from an image file. Throws if it's not a file or an image.
- * @param {File} file The file to create the URL object from.
- * @returns {string} The newly created object URL.
- */
-function createImageObjectUrl(file) {
-	if (!(file instanceof File || !file.type.startsWith('image/'))) {
-		throw new Error('File is not correct.');
-	}
-	let objectUrl = URL.createObjectURL(file);
-	return objectUrl;
-}
 
-async function validateImageAspectRatio(objectUrl, targetRatio) {
-	return new Promise((resolve, reject) => {
-		const image = new Image();
-		image.src = objectUrl;
-		image.addEventListener('error', () => {
-			reject('image error');
-		});
-		image.addEventListener('load', () => {
-			const imageRatio = image.width / image.height;
-			if (Math.abs(imageRatio - targetRatio) < 0.01) {
-				resolve(true);
-			} else {
-				resolve(false);
-			}
-		});
-	});
-}
-
-async function validateImageRes(objectUrl,maxRes) {
-
-}
 
 /**
  * Verifies with the server if the slug is available.

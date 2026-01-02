@@ -1,3 +1,10 @@
+//# Constants
+const HIDDEN_CLASS = 'hidden';
+const WARNING_HIGHLIGHT_CLASS = 'warning-highlight';
+const WARNING_POP_CLASS = 'warning-pop';
+
+//# Functions
+
 /**
  * Parses kebab-case to camelCase.
  * @param {string} text - The original text.
@@ -42,4 +49,52 @@ async function tempClassForTime(element, className, duration) {
 		element.dataset[dataAttribute] = '';
 	}, duration);
 	element.dataset[dataAttribute] = `${timeoutId}`;
+}
+
+/**
+ * Creates an URL object from an image file. Throws if it's not a file or an image.
+ * @param {File} file The file to create the URL object from.
+ * @returns {string} The newly created object URL.
+ */
+function createImageObjectUrl(file) {
+	if (!(file instanceof File || !file.type.startsWith('image/'))) {
+		throw new Error('File is not correct.');
+	}
+	let objectUrl = URL.createObjectURL(file);
+	return objectUrl;
+}
+
+async function validateImageAspectRatio(objectUrl, targetRatio) {
+	return new Promise((resolve, reject) => {
+		const image = new Image();
+		image.src = objectUrl;
+		image.addEventListener('error', () => {
+			reject('image error');
+		});
+		image.addEventListener('load', () => {
+			const imageRatio = image.width / image.height;
+			if (Math.abs(imageRatio - targetRatio) < 0.01) {
+				resolve(true);
+			} else {
+				resolve(false);
+			}
+		});
+	});
+}
+
+async function validateImageRes(objectUrl,maxRes) {
+
+}
+
+/**
+ * Activates or deactivates element.
+ * @param {Element} element Element to alter.
+ * @param {boolean} $state When `true` remove attribute `disabled`, when `false` add it.
+ */
+function setElementActivation(element,$state = true) {
+    if ($state) {
+        element.removeAttribute('disabled');
+    } else {
+        element.setAttribute('disabled','1');
+    }
 }

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Maps HTTP response code with status messages. 
+ * @param int $statusCode HTTP response code.
+ * @return string Status message.
+ */
 function getStatusMessage(int $statusCode): string {
     $map = [
         400 => 'Bad Request',
