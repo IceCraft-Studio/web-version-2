@@ -40,6 +40,7 @@
 	--color-primary: hsl(224, 80%, 45%);
 	--color-primary-trans: hsla(224, 80%, 45%, 0.8);
 	--color-important-red: hsl(0, 100%, 60%);
+	--color-success-green: hsl(120, 90%, 30%);
 	--color-required-field: var(--color-important-red);
     --color-primary-disabled:  hsl(224, 80%, 30%);
 }

@@ -16,7 +16,7 @@
 }
 .update-banner.success {
     color: var(--color-text-dark);
-    background-color: hsl(120, 90%, 30%);
+    background-color: var(--color-success-green);
 }
 
 .stat-row {
