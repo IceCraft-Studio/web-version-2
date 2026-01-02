@@ -31,7 +31,7 @@ $csrfToken = $_SESSION['csrf-token'];
             <div class="stats-container field">
                 <div class="stat-row">
                     <div>
-                        <img src="/~dobiapa2/assets/icons/user-circle.svg" alt="User Circle Icon">
+                        <img src="/~dobiapa2/assets/icons/user-circle.svg" class="no-select" alt="User Circle Icon">
                     </div>
                     <div>
                         Your username is <span class="monospace"><?= $username ?></span>.
@@ -39,7 +39,7 @@ $csrfToken = $_SESSION['csrf-token'];
                 </div>
                 <div class="stat-row">
                     <div>
-                        <img src="/~dobiapa2/assets/icons/clock-arrow.svg" alt="Clock Arrow Icon">
+                        <img src="/~dobiapa2/assets/icons/clock-arrow.svg" class="no-select" alt="Clock Arrow Icon">
                     </div>
                     <div>
                         Your account is <span class="bold"><?= $accountAge ?></span> old.
@@ -47,7 +47,7 @@ $csrfToken = $_SESSION['csrf-token'];
                 </div>
                 <div class="stat-row">
                     <div>
-                        <img src="/~dobiapa2/assets/icons/user-group.svg" alt="User Group Icon">
+                        <img src="/~dobiapa2/assets/icons/user-group.svg" class="no-select" alt="User Group Icon">
                     </div>
                     <div>
                         Your role is <span class="bold"><?= $roleName ?></span>.
@@ -55,7 +55,7 @@ $csrfToken = $_SESSION['csrf-token'];
                 </div>
                 <div class="stat-row">
                     <div>
-                        <img src="/~dobiapa2/assets/icons/folder-open.svg" alt="Folder Open Icon">
+                        <img src="/~dobiapa2/assets/icons/folder-open.svg" class="no-select" alt="Folder Open Icon">
                     </div>
                     <div>
                         <a href="/~dobiapa2/users/<?= $username ?>">View all your projects.</a>

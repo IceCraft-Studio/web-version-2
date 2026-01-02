@@ -1,5 +1,5 @@
 .stats-container {
-    flex: 1 0 50%;
+    flex: 1 1 50%;
 }
 
 .stat-row {
@@ -58,4 +58,14 @@ button.picture-container img {
     width: 100%;
     display: block;
     border-radius: 50%;
+}
+
+input[type="submit"] {
+    margin: 0.6em;
+}
+
+@media only screen and (max-width: 45rem) {
+    .profile-part {
+        flex-direction: column;
+    }
 }
