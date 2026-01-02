@@ -2,6 +2,21 @@
     flex: 1 1 50%;
 }
 
+.update-banner {
+    font-size: 1.5em;
+    padding: 0.8em;
+    border: 0.2em solid var(--color-primary);
+    border-radius: 0.5em;
+    text-align: center;
+}
+
+.update-banner.fail {
+    background-color: var(--color-important-red)
+}
+.update-banner.success {
+    background-color: hsl(120, 90%, 30%);
+}
+
 .stat-row {
     display: flex;
     align-items: center;

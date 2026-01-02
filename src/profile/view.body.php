@@ -1,8 +1,13 @@
 <?php
+const CLASS_SUCCESS = 'success';
+const CLASS_FAIL = 'fail';
+
 $viewState = ViewData::getInstance();
 
 $showProfileUpdateBanner = true;
 $showPasswordUpdateBanner = true;
+$successPassword = false;
+$successProfile = false;
 $updateSuccess = true;
 switch ($viewState->get('profile-update-state',ProfileUpdateState::NoUpdate)) {
     case ProfileUpdateState::NoUpdate:
@@ -17,6 +22,7 @@ switch ($viewState->get('profile-update-state',ProfileUpdateState::NoUpdate)) {
         break;
     case ProfileUpdateState::Success:
         $profileMessage = 'Profile updated successfully!';
+        $successProfile = true;
         break;
 }
 
@@ -35,6 +41,7 @@ switch ($viewState->get('password-update-state',PasswordUpdateState::NoUpdate)) 
         break;
     case PasswordUpdateState::Success:
         $passwordMessage = 'Password changed successfully! You need to login again on other browsers and devices.';
+        $successPassword = true;
         break;
 }
 
@@ -56,12 +63,12 @@ $csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
     <?php if ($showProfileUpdateBanner): ?>
-        <div class="update-banner">
+        <div class="update-banner <?= $successProfile ? CLASS_SUCCESS : CLASS_FAIL?>">
                 <?= $profileMessage ?>
         </div>
     <?php endif; ?>
     <?php if ($showPasswordUpdateBanner): ?>
-        <div class="update-banner">
+        <div class="update-banner <?= $successPassword ? CLASS_SUCCESS : CLASS_FAIL?>">
                 <?= $passwordMessage ?>
         </div>
     <?php endif; ?>
