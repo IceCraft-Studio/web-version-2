@@ -24,7 +24,7 @@ if ($userPasswordLegit && $csrfLegit && !$userBanned) {
 // Resending
 $viewState = ViewData::getInstance();
 $viewState->set('form-username',$username);
-if ($csrfLegit) {
+if (!$csrfLegit) {
     $viewState->set('login-error',LoginFormError::CsrfInvalid);
 } else if ($userBanned) {
     $viewState->set('login-error',LoginFormError::UserBanned);

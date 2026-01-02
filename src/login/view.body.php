@@ -11,6 +11,9 @@ switch ($viewState->get('login-error',LoginFormError::None)) {
     case LoginFormError::WrongCredentials:
         $errorMessage = 'Wrong username or password! Please try again.';
         break;
+    case LoginFormError::UserBanned:
+        $errorMessage = 'This account is banned from the website.';
+        break;
 }
 $prefillUsername = htmlspecialchars($viewState->get('form-username'));
 $csrfToken = $_SESSION['csrf-token'];
