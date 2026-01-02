@@ -5,7 +5,7 @@ $viewState = ViewData::getInstance();
 
 $currentPage = $viewState->get('current-page');
 $userLink = $viewState->get('user-link');
-$userName = $viewState->get('username');
+$userName = $viewState->get('user-display-name');
 $userPictureLink = $viewState->get('user-profile-picture');
 
 ?>

@@ -8,9 +8,8 @@ const SECONDS_IN_DAY = SECONDS_IN_HOUR*24;
 $viewState = ViewData::getInstance();
 
 // Redirect if token is invalid
-$username = verifySession($_COOKIE['token'] ?? '');
-if ($username == null) {
-    updateSessionCookie('',-99999);
+$username = $viewState->get('verified-username','');
+if ($username ?? '' === '') {
     redirect('/~dobiapa2/login');
 }
 
@@ -40,10 +39,10 @@ if ($secondsSince < SECONDS_IN_MINUTE) {
 $viewState->set('username', $username);
 $viewState->set('profile-role',$userData['role']);
 $viewState->set('profile-age',$ageDisplay);
-$viewState->set('profile-form-display-name',$userData['display_name']);
-$viewState->set('profile-form-email',$userData['email']);
-$viewState->set('profile-form-social-website',$userData['social_website']);
-$viewState->set('profile-form-social-reddit',$userData['social_reddit']);
-$viewState->set('profile-form-social-twitter',$userData['social_twitter']);
-$viewState->set('profile-form-social-instagram',$userData['social_instagram']);
-$viewState->set('profile-form-social-discord',$userData['social_discord']);
+$viewState->set('form-display-name',$userData['display_name']);
+$viewState->set('form-email',$userData['email']);
+$viewState->set('form-social-website',$userData['social_website']);
+$viewState->set('form-social-reddit',$userData['social_reddit']);
+$viewState->set('form-social-twitter',$userData['social_twitter']);
+$viewState->set('form-social-instagram',$userData['social_instagram']);
+$viewState->set('form-social-discord',$userData['social_discord']);

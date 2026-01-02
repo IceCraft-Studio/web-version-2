@@ -11,18 +11,18 @@ switch ($viewState->get('profile-update-status',ProfileUpdateState::NoUpdate)) {
 
 }
 
-$username = $viewState->get('username');
+$username = $viewState->get('verified-username');
 $accountAge = $viewState->get('profile-age');
 $roleName = $viewState->get('profile-role');
 
-$prefillDisplayName = htmlspecialchars($viewState->get('profile-form-display-name'));
-$prefillEmail = htmlspecialchars($viewState->get('profile-form-email'));
-$prefillSocialsWebsite = htmlspecialchars($viewState->get('profile-form-socials-website'));
+$prefillDisplayName = htmlspecialchars($viewState->get('form-display-name'));
+$prefillEmail = htmlspecialchars($viewState->get('form-email'));
+$prefillSocialWebsite = htmlspecialchars($viewState->get('form-social-website'));
 
-$prefillSocialsReddit = htmlspecialchars($viewState->get('profile-form-socials-reddit'));
-$prefillSocialsTwitter = htmlspecialchars($viewState->get('profile-form-socials-twitter'));
-$prefillSocialsInstagram = htmlspecialchars($viewState->get('profile-form-socials-instagram'));
-$prefillSocialsDiscord = htmlspecialchars($viewState->get('profile-form-socials-discord'));
+$prefillSocialReddit = htmlspecialchars($viewState->get('form-social-reddit'));
+$prefillSocialTwitter = htmlspecialchars($viewState->get('form-social-twitter'));
+$prefillSocialInstagram = htmlspecialchars($viewState->get('form-social-instagram'));
+$prefillSocialDiscord = htmlspecialchars($viewState->get('form-social-discord'));
 
 $csrfToken = $_SESSION['csrf-token'];
 ?>
@@ -93,33 +93,33 @@ $csrfToken = $_SESSION['csrf-token'];
                 value="<?= $prefillDisplayName ?>">
             <label for="input-email">E-mail Address:</label>
             <input id="input-email" name="email" type="text" value="<?= $prefillEmail ?>">
-            <label for="input-socials-website">Personal Website:</label>
-            <input id="input-socials-website" name="socials-website" type="text" value="<?= $prefillSocialsWebsite ?>">
+            <label for="input-social-website">Personal Website:</label>
+            <input id="input-social-website" name="social-website" type="text" value="<?= $prefillSocialWebsite ?>">
         </div>
         <h2>Social Links</h2>
         <div class="field">
-            <label for="input-socials-reddit">Reddit Username:</label>
+            <label for="input-social-reddit">Reddit Username:</label>
             <div class="prefix-container">
-                <label for="input-socials-reddit">reddit.com/user/</label>
-                <input id="input-socials-reddit" name="socials-reddit" type="text" value="<?= $prefillSocialsReddit ?>">
+                <label for="input-social-reddit">reddit.com/user/</label>
+                <input id="input-social-reddit" name="social-reddit" type="text" value="<?= $prefillSocialReddit ?>">
             </div>
-            <label for="input-socials-twitter">Twitter Username:</label>
+            <label for="input-social-twitter">Twitter Username:</label>
             <div class="prefix-container">
-                <label for="input-socials-twitter">x.com/</label>
-                <input id="input-socials-twitter" name="socials-twitter" type="text"
-                    value="<?= $prefillSocialsTwitter ?>">
+                <label for="input-social-twitter">x.com/</label>
+                <input id="input-social-twitter" name="social-twitter" type="text"
+                    value="<?= $prefillSocialTwitter ?>">
             </div>
-            <label for="input-socials-instagram">Instagram Username:</label>
+            <label for="input-social-instagram">Instagram Username:</label>
             <div class="prefix-container">
-                <label for="input-socials-instagram">instagram.com/</label>
-                <input id="input-socials-instagram" name="socials-instagram" type="text"
-                    value="<?= $prefillSocialsInstagram ?>">
+                <label for="input-social-instagram">instagram.com/</label>
+                <input id="input-social-instagram" name="social-instagram" type="text"
+                    value="<?= $prefillSocialInstagram ?>">
             </div>
-            <label for="input-socials-discord">Discord Server Invite:</label>
+            <label for="input-social-discord">Discord Server Invite:</label>
             <div class="prefix-container">
-                <label for="input-socials-discord">discord.gg/</label>
-                <input id="input-socials-discord" name="socials-discord" type="text"
-                    value="<?= $prefillSocialsDiscord ?>">
+                <label for="input-social-discord">discord.gg/</label>
+                <input id="input-social-discord" name="social-discord" type="text"
+                    value="<?= $prefillSocialDiscord ?>">
             </div>
         </div>
         <h2>Change Password</h2>

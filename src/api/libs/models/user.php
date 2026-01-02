@@ -147,7 +147,7 @@ function changeUserEmail($username,$newEmail)
  * @param string $newLink New link to set.
  * @return bool `true` if the change was successful, otherwise `false`.
  */
-function changeUserSocials($username, $social, $newLink)
+function changeUserSocial($username, $social, $newLink)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $socialName = $social->value;
