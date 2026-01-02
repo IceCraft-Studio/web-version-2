@@ -174,7 +174,7 @@ $csrfToken = $_SESSION['csrf-token'];
             <input id="input-password-confirm" name="password-confirm" type="password" value="">
         </div>
         <div>
-            <input type="submit" value="Save Changes">
+            <input type="submit" value="Save Changes" disabled>
         </div>
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     </form>
