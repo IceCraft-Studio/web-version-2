@@ -3,8 +3,6 @@ require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
 require __DIR__ . "/enums.php";
 
-const TWO_DAYS_IN_SECONDS = 60*60*24*2;
-
 $username = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
 $passwordConfirm = $_POST['confirm-password'] ?? '';

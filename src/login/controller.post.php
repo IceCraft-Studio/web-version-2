@@ -16,7 +16,6 @@ if ($userPasswordLegit) {
     $userBanned = isset($userData['role']) ? $userData['role'] == UserRole::Banned->value : false;
 }
 
-
 if ($userPasswordLegit && $csrfLegit && !$userBanned) {
     $token = createSession($username,$password);
     updateSessionCookie($token);
@@ -28,7 +27,7 @@ $viewState->set('form-username',$username);
 if ($csrfLegit) {
     $viewState->set('login-error',LoginFormError::CsrfInvalid);
 } else if ($userBanned) {
-    $viewState->set('login-error',LoginFormError::WrongCredentials);
+    $viewState->set('login-error',LoginFormError::UserBanned);
 } else {
     $viewState->set('login-error',LoginFormError::WrongCredentials);
 }

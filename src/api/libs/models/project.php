@@ -1,7 +1,16 @@
 <?php
 enum ProjectSort: string{
+    /**
+     * Sort by date modified.
+     */
     case Modified = 'datetime_modified';
+    /**
+     * Sort by title.
+     */
     case Title = 'title';
+    /**
+     * Sort by date created.
+     */
     case Created = 'datetime_created';
 }
 
@@ -88,7 +97,6 @@ function getProjectData($category,$slug) {
  * @param int $listNumber The page number.
  * @param int $listItems Amount of items per page.
  * @param array<string> $filters Array with 2 indexes, `username` and `category`. If the string isn't empty, it is used to filter out results.
- * @param string $filterUsername Filter specific username. Empty string means no filtering.
  * @param ProjectSort $sortBy How to sort the projects.
  * @param bool $sortAscending When `true` 'ASC' is used in the SQL query.
  * @return array
@@ -98,13 +106,13 @@ function getProjectList($listNumber, $listItems, $filters = ['category' => '', '
     $order = $sortAscending ? 'ASC' : 'DESC';
     $offset = ($listNumber - 1) * $listItems;
     $sortColumn = $sortBy->value;
-    if ($filters['category'] == '' && $filters['username'] == '') {
+    if (($filters['category'] ?? '') == '' && ($filters['username'] ?? '') == '') {
         return dbQuery($dbConnection,"SELECT * FROM `project` ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","ii",[$listItems,$offset]);
     }
-    if ($filters['category'] == '') {
+    if (($filters['category'] ?? '') == '') {
         return dbQuery($dbConnection,"SELECT * FROM `project` WHERE `username` = ? ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","sii",[$filters['username'],$listItems,$offset]);
     }
-    if ($filters['username'] == '') {
+    if (($filters['username'] ?? '') == '') {
         return dbQuery($dbConnection,"SELECT * FROM `project` WHERE `category` = ? ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","sii",[$filters['category'],$listItems,$offset]);
     }
     return dbQuery($dbConnection,"SELECT * FROM `project` WHERE `category` = ? AND `username` = ? ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","ssii",[$filters['category'],$filters['username'],$listItems,$offset]);

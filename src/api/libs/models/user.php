@@ -17,6 +17,13 @@ enum UserSocial: string
     case Website = 'website';
 }
 
+enum UserSort: string{
+    case Username = 'username';
+    case DisplayName = 'display_name';
+    case Role = 'role';
+    case Created = 'datetime_created';
+}
+
 
 /**
  * Summary of createUser
@@ -181,4 +188,37 @@ function changeUserPassword($username, $oldPassword, $newPassword)
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $result = dbQuery($dbConnection, "UPDATE `user` SET `password_hash` = ? WHERE `username` = ? ", "ss", [$newHash, $username]);
     return ($result !== false && $result !== 0);
+}
+
+/**
+ * Returns list of users from the database defined by page number, items per page and filtering & sorting parameters.
+ * @param int $listNumber The page number.
+ * @param int $listItems Amount of items per page.
+ * @param array<string> $filters Array with 2 indexes, `username` and `category`. If the string isn't empty, it is used to filter out results.
+ * @param UserSort $sortBy How to sort the users.
+ * @param bool $sortAscending When `true` 'ASC' is used in the SQL query.
+ * @return array
+ */
+function getUserList($listNumber, $listItems, $filters = ['role' => ''], $sortBy = UserSort::Modified, $sortAscending = false) { 
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $order = $sortAscending ? 'ASC' : 'DESC';
+    $offset = ($listNumber - 1) * $listItems;
+
+    $firstSortColumn = '`' . $sortBy->value . '` ' . $order;
+    $secondSortColumn = $firstSortColumn == 'role' ? ', `username` ' . $order : '';
+    $sortColumns = $firstSortColumn . $secondSortColumn;
+
+    if (($filters['role'] ?? '') == '') {
+        return dbQuery($dbConnection,"SELECT * FROM `user` ORDER BY $sortColumns LIMIT ? OFFSET ? ","ii",[$listItems,$offset]);
+    }
+    return dbQuery($dbConnection,"SELECT * FROM `user` WHERE `role` = ? ORDER BY $sortColumns LIMIT ? OFFSET ? ","sii",[$filters['role'],$listItems,$offset]);
+}
+
+/**
+ * Retrieves the list of all roles from the database.
+ * @return array|bool Array of all roles or `false` if the query fails.
+ */
+function getRoles() {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    return dbQuery($dbConnection,'SELECT * FROM `role`');
 }

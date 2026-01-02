@@ -29,17 +29,38 @@ $csrfToken = $_SESSION['csrf-token'];
                 <input type="file" name="profile-picture" id="input-profile-picture">
             </div>
             <div class="stats-container field">
-                <div>
-                    Your username is <span class="monospace"><?= $username ?></span>.
+                <div class="stat-row">
+                    <div>
+                        <img src="/~dobiapa2/assets/icons/user-circle.svg" alt="User Circle Icon">
+                    </div>
+                    <div>
+                        Your username is <span class="monospace"><?= $username ?></span>.
+                    </div>
                 </div>
-                <div>
-
-                    Your account is <span class="bold"><?= $accountAge ?></span> old.
+                <div class="stat-row">
+                    <div>
+                        <img src="/~dobiapa2/assets/icons/clock-arrow.svg" alt="Clock Arrow Icon">
+                    </div>
+                    <div>
+                        Your account is <span class="bold"><?= $accountAge ?></span> old.
+                    </div>
                 </div>
-                <div>
-                    Your role is <span class="bold"><?= $roleName ?></span>.
+                <div class="stat-row">
+                    <div>
+                        <img src="/~dobiapa2/assets/icons/user-group.svg" alt="User Group Icon">
+                    </div>
+                    <div>
+                        Your role is <span class="bold"><?= $roleName ?></span>.
+                    </div>
                 </div>
-                <a href="/~dobiapa2/users/<?= $username ?>">View all your projects.</a>
+                <div class="stat-row">
+                    <div>
+                        <img src="/~dobiapa2/assets/icons/folder-open.svg" alt="Folder Open Icon">
+                    </div>
+                    <div>
+                        <a href="/~dobiapa2/users/<?= $username ?>">View all your projects.</a>
+                    </div>
+                </div>
             </div>
         </div>
         <p>Tell us more about yourself to enhance your public presence on our website.</p>

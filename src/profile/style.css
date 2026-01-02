@@ -17,6 +17,7 @@
 .picture-container:hover {
     border-radius: 50%;
     border: 0.2em dashed var(--color-primary);
+    background-color: transparent;
 }
 
 .picture-container:hover::after {
