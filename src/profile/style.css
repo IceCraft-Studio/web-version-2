@@ -47,6 +47,13 @@ button.picture-container:hover {
     pointer-events: none;
 }
 
+.picture-upload-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 button.picture-container img {
     width: 100%;
     display: block;
