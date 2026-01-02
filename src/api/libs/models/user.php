@@ -151,7 +151,7 @@ function changeUserSocials($username, $social, $newLink)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $socialName = $social->value;
-    $result = dbQuery($dbConnection, "UPDATE `user` SET `socials_$socialName` = ? WHERE `username` = ?", "ss", [$newLink, $username]);
+    $result = dbQuery($dbConnection, "UPDATE `user` SET `social_$socialName` = ? WHERE `username` = ?", "ss", [$newLink, $username]);
     return ($result !== false && $result !== 0);
 }
 
