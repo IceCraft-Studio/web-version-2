@@ -179,6 +179,6 @@ function changeUserPassword($username, $oldPassword, $newPassword)
     }
     $newHash = password_hash($newPassword, PASSWORD_BCRYPT);
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $result = dbQuery($dbConnection, "UPDATE `user` SET `password_hash` = ? WHERE `username` = ?", "ss", [$newHash, $username]);
+    $result = dbQuery($dbConnection, "UPDATE `user` SET `password_hash` = ? WHERE `username` = ? ", "ss", [$newHash, $username]);
     return ($result !== false && $result !== 0);
 }

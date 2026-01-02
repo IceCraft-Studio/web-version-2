@@ -5,9 +5,9 @@ require __DIR__ . "/enums.php";
 
 const TWO_DAYS_IN_SECONDS = 60*60*24*2;
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-$passwordConfirm = $_POST['confirm-password'];
+$username = trim($_POST['username'] ?? '');
+$password = $_POST['password'] ?? '';
+$passwordConfirm = $_POST['confirm-password'] ?? '';
 
 $viewState = ViewData::getInstance();
 

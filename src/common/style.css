@@ -45,10 +45,6 @@ main {
 	font-family: 'Ubuntu';
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'Gantari', sans-serif;
-}
-
 main > * {
     margin-left: 10%;
 	margin-right: 10%;
@@ -59,6 +55,14 @@ main > * {
         margin-left: 2%;
 		margin-right: 2%;
     }
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Gantari', sans-serif;
+}
+
+a {
+    display: inline-block;
 }
 
 /* FORM ELEMENTS */

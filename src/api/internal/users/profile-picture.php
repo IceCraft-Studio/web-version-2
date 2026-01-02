@@ -1,6 +1,8 @@
 <?php
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/helpers.php';
 
+const DEFAULT_THUMBNAIL = $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/assets/icons/default-steve.webp';
+
 # Validation
 if (!isset($_GET['username']) || $_GET['username'] === '') {
     http_response_code(400);
@@ -14,9 +16,9 @@ $variantPart = $variant == 'preview' ? '-preview' : '';
 
 $image_path = resolveDataPath('user/' . $username . '/profile-picture' . $variantPart . '.webp');
 
+header('Content-Type: image/webp', true);
 if (file_exists($image_path)) {
-    header('Content-Type: image/webp',true);
     readfile($image_path);
 } else {
-    header('Location: /~dobiapa2/assets/icons/default-steve.webp', true, 302);
+    readfile(DEFAULT_THUMBNAIL);
 }

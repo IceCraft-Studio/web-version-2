@@ -37,6 +37,6 @@ $csrfToken = $_SESSION['csrf-token'];
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     </form>
     <div class="center-text">
-        New to IceCraft Projects? <a href="/~dobiapa2/register" class="inline-block">Register a new account!</a>
+        New to IceCraft Projects? <a href="/~dobiapa2/register">Register a new account!</a>
     </div>
 </main>

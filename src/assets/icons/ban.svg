@@ -1,3 +1,6 @@
-<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#000" stroke-linecap="round" stroke-width="2" d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24" version="1.1" id="svg1" sodipodi:docname="ban.svg">
+   <defs id="defs1"/>
+   <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25"/>
+   <path stroke="#000000" stroke-linecap="round" stroke-width="2.01835" d="M 5.3394492,5.3372099 18.660549,18.658311 m 3.330275,-6.66055 a 9.9908251,9.9908259 0 1 1 -19.9816497,0 9.9908251,9.9908259 0 0 1 19.9816497,0 z" id="path1"/>
 </svg>
