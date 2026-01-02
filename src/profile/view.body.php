@@ -34,10 +34,10 @@ switch ($viewState->get('password-update-state',PasswordUpdateState::NoUpdate)) 
         $passwordMessage = 'Password change failed! Password must have at least 8 characters, containing at least 1 number, uppercase letter and lowercase letter.';
         break;
     case PasswordUpdateState::PasswordWrong:
-        $passwordMessage = 'Password change failed!. Incorrect original password. Please try again.';
+        $passwordMessage = 'Password change failed! Incorrect original password. Please try again.';
         break;
     case PasswordUpdateState::PasswordMismatch:
-        $passwordMessage = 'Password change failed!. Passwords don\'t match.';
+        $passwordMessage = 'Password change failed! Passwords don\'t match.';
         break;
     case PasswordUpdateState::Success:
         $passwordMessage = 'Password changed successfully! You need to login again on other browsers and devices.';
