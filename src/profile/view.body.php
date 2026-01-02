@@ -60,7 +60,7 @@ $csrfToken = $_SESSION['csrf-token'];
                 <?= $profileMessage ?>
         </div>
     <?php endif; ?>
-    <?php if ($showUpdateBanner): ?>
+    <?php if ($showPasswordUpdateBanner): ?>
         <div class="update-banner">
                 <?= $passwordMessage ?>
         </div>
