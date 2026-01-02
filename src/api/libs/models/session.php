@@ -55,7 +55,7 @@ function verifySession($token = '') {
     } 
     $stmt->close();
     
-    if ($expires !== null && strtotime($expires) < time()) {
+    if (isset($expires) && strtotime($expires) < time()) {
         destroySession($token);
         return null;
     }
