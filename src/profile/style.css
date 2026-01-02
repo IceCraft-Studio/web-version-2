@@ -21,8 +21,7 @@
 button.picture-container {
     position: relative;
     max-width: 10rem;
-    outline: 0.2rem solid var(--color-primary);
-    border: 0.2rem solid transparent;
+    border: 0.2rem solid var(--color-primary);
     border-radius: 50%;
     padding: 0;
 }
