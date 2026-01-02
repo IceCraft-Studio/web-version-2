@@ -45,7 +45,7 @@ async function main () {
     document.querySelectorAll('input').forEach((element) => {
         element.addEventListener('input', () => {
             if (!globalSubmitActivate) {
-                setElementActivation(submitButton);
+                setElementActivation(elements.submitButton);
                 globalSubmitActivate = true;
             }
         }) 
