@@ -99,7 +99,7 @@ if ($passwordNew != '') {
     destroyUserSessions($username);
     $token = createSession($username,$passwordNew);
     updateSessionCookie($token);
-    $viewState->set('profile-update-state',PasswordUpdateState::Success);
+    $viewState->set('password-update-state',PasswordUpdateState::Success);
 }
 
 

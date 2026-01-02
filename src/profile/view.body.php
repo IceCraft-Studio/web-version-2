@@ -4,7 +4,7 @@ $viewState = ViewData::getInstance();
 $showProfileUpdateBanner = true;
 $showPasswordUpdateBanner = true;
 $updateSuccess = true;
-switch ($viewState->get('profile-update-status',ProfileUpdateState::NoUpdate)) {
+switch ($viewState->get('profile-update-state',ProfileUpdateState::NoUpdate)) {
     case ProfileUpdateState::NoUpdate:
         $showProfileUpdateBanner = false;
         break;
@@ -20,7 +20,7 @@ switch ($viewState->get('profile-update-status',ProfileUpdateState::NoUpdate)) {
         break;
 }
 
-switch ($viewState->get('password-update-status',PasswordUpdateState::NoUpdate)) {
+switch ($viewState->get('password-update-state',PasswordUpdateState::NoUpdate)) {
     case PasswordUpdateState::NoUpdate:
         $showPasswordUpdateBanner = false;
         break;
