@@ -6,11 +6,10 @@ const SECONDS_IN_HOUR = SECONDS_IN_MINUTE*60;
 const SECONDS_IN_DAY = SECONDS_IN_HOUR*24;
 
 $viewState = ViewData::getInstance();
-echo $viewState->get('verified-username','nope');
 
 // Redirect if token is invalid
 $username = $viewState->get('verified-username','');
-if (($username ?? '') === '') {
+if ($username === '') {
     redirect('/~dobiapa2/login');
 }
 
