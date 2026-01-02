@@ -11,9 +11,11 @@
 }
 
 .update-banner.fail {
+    color: var(--color-text-dark);
     background-color: var(--color-important-red)
 }
 .update-banner.success {
+    color: var(--color-text-dark);
     background-color: hsl(120, 90%, 30%);
 }
 
