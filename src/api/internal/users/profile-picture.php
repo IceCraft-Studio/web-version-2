@@ -1,7 +1,7 @@
 <?php
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/helpers.php';
 
-const DEFAULT_THUMBNAIL = $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/assets/icons/default-steve.webp';
+$defaultPicture = $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/assets/icons/default-steve.webp';
 
 # Validation
 if (!isset($_GET['username']) || $_GET['username'] === '') {
@@ -20,5 +20,5 @@ header('Content-Type: image/webp', true);
 if (file_exists($image_path)) {
     readfile($image_path);
 } else {
-    readfile(DEFAULT_THUMBNAIL);
+    readfile($defaultPicture);
 }
