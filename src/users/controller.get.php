@@ -1,5 +1,5 @@
 <?php
-require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/models/user.php";
+require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/models/user.php";
 
 const ORDER_ASCENDING = 'asc';
 const ORDER_DESCENDING = 'desc';
