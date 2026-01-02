@@ -38,5 +38,6 @@ if ($username != null) {
     }
 }
 
-// Sets username accessible for all future controllers
+// Sets verified username for all future controllers
 $viewState->set('verified-username', $username != null ? $username : '');
+echo $viewState->get('verified-username','nope');
