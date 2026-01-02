@@ -12,7 +12,7 @@ if (!$csrfLegit) {
 }
 
 $username = $viewState->get('verified-username','');
-if ($username ?? '' === '') {
+if ($username === '') {
     redirect('/~dobiapa2/login');
 }
 
@@ -33,42 +33,53 @@ $profileUpdateSuccess = true;
 $originalUserData = getUserData($username);
 
 if ($originalUserData['display_name'] != $displayName) {
+    $changeSuccess = changeUserDisplayName($username,$displayName);
     $profileUpdated = true;
-    $profileUpdateSuccess = $profileUpdateSuccess ? changeUserDisplayName($username,$displayName) : false;
+    $profileUpdateSuccess = $profileUpdateSuccess ? $changeSuccess : false;
 }
 if ($originalUserData['email'] != $email) {
+    $changeSuccess = changeUserEmail($username,$email);
     $profileUpdated = true;
-    $profileUpdateSuccess = $profileUpdateSuccess ? changeUserEmail($username,$email) : false;
+    $profileUpdateSuccess = $profileUpdateSuccess ? $changeSuccess : false;
 }
 if ($originalUserData['social_website'] != $socialWebsite) {
+    $changeSuccess = changeUserSocial($username,UserSocial::Website,$socialWebsite);
     $profileUpdated = true;
-    $profileUpdateSuccess = $profileUpdateSuccess ? changeUserSocial($username,UserSocial::Website,$socialWebsite) : false;
+    $profileUpdateSuccess = $profileUpdateSuccess ? $changeSuccess : false;
 }
 if ($originalUserData['social_reddit'] != $socialReddit) {
+    $changeSuccess = changeUserSocial($username,UserSocial::Reddit,$socialReddit);
     $profileUpdated = true;
-    $profileUpdateSuccess = $profileUpdateSuccess ? changeUserSocial($username,UserSocial::Reddit,$socialReddit) : false;
+    $profileUpdateSuccess = $profileUpdateSuccess ? $changeSuccess : false;
 }
 if ($originalUserData['social_twitter'] != $socialTwitter) {
+    $changeSuccess = changeUserSocial($username,UserSocial::Twitter,$socialTwitter);
     $profileUpdated = true;
-    $profileUpdateSuccess = $profileUpdateSuccess ? changeUserSocial($username,UserSocial::Twitter,$socialTwitter) : false;
+    $profileUpdateSuccess = $profileUpdateSuccess ? $changeSuccess : false;
 }
 if ($originalUserData['social_instagram'] != $socialInstagram) {
+    $changeSuccess = changeUserSocial($username,UserSocial::Instagram,$socialInstagram);
     $profileUpdated = true;
-    $profileUpdateSuccess = $profileUpdateSuccess ? changeUserSocial($username,UserSocial::Instagram,$socialInstagram) : false;
+    $profileUpdateSuccess = $profileUpdateSuccess ? $changeSuccess : false;
 }
 if ($originalUserData['social_discord'] != $socialDiscord) {
+    $changeSuccess = changeUserSocial($username,UserSocial::Discord,$socialDiscord);
     $profileUpdated = true;
-    $profileUpdateSuccess = $profileUpdateSuccess ? changeUserSocial($username,UserSocial::Discord,$socialDiscord) : false;
+    $profileUpdateSuccess = $profileUpdateSuccess ? $changeSuccess : false;
 }
 
 if ($profileUpdated) {
-
+    if ($profileUpdateSuccess) {
+        $viewState->set('profile-update-state',ProfileUpdateState::Success);
+    } else {
+        $viewState->set('profile-update-state',ProfileUpdateState::Failure);
+    }
 } else {
-    
+    $viewState->set('profile-update-state',ProfileUpdateState::NoUpdate);
 }
 
 // Password Update
-$viewState->set('profile-update-state',PasswordUpdateState::NoUpdate);
+$viewState->set('password-update-state',PasswordUpdateState::NoUpdate);
 if ($passwordNew != '') {
     if (!validatePassword($passwordNew)) {
         $viewState->set('password-update-state',PasswordUpdateState::PasswordInvalid);
