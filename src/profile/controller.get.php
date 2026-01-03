@@ -2,13 +2,13 @@
 require_once __DIR__ . '/enums.php';
 
 const SECONDS_IN_MINUTE = 60;
-const SECONDS_IN_HOUR = SECONDS_IN_MINUTE*60;
-const SECONDS_IN_DAY = SECONDS_IN_HOUR*24;
+const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * 60;
+const SECONDS_IN_DAY = SECONDS_IN_HOUR * 24;
 
 $viewState = ViewData::getInstance();
 
 // Redirect if token is invalid
-$username = $viewState->get('verified-username','');
+$username = $viewState->get('verified-username', '');
 if ($username === '') {
     redirect('/~dobiapa2/login');
 }
@@ -18,7 +18,7 @@ initCsrf();
 // Retrieve user information
 $userData = getUserData($username);
 if ($userData === false) {
-// Handle later
+    // Handle later
 }
 
 // Human Readable Account Age
@@ -28,33 +28,34 @@ $secondsSince = $now - $created;
 if ($secondsSince < SECONDS_IN_MINUTE) {
     $ageDisplay = 'less than 1 minute';
 } else if ($secondsSince < SECONDS_IN_HOUR) {
-    $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_MINUTE)) . ' minutes';
+    $ageDisplay = (string) (floor($secondsSince / SECONDS_IN_MINUTE)) . ' minutes';
 } else if ($secondsSince < SECONDS_IN_DAY) {
-    $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_HOUR)) . ' hours';
+    $ageDisplay = (string) (floor($secondsSince / SECONDS_IN_HOUR)) . ' hours';
 } else {
-    $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_DAY)) . ' days';
+    $ageDisplay = (string) (floor($secondsSince / SECONDS_IN_DAY)) . ' days';
 }
 // Display name for role
 $roleName = $userData['role'];
 $rolesData = getRoles();
 if ($rolesData !== false) {
-foreach ($rolesData as $roleRow) {
-    if ($roleRow[`id`] !== $roleName) {
-        continue;
+    var_dump($rolesData);
+    foreach ($rolesData as $roleRow) {
+        if ($roleRow[`id`] !== $roleName) {
+            continue;
+        }
+        $roleName = $roleRow[`name`];
+        break;
     }
-    $roleName = $roleRow[`name`];
-    break;
-}
 }
 
 // Prepare fields for the page
 $viewState->set('username', $username);
-$viewState->set('profile-role',$roleName);
-$viewState->set('profile-age',$ageDisplay);
-$viewState->set('form-display-name',$userData['display_name']);
-$viewState->set('form-email',$userData['email']);
-$viewState->set('form-social-website',$userData['social_website']);
-$viewState->set('form-social-reddit',$userData['social_reddit']);
-$viewState->set('form-social-twitter',$userData['social_twitter']);
-$viewState->set('form-social-instagram',$userData['social_instagram']);
-$viewState->set('form-social-discord',$userData['social_discord']);
+$viewState->set('profile-role', $roleName);
+$viewState->set('profile-age', $ageDisplay);
+$viewState->set('form-display-name', $userData['display_name']);
+$viewState->set('form-email', $userData['email']);
+$viewState->set('form-social-website', $userData['social_website']);
+$viewState->set('form-social-reddit', $userData['social_reddit']);
+$viewState->set('form-social-twitter', $userData['social_twitter']);
+$viewState->set('form-social-instagram', $userData['social_instagram']);
+$viewState->set('form-social-discord', $userData['social_discord']);
