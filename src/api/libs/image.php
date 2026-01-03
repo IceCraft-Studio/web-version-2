@@ -51,10 +51,10 @@ function saveImageAsWebP($srcImage,$outImage,$outWidth = 0,$outHeight = 0) {
         return false;
     }
     [$width, $height, $type]  = $imageInfo;
-    if ($outWidth == 0) {
+    if ($outWidth === 0) {
         $outWidth = $width;
     }
-    if ($outHeight == 0) {
+    if ($outHeight === 0) {
         $outHeight = $height;
     }
     // Load the image properly
@@ -67,12 +67,11 @@ function saveImageAsWebP($srcImage,$outImage,$outWidth = 0,$outHeight = 0) {
     if ($imageData == false) {
         return false;
     }
-    imagealphablending($imageData, false);
-    imagesavealpha($imageData, true);
-    // Resize if needed
-    if ($width != $outWidth || $height != $outHeight) {
-        imagecopyresampled($imageData,$imageData,0,0,0,0,$outWidth,$outHeight,$width,$height);
-    }
+    // Resample
+    $newImageData = imagecreatetruecolor($outWidth,$outHeight);
+    imagealphablending($newImageData, false);
+    imagesavealpha($newImageData, true);
+    imagecopyresampled($newImageData,$imageData,0,0,0,0,$outWidth,$outHeight,$width,$height);
     // Save as WEBP
-    return imagewebp($imageData,$outImage);
+    return imagewebp($newImageData,$outImage);
 }
