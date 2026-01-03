@@ -66,9 +66,9 @@ if ($originalUserData['display_name'] != $displayName) {
         $viewState->set('profile-update-fail-message','Profile update failed! The display name must be at most 112 characters long.');
         $changeSuccess = false;
     } else {
-        $changeSuccess = changeUserEmail($username,$email);
+        $changeSuccess = changeUserDisplayName($username,$displayName);
     }
-    $changeSuccess = changeUserDisplayName($username,$displayName);
+    
     if ($changeSuccess) {
         $viewState->set('user-display-name', $displayName);
     }
@@ -78,7 +78,7 @@ if ($originalUserData['display_name'] != $displayName) {
 if ($originalUserData['email'] != $email) {
     if (!validateUserEmail($email)) {
         $viewState->set('profile-update-state',ProfileUpdateState::Failure);
-        $viewState->set('profile-update-fail-message','Profile update failed! The email must follow the format "name@domail.tld".');
+        $viewState->set('profile-update-fail-message','Profile update failed! The email must follow the format "name@domain.tld".');
         $changeSuccess = false;
     } else {
         $changeSuccess = changeUserEmail($username,$email);
