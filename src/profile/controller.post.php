@@ -16,13 +16,13 @@ if ($username === '') {
     redirect('/~dobiapa2/login');
 }
 
-$displayName = $_POST['display-name'] ?? '';
-$email = $_POST['email'] ?? '';
-$socialWebsite = $_POST['social-website'] ?? '';
-$socialReddit = $_POST['social-reddit'] ?? '';
-$socialTwitter = $_POST['social-twitter'] ?? '';
-$socialInstagram = $_POST['social-instagram'] ?? '';
-$socialDiscord = $_POST['social-discord'] ?? '';
+$displayName = trim($_POST['display-name'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$socialWebsite = trim($_POST['social-website'] ?? '');
+$socialReddit = trim($_POST['social-reddit'] ?? '');
+$socialTwitter = trim($_POST['social-twitter'] ?? '');
+$socialInstagram = trim($_POST['social-instagram'] ?? '');
+$socialDiscord = trim($_POST['social-discord'] ?? '');
 $password = $_POST['password'] ?? '';
 $passwordNew = $_POST['password-new'] ?? '';
 $passwordConfirm = $_POST['password-confirm'] ?? '';

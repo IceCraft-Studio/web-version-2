@@ -5,7 +5,7 @@
 class DbConnect
 {
     /**
-     * Static reference to the instance, only one should exist for the entire life-cycle of a page.
+     * Static reference to the only instance of the class.
      * @var 
      */
     private static ?self $instance = null;

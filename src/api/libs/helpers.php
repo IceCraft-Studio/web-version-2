@@ -1,4 +1,8 @@
 <?php
+/**
+ * The path to a directory containing all site data stored as files. 
+ * @var string
+ */
 const DATA_PATH = "/home/dobiapa2/data";
 
 /**
@@ -112,18 +116,18 @@ function dbQuery($connection, $sqlQuery, $types = "", $parameters = [])
 }
 
 /**
- * Checks if the given string is to be used as a safe and fine looking URL.
- * @param string $str
- * @return bool
+ * Checks if the given string is to be used as a safe and fine looking URL. Means only lowercase alphanumeric characters and single hyphens between words.
+ * @param string $str The input string.
+ * @return bool Is it, or is it not?
  */
 function isStringSafeUrl($str) {
     return (preg_match_all('/^[a-z0-9]+(-[a-z0-9]+)*$/',$str) > 0);
 }
 
 /**
- * Returns the same string with any potential new line removed.
- * @param string $str
- * @return string
+ * Returns the same string with all new line characters removed.
+ * @param string $str The input string.
+ * @return string THe result string.
  */
 function removeNewLines($str) {
     return preg_replace('/\R/', '', $str);

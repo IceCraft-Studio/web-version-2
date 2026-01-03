@@ -24,7 +24,6 @@ enum UserSort: string{
     case Created = 'datetime_created';
 }
 
-
 /**
  * Summary of createUser
  * @param mixed $username
@@ -55,6 +54,14 @@ function validateUsername($username)
         return false;
     }
     return isStringSafeUrl($username);
+}
+
+function validateUserDisplayName($displayName) {
+    return strlen($displayName) < 128;
+}
+
+function validateUserEmail($email) {
+    return filter_var($email,FILTER_VALIDATE_EMAIL) === false;
 }
 
 /**
@@ -88,16 +95,54 @@ function getUserData($username)
 }
 
 /**
- * Takes a specified file on the server and sets it as the profile picture for the given user. If empty deleted the file.
- * @param mixed $username
- * @param mixed $fileLocation
- * @return void
+ * Retuns the data directory for a given user and ensures it exists. (Optionally with subdirectories.)
+ * @param string $username The user's username.
+ * @param string $subdir Optional subdirectory inside the user folder.
+ * @return string|bool The directory, `false` on failure.
+ */
+function getUserDirectory($username,$subdir = '') {
+    $userDirectory = resolveDataPath('user/' . $username);
+    if ($subdir !== '') {
+        $userDirectory .= '/' . $subdir;
+    }
+    if (!is_dir($userDirectory)) {
+        if (!mkdir($userDirectory,0777,true)) {
+            return false;
+        }
+    }
+    return $userDirectory;
+}
+
+/**
+ * Takes a specified file on the server and sets it as the profile picture for the given user. If empty deletes the file.
+ * @param mixed $username Username to update it for.
+ * @param mixed $fileLocation Where the image file is currently stored.
+ * @return bool `true` on success, `false` on failure.
  */
 function saveUserProfilePicture($username, $fileLocation)
 {
-    if ($fileLocation) {
-
+    $userDirectory = getUserDirectory($username);
+    if ($userDirectory === false) {
+        return false;
     }
+    $profilePictureFullPath = $userDirectory . '/profile-picture.webp';
+    $profilePicturePreviewPath = $userDirectory . '/profile-picture-preview.webp';
+
+    if ($fileLocation === '') {
+        if (file_exists($profilePictureFullPath)) {
+            unlink(($profilePictureFullPath));
+        }
+        if (file_exists($profilePicturePreviewPath)) {
+            unlink(($profilePicturePreviewPath));
+        }
+        return true;
+    }
+
+    [$width,$height] = getimagesize($fileLocation);
+    return (
+        saveImageAsWebP($fileLocation,$profilePictureFullPath) &&
+        saveImageAsWebP($fileLocation,$profilePicturePreviewPath,min($width,200),min($height,200))
+    );
 }
 
 /**

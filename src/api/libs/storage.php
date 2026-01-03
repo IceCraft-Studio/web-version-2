@@ -25,3 +25,20 @@ function getAvailablepath($directory,$name,$extension = '') {
     }
     return $finalPath;
 }
+
+/**
+ * Recursively removes an entire directory tree stemming from the specified directory.
+ * @param mixed $directory Directory to remove.
+ * @return void
+ */
+function removeDirRecursive($directory) {
+    foreach (scandir($directory) as $file) {
+        if ($file === '.' || $file === '..') continue;
+        $fullPath = $directory . '/' . $file;
+        if (is_dir($fullPath)) {
+            removeDirRecursive($fullPath);
+        }
+        unlink($fullPath);
+    }
+    rmdir($directory);
+}
