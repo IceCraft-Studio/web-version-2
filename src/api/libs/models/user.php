@@ -90,7 +90,7 @@ function validateUsername($username)
 }
 
 function validateUserDisplayName($displayName) {
-    return strlen($displayName) < 128;
+    return strlen($displayName) <= 112;
 }
 
 function validateUserEmail($email) {

@@ -42,7 +42,7 @@ switch ($viewState->get('profile-update-state',ProfileUpdateState::NoUpdate)) {
         $profileMessage = 'Critical Client Error! Please try resending the form.';
         break;
     case ProfileUpdateState::Failure:
-        $profileMessage = 'Critical Server Error! Please try again later.';
+        $profileMessage = $viewState->get('profile-update-fail-message','Critical Server Error! Please try again later.');
         break;
     case ProfileUpdateState::Success:
         $profileMessage = 'Profile updated successfully!';
