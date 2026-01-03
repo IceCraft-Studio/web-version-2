@@ -159,36 +159,36 @@ $csrfToken = $_SESSION['csrf-token'];
         <div class="field">
             <label for="input-display-name">Display Name:</label>
             <input id="input-display-name" name="display-name" placeholder="<?= $username ?>" type="text"
-                value="<?= $prefillDisplayName ?>" maxlength="113">
+                value="<?= $prefillDisplayName ?>" maxlength="112">
             <label for="input-email">E-mail Address:</label>
-            <input id="input-email" name="email" type="text" value="<?= $prefillEmail ?>">
+            <input id="input-email" name="email" type="text" placeholder="name@domain.tld" value="<?= $prefillEmail ?>" maxlength="200">
             <label for="input-social-website">Personal Website:</label>
-            <input id="input-social-website" name="social-website" type="text" value="<?= $prefillSocialWebsite ?>">
+            <input id="input-social-website" name="social-website" type="text" placeholder="https://example.com" value="<?= $prefillSocialWebsite ?>" maxlength="150">
         </div>
         <h2>Social Links</h2>
         <div class="field">
             <label for="input-social-reddit">Reddit Username:</label>
             <div class="prefix-container">
                 <label for="input-social-reddit">reddit.com/user/</label>
-                <input id="input-social-reddit" name="social-reddit" type="text" value="<?= $prefillSocialReddit ?>">
+                <input id="input-social-reddit" name="social-reddit" type="text" value="<?= $prefillSocialReddit ?>" maxlength="150">
             </div>
             <label for="input-social-twitter">Twitter Username:</label>
             <div class="prefix-container">
                 <label for="input-social-twitter">x.com/</label>
                 <input id="input-social-twitter" name="social-twitter" type="text"
-                    value="<?= $prefillSocialTwitter ?>">
+                    value="<?= $prefillSocialTwitter ?>" maxlength="150">
             </div>
             <label for="input-social-instagram">Instagram Username:</label>
             <div class="prefix-container">
                 <label for="input-social-instagram">instagram.com/</label>
                 <input id="input-social-instagram" name="social-instagram" type="text"
-                    value="<?= $prefillSocialInstagram ?>">
+                    value="<?= $prefillSocialInstagram ?>" maxlength="150">
             </div>
             <label for="input-social-discord">Discord Server Invite:</label>
             <div class="prefix-container">
                 <label for="input-social-discord">discord.gg/</label>
                 <input id="input-social-discord" name="social-discord" type="text"
-                    value="<?= $prefillSocialDiscord ?>">
+                    value="<?= $prefillSocialDiscord ?>" maxlength="150">
             </div>
         </div>
         <h2>Change Password</h2>

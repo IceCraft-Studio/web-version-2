@@ -78,7 +78,7 @@ if ($originalUserData['display_name'] != $displayName) {
 if ($originalUserData['email'] != $email) {
     if (!validateUserEmail($email)) {
         $viewState->set('profile-update-state',ProfileUpdateState::Failure);
-        $viewState->set('profile-update-fail-message','Profile update failed! The email must follow the format "name@domain.tld".');
+        $viewState->set('profile-update-fail-message','Profile update failed! The email must be at most 200 characters long and follow the format "name@domain.tld".');
         $changeSuccess = false;
     } else {
         $changeSuccess = changeUserEmail($username,$email);
