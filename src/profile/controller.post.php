@@ -25,7 +25,7 @@ if (isset($_POST['delete-profile-picture'])) {
     } else {
         $viewState->set('picture-update-state',PictureUpdateState::Failure);        
     }
-} else if (isset($_FILES['profile-picture'])) {
+} else if (isset($_FILES['profile-picture']) && ($_FILES['profile-picture']['tmp_name'] ?? '') !== '') {
     $imgTempPath = $_FILES['profile-picture']['tmp_name'];
     if (filesize($imgTempPath)/(1000 ** 2) > 8) {
         $viewState->set('picture-update-state',PictureUpdateState::WrongSize);
