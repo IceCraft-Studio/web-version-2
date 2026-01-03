@@ -31,7 +31,7 @@
     <h1 id="icecraft-software-licenses">IceCraft Studio Software Licenses</h1>
     <p>
         All software made by <span>IceCraft Studio is licensed under the 
-        <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU GPLv3 license</a> and available 
+        <a href="https://choosealicense.com/licenses/gpl-3.0/" target="_blank">GNU GPLv3 license</a> and available 
         at GitHub either at personal <a href="https://github.com/PavelDobCZ23" target="_blank">profile PavelDobCZ23</a> or 
         preferably at <a href="https://github.com/IceCraft-Studio" target="_blank">IceCraft Studio profile</a>.
     </p>
