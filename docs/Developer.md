@@ -38,6 +38,7 @@ in order to make the website function correctly.
     - Internally reroutes specific requests with dynamic URIs using primitive "middleware".
     - Calls controllers on routes defined separately for each HTTP method. The lack of a controller for a method causes 405. This means all pages need a GET controller to be accesible, even an empty one is fine.
         - All controller file names are expected to follow this pattern - `controller.{method}.php`.
+        - Controller for a specific route can set an HTTP status code for error (4xx or 5xx) which reroutes the request to error "middleware".
     - Calls views after controllers have run.
         - These include views common for all HTML responses and page specific ones.
         - If a view isn't defined, it is silently skipped as long as the controller exists.
@@ -65,27 +66,52 @@ and the URL is variable based on the client's request.
 # Forms
 
 This is a comprehensive list of all forms
+In addition to the fields listed for each form they also contain a field with a `csrf-token` to validate the user knowingly initiated the request.
 
 ## User Facing
 
 ### Login
 
 Fields:
-- `login_username`
-- `login_password`
+- `username` The username to attempt the login with.
+- `password` The password to attempt the login with.
 
 ### Register
 
 Fields:
-- `register_username`
-- `register_password`
-- `confirm_password`
+- `username` The username to register a new user with.
+- `password` The password to register a new user with.
+- `confirm-password` Confirmation of the password.
 
 ### User Profile
 
-### Create Project
+Fields:
+- `profile-picture`
+- `delete-profile-picture`
 
-### Edit Project
+- `display-name`
+- `email`
+- `social-website`
+
+- `social-reddit`
+- `social-twitter`
+- `social-instagram`
+- `social-discord`
+
+- `password`
+- `new-password`
+- `confirm-password`
+
+### Create/Edit Project
+
+Fields:
+- `title`
+- `description`
+- `category`
+- `slug`
+- `article`
+-
+
 
 ## Admin Only
 
@@ -96,6 +122,9 @@ Fields:
 ### Manage Links
 
 # Database
+
+The general structure of the database is described in the file `src/database.sql`.
+This file can be called to recreate empty database tables used for the purposes of this website.
 
 # File system
 
