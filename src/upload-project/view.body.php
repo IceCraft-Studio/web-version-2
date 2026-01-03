@@ -102,8 +102,8 @@ session_write_close();
                 </div>
             </div>
             </div>
-            <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
             <input type="submit" value="Create Project">
         </div>
+        <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     </form>
 </main>
