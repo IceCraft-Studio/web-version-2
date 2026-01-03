@@ -61,7 +61,7 @@ $profileUpdateSuccess = true;
 $originalUserData = getUserData($username);
 
 if ($originalUserData['display_name'] != $displayName) {
-    if (!validateUserDisplayName($email)) {
+    if (!validateUserDisplayName($displayName)) {
         $viewState->set('profile-update-state',ProfileUpdateState::Failure);
         $viewState->set('profile-update-fail-message','Profile update failed! The display name must be at most 112 characters long.');
         $changeSuccess = false;

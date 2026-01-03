@@ -18,7 +18,8 @@ initCsrf();
 // Retrieve user information
 $userData = getUserData($username);
 if ($userData === false) {
-    // Handle later
+    http_response_code(500);
+    return;
 }
 
 // Human Readable Account Age
