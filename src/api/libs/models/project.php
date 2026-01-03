@@ -2,6 +2,9 @@
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/github.php";
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/storage.php";
 
+const FILE_DOWNLOAD_URL = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/file-download.php';
+const GALLERY_URL = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/gallery.php';
+
 const ALLOWED_GALLERY_IMG_TYPES = [
     IMAGETYPE_GIF,
     IMAGETYPE_PNG,
@@ -28,59 +31,6 @@ enum ProjectSort: string{
     case Created = 'datetime_created';
 }
 
-// Creating Project
-function createProject($category,$slug,$username,$title,$description) {
-    $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $timestamp = date('Y-m-d H:i:s');
-    $result = dbQuery($dbConnection, 'INSERT INTO `project` (`category`, `slug`, `username`,`title`,`description`,`datetime_created`, `datetime_modified`) VALUES (?, ?, ?, ?, ?, ?, ?)', "sssssss", [$category,$slug,$username,$title,$description,$timestamp,$timestamp]);
-    if ($result === 1) {
-        return true;
-    }
-    return false;
-}
-
-function validateProjectSlug($slug) {
-    if (6 > strlen($slug) || strlen($slug) > 64) {
-        return false;
-    }
-    return isStringSafeUrl($slug);
-}
-
-function validateProjectTitle($title) {
-    return strlen($title) > 6 && strlen($title) < 128;
-}
-
-function validateProjectDescription($description) {
-    return strlen($description) > 24 && strlen($description) < 256;
-}
-
-// Basic Edits
-function updateProjectDateModified($category,$slug) {
-    $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $timestamp = date('Y-m-d H:i:s');
-    $result = dbQuery($dbConnection, "UPDATE `project` SET `datetime_modified` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$timestamp, $category, $slug]);
-    return ($result !== false && $result !== 0);
-}
-function changeProjectTitle($category,$slug,$newTitle) {
-    $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $result = dbQuery($dbConnection, "UPDATE `project` SET `title` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$newTitle, $category, $slug]);
-    $sucess = ($result !== false && $result !== 0);
-    if ($sucess) {
-        updateProjectDateModified($category,$slug);
-    }
-    return $sucess;
-}
-
-function changeProjectDescription($category,$slug,$newDescription) {
-    $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $result = dbQuery($dbConnection, "UPDATE `project` SET `description` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$newDescription, $category, $slug]);
-    $sucess = ($result !== false && $result !== 0);
-    if ($sucess) {
-        updateProjectDateModified($category,$slug);
-    }
-    return $sucess;
-}
-
 /**
  * Retuns the data directory for a given project and ensures it exists. (Optionally with subdirectories.)
  * @param string $category The project category.
@@ -99,6 +49,90 @@ function getProjectDirectory($category,$slug,$subdir = '') {
         }
     }
     return $projectDirectory;
+}
+
+//## Creating and Deleting Project
+function createProject($category,$slug,$username,$title,$description) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $timestamp = date('Y-m-d H:i:s');
+    $result = dbQuery($dbConnection, 'INSERT INTO `project` (`category`, `slug`, `username`,`title`,`description`,`datetime_created`, `datetime_modified`) VALUES (?, ?, ?, ?, ?, ?, ?)', "sssssss", [$category,$slug,$username,$title,$description,$timestamp,$timestamp]);
+    if ($result === 1) {
+        return true;
+    }
+    return false;
+}
+
+function deleteProject($category,$slug) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $resultProject = dbQuery($dbConnection, "DELETE FROM `project` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
+    $resultGallery = dbQuery($dbConnection, "DELETE FROM `project_gallery` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
+    $resultUpload = dbQuery($dbConnection, "DELETE FROM `project_upload` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
+    $resultLink = dbQuery($dbConnection, "DELETE FROM `project_link` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
+    removeDirRecursive(getProjectDirectory($category,$slug));
+}
+
+//## Validations
+function validateProjectSlug($slug) {
+    if (6 > strlen($slug) || strlen($slug) > 64) {
+        return false;
+    }
+    return isStringSafeUrl($slug);
+}
+
+function validateProjectTitle($title) {
+    return strlen($title) > 6 && strlen($title) < 128;
+}
+
+function validateProjectDescription($description) {
+    return strlen($description) > 24 && strlen($description) < 256;
+}
+
+//## Basic Edits
+/**
+ * Updates the project's date modified to the current datetime.
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @return bool `true` on success, `false` on failure.
+ */
+function updateProjectDateModified($category,$slug) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $timestamp = date('Y-m-d H:i:s');
+    $result = dbQuery($dbConnection, "UPDATE `project` SET `datetime_modified` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$timestamp, $category, $slug]);
+    return ($result !== false && $result !== 0);
+}
+
+/**
+ * Updates the project's title.
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @param string $newTitle new title for the project.
+ * @return bool `true` on success, `false` on failure.
+ */
+function changeProjectTitle($category,$slug,$newTitle) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, "UPDATE `project` SET `title` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$newTitle, $category, $slug]);
+    $success = ($result !== false && $result !== 0);
+    if ($success) {
+        updateProjectDateModified($category,$slug);
+    }
+    return $success;
+}
+
+/**
+ * Updates the project's description.
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @param string $newDescription The new description for the project.
+ * @return bool `true` on success, `false` on failure.
+ */
+function changeProjectDescription($category,$slug,$newDescription) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, "UPDATE `project` SET `description` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$newDescription, $category, $slug]);
+    $success = ($result !== false && $result !== 0);
+    if ($success) {
+        updateProjectDateModified($category,$slug);
+    }
+    return $success;
 }
 
 /**
@@ -133,7 +167,7 @@ function saveProjectThumbnail($category,$slug,$fileLocation) {
     );
 }
 
-// Project Article
+//## Working with Project Article
 /**
  * Loads project article as markdown and HTML.
  * @param mixed $category The category of the project.
@@ -184,44 +218,144 @@ function saveProjectArticle($category,$slug,$markdownData) {
     }
     return true;
 }
-// Project Gallery
-function addProjectGalleryImage() {
+
+//## Working with Project Gallery
+
+function addProjectGalleryImage($category,$slug,$fileLocation,$fileName,$caption,$inGallery) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $projectGalleryDirectory = getProjectDirectory($category,$slug,'gallery');
+    if ($projectGalleryDirectory === false) {
+        return false;
+    }
+    $projectGalleryImagePath = $projectGalleryDirectory . '/' . $fileName;
+
+    if (!rename($fileLocation,$projectGalleryImagePath)) {
+        return false;
+    }
+    $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`,`caption`,`in_gallery`) VALUES (?, ?, ?, ?, ?)  ", "ssssi", [$category,$slug,$fileName,$caption,$inGallery]);
+    $success = ($result !== false && $result !== 0);
+    if ($success) {
+        updateProjectDateModified($category,$slug);
+    }
+    return $success;
+}
+function removeProjectGalleryImage($category,$slug,$fileName) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $projectGalleryDirectory = getProjectDirectory($category,$slug,'gallery');
+    if ($projectGalleryDirectory === false) {
+        return false;
+    }
+    $projectGalleryImagePath = $projectGalleryDirectory . '/' . $fileName;
+
+    $result = dbQuery($dbConnection, "DELETE FROM `project_gallery` WHERE `category` = ? AND `slug` = ? AND `file_name` = ? ", "sss", [$category,$slug,$fileName]);
+    $success = ($result !== false && $result !== 0);
+    if ($success && file_exists($projectGalleryImagePath)) {
+        $success = unlink($projectGalleryImagePath);
+    } else {
+        return false;
+    }
+    if ($success) {
+        updateProjectDateModified($category,$slug);
+    }
+    return $success;
+}
+
+function loadProjectGalleryImages($category,$slug) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, "SELECT * FROM `project_gallery` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
+    if ($result === false) {
+        return false;
+    }
+    foreach ($result as $galleryRow) {
+        $linkToImage = GALLERY_URL . '?category=' . $category . '&project=' . $slug . '&file_name=' . $galleryRow['file_name'];
+        $finalArray[] = ['display_name' => $galleryRow['display_name'], 'link' => $linkToImage];
+    }
+    return $finalArray;
 
 }
-function removeProjectGalleryImage() {
 
+//## Working with Project Links
+
+function addProjectLink($category,$slug,$url,$displayName) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, "INSERT INTO `project_link` (`category`,`slug`,`url`,`display_name`) VALUES (?, ?, ?, ?)  ", "ssss", [$category,$slug,$url,$displayName]);
+    $success = ($result !== false && $result !== 0);
+    if ($success) {
+        updateProjectDateModified($category,$slug);
+    }
+    return $success;
 }
 
-// Project Links
-function addProjectLink($category,$slug,$displayName,$url) {
-
+function removeProjectLink($category,$slug,$url) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, "DELETE FROM `project_link` WHERE `category` = ? AND `slug` = ? AND `url` = ? ", "sss", [$category,$slug,$url]);
+    $success = ($result !== false && $result !== 0);
+    if ($success) {
+        updateProjectDateModified($category,$slug);
+    }
+    return $success;
 }
 
-function removeProjectLinks($category,$slug,$displayName,$url) {
-
+function loadProjectLinks($category,$slug) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    return dbQuery($dbConnection, "SELECT `url`, `display_name` FROM `project_link` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
 }
 
-// Project Files
-function addProjectFile($category,$slug,$displayName,$fileName) {
+//## Working with Project Files
 
+function addProjectFile($category,$slug,$fileLocation,$fileName,$displayName) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $projectUploadDirectory = getProjectDirectory($category,$slug,'upload');
+    if ($projectUploadDirectory === false) {
+        return false;
+    }
+    $projectUploadPath = $projectUploadDirectory . '/' . $fileName;
+    if (!rename($fileLocation,$projectUploadPath)) {
+        return false;
+    }
+    $result = dbQuery($dbConnection, "INSERT INTO `project_upload` (`category`,`slug`,`file_name`,`display_name`) VALUES (?, ?, ?, ?)  ", "ssss", [$category,$slug,$fileName,$displayName]);
+    $success = ($result !== false && $result !== 0);
+    if ($success) {
+        updateProjectDateModified($category,$slug);
+    }
+    return $success;
 }
 
-function removeProjectFiles($category,$slug) {
+function removeProjectFile($category,$slug,$fileName) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $projectUploadDirectory = getProjectDirectory($category,$slug,'upload');
+    if ($projectUploadDirectory === false) {
+        return false;
+    }
+    $projectUploadPath = $projectUploadDirectory . '/' . $fileName;
 
+    $result = dbQuery($dbConnection, "DELETE FROM `project_upload` WHERE `category` = ? AND `slug` = ? AND `file_name` = ? ", "sss", [$category,$slug,$fileName]);
+    $success = ($result !== false && $result !== 0);
+    if ($success && file_exists($projectUploadPath)) {
+        $success = unlink($projectUploadPath);
+    } else {
+        return false;
+    }
+    if ($success) {
+        updateProjectDateModified($category,$slug);
+    }
+    return $success;
 }
 
 function loadProjectFiles($category,$slug) {
-
-}
-
-function deleteProject($category,$slug) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $resultProject = dbQuery($dbConnection, "DELETE FROM `project` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
-    $resultGallery = dbQuery($dbConnection, "DELETE FROM `project_gallery` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
-    $resultUpload = dbQuery($dbConnection, "DELETE FROM `project_upload` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
-    $resultLink = dbQuery($dbConnection, "DELETE FROM `project_link` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
-    removeDirRecursive(getProjectDirectory($category,$slug));
+    $result = dbQuery($dbConnection, "SELECT * FROM `project_upload` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
+    if ($result === false) {
+        return false;
+    }
+    foreach ($result as $uploadRow) {
+        $linkToUpload = FILE_DOWNLOAD_URL . '?category=' . $category . '&project=' . $slug . '&file_name=' . $uploadRow['file_name'];
+        $finalArray[] = ['display_name' => $uploadRow['display_name'], 'link' => $linkToUpload];
+    }
+    return $finalArray;
 }
+
+//## Retrieving Project Information
 
 function getProjectData($category,$slug) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -236,7 +370,7 @@ function getProjectData($category,$slug) {
  * Returns list of projects from the database defined by page number, items per page and filtering & sorting parameters.
  * @param int $listNumber The page number.
  * @param int $listItems Amount of items per page.
- * @param array<string> $filters Array with 2 indexes, `username` and `category`. If the string isn't empty, it is used to filter out results.
+ * @param string[] $filters Array with 2 indexes, `username` and `category`. If the string isn't empty, it is used to filter out results.
  * @param ProjectSort $sortBy How to sort the projects.
  * @param bool $sortAscending When `true` 'ASC' is used in the SQL query.
  * @return array
@@ -258,6 +392,7 @@ function getProjectList($listNumber, $listItems, $filters = ['category' => '', '
     return dbQuery($dbConnection,"SELECT * FROM `project` WHERE `category` = ? AND `username` = ? ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","ssii",[$filters['category'],$filters['username'],$listItems,$offset]);
 }
 
+//# Categories
 /**
  * Retrieves the list of all categories from the database.
  * @return array|bool Array of all catagories or `false` if the query fails.
@@ -267,3 +402,38 @@ function getCategories() {
     return dbQuery($dbConnection,'SELECT * FROM `category`');
 }
 
+/**
+ * Add a new category.
+ * @param string $id ID of the added category.
+ * @param mixed $name Name of the added category.
+ * @return bool `true` on success, `false` on failure.
+ */
+function addCategory($id,$name) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection,'INSERT INTO `category` (`id`,`name`) VALUES (?, ?)', 'ss',[$id,$name]);
+    return ($result !== false || $result !== 0);
+}
+
+/**
+ * Edit the category's name.
+ * @param string $id ID of the category to edit.
+ * @param mixed $newName New name of the category.
+ * @return bool `true` on success, `false` on failure.
+ */
+function editCategoryName($id,$newName) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection,'UPDATE `category` SET `name` = ? WHERE `id` = ?', 'ss',[$newName,$id]);
+    return ($result !== false || $result !== 0);
+}
+
+/**
+ * Remove category with replacement. MAYBE ADD LATER.
+ * @param string $id ID of the category to remove.
+ * @param mixed $newName New category for projects with this category.
+ * @return bool `true` on success, `false` on failure.
+ */
+function removeCategory($id,$newCategory) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection,'', '',[$id,$newCategory]);
+    return ($result !== false || $result !== 0);
+}

@@ -4,7 +4,7 @@ require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/helpers.php';
 $defaultPicture = $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/assets/icons/default-steve.webp';
 
 # Validation
-if (!isset($_GET['username']) || $_GET['username'] === '') {
+if (($_GET['username'] ?? '') === '') {
     http_response_code(400);
     exit;
 }

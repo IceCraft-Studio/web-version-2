@@ -37,32 +37,32 @@ CREATE TABLE `project` (
 );
 
 CREATE TABLE `project_gallery` (
-  `id` int AUTO_INCREMENT PRIMARY KEY,
   `category` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `file_name` varchar(255) NOT NULL,
   `caption` varchar(255),
   `in_gallery` BOOLEAN NOT NULL DEFAULT TRUE,
+  PRIMARY KEY (`category`, `slug`,`file_name`),
   FOREIGN KEY (`category`, `slug`)
     REFERENCES `project`(`category`, `slug`)
 );
 
 CREATE TABLE `project_link` (
-  `id` int AUTO_INCREMENT PRIMARY KEY,
   `category` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
-  `display_name` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
+  `display_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`category`, `slug`,`url`),
   FOREIGN KEY (`category`, `slug`)
     REFERENCES `project`(`category`, `slug`)
 );
 
 CREATE TABLE `project_upload` (
-  `id` int AUTO_INCREMENT PRIMARY KEY,
   `category` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
-  `display_name` varchar(255) NOT NULL,
   `file_name` varchar(255) NOT NULL,
+  `display_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`category`, `slug`,`file_name`),
   FOREIGN KEY (`category`, `slug`)
     REFERENCES `project`(`category`, `slug`)
 );

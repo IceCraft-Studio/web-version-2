@@ -1,14 +1,19 @@
 <?php
 /**
- * 2 days in seconds.
+ * Default session duration - 2 days in seconds.
+ * @var int
  */
 const DEFAULT_SESSION_LENGTH = 60*60*24*2;
+/**
+ * The name of the cookie inside which the token is stored.
+ * @var string
+ */
 const TOKEN_COOKIE_NAME = 'token';
 
 /**
  * Creates a new session entry in the database and returns its token.
- * @param mixed $username Username of the user to create the session for.
- * @param mixed $password Password of the user to create the session for.
+ * @param string $username Username of the user to create the session for.
+ * @param string $password Password of the user to create the session for.
  * @param int $duration Duration of the session in seconds. Deafult is 2 days.
  * @return string|null Session token.
  */

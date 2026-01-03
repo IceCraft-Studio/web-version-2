@@ -25,6 +25,26 @@ enum UserSort: string{
 }
 
 /**
+ * Retuns the data directory for a given user and ensures it exists. (Optionally with subdirectories.)
+ * @param string $username The user's username.
+ * @param string $subdir Optional subdirectory inside the user folder.
+ * @return string|bool The directory, `false` on failure.
+ */
+function getUserDirectory($username,$subdir = '') {
+    $userDirectory = resolveDataPath('user/' . $username);
+    if ($subdir !== '') {
+        $userDirectory .= '/' . $subdir;
+    }
+    if (!is_dir($userDirectory)) {
+        if (!mkdir($userDirectory,0777,true)) {
+            return false;
+        }
+    }
+    return $userDirectory;
+}
+
+//## Creating and Deleting User
+/**
  * Summary of createUser
  * @param mixed $username
  * @param mixed $password
@@ -43,6 +63,13 @@ function createUser($username, $password, $role = UserRole::User)
     return false;
 }
 
+function deleteUser($username) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $resultUser = dbQuery($dbConnection, "DELETE FROM `user` WHERE `username` = ?", "ss", [$username]);
+    removeDirRecursive(getUserDirectory($username));
+}
+
+//## Validations
 /**
  * Returns `true` when the string is between 4 and 48 characters long (inclusive) and is safe to use as a URL (uses `isStringSafeUrl()` function), otherwise `false`. 
  * @param string $username The string to test.
@@ -77,40 +104,6 @@ function validatePassword($password)
         preg_match('/[a-z]/', $password) > 0 &&
         preg_match('/[0-9]/', $password) > 0
     );
-}
-
-/**
- * Retrieves all user data from the database.
- * @param string $username Username to look for in the database.
- * @return array|bool All rows of the user from the database or `false` if the user isn't found.
- */
-function getUserData($username)
-{
-    $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $result = dbQuery($dbConnection, "SELECT * FROM `user` WHERE `username` = ? LIMIT 1", "s", [$username]);
-    if (!$result || count($result) === 0) {
-        return false;
-    }
-    return $result[0];
-}
-
-/**
- * Retuns the data directory for a given user and ensures it exists. (Optionally with subdirectories.)
- * @param string $username The user's username.
- * @param string $subdir Optional subdirectory inside the user folder.
- * @return string|bool The directory, `false` on failure.
- */
-function getUserDirectory($username,$subdir = '') {
-    $userDirectory = resolveDataPath('user/' . $username);
-    if ($subdir !== '') {
-        $userDirectory .= '/' . $subdir;
-    }
-    if (!is_dir($userDirectory)) {
-        if (!mkdir($userDirectory,0777,true)) {
-            return false;
-        }
-    }
-    return $userDirectory;
 }
 
 /**
@@ -201,6 +194,25 @@ function changeUserSocial($username, $social, $newLink)
 }
 
 /**
+ * Verifies the user's current password and changes it to a new one.
+ * @param string $username Username to change the password for.
+ * @param string $oldPassword Their old password, must verify successfully.
+ * @param string $newPassword Their new password.
+ * @return bool `true` if the password was successfully changes, `false` otherwise.
+ */
+function changeUserPassword($username, $oldPassword, $newPassword)
+{
+    if (!verifyUserPassword($username, $oldPassword)) {
+        return false;
+    }
+    $newHash = password_hash($newPassword, PASSWORD_BCRYPT);
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, "UPDATE `user` SET `password_hash` = ? WHERE `username` = ? ", "ss", [$newHash, $username]);
+    return ($result !== false && $result !== 0);
+}
+
+//## Retrieving User Information
+/**
  * Checks if the provided password corresponds to the provided username.
  * @param string $username Username to verify.
  * @param string $password Password to verify.
@@ -218,21 +230,18 @@ function verifyUserPassword($username, $password)
 }
 
 /**
- * Verifies the user's current password and changes it to a new one.
- * @param string $username Username to change the password for.
- * @param string $oldPassword Their old password, must verify successfully.
- * @param string $newPassword Their new password.
- * @return bool `true` if the password was successfully changes, `false` otherwise.
+ * Retrieves all user data from the database.
+ * @param string $username Username to look for in the database.
+ * @return array|bool All rows of the user from the database or `false` if the user isn't found.
  */
-function changeUserPassword($username, $oldPassword, $newPassword)
+function getUserData($username)
 {
-    if (!verifyUserPassword($username, $oldPassword)) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, "SELECT * FROM `user` WHERE `username` = ? LIMIT 1", "s", [$username]);
+    if (!$result || count($result) === 0) {
         return false;
     }
-    $newHash = password_hash($newPassword, PASSWORD_BCRYPT);
-    $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $result = dbQuery($dbConnection, "UPDATE `user` SET `password_hash` = ? WHERE `username` = ? ", "ss", [$newHash, $username]);
-    return ($result !== false && $result !== 0);
+    return $result[0];
 }
 
 /**
@@ -259,6 +268,7 @@ function getUserList($listNumber, $listItems, $filters = ['role' => ''], $sortBy
     return dbQuery($dbConnection,"SELECT * FROM `user` WHERE `role` = ? ORDER BY $sortColumns LIMIT ? OFFSET ? ","sii",[$filters['role'],$listItems,$offset]);
 }
 
+//## Roles
 /**
  * Retrieves the list of all roles from the database.
  * @return array|bool Array of all roles or `false` if the query fails.

@@ -37,6 +37,15 @@ function resolveDataPath($subpath)
 }
 
 /**
+ * For a given file path returns lowercase extension of the file.
+ * @param string $filePath The filepath.
+ * @return string The lowercase extension.
+ */
+function getFileExt($filePath) {
+    return strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+}
+
+/**
  * Returns an object with keys needed for access to database and values taken from environment variables that should hold those secret details.
  * @return object
  */

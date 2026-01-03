@@ -28,11 +28,11 @@ $secondsSince = $now - $created;
 if ($secondsSince < SECONDS_IN_MINUTE) {
     $ageDisplay = 'less than 1 minute';
 } else if ($secondsSince < SECONDS_IN_HOUR) {
-    $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_MINUTE)). ' minutes';
+    $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_MINUTE)) . ' minutes';
 } else if ($secondsSince < SECONDS_IN_DAY) {
-    $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_HOUR)). ' hours';
+    $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_HOUR)) . ' hours';
 } else {
-    $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_DAY)). ' days';
+    $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_DAY)) . ' days';
 }
 
 // Prepare fields for the page

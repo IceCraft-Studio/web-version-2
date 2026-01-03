@@ -144,6 +144,7 @@ Specifically we store data as described below:
 - Project Upload
     - Any file (usually `.zip` or a specific project file) which the user interested in the project can open or use directly to get it running.
     The Specific type may vary based on the category of the project.
+    - These are n files stored in a subdirectory inside the project's directory called `upload`.
 - Project Thumbnail
     - Image file in `.webp` format uploaded by the user as a 16:9 preview for their project.
     - This is a file in project's directory called `thumbnail.webp`.
