@@ -1,5 +1,11 @@
 <?php
 
+const ALLOWED_PROFILE_PICTURE_IMG_TYPES =  [
+    IMAGETYPE_PNG,
+    IMAGETYPE_JPEG,
+    IMAGETYPE_WEBP  
+];
+
 enum UserRole: string
 {
     case Banned = 'ban';

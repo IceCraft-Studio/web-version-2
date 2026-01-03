@@ -4,11 +4,35 @@ const CLASS_FAIL = 'fail';
 
 $viewState = ViewData::getInstance();
 
+$showPictureUpdateBanner = true;
 $showProfileUpdateBanner = true;
 $showPasswordUpdateBanner = true;
+$successPicture = false;
 $successPassword = false;
 $successProfile = false;
-$updateSuccess = true;
+
+switch ($viewState->get('picture-update-state',PictureUpdateState::NoUpdate)) {
+    case PictureUpdateState::NoUpdate:
+        $showPictureUpdateBanner = false;
+        break;
+    case PictureUpdateState::WrongSize:
+        $pictureMessage = 'Profile picture update failed! The image must be at most 8MB in size!';
+        break;
+    case PictureUpdateState::WrongType:
+        $pictureMessage = 'Profile picture update failed! The image must be in PNG, JPEG or WEBP format!';
+        break;
+    case PictureUpdateState::WrongAspectRatio:
+        $pictureMessage = 'Profile picture update failed! The image must have 1:1 aspect ratio!';
+        break;
+    case PictureUpdateState::Failure:
+        $pictureMessage = 'Critical Server Error! Please try again later.';
+        break;
+    case PictureUpdateState::Success:
+        $pictureMessage = 'Profile picture updated successfully!';
+        $successPicture = true;
+        break;
+}
+
 switch ($viewState->get('profile-update-state',ProfileUpdateState::NoUpdate)) {
     case ProfileUpdateState::NoUpdate:
         $showProfileUpdateBanner = false;
@@ -62,6 +86,11 @@ $prefillSocialDiscord = htmlspecialchars($viewState->get('form-social-discord'))
 $csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
+    <?php if ($showPictureUpdateBanner): ?>
+        <div class="update-banner <?= $successPicture ? CLASS_SUCCESS : CLASS_FAIL?>">
+                <?= $pictureMessage ?>
+        </div>
+    <?php endif; ?>
     <?php if ($showProfileUpdateBanner): ?>
         <div class="update-banner <?= $successProfile ? CLASS_SUCCESS : CLASS_FAIL?>">
                 <?= $profileMessage ?>

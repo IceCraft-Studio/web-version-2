@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/enums.php';
 
+const MAX_ALLOWED_IMAGE_SIZE_MB = 8;
+
 $viewState = ViewData::getInstance();
 
 $csrfLegit = validateCsrf();
@@ -14,6 +16,31 @@ if (!$csrfLegit) {
 $username = $viewState->get('verified-username','');
 if ($username === '') {
     redirect('/~dobiapa2/login');
+}
+
+if (isset($_POST['delete-profile-picture'])) {
+    if(saveUserProfilePicture($username,'')) {
+        $viewState->set('picture-update-state',PictureUpdateState::Success);        
+    } else {
+        $viewState->set('picture-update-state',PictureUpdateState::Failure);        
+    }
+} else if (isset($_FILES['profile-picture'])) {
+    $imgTempPath = $_FILES['profile-picture']['tmp_name'];
+    if (filesize($imgTempPath)/(1000 ** 2) > 8) {
+        $viewState->set('picture-update-state',PictureUpdateState::WrongSize);
+    } else if (!validateImageType($imgTempPath,ALLOWED_PROFILE_PICTURE_IMG_TYPES)) {
+        $viewState->set('picture-update-state',PictureUpdateState::WrongType);
+    } else if(!validateImageAspectRatio($imgTempPath,1)) {
+        $viewState->set('picture-update-state',PictureUpdateState::WrongAspectRatio);
+    } else {
+        if(saveUserProfilePicture($username,$imgTempPath)){
+            $viewState->set('picture-update-state',PictureUpdateState::Success);
+        } else {
+            $viewState->set('picture-update-state',PictureUpdateState::Failure);            
+        }
+    }
+} else {
+    $viewState->set('picture-update-state',PictureUpdateState::NoUpdate);        
 }
 
 $displayName = trim($_POST['display-name'] ?? '');
