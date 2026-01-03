@@ -158,10 +158,8 @@ async function processGalleryFileUpload(file, elements, galleryIndex) {
 		let sizeWarningElement = document.querySelector(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .size-warning`
 		);
-		setTimeout(() => {
-			sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-			tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 750);
-		}, 500);
+		sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 750);
 		return false;
 	}
 	// Create image object url and ensure the correct aspect ratio
@@ -176,10 +174,8 @@ async function processGalleryFileUpload(file, elements, galleryIndex) {
 		let ratioWarningElement = document.querySelector(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .ratio-warning`
 		);
-		setTimeout(() => {
-			ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-			tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
-		}, 500);
+		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
 		return false;
 	}
 	// Finish procedure if checks are fine
