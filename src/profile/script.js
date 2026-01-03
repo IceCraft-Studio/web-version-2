@@ -4,6 +4,7 @@ const INPUT_PASSWORD_NEW_ID = 'input-password-new';
 const INPUT_PASSWORD_CONFIRM_ID = 'input-password-confirm';
 const SUBMIT_BUTTON_SELECTOR = "form input[type='submit']";
 const PROFILE_PICTURE_CONTAINER_ID = 'profile-picture-container';
+const PROFILE_PICTURE_HINT_ID = 'profile-picture-hint';
 
 const ALLOWED_IMAGE_TYPES = Object.freeze([
 	'image/jpeg',
@@ -20,7 +21,8 @@ async function main () {
         containerProfilePicture: document.getElementById(PROFILE_PICTURE_CONTAINER_ID),
         inputProfilePicture: document.getElementById(INPUT_PROFILE_PICTURE_ID),
         inputDeleteProfilePicture: document.getElementById(INPUT_DELETE_PROFILE_PICTURE_ID),
-        submitButton: document.querySelector(SUBMIT_BUTTON_SELECTOR)
+        submitButton: document.querySelector(SUBMIT_BUTTON_SELECTOR),
+		profilePictureHintElement: document.getElementById(PROFILE_PICTURE_HINT_ID)
     }
     elements.inputDeleteProfilePicture.addEventListener('input',(e) => {
         if (e.target.checked) {
@@ -39,6 +41,9 @@ async function main () {
         let file = e.target.files[0];
         if (file != null) {
             let objectUrl = await processProfilePicture(file,elements);
+			if (objectUrl === false) {
+				return;
+			}
             elements.containerProfilePicture.querySelector('img')?.setAttribute('src',objectUrl);
         }
     })
@@ -64,13 +69,8 @@ async function processProfilePicture(file, elements) {
 		!ALLOWED_IMAGE_TYPES.includes(file.type)
 	) {
 		elements.inputProfilePicture.value = null;
-		let sizeWarningElement = document.querySelector(
-			`#${GALLERY_UPLOAD_ZONE_ID} > .size-warning`
-		);
-		setTimeout(() => {
-			sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-			tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 750);
-		}, 500);
+		elements.profilePictureHintElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		tempClassForTime(elements.profilePictureHintElement, WARNING_POP_CLASS, 750);
 		return false;
 	}
 	// Create image object url and ensure the correct aspect ratio
@@ -82,13 +82,8 @@ async function processProfilePicture(file, elements) {
 	if (!validAspectRatio) {
 		URL.revokeObjectURL(imageObjectUrl);
 		elements.inputProfilePicture.value = null;
-		let ratioWarningElement = document.querySelector(
-			`#${GALLERY_UPLOAD_ZONE_ID} > .ratio-warning`
-		);
-		setTimeout(() => {
-			ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-			tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
-		}, 500);
+		elements.profilePictureHintElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		tempClassForTime(elements.profilePictureHintElement, WARNING_POP_CLASS, 750);
 		return false;
 	}
     return imageObjectUrl;

@@ -111,7 +111,7 @@ $csrfToken = $_SESSION['csrf-token'];
                         alt="Your Profile Picture" id="profile-picture-image">
                 </button>
                 <input type="file" accept=".jpeg,.jpg,.png,.webp" name="profile-picture" id="input-profile-picture">
-                <div>
+                <div id="profile-picture-hint">
                     The image must be JPEG, PNG or WEBP of 8MB at most with aspect ratio 1:1.
                 </div>
                 <div class="input-row">
