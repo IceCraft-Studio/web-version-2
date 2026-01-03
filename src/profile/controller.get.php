@@ -34,10 +34,22 @@ if ($secondsSince < SECONDS_IN_MINUTE) {
 } else {
     $ageDisplay = (string)(floor($secondsSince / SECONDS_IN_DAY)) . ' days';
 }
+// Display name for role
+$roleName = $userData['role'];
+$rolesData = getRoles();
+if ($rolesData !== false) {
+foreach ($rolesData as $roleRow) {
+    if ($roleRow[`id`] !== $roleName) {
+        continue;
+    }
+    $roleName = $roleRow[`name`];
+    break;
+}
+}
 
 // Prepare fields for the page
 $viewState->set('username', $username);
-$viewState->set('profile-role',$userData['role']);
+$viewState->set('profile-role',$roleName);
 $viewState->set('profile-age',$ageDisplay);
 $viewState->set('form-display-name',$userData['display_name']);
 $viewState->set('form-email',$userData['email']);
