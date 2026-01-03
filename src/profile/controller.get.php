@@ -38,12 +38,11 @@ if ($secondsSince < SECONDS_IN_MINUTE) {
 $roleName = $userData['role'];
 $rolesData = getRoles();
 if ($rolesData !== false) {
-    var_dump($rolesData);
     foreach ($rolesData as $roleRow) {
-        if ($roleRow[`id`] !== $roleName) {
+        if ($roleRow['id'] !== $roleName) {
             continue;
         }
-        $roleName = $roleRow[`name`];
+        $roleName = $roleRow['name'];
         break;
     }
 }
