@@ -353,15 +353,19 @@ form h2 {
 }
 
 .project-card {
-    width: 22em;
-    height: 20em;
+    width: 24em;
+    height: 20.8em;
     background-color: var(--color-2);
+}
+
+.project-card::hover {
+    background-color: var(--color-input-background);
 }
 
 .project-card .user-part a {
     display: flex;
     align-items: center;
-    padding: 0.25em;
+    padding: 0.3em;
 }
 .project-card .user-part span {
     padding-left: 0.2em;
@@ -370,6 +374,7 @@ form h2 {
 .project-card .user-part img {
     width: 2em;
     height: 2em;
+    border: 0.2rem var(--color-primary) solid;
     border-radius: 50%;
 }
 
