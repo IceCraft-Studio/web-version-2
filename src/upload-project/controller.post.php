@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/project.php';
+require_once __DIR__ . '/enums.php';
 // Validation
 $csrfLegit = validateCsrf();
 if (!$csrfLegit) {

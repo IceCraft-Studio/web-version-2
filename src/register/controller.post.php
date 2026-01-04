@@ -15,6 +15,7 @@ $viewState->set('form-username',$username);
 $csrfLegit = validateCsrf();
 if (!$csrfLegit) {
     $viewState->set('register-error',RegisterFormError::CsrfInvalid);
+    initCsrf();
     return;
 }
 // Check if username is valid

@@ -338,3 +338,10 @@ form h2 {
         flex-basis: 3rem;
     }
 }
+.adder {
+    display: flex;
+}
+
+.adder .field {
+    flex: 1 1 18em;
+}
