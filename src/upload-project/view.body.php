@@ -81,14 +81,14 @@ session_write_close();
         <div class="field">
             The project needs to provide at least 1 file or link for the audience to download. <br>
             Max file upload size is 35MB. Max URL length is 200. <br>
-            Display name can be between 4 and 96 characters long. <br>
+            Display name can be up to 96 characters long. <br>
         </div>
         <div class="downloads-part">
             <div class="field">
-            <h3>Upload a file</h3>
-            <div id="file-adder">
-                <div>
-                    <p>File #1 to download the project.</p>
+            <h3>Add a link</h3>
+            <div id="link-adder">
+                <div class="field">
+                    <p>Link #1 to download the project.</p>
                     <label for="input-link-url-0">URL:</label>
                     <input type="text" name="link-url[0]" id="input-link-url-0">
                     <label for="input-link-name-0">Display Name:</label>
@@ -97,10 +97,10 @@ session_write_close();
             </div>
             </div>
             <div class="field">
-            <h3>Add a link</h3>
-            <div id="link-adder">
-                <div>
-                    <p>Link #1 to download the project.</p>
+            <h3>Upload a file</h3>
+            <div id="file-adder">
+                <div class="field">
+                    <p>File #1 to download the project.</p>
                     <label for="input-link-url-0">URL:</label>
                     <input type="text" name="link-url[0]" id="input-link-url-0">
                     <label for="input-link-name-0">Display Name:</label>
