@@ -59,9 +59,9 @@ $csrfToken = $_SESSION['csrf-token'];
                             </span>
                         </a>
                     </div>
-                    <div class="project-card-project">
+                    <div class="project-part">
                         <img src="<?= $cardThumbnailSrc ?>" alt="Project Card Thumbnail">
-                        <h3 title="<?= $prefillTitle ?>"><?= $prefillTitle ?></h3>
+                        <h3 title="<?= $prefillTitle ?>"><?= $prefillTitle ?>Test TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest Titlev</h3>
                         <p class="description" title="<?= $prefillDescription ?>"><?= $prefillDescription ?></p>
                         <p class="modified">Date Modified: <time datetime="<?=date('Y-m-d')?>"><?=date('d/m/Y')?></time></p>
                     </div>
@@ -130,7 +130,7 @@ $csrfToken = $_SESSION['csrf-token'];
             </div>
             <div class="field">
             <h3>Upload a file</h3>
-            <button id="file-adder" class="adder">
+            <div id="file-adder" class="adder">
                 <div class="field">
                     <p>File #1 to download the project.</p>
                     <label for="input-file-upload-0">File Upload:</label>

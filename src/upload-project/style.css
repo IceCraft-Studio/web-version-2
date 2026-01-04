@@ -330,6 +330,8 @@ form h2 {
         flex-basis: 3rem;
     }
 }
+
+
 .adder {
     display: flex;
     flex-wrap: wrap;
@@ -348,4 +350,35 @@ form h2 {
 
 .adder button.add-another div {
     font-size: 2em;
+}
+
+.project-card {
+    width: 20em;
+    height: 18em;
+}
+
+.user-part img {
+    width: 2em;
+    height: 2em;
+    margin: 0.2em;
+    border: 0.2em var(--color-primary) solid;
+    border-radius: 50%;
+}
+
+.project-part img {
+    width: 16em;
+    height: 9em;
+}
+.project-part h3 {
+    height: 2.5em;
+}
+
+.project-part p.description {
+    height: 4em;
+}
+
+.project-card * {
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
