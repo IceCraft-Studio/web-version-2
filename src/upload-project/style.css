@@ -381,11 +381,10 @@ form h2 {
 
 .project-card .project-part img {
     width: 18em;
-    padding: 0.4em;
     height: 10.125em;
     border-top: 0.25em solid var(--color-text);
-    border-left: 2.6em solid var(--color-text);
-    border-right: 2.6em solid var(--color-text);
+    border-left: 3em solid var(--color-text);
+    border-right: 3em solid var(--color-text);
     
 }
 .project-card .project-part h3 {
@@ -404,11 +403,11 @@ form h2 {
 }
 
 .project-card:hover .project-part p.modified {
-    border-color: var(--color-primary);
+    border-color: var(--color-primary-toned);
 }
 
 .project-card:hover .project-part img {
-    border-color: var(--color-primary);
+    border-color: var(--color-primary-toned);
 }
 
 .project-card * {
