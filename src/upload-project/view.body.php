@@ -1,23 +1,23 @@
 <?php
 $viewState = ViewData::getInstance();
 
-$prefillEditing = $viewState->get('form-editing','0');
-$prefillTitle = htmlspecialchars($viewState->get('form-title',''));
-$prefillDescription = htmlspecialchars($viewState->get('form-description',''));
-$prefillSlug = htmlspecialchars($viewState->get('form-slug',''));
-$prefillCategory = htmlspecialchars($viewState->get('form-category',''));
-$prefillMarkdown = htmlspecialchars($viewState->get('form-markdown-article',''));
+$prefillEditing = $viewState->get('form-editing', '0');
+$prefillTitle = htmlspecialchars($viewState->get('form-title', ''));
+$prefillDescription = htmlspecialchars($viewState->get('form-description', ''));
+$prefillSlug = htmlspecialchars($viewState->get('form-slug', ''));
+$prefillCategory = htmlspecialchars($viewState->get('form-category', ''));
+$prefillMarkdown = htmlspecialchars($viewState->get('form-markdown-article', ''));
 
-$username = $viewState->get('verified-username','');
-$displayName = $viewState->get('user-display-name','');
-$profilePicture = $viewState->get('user-profile-picture','');
+$username = $viewState->get('verified-username', '');
+$displayName = $viewState->get('user-display-name', '');
+$profilePicture = $viewState->get('user-profile-picture', '');
 $userLink = 'https://zwa.toad.cz/~dobiapa2/users/' . $username;
 
 if ($prefillEditing === '1') {
-    $cardThumbnailSrc = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/thumbnail.php?variant=preview&category=' . $prefillCategory . '&slug=' . $prefillSlug; 
+    $cardThumbnailSrc = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/thumbnail.php?variant=preview&category=' . $prefillCategory . '&slug=' . $prefillSlug;
 } else {
     $cardThumbnailSrc = 'https://zwa.toad.cz/~dobiapa2/assets/empty-thumbnail.webp';
-} 
+}
 
 
 // Get session csrf-token
@@ -34,36 +34,46 @@ $csrfToken = $_SESSION['csrf-token'];
             <div class="introduction-details">
                 <div class="field">
                     <label for="input-title">Title of your project:</label>
-                    <input id="input-title" name="title" type="text" value="<?= $prefillTitle ?>" minlength="6" maxlength="128" required>
+                    <input id="input-title" name="title" type="text" value="<?= $prefillTitle ?>" minlength="6"
+                        maxlength="128" required>
                 </div>
                 <div class="field">
                     <label for="input-description">Brief description:</label>
-                    <textarea id="input-description" name="description" type="text" minlength="24" maxlength="256" required><?= $prefillDescription ?></textarea>
+                    <textarea id="input-description" name="description" type="text" minlength="24" maxlength="256"
+                        required><?= $prefillDescription ?></textarea>
                 </div>
                 <div class="field">
                     <label for="input-thumbnail">Thumbnail:</label>
                     <div>
                         <p class="thumbnail-size">The image must be JPEG, PNG or WEBP of 8MB at most!</p>
-	                    <p class="thumbnail-ratio">The image needs to have 16:9 aspect ratio!</p>
+                        <p class="thumbnail-ratio">The image needs to have 16:9 aspect ratio!</p>
                     </div>
-                    <input id="input-thumbnail" name="thumbnail" type="file" accept=".jpeg,.jpg,.png,.webp" required></input>
+                    <input id="input-thumbnail" name="thumbnail" type="file" accept=".jpeg,.jpg,.png,.webp"
+                        required></input>
                 </div>
             </div>
             <div class="introduction-preview">
-                <div class="project-card">
-                    <div class="user-part">
-                        <a href="<?= $userLink ?>" target="_blank">
-                          <img src="<?= $profilePicture ?>">  
-                            <span>
-                                <?= $displayName ?>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="project-part">
-                        <img src="<?= $cardThumbnailSrc ?>" alt="Project Card Thumbnail">
-                        <h3 title="<?= $prefillTitle ?>"><?= $prefillTitle ?>Test TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest Titlev</h3>
-                        <p class="description" title="<?= $prefillDescription ?>"><?= $prefillDescription ?></p>
-                        <p class="modified">Date Modified: <time datetime="<?=date('Y-m-d')?>"><?=date('d/m/Y')?></time></p>
+                <div>
+                    <div class="project-card">
+                        <div class="user-part">
+                            <a href="<?= $userLink ?>" target="_blank">
+                                <img src="<?= $profilePicture ?>">
+                                <span>
+                                    <?= $displayName ?>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="project-part">
+                            <img src="<?= $cardThumbnailSrc ?>" alt="Project Card Thumbnail">
+                            <h3 title="<?= $prefillTitle ?>"><?= $prefillTitle ?>Test TitleTest TitleTest TitleTest
+                                TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest
+                                TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest
+                                TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest
+                                TitleTest TitleTest TitleTest TitleTest Titlev</h3>
+                            <p class="description" title="<?= $prefillDescription ?>"><?= $prefillDescription ?></p>
+                            <p class="modified">Date Modified: <time
+                                    datetime="<?= date('Y-m-d') ?>"><?= date('d/m/Y') ?></time></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,7 +101,8 @@ $csrfToken = $_SESSION['csrf-token'];
                     <button id="btn-edit-article" disabled>Edit</button>
                     <button id="btn-preview-article">Preview</button>
                 </div>
-                <textarea id="md-input" name="markdown-article" minlength="128" maxlength="4096" required><?= $prefillMarkdown ?></textarea>
+                <textarea id="md-input" name="markdown-article" minlength="128" maxlength="4096"
+                    required><?= $prefillMarkdown ?></textarea>
                 <div id="md-preview" class="hidden"></div>
             </div>
             <div class="article-gallery">
@@ -112,38 +123,38 @@ $csrfToken = $_SESSION['csrf-token'];
         </div>
         <div class="downloads-part">
             <div class="field">
-            <h3>Add a link</h3>
-            <div id="link-adder" class="adder">
-                <div class="field">
-                    <p>Link #1 to download the project.</p>
-                    <label for="input-link-url-0">URL:</label>
-                    <input type="text" name="link-url[0]" id="input-link-url-0">
-                    <label for="input-link-name-0">Display Name:</label>
-                    <input type="text" name="link-name[0]" id="input-link-name-0" maxlength>
-                </div>
-                <button class="add-another">
-                    <div>
-                        + Add Link
+                <h3>Add a link</h3>
+                <div id="link-adder" class="adder">
+                    <div class="field">
+                        <p>Link #1 to download the project.</p>
+                        <label for="input-link-url-0">URL:</label>
+                        <input type="text" name="link-url[0]" id="input-link-url-0">
+                        <label for="input-link-name-0">Display Name:</label>
+                        <input type="text" name="link-name[0]" id="input-link-name-0" maxlength>
                     </div>
-                </button>
-            </div>
+                    <button class="add-another">
+                        <div>
+                            + Add Link
+                        </div>
+                    </button>
+                </div>
             </div>
             <div class="field">
-            <h3>Upload a file</h3>
-            <div id="file-adder" class="adder">
-                <div class="field">
-                    <p>File #1 to download the project.</p>
-                    <label for="input-file-upload-0">File Upload:</label>
-                    <input type="file" name="file-upload[0]" id="input-file-upload-0">
-                    <label for="input-file-name-0">Display Name:</label>
-                    <input type="text" name="file-name[0]" id="input-file-name-0">
-                </div>
-                <button class="add-another">
-                    <div>
-                        + Add File
+                <h3>Upload a file</h3>
+                <div id="file-adder" class="adder">
+                    <div class="field">
+                        <p>File #1 to download the project.</p>
+                        <label for="input-file-upload-0">File Upload:</label>
+                        <input type="file" name="file-upload[0]" id="input-file-upload-0">
+                        <label for="input-file-name-0">Display Name:</label>
+                        <input type="text" name="file-name[0]" id="input-file-name-0">
                     </div>
-                </button>
-            </div>
+                    <button class="add-another">
+                        <div>
+                            + Add File
+                        </div>
+                    </button>
+                </div>
             </div>
             <input type="submit" value="<?= $prefillEditing === '1' ? 'Edit Project' : 'Create Project' ?>">
         </div>
