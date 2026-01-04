@@ -59,6 +59,9 @@ textarea {
     margin: 0.4rem;
     background-color: var(--color-background-overlay);
     border-radius: 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .details-part {
