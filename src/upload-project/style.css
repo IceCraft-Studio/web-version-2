@@ -355,6 +355,7 @@ form h2 {
 .project-card {
     width: 22em;
     height: 19.4em;
+    background-color: var(--color-1);
 }
 
 .project-card .user-part a {
@@ -369,7 +370,6 @@ form h2 {
 .project-card .user-part img {
     width: 2em;
     height: 2em;
-    border-top: 0.25em solid var(--color-text);
     border-radius: 50%;
 }
 
@@ -377,6 +377,7 @@ form h2 {
     width: 18em;
     padding: 0 3em;
     height: 10.125em;
+    border-top: 0.25em solid var(--color-text);
 }
 .project-card .project-part h3 {
     height: 1.4em;
