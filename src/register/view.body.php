@@ -38,7 +38,7 @@ $csrfToken = $_SESSION['csrf-token'];
     <h1>Register</h1>
     <form method="POST">
         <div class="row">
-            <label for="username">Username:</label>
+            <label for="input-username">Username:</label>
             <div class="input-group">
                 <input type="text" maxlength="48" name="username" value="<?= $prefillUsername ?>" data-available="<?= $available ?>"
                     id="input-username" required>
