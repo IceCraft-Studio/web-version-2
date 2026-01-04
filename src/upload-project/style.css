@@ -381,9 +381,12 @@ form h2 {
 
 .project-card .project-part img {
     width: 18em;
-    padding: 0 3em;
+    padding: 0.4em;
     height: 10.125em;
     border-top: 0.25em solid var(--color-text);
+    border-left: 2.6em solid var(--color-text);
+    border-right: 2.6em solid var(--color-text);
+    
 }
 .project-card .project-part h3 {
     height: 1.4em;

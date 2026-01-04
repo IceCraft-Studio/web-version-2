@@ -65,11 +65,7 @@ $csrfToken = $_SESSION['csrf-token'];
                         </div>
                         <div class="project-part">
                             <img src="<?= $cardThumbnailSrc ?>" alt="Project Card Thumbnail">
-                            <h3 title="<?= $prefillTitle ?>"><?= $prefillTitle ?>Test TitleTest TitleTest TitleTest
-                                TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest
-                                TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest
-                                TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest TitleTest
-                                TitleTest TitleTest TitleTest TitleTest Titlev</h3>
+                            <h3 title="<?= $prefillTitle ?>"><?= $prefillTitle ?></h3>
                             <p class="description" title="<?= $prefillDescription ?>"><?= $prefillDescription ?></p>
                             <p class="modified">Date Modified: <time
                                     datetime="<?= date('Y-m-d') ?>"><?= date('d/m/Y') ?></time></p>
