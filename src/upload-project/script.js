@@ -2,6 +2,9 @@ const MARKDOWN_URL = 'https://api.github.com/markdown';
 const LIST_CATEGORIES_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/list-categories.php`;
 const VERIFY_SLUG_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/check-slug.php`;
 
+const PREVIEW_TITLE_SELECT = '.project-card .project-part h3';
+const PREVIEW_DESC_SELECT = '.project-card  .project-part p.description';
+const PREVIEW_IMAGE_SELECT = '.project-card .project-part img';
 const BUTTON_EDIT_ID = 'btn-edit-article';
 const BUTTON_PREVIEW_ID = 'btn-preview-article';
 const ARTICLE_PREVIEW_ID = 'md-preview';
@@ -26,7 +29,9 @@ async function main() {
 	let galleryIndex = -1;
 	let markdownEdited = false;
 	const elements = {
+		titleInput: document.querySelector('input#input-title'),
 		descriptionInput: document.querySelector('textarea#input-description'),
+		thumbnailInput: document.querySelector('input#input-thumbnail'),
 		slugInput: document.querySelector('input#input-slug'),
 		markdownInput: document.getElementById(ARTICLE_EDIT_ID),
 		markdownOutput: document.getElementById(ARTICLE_PREVIEW_ID),
@@ -36,6 +41,9 @@ async function main() {
 		dropUploadInput: document.getElementById(GALLERY_UPLOAD_ZONE_ID),
 		galleryPreview: document.getElementById(GALLERY_PREVIEW_ID),
 		categorySelect: document.getElementById(CATEGORY_SELECT_ID),
+		previewTitle: document.querySelector(PREVIEW_TITLE_SELECT),
+		previewDescription: document.querySelector(PREVIEW_DESC_SELECT),
+		previewThumbnail: document.querySelector(PREVIEW_IMAGE_SELECT)
 	};
 	// Dynamically fetch available categories
 	fillCategories(elements.categorySelect);
@@ -51,15 +59,22 @@ async function main() {
 	elements.markdownInput.addEventListener('change', () => {
 		markdownEdited = true;
 	});
+	elements.titleInput.addEventListener('input', () => {
+		elements.previewTitle.textContent = elements.titleInput.value;
+	})
 	// Input validation in #input-description
 	elements.descriptionInput.addEventListener('input', () => {
 		elements.descriptionInput.value =
 			elements.descriptionInput.value.replace(/\r?\n|\r/g, '');
+		elements.previewDescription.textContent = elements.descriptionInput.value;
+	});
+	elements.thumbnailInput.addEventListener('change', async (e) => {
+		let objectUrl = await createImageObjectUrl(e.target.files[0]);
+		elements.previewThumbnail.src = objectUrl;
 	});
 	// Input validation in #input-slug
 	elements.slugInput.addEventListener('input', () => {
-		elements.slugInput.value =
-			elements.slugInput.value.replace(/[^a-z0-9-]+/g, '');
+		elements.slugInput.value = correctSlugInput(elements.slugInput.value);
 	});
 	// Gallery
 	galleryUpdate(elements, galleryIndex);
@@ -69,10 +84,18 @@ async function main() {
 			e.preventDefault();
 		}
 	});
-	//TODO - INPUT VALIDATION
 }
 
 main();
+
+/**
+ * Returns corrected version of the slug string.
+ * @param {string} slug - The slug string
+ * @returns {string} Corrected string.
+ */
+function correctSlugInput(slug) {
+	return slug.toLowerCase().replaceAll(/(-$)|(^-)|[^a-z0-9-]/g,'').replaceAll(/-+/g,'-');
+}
 
 function removeEmptyCategory(event) {
 	if (event.target.value != '') {
@@ -145,6 +168,14 @@ async function galleryUpdate(elements, galleryIndex) {
 			elements.galleryUploadInput.files = e.dataTransfer.files;
 		}
 	});
+}
+
+async function proccessThumbnailFileUpload(file,elements) {
+
+}
+
+function processDownloadFileUpload(file) {
+
 }
 
 async function processGalleryFileUpload(file, elements, galleryIndex) {
