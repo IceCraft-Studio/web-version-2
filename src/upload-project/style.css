@@ -1,4 +1,4 @@
-div.field:has(*[required]) label::after {
+div.field:has(*[required]) > label::after {
   content: " *";
   color: var(--color-required-field);
 }

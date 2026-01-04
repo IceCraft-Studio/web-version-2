@@ -1,6 +1,6 @@
 const MARKDOWN_URL = 'https://api.github.com/markdown';
 const LIST_CATEGORIES_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/list-categories.php`;
-const VERIFY_SLUG_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/check-slug.php`;
+const VERIFY_SLUG_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/verify-slug.php`;
 
 const PREVIEW_TITLE_SELECT = '.project-card .project-part h3';
 const PREVIEW_DESC_SELECT = '.project-card  .project-part p.description';
@@ -29,6 +29,9 @@ const ALLOWED_THUMB_IMAGE_TYPES = Object.freeze([
 const ALLOWED_ASPECT_RATIO = 16 / 9;
 const MAX_ALLOWED_IMAGE_SIZE_MB = 8;
 const MAX_ALLOWED_UPLOAD_SIZE_MB = 30;
+const MAX_FILE_AMOUNT = 5;
+const MAX_LINK_AMOUNT = 5;
+const MAX_GALLERY_AMOUNT = 10;
 
 const COPIED_CLASS = 'copied';
 
@@ -275,8 +278,24 @@ async function processGalleryFileUpload(file, elements, galleryIndex) {
  * @param {string} slug - The slug to verify.
  * @returns {bool} `true` when the slug is available.
  */
-async function verifySlugAvailability(slug) {
+async function verifySlugAvailability(slug,category) {
+	let reqHeaders = new Headers();
+	reqHeaders.set('Accept', 'application/json');
+	reqHeaders.set('Content-Type', 'application/json');
 
+	const options = {
+		method: 'POST',
+		headers: reqHeaders,
+		body: JSON.stringify({
+			slug: username
+		}),
+	};
+	const req = new Request(VERIFY_SLUG_ENDPOINT, options);
+
+	const response = await fetch(req);
+	const jsonData = await response.json();
+
+	return jsonData?.available;
 }
 
 async function insertFileUrl(objectUrl, elements, galleryIndex) {
