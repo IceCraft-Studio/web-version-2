@@ -353,8 +353,6 @@ form h2 {
 }
 
 .project-card {
-    width: 24em;
-    height: 20.8em;
     border-radius: 0.5em;
     background-color: var(--color-2);
 }
@@ -381,7 +379,6 @@ form h2 {
 
 .project-card .project-part img {
     width: 75%;
-    aspect-ratio: 16/9;
     border-top: 0.25em solid var(--color-text);
     padding: 0 12.5%;
 }
@@ -393,7 +390,7 @@ form h2 {
 
 .project-card .project-part p.description {
     height: 3.8em;
-    padding: 0 0.5em;
+    padding: 0.3em 0.5em;
 }
 
 .project-card .project-part p.modified {
