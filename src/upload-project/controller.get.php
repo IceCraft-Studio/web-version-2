@@ -2,6 +2,8 @@
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/models/project.php";
 require_once __DIR__ . '/enums.php';
 
+$viewState = ViewData::getInstance();
+
 $username = $viewState->get('verified-username', '');
 if ($username === '') {
     redirect('/~dobiapa2/login');
