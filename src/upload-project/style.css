@@ -354,8 +354,8 @@ form h2 {
 
 .project-card {
     width: 22em;
-    height: 19.4em;
-    background-color: var(--color-1);
+    height: 20em;
+    background-color: var(--color-2);
 }
 
 .project-card .user-part a {
