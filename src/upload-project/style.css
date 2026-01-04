@@ -395,7 +395,7 @@ form h2 {
 
 .project-card .project-part p.modified {
     border-top: 0.25em solid var(--color-text);
-    padding: 0 0.5em;
+    padding: 0.3em 0.5em;
 }
 
 .project-card:hover .project-part p.modified {
