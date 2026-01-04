@@ -123,7 +123,7 @@ function loadRouteView($requestRoute, $viewName)
 function composeHtmlViews($requestRoute, $commonRoute)
 {
     echo '<!DOCTYPE html>';
-    echo '<html data-theme="dark">';
+    echo '<html lang="en" data-theme="dark">';
     echo '<head>';
     loadRouteView($commonRoute, 'head');
     loadRouteView($requestRoute, 'head');
