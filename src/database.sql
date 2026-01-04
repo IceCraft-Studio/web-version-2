@@ -41,7 +41,6 @@ CREATE TABLE `project_gallery` (
   `slug` varchar(255) NOT NULL,
   `file_name` varchar(255) NOT NULL,
   `caption` varchar(255),
-  `in_gallery` BOOLEAN NOT NULL DEFAULT TRUE,
   PRIMARY KEY (`category`, `slug`,`file_name`),
   FOREIGN KEY (`category`, `slug`)
     REFERENCES `project`(`category`, `slug`)

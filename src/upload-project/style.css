@@ -154,6 +154,7 @@ textarea {
     max-width: 20rem;
 }
 
+/*
 div.gallery-include-checkbox {
     display: flex;
     align-items: center;
@@ -169,6 +170,7 @@ div.gallery-include-checkbox * {
     height: 1.3rem;
     accent-color: var(--color-primary);
 }
+*/
 
 .gallery-image label {
     margin: 0;
@@ -330,8 +332,20 @@ form h2 {
 }
 .adder {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .adder .field {
     flex: 0 1 20em;
+}
+
+.adder button.add-another {
+    flex: 0 1 20em;
+    height: 9em;
+}
+
+.adder button.add-another div {
+    font-size: 2em;
 }

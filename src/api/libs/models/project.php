@@ -221,7 +221,7 @@ function saveProjectArticle($category,$slug,$markdownData) {
 
 //## Working with Project Gallery
 
-function addProjectGalleryImage($category,$slug,$fileLocation,$fileName,$caption,$inGallery) {
+function addProjectGalleryImage($category,$slug,$fileLocation,$fileName,$caption) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $projectGalleryDirectory = getProjectDirectory($category,$slug,'gallery');
     if ($projectGalleryDirectory === false) {
@@ -232,7 +232,7 @@ function addProjectGalleryImage($category,$slug,$fileLocation,$fileName,$caption
     if (!rename($fileLocation,$projectGalleryImagePath)) {
         return false;
     }
-    $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`,`caption`,`in_gallery`) VALUES (?, ?, ?, ?, ?)  ", "ssssi", [$category,$slug,$fileName,$caption,$inGallery]);
+    $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`,`caption`) VALUES (?, ?, ?, ?)  ", "ssss", [$category,$slug,$fileName,$caption]);
     $success = ($result !== false && $result !== 0);
     if ($success) {
         updateProjectDateModified($category,$slug);

@@ -18,7 +18,7 @@ const ALLOWED_IMAGE_TYPES = Object.freeze([
 ]);
 const ALLOWED_ASPECT_RATIO = 16 / 9;
 const MAX_ALLOWED_IMAGE_SIZE_MB = 8;
-const MAX_ALLOWED_UPLOAD_SIZE_MB = 20;
+const MAX_ALLOWED_UPLOAD_SIZE_MB = 30;
 
 const COPIED_CLASS = 'copied';
 
@@ -233,10 +233,6 @@ function generateGalleryItem(i) {
   <button class="gallery-container hidden">
     <img alt="Image #${i + 1}">
   </button>
-  <div class="gallery-include-checkbox">
-    <label for="gallery-include-${i}">Image #${i + 1} in gallery:</label>
-    <input id="gallery-include-${i}" name="gallery-include[${i}]" type="checkbox" checked>
-  </div>
   <input name="gallery-browser-url[${i}]" type="hidden">
 </li>`;
 }

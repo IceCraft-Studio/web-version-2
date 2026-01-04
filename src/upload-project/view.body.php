@@ -9,6 +9,15 @@ $prefillCategory = htmlspecialchars($viewState->get('form-category',''));
 $prefillMarkdown = htmlspecialchars($viewState->get('form-markdown-article',''));
 
 $username = $viewState->get('verified-username','');
+$displayName = $viewState->get('user-display-name','');
+$profilePicture = $viewState->get('user-profile-picture','');
+$userLink = 'https://zwa.toad.cz/~dobiapa2/users/' . $username;
+
+if ($prefillEditing === '1') {
+    $cardThumbnailSrc = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/thumbnail.php?variant=preview&category=' . $prefillCategory . '&slug=' . $prefillSlug; 
+} else {
+    $cardThumbnailSrc = 'https://zwa.toad.cz/~dobiapa2/assets/empty-thumbnail.webp';
+} 
 
 
 // Get session csrf-token
@@ -43,10 +52,18 @@ $csrfToken = $_SESSION['csrf-token'];
             <div class="introduction-preview">
                 <div class="project-card">
                     <div class="user-part">
-
+                        <a href="<?= $userLink ?>" target="_blank">
+                          <img src="<?= $profilePicture ?>">  
+                            <span>
+                                <?= $displayName ?>
+                            </span>
+                        </a>
                     </div>
-                    <div>
-
+                    <div class="project-card-project">
+                        <img src="<?= $cardThumbnailSrc ?>" alt="Project Card Thumbnail">
+                        <h3 title="<?= $prefillTitle ?>"><?= $prefillTitle ?></h3>
+                        <p class="description" title="<?= $prefillDescription ?>"><?= $prefillDescription ?></p>
+                        <p class="modified">Date Modified: <time datetime="<?=date('Y-m-d')?>"><?=date('d/m/Y')?></time></p>
                     </div>
                 </div>
             </div>
@@ -90,7 +107,7 @@ $csrfToken = $_SESSION['csrf-token'];
         <h2>Downloads & Links</h2>
         <div class="field">
             The project needs to provide at least 1 file or link for the audience to download. <br>
-            Max file upload size is 35MB. Max URL length is 200. <br>
+            Max file upload size is 30MB. Max URL length is 200. <br>
             Display name can be up to 96 characters long. <br>
         </div>
         <div class="downloads-part">
@@ -102,13 +119,18 @@ $csrfToken = $_SESSION['csrf-token'];
                     <label for="input-link-url-0">URL:</label>
                     <input type="text" name="link-url[0]" id="input-link-url-0">
                     <label for="input-link-name-0">Display Name:</label>
-                    <input type="text" name="link-name[0]" id="input-link-name-0">
+                    <input type="text" name="link-name[0]" id="input-link-name-0" maxlength>
                 </div>
+                <button class="add-another">
+                    <div>
+                        + Add Link
+                    </div>
+                </button>
             </div>
             </div>
             <div class="field">
             <h3>Upload a file</h3>
-            <div id="file-adder" class="adder">
+            <button id="file-adder" class="adder">
                 <div class="field">
                     <p>File #1 to download the project.</p>
                     <label for="input-file-upload-0">File Upload:</label>
@@ -116,9 +138,14 @@ $csrfToken = $_SESSION['csrf-token'];
                     <label for="input-file-name-0">Display Name:</label>
                     <input type="text" name="file-name[0]" id="input-file-name-0">
                 </div>
+                <button class="add-another">
+                    <div>
+                        + Add File
+                    </div>
+                </button>
             </div>
             </div>
-            <input type="submit" value="Create Project">
+            <input type="submit" value="<?= $prefillEditing === '1' ? 'Edit Project' : 'Create Project' ?>">
         </div>
         <input type="hidden" name="editing" value="<?= $prefillEditing ?>">
         <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
