@@ -275,7 +275,7 @@ function generateGalleryItem(i) {
  */
 async function generatePreview(inputElement, outputElement) {
 	let markdownData = inputElement.value;
-	const htmlResult = markdownGithub(markdownData);
+	const htmlResult = await markdownGithub(markdownData);
 	outputElement.innerHTML = htmlResult;
 	// fix markdown removing images (added comments cause it's a lil' strange behavior)
 	outputElement
