@@ -111,8 +111,8 @@ $csrfToken = $_SESSION['csrf-token'];
             <div id="file-adder" class="adder">
                 <div class="field">
                     <p>File #1 to download the project.</p>
-                    <label for="input-file-url-0">File Upload:</label>
-                    <input type="file" name="file-upload[0]" id="input-file-url-0">
+                    <label for="input-file-upload-0">File Upload:</label>
+                    <input type="file" name="file-upload[0]" id="input-file-upload-0">
                     <label for="input-file-name-0">Display Name:</label>
                     <input type="text" name="file-name[0]" id="input-file-name-0">
                 </div>

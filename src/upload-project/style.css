@@ -3,16 +3,6 @@ div.field:has(*[required]) label::after {
   color: var(--color-required-field);
 }
 
-form div.field {
-    display: flex;
-    flex-direction: column;
-
-    padding: 0.6rem;
-    margin: 0.4rem;
-    background-color: var(--color-background-overlay);
-    border-radius: 0.2em;
-}
-
 input,
 label {
     display: block;
@@ -343,5 +333,5 @@ form h2 {
 }
 
 .adder .field {
-    flex: 1 1 18em;
+    flex: 0 1 20em;
 }
