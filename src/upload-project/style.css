@@ -358,7 +358,7 @@ form h2 {
     background-color: var(--color-2);
 }
 
-.project-card::hover {
+.project-card:hover {
     background-color: var(--color-input-background);
 }
 
