@@ -114,7 +114,7 @@ $csrfToken = $_SESSION['csrf-token'];
         </div>
         <h2>Downloads & Links</h2>
         <div class="field">
-            The project needs to provide at least 1 file or link for the audience to download. <br>
+            The project needs to provide at least 1 file or link and at most 5 of each for the audience to download. <br>
             Max file upload size is 30MB. Max URL length is 200. <br>
             Display name can be up to 96 characters long. <br>
         </div>

@@ -218,7 +218,7 @@ async function validateThumbnail(file,elements) {
 		URL.revokeObjectURL(imageObjectUrl);
 		elements.thumbnailInput.value = null;
 		let ratioWarningElement = document.querySelector(
-			`#${GALLERY_UPLOAD_ZONE_ID} > .thumbnail-ratio`
+			`.thumbnail-ratio`
 		);
 		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
 		tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
