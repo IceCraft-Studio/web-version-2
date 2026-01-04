@@ -381,4 +381,6 @@ form h2 {
     word-break: break-all;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 0;
+    padding: 0.5em;
 }
