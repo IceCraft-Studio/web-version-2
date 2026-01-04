@@ -1,5 +1,5 @@
 <main>
-    <img id="main-logo" src="/~dobiapa2/assets/icecraft-logo-wide.webp" class="no-select">
+    <img id="main-logo" src="/~dobiapa2/assets/icecraft-logo-wide.webp" class="no-select" alt="IceCraft Studio Logo">
     <h1>Free Minecraft mods, VS Code extensions, Steam Workshop items and more!</h1>
     <span id="tagline">Stayin' Icy and Cool</span>
     <div id="about-us" class="info-table">
