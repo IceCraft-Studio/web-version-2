@@ -353,28 +353,52 @@ form h2 {
 }
 
 .project-card {
-    width: 20em;
-    height: 18em;
+    width: 22em;
+    height: 19.4em;
 }
 
-.user-part img {
+.project-card .user-part a {
+    display: flex;
+    align-items: center;
+    padding: 0.25em;
+}
+.project-card .user-part span {
+    padding-left: 0.2em;
+}
+
+.project-card .user-part img {
     width: 2em;
     height: 2em;
-    margin: 0.2em;
-    border: 0.2em var(--color-primary) solid;
+    border-top: 0.25em solid var(--color-text);
     border-radius: 50%;
 }
 
-.project-part img {
-    width: 16em;
-    height: 9em;
+.project-card .project-part img {
+    width: 18em;
+    padding: 0 3em;
+    height: 10.125em;
 }
-.project-part h3 {
-    height: 2.5em;
+.project-card .project-part h3 {
+    height: 1.4em;
+    padding: 0 0.5em;
 }
 
-.project-part p.description {
-    height: 4em;
+.project-card .project-part p.description {
+    height: 3.8em;
+    padding: 0 0.5em;
+}
+
+.project-card .project-part p.modified {
+    border-top: 0.25em solid var(--color-text);
+    padding: 0 0.5em;
+}
+
+.project-card:hover .project-part p.modified {
+    border-color: var(--color-primary);
+}
+
+.project-card:hover .project-part img {
+    border-color: var(--color-primary);
 }
 
 .project-card * {
