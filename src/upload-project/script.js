@@ -13,10 +13,17 @@ const GALLERY_UPLOAD_ZONE_ID = 'gallery-upload-zone';
 const GALLERY_UPLOAD_SELECT = `#${GALLERY_UPLOAD_ZONE_ID} > input[type='file']`;
 const GALLERY_PREVIEW_ID = 'gallery-preview';
 const CATEGORY_SELECT_ID = 'input-category';
+const ADD_LINK_BTN_SELECT = '#link-adder button.add-another';
+const ADD_FILE_BTN_SELECT = '#file-adder button.add-another';
 const ALLOWED_IMAGE_TYPES = Object.freeze([
 	'image/jpeg',
 	'image/png',
 	'image/gif',
+	'image/webp',
+]);
+const ALLOWED_THUMB_IMAGE_TYPES = Object.freeze([
+	'image/jpeg',
+	'image/png',
 	'image/webp',
 ]);
 const ALLOWED_ASPECT_RATIO = 16 / 9;
@@ -43,7 +50,9 @@ async function main() {
 		categorySelect: document.getElementById(CATEGORY_SELECT_ID),
 		previewTitle: document.querySelector(PREVIEW_TITLE_SELECT),
 		previewDescription: document.querySelector(PREVIEW_DESC_SELECT),
-		previewThumbnail: document.querySelector(PREVIEW_IMAGE_SELECT)
+		previewThumbnail: document.querySelector(PREVIEW_IMAGE_SELECT),
+		addLinkButton: document.querySelector(ADD_LINK_BTN_SELECT),
+		addFileButton: document.querySelector(ADD_FILE_BTN_SELECT)
 	};
 	// Dynamically fetch available categories
 	fillCategories(elements.categorySelect);
@@ -69,7 +78,11 @@ async function main() {
 		elements.previewDescription.textContent = elements.descriptionInput.value;
 	});
 	elements.thumbnailInput.addEventListener('change', async (e) => {
-		let objectUrl = await createImageObjectUrl(e.target.files[0]);
+		let file = e.target.files[0];
+		if (await validateThumbnail(file,elements) === false) {
+			return;
+		}
+		let objectUrl = await createImageObjectUrl(file);
 		elements.previewThumbnail.src = objectUrl;
 	});
 	// Input validation in #input-slug
@@ -84,6 +97,16 @@ async function main() {
 			e.preventDefault();
 		}
 	});
+	//Add link and file buttons
+	elements.addFileButton.addEventListener('click', (e) => {
+		e.preventDefault();
+
+	})
+	elements.addLinkButton.addEventListener('click', (e) => {
+		e.preventDefault();
+
+	})
+	
 }
 
 main();
@@ -170,11 +193,42 @@ async function galleryUpdate(elements, galleryIndex) {
 	});
 }
 
-async function proccessThumbnailFileUpload(file,elements) {
-
+async function validateThumbnail(file,elements) {
+//Check file size and type
+	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
+	if (
+		sizeMB > MAX_ALLOWED_IMAGE_SIZE_MB ||
+		!ALLOWED_THUMB_IMAGE_TYPES.includes(file.type)
+	) {
+		elements.thumbnailInput.value = null;
+		let sizeWarningElement = document.querySelector(
+			`.thumbnail-size`
+		);
+		sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 750);
+		return false;
+	}
+	// Create image object url and ensure the correct aspect ratio
+	const imageObjectUrl = createImageObjectUrl(file);
+	const validAspectRatio = await validateImageAspectRatio(
+		imageObjectUrl,
+		ALLOWED_ASPECT_RATIO
+	);
+	if (!validAspectRatio) {
+		URL.revokeObjectURL(imageObjectUrl);
+		elements.thumbnailInput.value = null;
+		let ratioWarningElement = document.querySelector(
+			`#${GALLERY_UPLOAD_ZONE_ID} > .thumbnail-ratio`
+		);
+		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
+		return false;
+	}
+	URL.revokeObjectURL(imageObjectUrl);
+	return true;
 }
 
-function processDownloadFileUpload(file) {
+function validateFileUpload(file,elements) {
 
 }
 

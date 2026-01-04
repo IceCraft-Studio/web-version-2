@@ -49,7 +49,7 @@ $csrfToken = $_SESSION['csrf-token'];
                         <p class="thumbnail-ratio">The image needs to have 16:9 aspect ratio!</p>
                     </div>
                     <input id="input-thumbnail" name="thumbnail" type="file" accept=".jpeg,.jpg,.png,.webp"
-                        required></input>
+                        <?= $prefillEditing === '1' ? '' : 'required' ?>></input>
                 </div>
             </div>
             <div class="introduction-preview">
@@ -80,8 +80,9 @@ $csrfToken = $_SESSION['csrf-token'];
                 <label for="input-slug">URL path on the website - leave empty to set automatically:</label>
                 <div class="prefix-container">
                     <label for="input-slug">/projects/</label>
-                    <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>">
+                    <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6" maxlength="96">
                 </div>
+                <div>The slug must be between 6 and 96 characters long and may only contain numbers, lowercase letters and single hyphens between words.<span id="slug-taken">This slug is taken, please try another one.</span></div>
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
