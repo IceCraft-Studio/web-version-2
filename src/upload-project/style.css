@@ -380,13 +380,12 @@ form h2 {
 }
 
 .project-card .project-part img {
-    width: 18em;
-    height: 10.125em;
+    width: 75%;
+    aspect-ratio: 16/9;
     border-top: 0.25em solid var(--color-text);
-    border-left: 3em solid var(--color-text);
-    border-right: 3em solid var(--color-text);
-    
+    padding: 0 12.5%;
 }
+    
 .project-card .project-part h3 {
     height: 1.4em;
     padding: 0 0.5em;
