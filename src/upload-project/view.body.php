@@ -82,7 +82,7 @@ $csrfToken = $_SESSION['csrf-token'];
                     <label for="input-slug">/projects/</label>
                     <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6" maxlength="96">
                 </div>
-                <div>The slug must be between 6 and 96 characters long and may only contain numbers, lowercase letters and single hyphens between words.<span id="slug-taken">This slug is taken, please try another one.</span></div>
+                <div class="hint">The slug must be between 6 and 96 characters long and may only contain numbers, lowercase letters and single hyphens between words. <span id="slug-taken" class="hidden ">This slug is taken, please try another one.</span></div>
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>

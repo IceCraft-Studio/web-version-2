@@ -157,23 +157,10 @@ textarea {
     max-width: 20rem;
 }
 
-/*
-div.gallery-include-checkbox {
-    display: flex;
-    align-items: center;
-    margin: 0.5rem 0;
+.hint {
+    font-family: JetBrainsMono;
+    font-size: 0.9em;
 }
-
-div.gallery-include-checkbox * {
-    display: inline;
-}
-
-.gallery-image input[type='checkbox'] {
-    width: 1.3rem;
-    height: 1.3rem;
-    accent-color: var(--color-primary);
-}
-*/
 
 .gallery-image label {
     margin: 0;
