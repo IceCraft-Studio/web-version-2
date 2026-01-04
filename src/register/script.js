@@ -1,4 +1,3 @@
-const HIDDEN_CLASS = 'hidden';
 const NAME_USERNAME = 'username';
 const NAME_PASSWORD = 'password';
 const NAME_CONFIRM = 'confirm-password';
