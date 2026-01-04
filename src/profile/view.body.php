@@ -101,7 +101,7 @@ $csrfToken = $_SESSION['csrf-token'];
                 <?= $passwordMessage ?>
         </div>
     <?php endif; ?>
-    <form method="post" enctype="multipart/form-data" action="">
+    <form method="post" enctype="multipart/form-data">
         <h1>Your User Profile</h1>
         <div class="profile-part">
             <div class="picture-upload-container field">

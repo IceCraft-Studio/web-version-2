@@ -36,7 +36,7 @@ $csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
     <h1>Register</h1>
-    <form method="POST" action="">
+    <form method="POST">
         <div class="row">
             <label for="username">Username:</label>
             <div class="input-group">

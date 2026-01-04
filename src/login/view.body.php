@@ -20,7 +20,7 @@ $csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
     <h1>Login</h1>
-    <form action="" method="POST">
+    <form method="POST">
         <div class="row">
             <label for="input-username">Username:</label>
             <input type="text" id="input-username" name="username" value="<?= $prefillUsername ?>" required>

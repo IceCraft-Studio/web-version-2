@@ -13,7 +13,7 @@ session_write_close();
     <div>
         Fields marked with <span class="color-required">*</span> are required!
     </div>
-    <form method="post" enctype="multipart/form-data" action="">
+    <form method="post" enctype="multipart/form-data">
         <h2>Introduction</h2>
         <div class="introduction-part">
             <div class="introduction-details">
