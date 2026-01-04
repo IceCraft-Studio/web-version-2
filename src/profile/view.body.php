@@ -152,6 +152,14 @@ $csrfToken = $_SESSION['csrf-token'];
                         <a href="/~dobiapa2/users/<?= $username ?>">View all your projects.</a>
                     </div>
                 </div>
+                <div class="stat-row">
+                    <div>
+                        <img src="/~dobiapa2/assets/icons/close.svg" class="no-select" alt="Close Icon">
+                    </div>
+                    <div>
+                        <a href="/~dobiapa2/logout">Log out of your account.</a>
+                    </div>
+                </div>
             </div>
         </div>
         <p>Tell us more about yourself to enhance your public presence on our website.</p>
