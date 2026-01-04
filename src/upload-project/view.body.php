@@ -79,9 +79,9 @@ session_write_close();
         </div>
         <h2>Downloads & Links</h2>
         <div class="field">
-            The project needs to provide at least 1 file or link for the audience to download. 
-            Max file upload size is 35MB. Max URL length is 200. 
-            Display name can be between 4 and 96 characters long. 
+            The project needs to provide at least 1 file or link for the audience to download. <br>
+            Max file upload size is 35MB. Max URL length is 200. <br>
+            Display name can be between 4 and 96 characters long. <br>
         </div>
         <div class="downloads-part">
             <div class="field">
