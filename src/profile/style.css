@@ -61,7 +61,7 @@
 }
 
 
-#profile-picture-container:hover::after:not(.disabled) {
+#profile-picture-container:hover:not(.disabled)::after {
     content: "Upload a new picture.";
     position: absolute;
     top: 50%;
