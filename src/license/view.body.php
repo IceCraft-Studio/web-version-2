@@ -18,7 +18,7 @@
         This work is NOT endorsed, affiliated, associated or approved by Mojang or Microsoft in any way.
     </p>
     <h2>Fonts</h2>
-    <div>
+    <p>
         There are several fonts used on this website taken from external repositories.
         List of the fonts with links to their licenses is as follows:
         <ul>
@@ -27,7 +27,7 @@
             <li class="font-ubuntu"><a href="https://fonts.google.com/specimen/Ubuntu/license" target="_blank">Ubuntu</a></li>
             <li class="font-jetbrains-mono"><a href="https://www.jetbrains.com/lp/mono/#license" target="_blank">JetBrains Mono</a></li>
         </ul>
-    </div>
+    </p>
     <h1 id="icecraft-software-licenses">IceCraft Studio Software Licenses</h1>
     <p>
         All software made by <span class="bold">IceCraft Studio</span> is licensed under the 
