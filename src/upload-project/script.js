@@ -33,7 +33,7 @@ const MAX_ALLOWED_IMAGE_SIZE_MB = 8;
 const MAX_ALLOWED_UPLOAD_SIZE_MB = 30;
 const MAX_FILE_AMOUNT = 5;
 const MAX_LINK_AMOUNT = 5;
-const MAX_GALLERY_AMOUNT = 10;
+const MAX_GALLERY_AMOUNT = 12;
 
 const EDIT_INSERTED_CLASS = 'edit-inserted';
 const COPIED_CLASS = 'copied';
