@@ -331,7 +331,8 @@ form h2 {
 }
 
 .adder button.add-another {
-    height: 7em;
+    height: 9em;
+    margin: 0.5em;
 }
 
 .adder button.add-another div {
