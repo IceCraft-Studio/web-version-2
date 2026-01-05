@@ -1,3 +1,7 @@
+/*
+ I know, this is a very thick client... I apologise for my sins but this had to be done.
+*/
+
 const MARKDOWN_URL = 'https://api.github.com/markdown';
 const LIST_CATEGORIES_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/list-categories.php`;
 const VERIFY_SLUG_ENDPOINT = `${window.location.origin}/~dobiapa2/api/internal/projects/verify-slug.php`;
@@ -17,6 +21,7 @@ const FILE_ADDER_ID = 'file-adder';
 const CATEGORY_SELECT_ID = 'input-category';
 const ADD_LINK_BTN_SELECT = '#link-adder button.add-another';
 const ADD_FILE_BTN_SELECT = '#file-adder button.add-another';
+const SLUG_TAKEN_HINT_ID = 'slug-taken';
 const ALLOWED_IMAGE_TYPES = Object.freeze([
 	'image/jpeg',
 	'image/png',
@@ -38,13 +43,16 @@ const MAX_GALLERY_AMOUNT = 12;
 const EDIT_INSERTED_CLASS = 'edit-inserted';
 const COPIED_CLASS = 'copied';
 
+const IS_EDITING = document.querySelector("input[name='editing'")?.value == '1';
+
 async function main() {
 	let uploadIndexes = {
 		gallery: -1,
 		files: -1,
-		links: -1,
+		links: -1
 	};
 	let markdownEdited = false;
+	let slugVerificationTimer = null;
 	const elements = {
 		titleInput: document.querySelector('input#input-title'),
 		descriptionInput: document.querySelector('textarea#input-description'),
@@ -53,6 +61,7 @@ async function main() {
 			"div.prefix-container > label[for='input-slug']"
 		),
 		slugInput: document.querySelector('input#input-slug'),
+		slugTakenHint: document.getElementById(SLUG_TAKEN_HINT_ID),
 		markdownInput: document.getElementById(ARTICLE_EDIT_ID),
 		markdownOutput: document.getElementById(ARTICLE_PREVIEW_ID),
 		previewButton: document.getElementById(BUTTON_PREVIEW_ID),
@@ -79,6 +88,7 @@ async function main() {
 	fillCategories(elements.categorySelect);
 	// Handle changing category
 	elements.categorySelect.addEventListener('change', (e) => {
+		slugVerificationTimer = queueAvailibilityVerification(elements,slugVerificationTimer);
 		handleCategoryUpdate(e, elements);
 	});
 	// Markdown preview functionality
@@ -114,6 +124,7 @@ async function main() {
 	// Input validation in #input-slug
 	elements.slugInput.addEventListener('input', () => {
 		elements.slugInput.value = correctSlugInput(elements.slugInput.value);
+		slugVerificationTimer = queueAvailibilityVerification(elements,slugVerificationTimer);
 	});
 	// Gallery
 	galleryUpdate(elements, uploadIndexes, uploadCounter);
@@ -152,6 +163,10 @@ async function main() {
 
 main();
 
+function validateForm(elements) {
+
+}
+
 /**
  * Returns corrected version of the slug string.
  * @param {string} slug - The slug string
@@ -162,6 +177,23 @@ function correctSlugInput(slug) {
 		.toLowerCase()
 		.replaceAll(/(-$)|(^-)|[^a-z0-9-]/g, '')
 		.replaceAll(/-+/g, '-');
+}
+
+function queueAvailibilityVerification(elements,timer) {
+	clearTimeout(timer);
+	let newTimer = setTimeout(async () => {
+		let slug = elements.slugInput?.value ?? '';
+		let category = elements.categorySelect?.value ?? '';
+		let isAvailable = await verifySlugAvailability(slug,category);
+		elements.slugInput.dataset.available = isAvailable ? '1' : '0';
+		if (isAvailable) {
+			elements.slugTakenHint?.classList.remove(HIDDEN_CLASS);
+			tempClassForTime(elements.slugTakenHint,WARNING_POP_CLASS,1250);
+		} else {
+			elements.slugTakenHint?.classList.add(HIDDEN_CLASS);
+		}
+	},1500);
+	return newTimer;
 }
 
 function handleCategoryUpdate(event, elements) {
@@ -267,7 +299,7 @@ async function processGalleryFileUpload(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .size-warning`
 		);
 		sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-		tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 750);
+		tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 1250);
 		return false;
 	}
 	// Create image object url and ensure the correct aspect ratio
@@ -283,7 +315,7 @@ async function processGalleryFileUpload(
 			`#${GALLERY_UPLOAD_ZONE_ID} > .ratio-warning`
 		);
 		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-		tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
+		tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 1250);
 		return false;
 	}
 	// Finish procedure if checks are fine
@@ -302,7 +334,7 @@ async function validateThumbnail(file, elements) {
 		elements.thumbnailInput.value = null;
 		let sizeWarningElement = document.querySelector(`.thumbnail-size`);
 		sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-		tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 750);
+		tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 1250);
 		return false;
 	}
 	// Create image object url and ensure the correct aspect ratio
@@ -316,7 +348,7 @@ async function validateThumbnail(file, elements) {
 		elements.thumbnailInput.value = null;
 		let ratioWarningElement = document.querySelector(`.thumbnail-ratio`);
 		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-		tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
+		tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 1250);
 		return false;
 	}
 	URL.revokeObjectURL(imageObjectUrl);
@@ -346,7 +378,8 @@ async function verifySlugAvailability(slug, category) {
 		method: 'POST',
 		headers: reqHeaders,
 		body: JSON.stringify({
-			slug: username,
+			slug: slug,
+			category: category,
 		}),
 	};
 	const req = new Request(VERIFY_SLUG_ENDPOINT, options);
@@ -470,7 +503,6 @@ async function generatePreview(inputElement, outputElement) {
 }
 
 //## Article Preview Functions
-
 /**
  * Calls GitHub Markdown API and returns a safe HTML.
  * @param {string} data Markdown data sent in the request's body
