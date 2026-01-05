@@ -126,11 +126,21 @@ async function main() {
 	//Add link and file buttons
 	elements.addLinkButton.addEventListener('click', (e) => {
 		e.preventDefault();
-		elements.addLinkButton.insertAdjacentHTML('beforebegin',generateLinkAdder(uploadIndexes.links));
+		uploadIndexes.links++;
+		uploadCounter.links++;
+		if (uploadCounter.links >= MAX_LINK_AMOUNT) {
+			return;
+		}
+		elements.addLinkButton.parentElement.insertAdjacentHTML('beforebegin',generateLinkAdder(uploadIndexes.links));
 	});
 	elements.addFileButton.addEventListener('click', (e) => {
 		e.preventDefault();
-		elements.addFileButton.insertAdjacentHTML('beforebegin',generateFileAdder(uploadIndexes.files));
+		if (uploadCounter.files >= MAX_FILE_AMOUNT) {
+			return;
+		}
+		uploadIndexes.files++;
+		uploadCounter.files++;
+		elements.addFileButton.parentElement.insertAdjacentHTML('beforebegin',generateFileAdder(uploadIndexes.files));
 	});
 
 }
@@ -197,6 +207,7 @@ async function galleryUpdate(elements, uploadIndexes, uploadCounter) {
 		return;
 	}
 	uploadIndexes.gallery++;
+	uploadCounter.gallery++;
 	elements.galleryPreview.insertAdjacentHTML(
 		'beforeend',
 		generateGalleryItem(uploadIndexes.gallery)
