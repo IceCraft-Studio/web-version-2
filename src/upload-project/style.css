@@ -1,13 +1,3 @@
-div.field:has(*[required]) > label::after {
-  content: " *";
-  color: var(--color-required-field);
-}
-
-input,
-label {
-    display: block;
-}
-
 label {
     margin: 0.2em;
 }
