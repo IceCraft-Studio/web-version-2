@@ -2,20 +2,54 @@
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/github.php";
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/storage.php";
 
-const FILE_DOWNLOAD_URL = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/file-download.php';
-const GALLERY_URL = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/gallery.php';
+/**
+ * The starting portion of the URL for downloading a project's download file.
+ * @var string
+ */
+const FILE_DOWNLOAD_URL_START = '/~dobiapa2/api/internal/projects/file-download.php';
+/**
+ * The starting portion of the URL for downloading a gallery image file.
+ * @var string
+ */
+const GALLERY_URL_START = '/~dobiapa2/api/internal/projects/gallery.php';
+/**
+ * The starting portion of the URL for downloading the project's thumbnail.
+ * @var string
+ */
+const THUMBNAIL_URL_START = '/~dobiapa2/api/internal/projects/thumbnail.php';
+/**
+ * The starting portion of the URL for the project's page.
+ * @var string
+ */
+const PROJECT_URL_START = '/~dobiapa2/projects/';
+/**
+ * The starting portion of the URL for the project's page.
+ * @var string
+ */
+const PROJECT_EDIT_URL_START = '/~dobiapa2/upload-project/';
 
+/**
+ * Types of image file allowed in the project's gallery.
+ * @var array
+ */
 const ALLOWED_GALLERY_IMG_TYPES = [
     IMAGETYPE_GIF,
     IMAGETYPE_PNG,
     IMAGETYPE_JPEG,
     IMAGETYPE_WEBP
 ];
+/**
+ * Types of image files allowed as a thumbnail.
+ * @var array
+ */
 const ALLOWED_THUMBNAIL_IMG_TYPES =  [
     IMAGETYPE_PNG,
     IMAGETYPE_JPEG,
     IMAGETYPE_WEBP  
 ];
+/**
+ * Sort values for the SQL query used to get list of projects.
+ */
 enum ProjectSort: string{
     /**
      * Sort by date modified.
@@ -29,6 +63,37 @@ enum ProjectSort: string{
      * Sort by date created.
      */
     case Created = 'datetime_created';
+}
+
+/**
+ * Returns the URL for the thumbnail of the given project.
+ * @param string $category The project's category.
+ * @param string $slug The project's slug.
+ * @param bool $full If `true`, return the URL for the full resolution thumbnail.
+ * @return string The result URL.
+ */
+function getProjectThumbnailLink($category,$slug,$full = false) {
+    return THUMBNAIL_URL_START . '?category=' . $category . '&slug=' . $slug . ($full ? '' : '&variant=preview');
+}
+
+/**
+ * Returns the URL for the page of the given project.
+ * @param string $category The project's category.
+ * @param string $slug The project's slug.
+ * @return string The result URL.
+ */
+function getProjectLink($category,$slug) {
+    return PROJECT_URL_START . $category . '/' . $slug;
+}
+
+/**
+ * Returns the URL for editing of the given project.
+ * @param string $category The project's category.
+ * @param string $slug The project's slug.
+ * @return string The result URL.
+ */
+function getProjectEditLink($category,$slug) {
+    return PROJECT_EDIT_URL_START . '?edit-category=' . $category . '&edit-slug=' . $slug;
 }
 
 /**
@@ -52,6 +117,15 @@ function getProjectDirectory($category,$slug,$subdir = '') {
 }
 
 //## Creating and Deleting Project
+/**
+ * Creates a new project with the given parameters.
+ * @param string $category The new project's category.
+ * @param string $slug The new project's slug.
+ * @param string $username The username of the creator of the new project.
+ * @param string $title The new project's title.
+ * @param string $description The new project's description.
+ * @return bool `true` on success, `false` on failure.
+ */
 function createProject($category,$slug,$username,$title,$description) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $timestamp = date('Y-m-d H:i:s');
@@ -62,6 +136,12 @@ function createProject($category,$slug,$username,$title,$description) {
     return false;
 }
 
+/**
+ * Runs SQL commands to delete all data associated with a project and recursively deletes the project's data in the file system.
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @return void
+ */
 function deleteProject($category,$slug) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $resultProject = dbQuery($dbConnection, "DELETE FROM `project` WHERE `category` = ? AND `slug` = ? ", "ss", [$category,$slug]);
@@ -72,6 +152,11 @@ function deleteProject($category,$slug) {
 }
 
 //## Validations
+/**
+ * Validation for project's slug. Requirements: Between 6 and 64 characters (inclusive) and safe for use URL.
+ * @param string $slug The slug text data.
+ * @return bool Result of the validation.
+ */
 function validateProjectSlug($slug) {
     if (6 > strlen($slug) || strlen($slug) > 64) {
         return false;
@@ -79,12 +164,22 @@ function validateProjectSlug($slug) {
     return isStringSafeUrl($slug);
 }
 
+/**
+ * Validation for project's title. Requirements: Between 6 and 96 characters (inclusive).
+ * @param string $title The title text data.
+ * @return bool Result of the validation.
+ */
 function validateProjectTitle($title) {
-    return strlen($title) > 6 && strlen($title) < 128;
+    return strlen($title) >= 6 && strlen($title) <= 96;
 }
 
+/**
+ * Validation for project's description. Requirements: Between 24 and 320 characters (inclusive).
+ * @param string $description The description text data.
+ * @return bool Result of the validation.
+ */
 function validateProjectDescription($description) {
-    return strlen($description) > 24 && strlen($description) < 256;
+    return strlen($description) >= 24 && strlen($description) <= 320;
 }
 
 //## Basic Edits
@@ -267,7 +362,7 @@ function loadProjectGalleryImages($category,$slug) {
         return false;
     }
     foreach ($result as $galleryRow) {
-        $linkToImage = GALLERY_URL . '?category=' . $category . '&project=' . $slug . '&file_name=' . $galleryRow['file_name'];
+        $linkToImage = GALLERY_URL_START . '?category=' . $category . '&project=' . $slug . '&file_name=' . $galleryRow['file_name'];
         $finalArray[] = ['display_name' => $galleryRow['display_name'], 'link' => $linkToImage];
     }
     return $finalArray;
@@ -349,14 +444,19 @@ function loadProjectFiles($category,$slug) {
         return false;
     }
     foreach ($result as $uploadRow) {
-        $linkToUpload = FILE_DOWNLOAD_URL . '?category=' . $category . '&project=' . $slug . '&file_name=' . $uploadRow['file_name'];
+        $linkToUpload = FILE_DOWNLOAD_URL_START . '?category=' . $category . '&project=' . $slug . '&file_name=' . $uploadRow['file_name'];
         $finalArray[] = ['display_name' => $uploadRow['display_name'], 'link' => $linkToUpload];
     }
     return $finalArray;
 }
 
 //## Retrieving Project Information
-
+/**
+ * Retrieves all project data from the database.
+ * @param string $category Category to look for in the database.
+ * @param string $slug Slug to look for in the database.
+ * @return array|bool All columns of the project from the database or `false` if the project isn't found.
+ */
 function getProjectData($category,$slug) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $result = dbQuery($dbConnection, "SELECT * FROM `project` WHERE `category` = ? AND `slug` = ? LIMIT 1", "ss", [$category,$slug]);

@@ -1,11 +1,27 @@
 <?php
-
+/**
+ * Types of image file allowed as the user's profile picture.
+ * @var array
+ */
 const ALLOWED_PROFILE_PICTURE_IMG_TYPES =  [
     IMAGETYPE_PNG,
     IMAGETYPE_JPEG,
     IMAGETYPE_WEBP  
 ];
+/**
+ * The starting portion of the URL for downloading a profile picture.
+ * @var string
+ */
+const PROFILE_PICTURE_URL_START = '/~dobiapa2/api/internal/users/profile-picture.php';
+/**
+ * The starting portion of the URL for accessing user's profile.
+ * @var string
+ */
+const USER_PAGE_URL_START = '/~dobiapa2/users/';
 
+/**
+ * Values for the different user roles in the database.
+ */
 enum UserRole: string
 {
     case Banned = 'ban';
@@ -13,7 +29,9 @@ enum UserRole: string
     case Admin = 'admin';
     case Owner = 'owner';
 }
-
+/**
+ * Values for the social media link columns in the database.
+ */
 enum UserSocial: string
 {
     case Reddit = 'reddit';
@@ -22,12 +40,33 @@ enum UserSocial: string
     case Discord = 'discord';
     case Website = 'website';
 }
-
+/**
+ * Sort values for the SQL query used to get list of projects.
+ */
 enum UserSort: string{
     case Username = 'username';
     case DisplayName = 'display_name';
     case Role = 'role';
     case Created = 'datetime_created';
+}
+
+/**
+ * Returns the URL for the profile of the given user.
+ * @param string $username The user's username.
+ * @return string The result URL.
+ */
+function getUserLink($username) {
+    return USER_PAGE_URL_START . $username;
+}
+
+/**
+ * Returns the URL for the profile picture of the given user.
+ * @param string $username The user's username.
+ * @param bool $full If `true`, return the URL for the full resolution picture.
+ * @return string The result URL.
+ */
+function getUserPictureLink($username,$full = false) {
+    return PROFILE_PICTURE_URL_START . '?username=' . $username . ($full ? '' : '&variant=preview');
 }
 
 /**
@@ -51,11 +90,11 @@ function getUserDirectory($username,$subdir = '') {
 
 //## Creating and Deleting User
 /**
- * Summary of createUser
- * @param mixed $username
- * @param mixed $password
- * @param UserRole $role
- * @return bool
+ * Creates a new user with given username, password and role.
+ * @param string $username The new user's username.
+ * @param string $password The new user's password.
+ * @param UserRole $role The new user's role.
+ * @return bool `true` on success, `false` on failure.
  */
 function createUser($username, $password, $role = UserRole::User)
 {
@@ -69,6 +108,11 @@ function createUser($username, $password, $role = UserRole::User)
     return false;
 }
 
+/**
+ * Runs SQL command to delete the user from the database and recursively deletes all their files from the file system.
+ * @param string $username The user's username.
+ * @return void
+ */
 function deleteUser($username) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $resultUser = dbQuery($dbConnection, "DELETE FROM `user` WHERE `username` = ?", "ss", [$username]);
@@ -79,7 +123,7 @@ function deleteUser($username) {
 /**
  * Returns `true` when the string is between 4 and 48 characters long (inclusive) and is safe to use as a URL (uses `isStringSafeUrl()` function), otherwise `false`. 
  * @param string $username The string to test.
- * @return bool The result of the test.
+ * @return bool The result of the validation.
  */
 function validateUsername($username)
 {
@@ -89,13 +133,29 @@ function validateUsername($username)
     return isStringSafeUrl($username);
 }
 
+/**
+ * Returns `true` when the string is less than 112 characters (inclusive), otherwise `false`. 
+ * @param string $displayName The string to test.
+ * @return bool The result of the validation.
+ */
 function validateUserDisplayName($displayName) {
     return strlen($displayName) <= 112;
 }
 
+/**
+ * Returns `true` when the string is less than 200 characters (inclusive) and valid as an email when `!= ''`, otherwise `false`. 
+ * @param string $username The string to test.
+ * @return bool The result of the validation.
+ */
 function validateUserEmail($email) {
-    return filter_var($email,FILTER_VALIDATE_EMAIL) !== false && strlen($email) <= 200;
+    return (filter_var($email,FILTER_VALIDATE_EMAIL) !== false || $email === '') && strlen($email) <= 200;
 }
+
+/**
+ * Returns `true` when the string is less than 150 characters (inclusive), otherwise `false`. 
+ * @param string $social The string to test.
+ * @return bool The result of the validation.
+ */
 
 function validateUserSocial($social) {
     return strlen($social) <= 150;
@@ -242,7 +302,7 @@ function verifyUserPassword($username, $password)
 /**
  * Retrieves all user data from the database.
  * @param string $username Username to look for in the database.
- * @return array|bool All rows of the user from the database or `false` if the user isn't found.
+ * @return array|bool All columns of the user from the database or `false` if the user isn't found.
  */
 function getUserData($username)
 {

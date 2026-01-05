@@ -8,14 +8,16 @@ const SORT_DISPLAY_NAME = 'display_name';
 const SORT_ROLE = 'role';
 const SORT_CREATED = 'created';
 
-$username = verifySession($_COOKIE['token'] ?? '');
-if ($username == null) {
-    updateSessionCookie('',-99999);
+$viewState = ViewData::getInstance();
+
+$username = $viewState->get('verified-username');
+$role = $viewState->get('verified-role');
+
+if ($username === '') {
     redirect('/~dobiapa2/login');
 }
 
-$userData = getUserData($username);
-$isAdmin = isset($userData['role']) ? $userData['role'] == UserRole::Admin->value || $userData['role'] == UserRole::Owner->value : false;
+$isAdmin = $role == UserRole::Admin->value || $role  == UserRole::Owner->value;
 
 // Disallow Regular Users
 if (!$isAdmin) {
@@ -23,7 +25,6 @@ if (!$isAdmin) {
     return;
 }
 
-$viewState = ViewData::getInstance();
 // Ensure `page` is a number higher than 1
 $page = $_GET['page'] ?? 1;
 $page = is_numeric($page) ? $page : 1;
@@ -58,5 +59,7 @@ switch ($_GET['sort'] ?? SORT_CREATED) {
         break;
 }
 
-$viewState->set('users-list', getUserList($page, $size, ['role' => ''], $sort, $order == ORDER_ASCENDING));
+$roleFilter = $_GET['role'] ?? '';
+
+$viewState->set('users-list', getUserList($page, $size, ['role' => $roleFilter], $sort, $order == ORDER_ASCENDING));
 

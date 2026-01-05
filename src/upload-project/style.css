@@ -330,11 +330,11 @@ form h2 {
 .project-card {
     max-width: 25em;
     border-radius: 0.5em;
-    background-color: var(--color-2);
+    background-color: var(--color-1);
 }
 
 .project-card:hover {
-    background-color: var(--color-input-background);
+    background-color: var(--color-2);
 }
 
 .project-card .user-part a {
@@ -365,7 +365,7 @@ form h2 {
 }
 
 .project-card .project-part p.description {
-    height: 3.8em;
+    height: 3.6em;
     padding: 0.3em 0.5em;
 }
 

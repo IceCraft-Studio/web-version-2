@@ -11,12 +11,12 @@ $prefillMarkdown = htmlspecialchars($viewState->get('form-markdown-article', '')
 $username = $viewState->get('verified-username', '');
 $displayName = $viewState->get('user-display-name', '');
 $profilePicture = $viewState->get('user-profile-picture', '');
-$userLink = 'https://zwa.toad.cz/~dobiapa2/users/' . $username;
+$userLink = getUserLink($username);
 
 if ($prefillEditing === '1') {
-    $cardThumbnailSrc = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/thumbnail.php?variant=preview&category=' . $prefillCategory . '&slug=' . $prefillSlug;
+    $cardThumbnailSrc = '/~dobiapa2/api/internal/projects/thumbnail.php?variant=preview&category=' . $prefillCategory . '&slug=' . $prefillSlug;
 } else {
-    $cardThumbnailSrc = 'https://zwa.toad.cz/~dobiapa2/assets/empty-thumbnail.webp';
+    $cardThumbnailSrc = '/~dobiapa2/assets/empty-thumbnail.webp';
 }
 
 
@@ -35,11 +35,11 @@ $csrfToken = $_SESSION['csrf-token'];
                 <div class="field">
                     <label for="input-title">Title of your project:</label>
                     <input id="input-title" name="title" type="text" value="<?= $prefillTitle ?>" minlength="6"
-                        maxlength="128" required>
+                        maxlength="96" required>
                 </div>
                 <div class="field">
                     <label for="input-description">Brief description:</label>
-                    <textarea id="input-description" name="description" type="text" minlength="24" maxlength="256"
+                    <textarea id="input-description" name="description" type="text" minlength="24" maxlength="320"
                         required><?= $prefillDescription ?></textarea>
                 </div>
                 <div class="field">
@@ -81,7 +81,7 @@ $csrfToken = $_SESSION['csrf-token'];
                 <div class="prefix-container">
                     <label for="input-slug">/category/</label>
                     <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6"
-                        maxlength="96" disabled required>
+                        maxlength="64" disabled required>
                 </div>
                 <div class="hint">The slug must be between 6 and 96 characters long and may only contain numbers,
                     lowercase letters and single hyphens between words. <span id="slug-taken"
@@ -90,7 +90,7 @@ $csrfToken = $_SESSION['csrf-token'];
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
-                <select id="input-category" name="category" value="<?= $prefillCategory ?>" required></select>
+                <select id="input-category" name="category" value="<?= $prefillCategory ?>" <?= $prefillEditing === '1' ? 'disabled' : '' ?> required></select>
                 <div class="hint">The category must be selected before you can type in the slug.</div>
             </div>
         </div>

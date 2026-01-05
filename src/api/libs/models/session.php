@@ -15,11 +15,11 @@ const TOKEN_COOKIE_NAME = 'token';
  * @param string $username Username of the user to create the session for.
  * @param string $password Password of the user to create the session for.
  * @param int $duration Duration of the session in seconds. Deafult is 2 days.
- * @return string|null Session token.
+ * @return string|bool Session token. `false` if unsuccessfull.
  */
 function createSession($username,$password,$duration = DEFAULT_SESSION_LENGTH) {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    // Generate Extremely Random Token
+    // Generate Extremely Random Token lol
     $timeNow = time();
     $timeExpire = $timeNow + $duration;
     $timestamp = date('Y-m-d H:i:s', $timeNow);
@@ -29,12 +29,10 @@ function createSession($username,$password,$duration = DEFAULT_SESSION_LENGTH) {
         bin2hex(random_bytes($firstBytes)) . 
         hash('sha384', 'token' . $username . $password . (string)$timeNow . bin2hex(random_bytes(8))) . 
         bin2hex(random_bytes(16-$firstBytes));
-    
-    $stmt = $dbConnection->prepare('INSERT INTO `session` (`token`,`username`,`timestamp`,`expires`) VALUES (?, ?, ?, ?)');
-    $stmt->bind_param("ssss", $token, $username, $timestamp, $expires);
-    $stmt->execute();
-    $stmt->close();
-    //!! Check if it was saved to database
+    $result = dbQuery($dbConnection,'INSERT INTO `session` (`token`,`username`,`timestamp`,`expires`) VALUES (?, ?, ?, ?)','ssss',[$token, $username, $timestamp, $expires]);
+    if ($result === false || $result === 0) {
+        return false;
+    }
     return $token;
 }
 
@@ -90,10 +88,13 @@ function destroyUserSessions($username) {
 
 /**
  * Runs the `setcookie` function with all the correct parameters to update the session token.
- * @param mixed $token The session token.
+ * @param string|bool $token The session token.
  * @param int $duration Amount of seconds the session lasts for.
  * @return void
  */
 function updateSessionCookie($token,$duration = DEFAULT_SESSION_LENGTH) {
+    if ($token === false) {
+        return;
+    }
     setcookie(TOKEN_COOKIE_NAME,$token,expires_or_options:time()+$duration,path:'/~dobiapa2',secure:true);
 }

@@ -1,6 +1,15 @@
 //# Constants
+/**
+ * Class for hiding an element.
+ */
 const HIDDEN_CLASS = 'hidden';
+/**
+ * Class for making an element red and bold.
+ */
 const WARNING_HIGHLIGHT_CLASS = 'warning-highlight';
+/**
+ * Class for making an element scale to 105%.
+ */
 const WARNING_POP_CLASS = 'warning-pop';
 
 //# Functions
@@ -64,6 +73,12 @@ function createImageObjectUrl(file) {
 	return objectUrl;
 }
 
+/**
+ * Uses an invoked object URL of an image to compare its aspect ratio with a target one.
+ * @param {string} objectUrl The object URL of the tested image.
+ * @param {number} targetRatio The target ratio tested.
+ * @returns {bool} `true` when the image's aspect ratio matches the target one (0.01 percision), else `false`.
+ */
 async function validateImageAspectRatio(objectUrl, targetRatio) {
 	return new Promise((resolve, reject) => {
 		const image = new Image();
@@ -80,10 +95,6 @@ async function validateImageAspectRatio(objectUrl, targetRatio) {
 			}
 		});
 	});
-}
-
-async function validateImageRes(objectUrl,maxRes) {
-
 }
 
 /**

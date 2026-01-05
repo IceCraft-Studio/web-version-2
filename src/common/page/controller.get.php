@@ -21,12 +21,8 @@ if (str_starts_with($currentRoute, 'home')) {
 $username = verifySession($_COOKIE['token'] ?? '');
 if ($username != null) {
     $userData = getUserData($username);
-    if ($userData != false && ($userData['display_name'] ?? '') != '') {
-        $displayName = $userData['display_name'];
-    } else {
-        $displayName = $username;
-    }
-    $viewState->set('user-display-name', $displayName);
+
+    $viewState->set('user-display-name', $userData['display_name'] ?? $username);
     $viewState->set('user-link', '/~dobiapa2/profile');
     $viewState->set('user-profile-picture', '/~dobiapa2/api/internal/users/profile-picture.php?variant=preview&username=' . $username);
 } else {
@@ -38,5 +34,6 @@ if ($username != null) {
     }
 }
 
-// Sets verified username for all future controllers
-$viewState->set('verified-username', $username != null ? $username : '');
+// Sets verified data for all future controllers
+$viewState->set('verified-username', $username ?? '');
+$viewState->set('verified-role', $userData['role'] ?? '');
