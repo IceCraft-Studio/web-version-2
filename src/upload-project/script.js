@@ -163,6 +163,7 @@ async function main() {
 
 main();
 
+// Run this every 2 seconds to check if everything is valid to be sent
 function validateForm(elements) {
 
 }
