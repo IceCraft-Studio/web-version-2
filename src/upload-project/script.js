@@ -132,6 +132,10 @@ async function main() {
 		uploadIndexes.links++;
 		uploadCounter.links++;
 		elements.addLinkButton.parentElement.insertAdjacentHTML('beforebegin',generateLinkAdder(uploadIndexes.links));
+		document.getElementById(`input-file-upload-${uploadIndexes.links}`).addEventListener((e) => {
+			validateFileUpload(e.target.files[0],elements,e.target);
+		})
+		setElementActivation(elements.addLinkButton,uploadCounter.links < MAX_LINK_AMOUNT);
 	});
 	elements.addFileButton.addEventListener('click', (e) => {
 		e.preventDefault();
@@ -141,6 +145,7 @@ async function main() {
 		uploadIndexes.files++;
 		uploadCounter.files++;
 		elements.addFileButton.parentElement.insertAdjacentHTML('beforebegin',generateFileAdder(uploadIndexes.files));
+		setElementActivation(elements.addFileButton,uploadCounter.files < MAX_FILE_AMOUNT);
 	});
 
 }
@@ -314,9 +319,10 @@ async function validateThumbnail(file, elements) {
 	return true;
 }
 
-function validateFileUpload(file, elements) {
+function validateFileUpload(file, elements, target) {
 	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
 	if (sizeMB > MAX_ALLOWED_UPLOAD_SIZE_MB) {
+		target.value = null;
 		return false;
 	}
 	return true;
