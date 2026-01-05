@@ -24,13 +24,7 @@ const ERROR_ROUTE = 'middleware/error';
  */
 function redirects($route)
 {
-    // This router is for non-files only, so everything should be interperted as directory!!
-    if (!str_ends_with($_SERVER['REQUEST_URI'], "/")) {
-        echo count($_GET);
-        exit;
-        header("Location: {$_SERVER['REQUEST_URI']}/", true, 301);
-        exit;
-    }
+
     // Nothing goes home
     if ($route == '') {
         header("Location: ./home", true, 301);
