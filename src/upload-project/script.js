@@ -132,9 +132,6 @@ async function main() {
 		uploadIndexes.links++;
 		uploadCounter.links++;
 		elements.addLinkButton.parentElement.insertAdjacentHTML('beforebegin',generateLinkAdder(uploadIndexes.links));
-		document.getElementById(`input-file-upload-${uploadIndexes.links}`).addEventListener((e) => {
-			validateFileUpload(e.target.files[0],elements,e.target);
-		})
 		setElementActivation(elements.addLinkButton,uploadCounter.links < MAX_LINK_AMOUNT);
 	});
 	elements.addFileButton.addEventListener('click', (e) => {
@@ -145,6 +142,9 @@ async function main() {
 		uploadIndexes.files++;
 		uploadCounter.files++;
 		elements.addFileButton.parentElement.insertAdjacentHTML('beforebegin',generateFileAdder(uploadIndexes.files));
+		document.getElementById(`input-file-upload-${uploadIndexes.links}`).addEventListener((e) => {
+			validateFileUpload(e.target.files[0],elements,e.target);
+		})
 		setElementActivation(elements.addFileButton,uploadCounter.files < MAX_FILE_AMOUNT);
 	});
 
@@ -431,7 +431,7 @@ function generateLinkAdder(i) {
     <div class="field">
         <p>Link #${i + 1} to download the project.</p>
         <label for="input-link-url-${i}">URL:</label>
-        <input type="text" name="link-url[${i}]" id="input-link-url-${i}">
+        <input type="text" name="link-url[${i}]" id="input-link-url-${i}" maxlength="200">
         <label for="input-link-name-${i}">Display Name:</label>
         <input type="text" name="link-name[${i}]" id="input-link-name-${i}" maxlength="96">
     </div>
