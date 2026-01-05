@@ -15,7 +15,7 @@ if ($username == null) {
 }
 
 $userData = getUserData($username);
-$isAdmin = isset($userData['role']) ? $userData['role'] == UserRole::Admin || $userData['role'] == UserRole::Owner : false;
+$isAdmin = isset($userData['role']) ? $userData['role'] == UserRole::Admin->value || $userData['role'] == UserRole::Owner->value : false;
 
 // Disallow Regular Users
 if (!$isAdmin) {
