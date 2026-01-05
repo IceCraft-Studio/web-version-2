@@ -142,7 +142,7 @@ async function main() {
 		uploadIndexes.files++;
 		uploadCounter.files++;
 		elements.addFileButton.parentElement.insertAdjacentHTML('beforebegin',generateFileAdder(uploadIndexes.files));
-		document.getElementById(`input-file-upload-${uploadIndexes.files}`).addEventListener((e) => {
+		document.getElementById('change', `input-file-upload-${uploadIndexes.files}`).addEventListener((e) => {
 			validateFileUpload(e.target.files[0],elements,e.target);
 		})
 		setElementActivation(elements.addFileButton,uploadCounter.files < MAX_FILE_AMOUNT);
