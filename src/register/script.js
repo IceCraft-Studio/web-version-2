@@ -82,9 +82,10 @@ function validateForm(validValues, elements) {
 function queueAvailibilityVerification(username,elements,validValues,timer) {
 	clearTimeout(timer);
 	let newTimer = setTimeout(async () => {
-		let available = await verifyUsernameAvailability(username);
-		elements.inputUsername.dataset.available = available ? '1' : '0';
-		validateUsername(username,elements.inputUsername.dataset.available);
+		let isAvailable = await verifyUsernameAvailability(username);
+		elements.inputUsername.dataset.available = isAvailable ? '1' : '0';
+		let isValid = validateUsername(username,elements.inputUsername.dataset.available);
+		validValues.username = isAvailable && isValid;
 		validateForm(validValues,elements);
 	},1500);
 	return newTimer;
