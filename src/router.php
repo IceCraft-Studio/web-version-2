@@ -26,7 +26,7 @@ function redirects($route)
 {
     // This router is for non-files only, so everything should be interperted as directory!!
     if (!str_ends_with($_SERVER['REQUEST_URI'], "/")) {
-        var_dump($_GET);
+        echo count($_GET);
         exit;
         header("Location: {$_SERVER['REQUEST_URI']}/", true, 301);
         exit;
