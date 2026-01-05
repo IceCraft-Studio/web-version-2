@@ -80,9 +80,13 @@ $csrfToken = $_SESSION['csrf-token'];
                 <label for="input-slug">Unique part of the URL for your project:</label>
                 <div class="prefix-container">
                     <label for="input-slug">/category/</label>
-                    <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6" maxlength="96" disabled required>
+                    <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6"
+                        maxlength="96" disabled required>
                 </div>
-                <div class="hint">The slug must be between 6 and 96 characters long and may only contain numbers, lowercase letters and single hyphens between words. <span id="slug-taken" class="hidden color-required inline-block">This slug is taken, please try another one.</span></div>
+                <div class="hint">The slug must be between 6 and 96 characters long and may only contain numbers,
+                    lowercase letters and single hyphens between words. <span id="slug-taken"
+                        class="hidden color-required inline-block">This slug is taken, please try another one.</span>
+                </div>
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
@@ -104,8 +108,8 @@ $csrfToken = $_SESSION['csrf-token'];
                 <div id="md-preview" class="hidden"></div>
             </div>
             <div class="article-gallery">
-                <div class="gallery-info">
-                    You can upload images to accompany your article. Click them to get
+                <div class="gallery-info hint">
+                    You can upload up to 12 images to put inside your article. Click them to get
                     their link to use them in markdown of your article.
                 </div>
                 <ul id="gallery-preview">
@@ -115,7 +119,8 @@ $csrfToken = $_SESSION['csrf-token'];
         </div>
         <h2>Downloads & Links</h2>
         <div class="field">
-            The project needs to provide at least 1 file or link and at most 5 of each for the audience to download. <br>
+            The project needs to provide at least 1 file or link and at most 5 of each for the audience to download.
+            <br>
             Max file upload size is 30MB. Max URL length is 200. <br>
             Display name can be up to 96 characters long. <br>
         </div>
