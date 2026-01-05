@@ -213,9 +213,10 @@ async function galleryUpdate(elements, uploadIndexes, uploadCounter) {
 	}
 	uploadIndexes.gallery++;
 	uploadCounter.gallery++;
+	let currentIndex = uploadIndexes.gallery;
 	elements.galleryPreview.insertAdjacentHTML(
 		'beforeend',
-		generateGalleryItem(uploadIndexes.gallery)
+		generateGalleryItem(currentIndex)
 	);
 	elements.dropUploadInput = document.getElementById(GALLERY_UPLOAD_ZONE_ID);
 	elements.galleryUploadInput = document.querySelector(GALLERY_UPLOAD_SELECT);
@@ -224,6 +225,7 @@ async function galleryUpdate(elements, uploadIndexes, uploadCounter) {
 		await processGalleryFileUpload(
 			e.target.files[0],
 			elements,
+			currentIndex,
 			uploadIndexes,
 			uploadCounter
 		);
@@ -237,6 +239,7 @@ async function galleryUpdate(elements, uploadIndexes, uploadCounter) {
 			await processGalleryFileUpload(
 				e.dataTransfer.files[0],
 				elements,
+				currentIndex,
 				uploadIndexes,
 				uploadCounter
 			)
@@ -249,6 +252,7 @@ async function galleryUpdate(elements, uploadIndexes, uploadCounter) {
 async function processGalleryFileUpload(
 	file,
 	elements,
+	currentIndex,
 	uploadIndexes,
 	uploadCounter
 ) {
@@ -284,7 +288,7 @@ async function processGalleryFileUpload(
 	}
 	// Finish procedure if checks are fine
 	await galleryUpdate(elements, uploadIndexes, uploadCounter);
-	await insertGalleryFileUrl(imageObjectUrl, elements, uploadIndexes.gallery--);
+	await insertGalleryFileUrl(imageObjectUrl, elements, currentIndex);
 	return true;
 }
 
