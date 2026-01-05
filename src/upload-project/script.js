@@ -187,10 +187,10 @@ function queueAvailibilityVerification(elements,timer) {
 		let isAvailable = await verifySlugAvailability(slug,category);
 		elements.slugInput.dataset.available = isAvailable ? '1' : '0';
 		if (isAvailable) {
+			elements.slugTakenHint?.classList.add(HIDDEN_CLASS);
+		} else {
 			elements.slugTakenHint?.classList.remove(HIDDEN_CLASS);
 			tempClassForTime(elements.slugTakenHint,WARNING_POP_CLASS,1250);
-		} else {
-			elements.slugTakenHint?.classList.add(HIDDEN_CLASS);
 		}
 	},1500);
 	return newTimer;
