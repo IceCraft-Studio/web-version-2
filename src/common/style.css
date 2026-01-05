@@ -99,7 +99,7 @@ form div.field {
     flex-direction: column;
 
     padding: 0.6em;
-    margin: 0.4em;
+    margin: 0.5em;
     background-color: var(--color-background-overlay);
     border-radius: 0.2em;
 }

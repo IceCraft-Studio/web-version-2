@@ -2,6 +2,11 @@ label {
     margin: 0.2em;
 }
 
+input[type="submit"] {
+    margin: 0.6em;
+}
+
+
 input[type="file"] {
     width: 95%;
     display: block;
@@ -314,6 +319,15 @@ form h2 {
 
 .adder .field {
     flex: 0 1 20em;
+}
+
+.adder li {
+    display: flex;
+    flex-direction: column;
+}
+
+.adder p {
+    margin: 0.5em;
 }
 
 .adder button.add-another {

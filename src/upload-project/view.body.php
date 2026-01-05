@@ -24,7 +24,7 @@ if ($prefillEditing === '1') {
 $csrfToken = $_SESSION['csrf-token'];
 ?>
 <main>
-    <h1>Create a new Project</h1>
+    <h1><?= $prefillEditing === '1' ? 'Edit exisiting project' : 'Create a new project' ?></h1>
     <div>
         Fields marked with <span class="color-required">*</span> are required!
     </div>
@@ -119,45 +119,41 @@ $csrfToken = $_SESSION['csrf-token'];
         </div>
         <h2>Downloads & Links</h2>
         <div class="field">
-            The project needs to provide at least 1 file or link and at most 5 of each for the audience to download.
-            <br>
-            Max file upload size is 30MB. Max URL length is 200. <br>
-            Display name can be up to 96 characters long. <br>
+            <div>
+                The project needs to provide at least 1 file or link and at most 5 of each for the audience to download.
+            </div>
+            <div>
+                Max file upload size is 30MB. Max URL length is 200 characters. 
+            </div>
+            <div>
+                Display name can be up to 96 characters long. 
+            </div>
         </div>
         <div class="downloads-part">
             <div class="field">
                 <h3>Add a link</h3>
-                <div id="link-adder" class="adder">
-                    <div class="field">
-                        <p>Link #1 to download the project.</p>
-                        <label for="input-link-url-0">URL:</label>
-                        <input type="text" name="link-url[0]" id="input-link-url-0">
-                        <label for="input-link-name-0">Display Name:</label>
-                        <input type="text" name="link-name[0]" id="input-link-name-0" maxlength>
-                    </div>
-                    <button class="add-another">
-                        <div>
-                            + Add Link
-                        </div>
-                    </button>
-                </div>
+                <ul id="link-adder" class="adder">
+                    <li>
+                        <button class="add-another" title="Add another link to your project.">
+                            <div>
+                                + Add Link
+                            </div>
+                        </button>
+                    </li>
+                </ul>
             </div>
             <div class="field">
                 <h3>Upload a file</h3>
-                <div id="file-adder" class="adder">
-                    <div class="field">
-                        <p>File #1 to download the project.</p>
-                        <label for="input-file-upload-0">File Upload:</label>
-                        <input type="file" name="file-upload[0]" id="input-file-upload-0">
-                        <label for="input-file-name-0">Display Name:</label>
-                        <input type="text" name="file-name[0]" id="input-file-name-0">
-                    </div>
-                    <button class="add-another">
-                        <div>
-                            + Add File
-                        </div>
-                    </button>
-                </div>
+                <ul id="file-adder" class="adder">
+
+                    <li>
+                        <button class="add-another" title="Add another file to your project.">
+                            <div>
+                                + Add File
+                            </div>
+                        </button>
+                    </li>
+                </ul>
             </div>
             <input type="submit" value="<?= $prefillEditing === '1' ? 'Edit Project' : 'Create Project' ?>">
         </div>

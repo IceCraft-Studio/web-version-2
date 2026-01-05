@@ -12,6 +12,8 @@ const ARTICLE_EDIT_ID = 'md-input';
 const GALLERY_UPLOAD_ZONE_ID = 'gallery-upload-zone';
 const GALLERY_UPLOAD_SELECT = `#${GALLERY_UPLOAD_ZONE_ID} > input[type='file']`;
 const GALLERY_PREVIEW_ID = 'gallery-preview';
+const LINK_ADDER_ID = 'link-adder';
+const FILE_ADDER_ID = 'file-adder';
 const CATEGORY_SELECT_ID = 'input-category';
 const ADD_LINK_BTN_SELECT = '#link-adder button.add-another';
 const ADD_FILE_BTN_SELECT = '#file-adder button.add-another';
@@ -33,16 +35,23 @@ const MAX_FILE_AMOUNT = 5;
 const MAX_LINK_AMOUNT = 5;
 const MAX_GALLERY_AMOUNT = 10;
 
+const EDIT_INSERTED_CLASS = 'edit-inserted';
 const COPIED_CLASS = 'copied';
 
 async function main() {
-	let galleryIndex = -1;
+	let uploadIndexes = {
+		gallery: -1,
+		files: -1,
+		links: -1,
+	};
 	let markdownEdited = false;
 	const elements = {
 		titleInput: document.querySelector('input#input-title'),
 		descriptionInput: document.querySelector('textarea#input-description'),
 		thumbnailInput: document.querySelector('input#input-thumbnail'),
-		slugPrefix: document.querySelector("div.prefix-container > label[for='input-slug']"),
+		slugPrefix: document.querySelector(
+			"div.prefix-container > label[for='input-slug']"
+		),
 		slugInput: document.querySelector('input#input-slug'),
 		markdownInput: document.getElementById(ARTICLE_EDIT_ID),
 		markdownOutput: document.getElementById(ARTICLE_PREVIEW_ID),
@@ -55,14 +64,22 @@ async function main() {
 		previewTitle: document.querySelector(PREVIEW_TITLE_SELECT),
 		previewDescription: document.querySelector(PREVIEW_DESC_SELECT),
 		previewThumbnail: document.querySelector(PREVIEW_IMAGE_SELECT),
+		linkAdder: document.getElementById(LINK_ADDER_ID),
+		fileAdder: document.getElementById(FILE_ADDER_ID),
 		addLinkButton: document.querySelector(ADD_LINK_BTN_SELECT),
-		addFileButton: document.querySelector(ADD_FILE_BTN_SELECT)
+		addFileButton: document.querySelector(ADD_FILE_BTN_SELECT),
 	};
-	// Dynamically fetch available categories
+	const uploadCounter = {
+		gallery: elements.galleryPreview?.querySelectorAll(`.${EDIT_INSERTED_CLASS}`)?.length ?? 0,
+		links: elements.linkAdder?.querySelectorAll(`.${EDIT_INSERTED_CLASS}`)?.length ?? 0,
+		files: elements.galleryPreview?.querySelectorAll(`.${EDIT_INSERTED_CLASS}`)?.length ?? 0,
+	};
+
+	// Dynamically fetch available categories from the backend
 	fillCategories(elements.categorySelect);
-	// Remove Empty Category on selection
+	// Handle changing category
 	elements.categorySelect.addEventListener('change', (e) => {
-		handleCategoryUpdate(e,elements);
+		handleCategoryUpdate(e, elements);
 	});
 	// Markdown preview functionality
 	elements.editButton.addEventListener('click', (e) => {
@@ -74,18 +91,21 @@ async function main() {
 	elements.markdownInput.addEventListener('change', () => {
 		markdownEdited = true;
 	});
+	// Title card update
 	elements.titleInput.addEventListener('input', () => {
 		elements.previewTitle.textContent = elements.titleInput.value;
-	})
-	// Input validation in #input-description
+	});
+	// Description correction and card update
 	elements.descriptionInput.addEventListener('input', () => {
 		elements.descriptionInput.value =
 			elements.descriptionInput.value.replace(/\r?\n|\r/g, '');
-		elements.previewDescription.textContent = elements.descriptionInput.value;
+		elements.previewDescription.textContent =
+			elements.descriptionInput.value;
 	});
+	// Thumbnail validation and card update
 	elements.thumbnailInput.addEventListener('change', async (e) => {
 		let file = e.target.files[0];
-		if (await validateThumbnail(file,elements) === false) {
+		if ((await validateThumbnail(file, elements)) === false) {
 			return;
 		}
 		let objectUrl = await createImageObjectUrl(file);
@@ -96,7 +116,7 @@ async function main() {
 		elements.slugInput.value = correctSlugInput(elements.slugInput.value);
 	});
 	// Gallery
-	galleryUpdate(elements, galleryIndex);
+	galleryUpdate(elements, uploadIndexes, uploadCounter);
 	// Drag n drop make it work
 	window.addEventListener('drop', (e) => {
 		if ([...e.dataTransfer.items].some((item) => item.kind === 'file')) {
@@ -104,15 +124,15 @@ async function main() {
 		}
 	});
 	//Add link and file buttons
-	elements.addFileButton.addEventListener('click', (e) => {
-		e.preventDefault();
-
-	})
 	elements.addLinkButton.addEventListener('click', (e) => {
 		e.preventDefault();
+		elements.addLinkButton.insertAdjacentHTML(generateLinkAdder(uploadIndexes.links));
+	});
+	elements.addFileButton.addEventListener('click', (e) => {
+		e.preventDefault();
+		elements.addFileButton.insertAdjacentHTML(generateFileAdder(uploadIndexes.files));
+	});
 
-	})
-	
 }
 
 main();
@@ -123,10 +143,13 @@ main();
  * @returns {string} Corrected string.
  */
 function correctSlugInput(slug) {
-	return slug.toLowerCase().replaceAll(/(-$)|(^-)|[^a-z0-9-]/g,'').replaceAll(/-+/g,'-');
+	return slug
+		.toLowerCase()
+		.replaceAll(/(-$)|(^-)|[^a-z0-9-]/g, '')
+		.replaceAll(/-+/g, '-');
 }
 
-function handleCategoryUpdate(event,elements) {
+function handleCategoryUpdate(event, elements) {
 	if (event.target.value != '') {
 		event.target.querySelector('option[value=""]')?.remove();
 		elements.slugPrefix.textContent = `/${event.target.value}/`;
@@ -163,15 +186,20 @@ async function fillCategories(selectElement) {
 	}
 }
 
-async function galleryUpdate(elements, galleryIndex) {
+async function galleryUpdate(elements, uploadIndexes, uploadCounter) {
 	if (elements.dropUploadInput != null) {
 		elements.dropUploadInput.classList.add(HIDDEN_CLASS);
 		elements.dropUploadInput.removeAttribute('id');
 	}
-	galleryIndex++;
+	if (uploadCounter.gallery >= MAX_GALLERY_AMOUNT) {
+		elements.dropUploadInput = null;
+		elements.galleryUploadInput = null;
+		return;
+	}
+	uploadIndexes.gallery++;
 	elements.galleryPreview.insertAdjacentHTML(
 		'beforeend',
-		generateGalleryItem(galleryIndex)
+		generateGalleryItem(uploadIndexes.gallery)
 	);
 	elements.dropUploadInput = document.getElementById(GALLERY_UPLOAD_ZONE_ID);
 	elements.galleryUploadInput = document.querySelector(GALLERY_UPLOAD_SELECT);
@@ -180,7 +208,8 @@ async function galleryUpdate(elements, galleryIndex) {
 		await processGalleryFileUpload(
 			e.target.files[0],
 			elements,
-			galleryIndex
+			uploadIndexes,
+			uploadCounter
 		);
 	});
 	elements.dropUploadInput.addEventListener('dragover', (e) => {
@@ -192,7 +221,8 @@ async function galleryUpdate(elements, galleryIndex) {
 			await processGalleryFileUpload(
 				e.dataTransfer.files[0],
 				elements,
-				galleryIndex
+				uploadIndexes,
+				uploadCounter
 			)
 		) {
 			elements.galleryUploadInput.files = e.dataTransfer.files;
@@ -200,46 +230,12 @@ async function galleryUpdate(elements, galleryIndex) {
 	});
 }
 
-async function validateThumbnail(file,elements) {
-//Check file size and type
-	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
-	if (
-		sizeMB > MAX_ALLOWED_IMAGE_SIZE_MB ||
-		!ALLOWED_THUMB_IMAGE_TYPES.includes(file.type)
-	) {
-		elements.thumbnailInput.value = null;
-		let sizeWarningElement = document.querySelector(
-			`.thumbnail-size`
-		);
-		sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-		tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 750);
-		return false;
-	}
-	// Create image object url and ensure the correct aspect ratio
-	const imageObjectUrl = createImageObjectUrl(file);
-	const validAspectRatio = await validateImageAspectRatio(
-		imageObjectUrl,
-		ALLOWED_ASPECT_RATIO
-	);
-	if (!validAspectRatio) {
-		URL.revokeObjectURL(imageObjectUrl);
-		elements.thumbnailInput.value = null;
-		let ratioWarningElement = document.querySelector(
-			`.thumbnail-ratio`
-		);
-		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
-		tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
-		return false;
-	}
-	URL.revokeObjectURL(imageObjectUrl);
-	return true;
-}
-
-function validateFileUpload(file,elements) {
-
-}
-
-async function processGalleryFileUpload(file, elements, galleryIndex) {
+async function processGalleryFileUpload(
+	file,
+	elements,
+	uploadIndexes,
+	uploadCounter
+) {
 	//Check file size and type
 	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
 	if (
@@ -271,18 +267,56 @@ async function processGalleryFileUpload(file, elements, galleryIndex) {
 		return false;
 	}
 	// Finish procedure if checks are fine
-	await galleryUpdate(elements, galleryIndex);
-	await insertFileUrl(imageObjectUrl, elements, galleryIndex);
+	await galleryUpdate(elements, uploadIndexes, uploadCounter);
+	await insertGalleryFileUrl(imageObjectUrl, elements, uploadIndexes.gallery);
 	return true;
 }
 
+async function validateThumbnail(file, elements) {
+	//Check file size and type
+	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
+	if (
+		sizeMB > MAX_ALLOWED_IMAGE_SIZE_MB ||
+		!ALLOWED_THUMB_IMAGE_TYPES.includes(file.type)
+	) {
+		elements.thumbnailInput.value = null;
+		let sizeWarningElement = document.querySelector(`.thumbnail-size`);
+		sizeWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		tempClassForTime(sizeWarningElement, WARNING_POP_CLASS, 750);
+		return false;
+	}
+	// Create image object url and ensure the correct aspect ratio
+	const imageObjectUrl = createImageObjectUrl(file);
+	const validAspectRatio = await validateImageAspectRatio(
+		imageObjectUrl,
+		ALLOWED_ASPECT_RATIO
+	);
+	if (!validAspectRatio) {
+		URL.revokeObjectURL(imageObjectUrl);
+		elements.thumbnailInput.value = null;
+		let ratioWarningElement = document.querySelector(`.thumbnail-ratio`);
+		ratioWarningElement?.classList.add(WARNING_HIGHLIGHT_CLASS);
+		tempClassForTime(ratioWarningElement, WARNING_POP_CLASS, 750);
+		return false;
+	}
+	URL.revokeObjectURL(imageObjectUrl);
+	return true;
+}
+
+function validateFileUpload(file, elements) {
+	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
+	if (sizeMB > MAX_ALLOWED_UPLOAD_SIZE_MB) {
+		return false;
+	}
+	return true;
+}
 
 /**
  * Verifies with the server if the slug is available.
  * @param {string} slug - The slug to verify.
  * @returns {bool} `true` when the slug is available.
  */
-async function verifySlugAvailability(slug,category) {
+async function verifySlugAvailability(slug, category) {
 	let reqHeaders = new Headers();
 	reqHeaders.set('Accept', 'application/json');
 	reqHeaders.set('Content-Type', 'application/json');
@@ -291,7 +325,7 @@ async function verifySlugAvailability(slug,category) {
 		method: 'POST',
 		headers: reqHeaders,
 		body: JSON.stringify({
-			slug: username
+			slug: username,
 		}),
 	};
 	const req = new Request(VERIFY_SLUG_ENDPOINT, options);
@@ -302,7 +336,7 @@ async function verifySlugAvailability(slug,category) {
 	return jsonData?.available;
 }
 
-async function insertFileUrl(objectUrl, elements, galleryIndex) {
+async function insertGalleryFileUrl(objectUrl, elements, galleryIndex) {
 	let imgElement = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] img`
 	);
@@ -323,6 +357,12 @@ async function insertFileUrl(objectUrl, elements, galleryIndex) {
 	hiddenInput?.setAttribute('value', objectUrl);
 }
 
+//## Dynamic HTML Generators
+/**
+ * Generates HTML for a gallery input.
+ * @param {number} i Index of the input field.
+ * @returns
+ */
 function generateGalleryItem(i) {
 	return `
 <li class="gallery-image" data-gallery-index="${i}">
@@ -342,6 +382,42 @@ function generateGalleryItem(i) {
     <img alt="Image #${i + 1}">
   </button>
   <input name="gallery-browser-url[${i}]" type="hidden">
+</li>`;
+}
+
+/**
+ * Generates HTML for a link adder input.
+ * @param {number} i Index of the input field.
+ * @returns
+ */
+function generateFileAdder(i) {
+	return `
+<li data-file-index="${i}">
+	<div class="field">
+		<p>File #${i + 1} to download the project.</p>
+        <label for="input-file-upload-${i}">File Upload:</label>
+        <input type="file" name="file-upload[${i}]" id="input-file-upload-${i}">
+        <label for="input-file-name-${i}">Display Name:</label>
+        <input type="text" name="file-name[${i}]" id="input-file-name-${i}" maxlength="96">
+    </div>
+</li>`;
+}
+
+/**
+ * Generates HTML for a gallery input.
+ * @param {number} i Index of the input field.
+ * @returns
+ */
+function generateLinkAdder(i) {
+	return `
+<li data-link-index="${i}">
+    <div class="field">
+        <p>Link #${i + 1} to download the project.</p>
+        <label for="input-link-url-${i}">URL:</label>
+        <input type="text" name="link-url[${i}]" id="input-link-url-${i}">
+        <label for="input-link-name-${i}">Display Name:</label>
+        <input type="text" name="link-name[${i}]" id="input-link-name-${i}" maxlength="96">
+    </div>
 </li>`;
 }
 
@@ -371,6 +447,8 @@ async function generatePreview(inputElement, outputElement) {
 			a.replaceWith(img);
 		});
 }
+
+//## Article Preview Functions
 
 /**
  * Calls GitHub Markdown API and returns a safe HTML.
