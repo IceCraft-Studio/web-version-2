@@ -319,13 +319,11 @@ form h2 {
     margin: 0;
 }
 
-.adder .field {
-    flex: 0 1 20em;
-}
 
 .adder li {
     display: flex;
     flex-direction: column;
+    flex: 0 1 20em;
 }
 
 .adder p {
@@ -333,8 +331,7 @@ form h2 {
 }
 
 .adder button.add-another {
-    flex: 0 1 20em;
-    height: 9em;
+    height: 7em;
 }
 
 .adder button.add-another div {
