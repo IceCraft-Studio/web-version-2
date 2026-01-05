@@ -284,7 +284,7 @@ async function processGalleryFileUpload(
 	}
 	// Finish procedure if checks are fine
 	await galleryUpdate(elements, uploadIndexes, uploadCounter);
-	await insertGalleryFileUrl(imageObjectUrl, elements, uploadIndexes.gallery);
+	await insertGalleryFileUrl(imageObjectUrl, elements, uploadIndexes.gallery--);
 	return true;
 }
 
