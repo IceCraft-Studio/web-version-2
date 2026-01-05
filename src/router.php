@@ -24,7 +24,6 @@ const ERROR_ROUTE = 'middleware/error';
  */
 function redirects($route)
 {
-
     // Nothing goes home
     if ($route == '') {
         header("Location: ./home", true, 301);
