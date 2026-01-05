@@ -42,6 +42,7 @@ async function main() {
 		titleInput: document.querySelector('input#input-title'),
 		descriptionInput: document.querySelector('textarea#input-description'),
 		thumbnailInput: document.querySelector('input#input-thumbnail'),
+		slugPrefix: document.querySelector("div.prefix-container > label[for='input-slug']"),
 		slugInput: document.querySelector('input#input-slug'),
 		markdownInput: document.getElementById(ARTICLE_EDIT_ID),
 		markdownOutput: document.getElementById(ARTICLE_PREVIEW_ID),
@@ -128,9 +129,8 @@ function correctSlugInput(slug) {
 function handleCategoryUpdate(event,elements) {
 	if (event.target.value != '') {
 		event.target.querySelector('option[value=""]')?.remove();
-		let prefixElement = document.querySelector("div.prefix-container > label[for='input-slug']");
-		prefixElement.textContent = event.target.value;
-		elements.inputSlug.removeAttribute('disabled');
+		elements.slugPrefix.textContent = `/${event.target.value}/`;
+		elements.slugInput.removeAttribute('disabled');
 	}
 }
 
