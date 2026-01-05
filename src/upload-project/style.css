@@ -2,6 +2,11 @@ label {
     margin: 0.2em;
 }
 
+input[type="file"] {
+    max-width: 95%;
+    display: block;
+}
+
 input[type="text"] {
     font-size: 1rem;
     border-radius: 0;
@@ -239,12 +244,6 @@ form #gallery-preview div.field {
     font-family: 'Gantari', sans-serif;
 }
 
-#gallery-upload-zone input {
-    display: block;
-    max-width: 80%;
-}
-
-
 div#md-preview {
     border: 0.2rem solid var(--color-primary);
     height: 40rem;
@@ -275,6 +274,7 @@ form h2 {
     margin-bottom: 0.3rem;
 }
 
+
 .switch-buttons {
     display: flex;
     flex-direction: row;
@@ -303,15 +303,7 @@ form h2 {
     flex-direction: column;
 }
 
-@media screen and (max-width:825px) {
-    .introduction-part,.article-part,.details-part {
-        flex-direction: column;
-    }
-    .category-selection {
-        flex-basis: 3rem;
-    }
-}
-
+/* File and Link Adding Styles */
 
 .adder {
     display: flex;
@@ -332,6 +324,8 @@ form h2 {
 .adder button.add-another div {
     font-size: 2em;
 }
+
+/* Project Card Styles */
 
 .project-card {
     max-width: 25em;
@@ -393,4 +387,15 @@ form h2 {
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0;
+}
+
+/* Small Screen Layout */
+
+@media screen and (max-width:825px) {
+    .introduction-part,.article-part,.details-part {
+        flex-direction: column;
+    }
+    .category-selection {
+        flex-basis: 3rem;
+    }
 }
