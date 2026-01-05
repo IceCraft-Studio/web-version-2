@@ -126,11 +126,11 @@ async function main() {
 	//Add link and file buttons
 	elements.addLinkButton.addEventListener('click', (e) => {
 		e.preventDefault();
-		elements.addLinkButton.insertAdjacentHTML(generateLinkAdder(uploadIndexes.links));
+		elements.addLinkButton.insertAdjacentHTML('beforebegin',generateLinkAdder(uploadIndexes.links));
 	});
 	elements.addFileButton.addEventListener('click', (e) => {
 		e.preventDefault();
-		elements.addFileButton.insertAdjacentHTML(generateFileAdder(uploadIndexes.files));
+		elements.addFileButton.insertAdjacentHTML('beforebegin',generateFileAdder(uploadIndexes.files));
 	});
 
 }
