@@ -150,6 +150,7 @@ textarea {
 .hint {
     font-family: JetBrainsMono;
     font-size: 0.8em;
+    margin: 0.1rem;
 }
 
 .gallery-image label {
