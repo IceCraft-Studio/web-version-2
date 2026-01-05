@@ -60,7 +60,7 @@ async function main() {
 	// Dynamically fetch available categories
 	fillCategories(elements.categorySelect);
 	// Remove Empty Category on selection
-	elements.categorySelect.addEventListener('change', removeEmptyCategory);
+	elements.categorySelect.addEventListener('change', handleCategoryUpdate);
 	// Markdown preview functionality
 	elements.editButton.addEventListener('click', (e) => {
 		showEdit(e, elements);
@@ -123,10 +123,11 @@ function correctSlugInput(slug) {
 	return slug.toLowerCase().replaceAll(/(-$)|(^-)|[^a-z0-9-]/g,'').replaceAll(/-+/g,'-');
 }
 
-function removeEmptyCategory(event) {
+function handleCategoryUpdate(event) {
 	if (event.target.value != '') {
-		event.target.querySelector('option[value=""]').remove();
-		event.target.removeEventListener('change', removeEmptyCategory);
+		event.target.querySelector('option[value=""]')?.remove();
+		let prefixElement = document.querySelector("div.prefix-container > label[for='input-slug']");
+		prefixElement.textContent = event.target.value;
 	}
 }
 

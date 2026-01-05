@@ -79,14 +79,15 @@ $csrfToken = $_SESSION['csrf-token'];
             <div class="field slug-editor">
                 <label for="input-slug">Unique part of the URL for your project:</label>
                 <div class="prefix-container">
-                    <label for="input-slug">/projects/</label>
-                    <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" placeholder="Select category first!" minlength="6" maxlength="96" disabled required>
+                    <label for="input-slug">/category/</label>
+                    <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6" maxlength="96" disabled required>
                 </div>
                 <div class="hint">The slug must be between 6 and 96 characters long and may only contain numbers, lowercase letters and single hyphens between words. <span id="slug-taken" class="hidden color-required inline-block">This slug is taken, please try another one.</span></div>
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
                 <select id="input-category" name="category" value="<?= $prefillCategory ?>" required></select>
+                <div class="hint">The category must be selected before you can type in the slug.</div>
             </div>
         </div>
         <h2>Article Contents</h2>
