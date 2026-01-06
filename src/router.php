@@ -39,7 +39,7 @@ function redirects($route)
 function rerouteMiddleware($requestRoute)
 {
     // projects/ (to reuse with category specific one below)
-    if (preg_match("/^projects\/$/", $requestRoute)) {
+    if (preg_match("/^projects$/", $requestRoute)) {
         return "middleware/projects";
     }
     // projects/* (* - category id from database)
