@@ -2,6 +2,10 @@ main {
    
 }
 
+.horizontal-scroll {
+    overflow-x: auto;
+}
+
 table img {
     width: 2em;
     height: 2em;
@@ -9,8 +13,11 @@ table img {
 
 th, td {
   border: 0.2em solid var(--color-primary);
-  padding: 0.2em;
-  margin: 0;
+  padding: 0.1em 0.4em;
+}
+
+td {
+    max-width: 20em;
 }
 
 th {

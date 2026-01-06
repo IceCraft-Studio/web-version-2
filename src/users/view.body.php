@@ -22,6 +22,7 @@ function generateUserTableData($usersList) {
 <main>
     <h1>Manage Users</h1>
     <p>Here you are provided with a list of all users, openning the link on their username leads to their user page where you can manage their accounts.</p>
+    <div class="horizontal-scroll">
     <table>
         <tr>
             <th>Picture</th>
@@ -34,6 +35,7 @@ function generateUserTableData($usersList) {
          generateUserTableData($usersList) 
         ?>
     </table>
+    </div>
     <div>
     <?= var_dump($viewState->get('users-list')) ?>
     </div>
