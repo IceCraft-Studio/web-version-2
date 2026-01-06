@@ -30,7 +30,9 @@ function generateUserTableData($usersList) {
             <th>Role</th>
             <th>Datetime Created</th>
         </tr>
-        <?= generateUserTableData($usersList) ?>
+        <?php
+         generateUserTableData($usersList) 
+        ?>
     </table>
     <?= var_dump($viewState->get('users-list')) ?>
 </main>
