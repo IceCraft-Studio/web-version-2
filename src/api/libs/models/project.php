@@ -362,8 +362,9 @@ function loadProjectGalleryImages($category,$slug) {
         return false;
     }
     foreach ($result as $galleryRow) {
-        $linkToImage = GALLERY_URL_START . '?category=' . $category . '&project=' . $slug . '&file_name=' . $galleryRow['file_name'];
-        $finalArray[] = ['display_name' => $galleryRow['display_name'], 'link' => $linkToImage];
+        $fileName = $uploadRow['file_name'] ?? '';
+        $linkToImage = GALLERY_URL_START . '?category=' . $category . '&project=' . $slug . '&file_name=' . $fileName;
+        $finalArray[] = ['display_name' => $galleryRow['display_name'], 'link' => $linkToImage, 'file_name' => $fileName];
     }
     return $finalArray;
 
@@ -444,8 +445,9 @@ function loadProjectFiles($category,$slug) {
         return false;
     }
     foreach ($result as $uploadRow) {
-        $linkToUpload = FILE_DOWNLOAD_URL_START . '?category=' . $category . '&project=' . $slug . '&file_name=' . $uploadRow['file_name'];
-        $finalArray[] = ['display_name' => $uploadRow['display_name'], 'link' => $linkToUpload];
+        $fileName = $uploadRow['file_name'] ?? '';
+        $linkToUpload = FILE_DOWNLOAD_URL_START . '?category=' . $category . '&project=' . $slug . '&file_name=' . $fileName;
+        $finalArray[] = ['display_name' => $uploadRow['display_name'], 'link' => $linkToUpload, 'file_name' => $fileName];
     }
     return $finalArray;
 }
