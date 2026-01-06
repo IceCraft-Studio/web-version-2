@@ -19,7 +19,7 @@ function generateUserTableData($usersList)
     }
 }
 
-function generatePageControls($page,$lastPage,) {
+function generatePageControls($page,$lastPage) {
     $params = $_GET;
     $params['page'] = 2;
     echo $_SERVER['REQUEST_URI'] . '?' . http_build_query($params);
@@ -100,7 +100,7 @@ $currentOrder = $_GET['order'] ?? 'asc';
     </div>
     <div class="page-controls">
         <?php
-            generatePageControls()
+            generatePageControls(1,2)
         ?>
     </div>
     <a href="#page-top">Return to top.</a>
