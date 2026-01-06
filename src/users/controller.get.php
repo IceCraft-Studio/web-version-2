@@ -32,7 +32,7 @@ if ($page < 1) {
     $page = 1;
 }
 // Ensure `size` is a number between 10 and 500
-$size = $_GET['size'] ?? 25;
+$size = $_GET['size'] ?? 10;
 $size = is_numeric($size) ? $size : 10;
 if ($size < 10) {
     $size = 10;
@@ -60,6 +60,10 @@ switch ($_GET['sort'] ?? SORT_USERNAME) {
 }
 
 $roleFilter = $_GET['role'] ?? '';
+
+$amount = getUserCount(['role' => $roleFilter]);
+$lastPage = ceil($amount/$size);
+$viewState->set('last-page',$lastPage);
 
 $viewState->set('users-list', getUserList($page, $size, ['role' => $roleFilter], $sort, $order == ORDER_ASCENDING));
 

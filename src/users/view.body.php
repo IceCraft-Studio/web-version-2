@@ -2,6 +2,8 @@
 
 $viewState = ViewData::getInstance();
 $usersList = $viewState->get('users-list');
+$lastPageNumber = $viewState->get('last-page');
+$currentPageNumber = (int) ($_GET['page'] ?? '1');
 
 
 function generateUserTableData($usersList)
@@ -21,7 +23,7 @@ function generateUserTableData($usersList)
 
 function generatePageControls($page,$lastPage) {
     $params = $_GET;
-    $params['page'] = 2;
+    $params['page'] = $lastPage;
     $requestString = $_SERVER['REQUEST_URI'];
     $questionMarkIndex = strpos($requestString, '?');
     if ($questionMarkIndex !== false) {
@@ -105,7 +107,7 @@ $currentOrder = $_GET['order'] ?? 'asc';
     </div>
     <div class="page-controls">
         <?php
-            generatePageControls(1,2)
+            generatePageControls($currentPageNumber,$lastPageNumber)
         ?>
     </div>
     <a href="#page-top">Return to top.</a>
