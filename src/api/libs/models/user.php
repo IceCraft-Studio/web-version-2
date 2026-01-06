@@ -318,7 +318,7 @@ function getUserData($username)
  * Returns list of users from the database defined by page number, items per page and filtering & sorting parameters.
  * @param int $listNumber The page number.
  * @param int $listItems Amount of items per page.
- * @param array<string> $filters Array with 2 indexes, `username` and `category`. If the string isn't empty, it is used to filter out results.
+ * @param array<string> $filters Array with 1 index, `role`. If the string isn't empty, it is used to filter out results.
  * @param UserSort $sortBy How to sort the users.
  * @param bool $sortAscending When `true` 'ASC' is used in the SQL query.
  * @return array
@@ -336,6 +336,24 @@ function getUserList($listNumber, $listItems, $filters = ['role' => ''], $sortBy
         return dbQuery($dbConnection,"SELECT * FROM `user` ORDER BY $sortColumns LIMIT ? OFFSET ? ","ii",[$listItems,$offset]);
     }
     return dbQuery($dbConnection,"SELECT * FROM `user` WHERE `role` = ? ORDER BY $sortColumns LIMIT ? OFFSET ? ","sii",[$filters['role'],$listItems,$offset]);
+}
+
+/**
+ * Returns the amount of users.
+ * @param array $filters Array with 1 index, `role`. If the string isn't empty, it is used to filter out results.
+ * @return int|bool `false` on failure, otherwise the amount of user records in the databse.
+ */
+function getUserCount($filters = ['role' => '']) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+     if (($filters['role'] ?? '') == '') {
+        $result = dbQuery($dbConnection,"SELECT COUNT(*) AS `total` FROM `user`");
+    } else {
+        $result = dbQuery($dbConnection,"SELECT COUNT(*) AS `total` FROM `user` WHERE `role` = ?","s",[$filters['role']]);
+    }
+    if ($result === false || count($result) === 0) {
+        return false;
+    }
+    return (int)$result[0]['total'];
 }
 
 //## Roles

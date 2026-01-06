@@ -492,6 +492,31 @@ function getProjectList($listNumber, $listItems, $filters = ['category' => '', '
     return dbQuery($dbConnection,"SELECT * FROM `project` WHERE `category` = ? AND `username` = ? ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?","ssii",[$filters['category'],$filters['username'],$listItems,$offset]);
 }
 
+
+/**
+ * Returns the amount of projects.
+ * @param array $filters Array with 2 indexes, `category` and `username`. If the string isn't empty, it is used to filter out results.
+ * @return int|bool `false` on failure, otherwise the amount of project records in the databse.
+ */
+function getProjectCount($filters = ['category' => '', 'username' => '']) {
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    if (($filters['category'] ?? '') == '' && ($filters['username'] ?? '') == '') {
+        $result = dbQuery($dbConnection,"SELECT COUNT(*) AS `total` FROM `project`");
+    }
+    if (($filters['category'] ?? '') == '') {
+        $result = dbQuery($dbConnection,"SELECT COUNT(*) AS `total` FROM `project` WHERE `username` = ?","s",[$filters['username']]);
+    }
+    if (($filters['username'] ?? '') == '') {
+        $result = dbQuery($dbConnection,"SELECT COUNT(*) AS `total` FROM `project` WHERE `category` = ?","s",[$filters['category']]);
+    } else {
+        $result = dbQuery($dbConnection,"SELECT COUNT(*) AS `total` FROM `project` WHERE `category` = ? AND `username` = ?","ss",[$filters['category'],$filters['username']]);
+    }
+    if ($result === false || count($result) === 0) {
+        return false;
+    }
+    return (int)$result[0]['total'];
+}
+
 //# Categories
 /**
  * Retrieves the list of all categories from the database.
