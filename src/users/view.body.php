@@ -22,7 +22,12 @@ function generateUserTableData($usersList)
 function generatePageControls($page,$lastPage) {
     $params = $_GET;
     $params['page'] = 2;
-    echo $_SERVER['REQUEST_URI'] . '?' . http_build_query($params);
+    $requestString = $_SERVER['REQUEST_URI'];
+    $questionMarkIndex = strpos($requestString, '?');
+    if ($questionMarkIndex !== false) {
+        $requestString = substr($requestString,0,$questionMarkIndex);
+    }
+    echo $requestString . '?' . http_build_query($params);
 }
 
 $defaultSizes = ['10', '25', '50', '100', '200'];
