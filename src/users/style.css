@@ -6,3 +6,14 @@ table img {
     width: 2em;
     height: 2em;
 }
+
+th, td {
+  border: 0.2em solid var(--color-primary);
+  padding: 0.2em;
+  margin: 0;
+}
+
+th {
+    font-family: 'Gantari', sans-serif;
+    font-weight: bold;
+}
