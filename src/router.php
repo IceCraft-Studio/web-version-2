@@ -57,8 +57,6 @@ function rerouteMiddleware($requestRoute)
     return $requestRoute;
 }
 
-//! Handle 404 here and make it work for general errors. By checking if directory is missing AFTER checking the file
-//! and there setting a global response code and load an error controller instead
 /**
  * Loads controller for the specific page and method. Exits if the method isn't allowed.
  * The controller file should fill the static instance of `ViewData` class used by route views.
