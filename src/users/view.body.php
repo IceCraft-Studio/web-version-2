@@ -20,7 +20,7 @@ function generateUserTableData($usersList) {
 
 ?>
 <main>
-    <h1>Manage Users</h1>
+    <h1 id="page-top">Manage Users</h1>
     <p>Here you are provided with a list of all users, openning the link on their username leads to their user page where you can manage their accounts.</p>
     <div class="horizontal-scroll">
     <table>
@@ -35,5 +35,6 @@ function generateUserTableData($usersList) {
          generateUserTableData($usersList) 
         ?>
     </table>
+    <a href="#page-top">Return to top.</a>
     </div>
 </main>
