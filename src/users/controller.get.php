@@ -32,7 +32,7 @@ if ($page < 1) {
     $page = 1;
 }
 // Ensure `size` is a number between 10 and 500
-$size = $_GET['size'] ?? 10;
+$size = $_GET['size'] ?? 25;
 $size = is_numeric($size) ? $size : 10;
 if ($size < 10) {
     $size = 10;
@@ -41,9 +41,9 @@ if ($size > 500) {
     $size = 500;
 }
 // Ensure order and sort is set correctly
-$order = $_GET['order'] ?? ORDER_DESCENDING;
+$order = $_GET['order'] ?? ORDER_ASCENDING;
 
-switch ($_GET['sort'] ?? SORT_CREATED) {
+switch ($_GET['sort'] ?? SORT_USERNAME) {
     case SORT_USERNAME:
         $sort = UserSort::Username;
         break;

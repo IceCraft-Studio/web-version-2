@@ -19,7 +19,12 @@ function generateUserTableData($usersList)
     }
 }
 
+$defaultSizes = ['10','25','50','100','200'];
+
 $currentSize = $_GET['size'] ?? '25';
+if (!in_array($currentSize,$defaultSizes)) {
+    $defaultSizes[] = $currentSize;
+}
 $currentRole = $_GET['role'] ?? '';
 $currentSort = $_GET['sort'] ?? 'username';
 $currentOrder = $_GET['order'] ?? 'asc';
@@ -39,11 +44,11 @@ $currentOrder = $_GET['order'] ?? 'asc';
                 <div>
                     <label for="select-page-size">Users per page:</label>
                     <select id="select-page-size" name="size">
-                        <option value="10" <?= $currentSize === '10' ? 'selected' : '' ?>>10</option>
-                        <option value="25" <?= $currentSize === '25' ? 'selected' : '' ?>>25</option>
-                        <option value="50" <?= $currentSize === '50' ? 'selected' : '' ?>>50</option>
-                        <option value="100" <?= $currentSize === '100' ? 'selected' : '' ?>>100</option>
-                        <option value="200" <?= $currentSize === '200' ? 'selected' : '' ?>>200</option>
+                        <?php
+                        foreach ($defaultSizes as $someSize) {
+                            echo '<option value="' . $someSize . '" ' . $someSize == $currentSize ? 'selected' : '' . '>'. $someSize . '</option>';
+                        }
+                        ?>
                     </select>
                 </div>
                 <div>
