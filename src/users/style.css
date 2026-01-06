@@ -1,9 +1,10 @@
-main {
-   
-}
-
 .horizontal-scroll {
     overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    margin: auto;
 }
 
 table img {
