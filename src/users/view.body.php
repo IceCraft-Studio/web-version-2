@@ -67,7 +67,7 @@ $currentOrder = $_GET['order'] ?? 'asc';
                         <option value="username" <?= $currentSort === 'username' ? 'selected' : '' ?>>Username</option>
                         <option value="display_name" <?= $currentSort === 'display_name' ? 'selected' : '' ?>>Display Name
                         </option>
-                        <option value="modified" <?= $currentSort === 'modified' ? 'selected' : '' ?>>Modified</option>
+                        <option value="created" <?= $currentSort === 'created' ? 'selected' : '' ?>>Created</option>
                     </select>
                 </div>
                 <div>
