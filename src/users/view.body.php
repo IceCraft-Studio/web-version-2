@@ -10,7 +10,7 @@ function generateUserTableData($usersList) {
         $dateCreated = date('d/m/Y G:i:s',strtotime($user['datetime_created']));
         echo '<tr>';
         echo '<td><img src="' . getUserPictureLink($userUsername)  . '" alt="' . $userUsername . '\'s Profile Picture"></td>';
-        echo '<td><a href="' . getUserLink($userUsername) . '' . '</td>';
+        echo '<td><a href="' . getUserLink($userUsername) . '">' . $userUsername . '</a></td>';
         echo '<td>' . $user['display_name'] ?? '' . '</td>';
         echo '<td>' . $user['role'] ?? '' . '</td>';
         echo '<td>' . $dateCreated . '</td>';
@@ -34,5 +34,7 @@ function generateUserTableData($usersList) {
          generateUserTableData($usersList) 
         ?>
     </table>
+    <div>
     <?= var_dump($viewState->get('users-list')) ?>
+    </div>
 </main>
