@@ -3,6 +3,10 @@
     width: 100%;
 }
 
+.page-form > form {
+    display: flex;
+}
+
 table {
     margin: auto;
 }
