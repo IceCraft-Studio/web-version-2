@@ -46,7 +46,7 @@ $currentOrder = $_GET['order'] ?? 'asc';
                     <select id="select-page-size" name="size">
                         <?php
                         foreach ($defaultSizes as $someSize) {
-                            echo '<option value="' . $someSize . '" ' . $someSize == $currentSize ? 'selected' : '' . '>'. $someSize . '</option>';
+                            echo '<option value="' . $someSize . '" ' . ($someSize == $currentSize ? 'selected>' : '>') . $someSize .'</option>';
                         }
                         ?>
                     </select>
