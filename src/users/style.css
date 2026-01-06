@@ -5,7 +5,23 @@
 
 .page-form > form {
     display: flex;
+    margin: 0.5em;
+    align-items: end;
 }
+
+.page-form > form > div {
+    margin: 0.2em;
+}
+
+.page-form > form select {
+    width: 9em;
+    font-size: 0.94em;
+}
+
+.page-form > form input[type='submit'] {
+    height: 2.2em;
+}
+
 
 table {
     margin: auto;
