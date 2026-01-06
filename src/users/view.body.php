@@ -36,7 +36,4 @@ function generateUserTableData($usersList) {
         ?>
     </table>
     </div>
-    <div>
-    <?= var_dump($viewState->get('users-list')) ?>
-    </div>
 </main>
