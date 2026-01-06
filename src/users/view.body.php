@@ -29,7 +29,7 @@ function generateUserTableData($usersList) {
         <div class="page-form">
             <form method="get">
                 <label for="select-page-size">Users per page:</label>
-                <select id="select-page-size" name="size">
+                <select id="select-page-size" name="size" value="<?= $_GET['size'] ?? '25' ?>">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -37,20 +37,21 @@ function generateUserTableData($usersList) {
                     <option value="200">200</option>
                 </select>
                 <label for="select-page-sort">Filter Role:</label>
-                <select id="select-page-sort" name="role">
+                <select id="select-page-sort" name="role" value="<?= $_GET['role'] ?? '' ?>">
+                    <option value="">All Roles</option>
                     <option value="ban">Banned</option>
                     <option value="user">User</option>
                     <option value="admin">Administrator</option>
                     <option value="owner">Website Owner</option>
                 </select>
                 <label for="select-page-sort">Sort by:</label>
-                <select id="select-page-sort" name="sort">
+                <select id="select-page-sort" name="sort" value="<?= $_GET['sort'] ?? 'username' ?>">
                     <option value="username">Username</option>
                     <option value="display_name">Display Name</option>
                     <option value="modified">Modified</option>
                 </select>
                 <label for="select-page-order">Sort order:</label>
-                <select id="select-page-order" name="order">
+                <select id="select-page-order" name="order" value="<?= $_GET['order'] ?? 'asc' ?>">
                     <option value="asc">Ascending</option>
                     <option value="desc">Descending</option>
                 </select>
