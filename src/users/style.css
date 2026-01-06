@@ -6,6 +6,7 @@
 .page-form > form {
     display: flex;
     margin: 0.5em;
+    flex-wrap: wrap;
     align-items: end;
     justify-content: center;
 }
