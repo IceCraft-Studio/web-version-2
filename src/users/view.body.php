@@ -18,6 +18,12 @@ function generateUserTableData($usersList) {
     }
 }
 
+$currentSize = $_GET['size'] ?? '25';
+$currentRole = $_GET['role'] ?? '';
+$currentSort = $_GET['sort'] ?? 'username';
+$currentOrder = $_GET['order'] ?? 'asc';
+
+
 ?>
 <main>
     <h1 id="page-top">Manage Users</h1>
@@ -29,31 +35,31 @@ function generateUserTableData($usersList) {
         <div class="page-form">
             <form method="get">
                 <label for="select-page-size">Users per page:</label>
-                <select id="select-page-size" name="size" value="<?= $_GET['size'] ?? '25' ?>">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="200">200</option>
+                <select id="select-page-size" name="size">
+                    <option value="10" <?= $currentSize === '10' ? 'selected' : '' ?>>10</option>
+                    <option value="25" <?= $currentSize === '25' ? 'selected' : '' ?>>25</option>
+                    <option value="50" <?= $currentSize === '50' ? 'selected' : '' ?>>50</option>
+                    <option value="100" <?= $currentSize === '100' ? 'selected' : '' ?>>100</option>
+                    <option value="200" <?= $currentSize === '200' ? 'selected' : '' ?>>200</option>
                 </select>
                 <label for="select-page-sort">Filter Role:</label>
-                <select id="select-page-sort" name="role" value="<?= $_GET['role'] ?? '' ?>">
-                    <option value="">All Roles</option>
-                    <option value="ban">Banned</option>
-                    <option value="user">User</option>
-                    <option value="admin">Administrator</option>
-                    <option value="owner">Website Owner</option>
+                <select id="select-page-sort" name="role">
+                    <option value="" <?= $currentRole === '' ? 'selected' : '' ?>>All Roles</option>
+                    <option value="ban" <?= $currentRole === 'ban' ? 'selected' : '' ?>>Banned</option>
+                    <option value="user" <?= $currentRole === 'user' ? 'selected' : '' ?>>User</option>
+                    <option value="admin" <?= $currentRole === 'admin' ? 'selected' : '' ?>>Administrator</option>
+                    <option value="owner" <?= $currentRole === 'owner' ? 'selected' : '' ?>>Website Owner</option>
                 </select>
                 <label for="select-page-sort">Sort by:</label>
-                <select id="select-page-sort" name="sort" value="<?= $_GET['sort'] ?? 'username' ?>">
-                    <option value="username">Username</option>
-                    <option value="display_name">Display Name</option>
-                    <option value="modified">Modified</option>
+                <select id="select-page-sort" name="sort">
+                    <option value="username" <?= $currentSort === 'username' ? 'selected' : '' ?>>Username</option>
+                    <option value="display_name" <?= $currentSort === 'display_name' ? 'selected' : '' ?>>Display Name</option>
+                    <option value="modified" <?= $currentSort === 'modified' ? 'selected' : '' ?>>Modified</option>
                 </select>
                 <label for="select-page-order">Sort order:</label>
-                <select id="select-page-order" name="order" value="<?= $_GET['order'] ?? 'asc' ?>">
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
+                <select id="select-page-order" name="order" >
+                    <option value="asc" <?= $currentOrder === 'asc' ? 'selected' : '' ?>>Ascending</option>
+                    <option value="desc" <?= $currentOrder === 'desc' ? 'selected' : '' ?>>Descending</option>
                 </select>
                 <input type="submit" value="Apply">
             </form>
