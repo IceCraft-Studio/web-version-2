@@ -31,7 +31,7 @@ function redirects($route)
     }
     // Middleware is internal path only, so any attempts to access it directly from the URL bar are mitigated
     if (str_starts_with($route,'middleware')) {
-        header("Location: ./home", true, 301);
+        header("Location: /~dobiapa2/home", true, 301);
         exit;
     }
 }
