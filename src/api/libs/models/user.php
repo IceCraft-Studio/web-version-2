@@ -139,7 +139,7 @@ function validateUsername($username)
  * @return bool The result of the validation.
  */
 function validateUserDisplayName($displayName) {
-    return strlen($displayName) <= 112;
+    return strlen($displayName) <= 64;
 }
 
 /**

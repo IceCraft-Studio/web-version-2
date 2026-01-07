@@ -21,8 +21,13 @@ if (str_starts_with($currentRoute, 'home')) {
 $username = verifySession($_COOKIE['token'] ?? '');
 if ($username != null) {
     $userData = getUserData($username);
+    if (($userData['display_name'] ?? '') === '') {
+        $displayName = $username;
+    } else {
+        $displayName = $userData['display_name'];
+    }
 
-    $viewState->set('user-display-name', $userData['display_name'] ?? $username);
+    $viewState->set('user-display-name',$displayName);
     $viewState->set('user-link', '/~dobiapa2/profile');
     $viewState->set('user-profile-picture', '/~dobiapa2/api/internal/users/profile-picture.php?variant=preview&username=' . $username);
 } else {
