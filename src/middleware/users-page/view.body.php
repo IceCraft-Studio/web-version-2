@@ -3,7 +3,7 @@ $viewState = ViewData::getInstance();
 
 $userUsername = htmlspecialchars($viewState->get('page-username', ''));
 $userDisplayName = htmlspecialchars($viewState->get('page-display-name', ''));
-$userPicture = $viewState->get('page-profile-picture', '');
+$userPicture = $viewState->get('page-picture-link', '');
 $socialWebsite = htmlspecialchars($viewState->get('page-social-website', ''));
 $socialReddit = htmlspecialchars($viewState->get('page-social-reddit', ''));
 $socialTwitter = htmlspecialchars($viewState->get('page-social-twitter', ''));

@@ -22,7 +22,7 @@ if ($userData['role'] === UserRole::Banned->value && !$viewerIsAdmin) {
 }
 // Get user data for the page
 
-if ($userData['display_name'] ?? '' === '') {
+if (($userData['display_name'] ?? '') === '') {
     $userDisplayName = $userUsername;
 } else { 
     $userDisplayName = $userData['display_name'];
@@ -34,7 +34,7 @@ $viewState->set('page-social-reddit',$userData['social_reddit'] ?? '');
 $viewState->set('page-social-twitter',$userData['social_twitter'] ?? '');
 $viewState->set('page-social-instagram',$userData['social_instagram'] ?? '');
 $viewState->set('page-social-discord',$userData['social_discord'] ?? '');
-$viewState->set('page-picture-link',getUserPictureLink($userUsername));
+$viewState->set('page-picture-link',getUserPictureLink($userUsername,true));
 
 // Project Paging logic
 //$userProjects = getProjectList();
