@@ -38,6 +38,7 @@ function parseKebabToCamelCase(text) {
 		}
 		newText += currentChar.toLowerCase();
 	}
+	return newText;
 }
 /**
  * Temporarily assigns a class to an element for the set duration of time.
