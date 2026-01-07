@@ -391,9 +391,9 @@ async function verifySlugAvailability(slug, category) {
 	return jsonData?.available;
 }
 
-function imageButtonCopy(event) {
+function imageButtonCopy(event,url) {
 	event.preventDefault();
-	navigator.clipboard.writeText(objectUrl.slice(5)); // remove blob: as GitHub Markdown API destroyes it
+	navigator.clipboard.writeText(url); 
 	tempClassForTime(event.target, COPIED_CLASS, 4000);
 }
 
@@ -407,7 +407,9 @@ async function insertGalleryFileUrl(objectUrl, elements, galleryIndex) {
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] button`
 	);
 	imgButtonElement?.classList.remove(HIDDEN_CLASS);
-	imgButtonElement.addEventListener('click', imageButtonCopy);
+	imgButtonElement.addEventListener('click', (e) => {
+		imageButtonCopy(e,objectUrl.slice(5)); // remove blob: as GitHub Markdown API destroyes it
+	});
 	let hiddenInput = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] input[type="hidden"]`
 	);
