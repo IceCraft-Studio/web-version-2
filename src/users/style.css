@@ -58,10 +58,14 @@ th {
     display: flex;
 }
 
-.page-controls:nth-child(1) {
+.page-controls > div:nth-child(1) {
     justify-content: start;
 }
 
-.page-controls:nth-child(2) {
+.page-controls >div:nth-child(2) {
     justify-content: end;
+}
+
+.page-controls > div > a {
+    padding: 0.5em;
 }
