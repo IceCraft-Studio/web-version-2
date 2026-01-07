@@ -47,6 +47,9 @@ th {
     font-family: 'Gantari', sans-serif;
     font-weight: bold;
 }
+.page-controls {
+    width: 90%;
+}
 
 .page-controls > div {
     width: 50%;
