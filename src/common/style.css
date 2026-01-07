@@ -603,3 +603,51 @@ img.no-select {
     margin-left: 0;
     width: 100%;
 }
+
+/* Page Form (sorting, filters etc.) */
+
+.page-form > form {
+    display: flex;
+    margin: 0.5em;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: center;
+}
+
+.page-form > form > div {
+    margin: 0.2em;
+}
+
+.page-form > form select {
+    width: 9em;
+    font-size: 0.94em;
+}
+
+.page-form > form input[type='submit'] {
+    height: 2.2em;
+    margin: 0.2em;
+}
+
+/* Paging */
+.page-controls {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+}
+
+.page-controls > div {
+    width: 50%;
+    display: flex;
+}
+
+.page-controls > div:nth-child(1) {
+    justify-content: start;
+}
+
+.page-controls >div:nth-child(2) {
+    justify-content: end;
+}
+
+.page-controls > div > a {
+    padding: 0.35em;
+}
