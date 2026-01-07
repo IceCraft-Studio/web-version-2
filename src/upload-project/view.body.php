@@ -9,8 +9,8 @@ $prefillCategory = htmlspecialchars($viewState->get('form-category', ''));
 $prefillMarkdown = htmlspecialchars($viewState->get('form-markdown-article', ''));
 
 $username = $viewState->get('verified-username', '');
-$displayName = $viewState->get('user-display-name', '');
-$profilePicture = $viewState->get('user-profile-picture', '');
+$displayName = $viewState->get('verified-display-name', '');
+$profilePicture = $viewState->get('verified-profile-picture', '');
 $userLink = getUserLink($username);
 
 if ($prefillEditing === '1') {

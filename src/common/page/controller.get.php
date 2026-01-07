@@ -6,6 +6,7 @@ $viewState = ViewData::getInstance();
 
 // Current Page Logic
 $currentRoute = normalizeUriRoute($_SERVER['REQUEST_URI']);
+$viewState->set('normalized-route',$currentRoute);
 
 if (str_starts_with($currentRoute, 'home')) {
     $viewState->set('current-page', 'home');
@@ -27,13 +28,13 @@ if ($username != null) {
         $displayName = $userData['display_name'];
     }
 
-    $viewState->set('user-display-name',$displayName);
-    $viewState->set('user-link', '/~dobiapa2/profile');
-    $viewState->set('user-profile-picture', '/~dobiapa2/api/internal/users/profile-picture.php?variant=preview&username=' . $username);
+    $viewState->set('verified-display-name',$displayName);
+    $viewState->set('verified-profile-link', '/~dobiapa2/profile');
+    $viewState->set('verified-profile-picture', '/~dobiapa2/api/internal/users/profile-picture.php?variant=preview&username=' . $username);
 } else {
-    $viewState->set('user-display-name', 'Login');
-    $viewState->set('user-link', '/~dobiapa2/login');
-    $viewState->set('user-profile-picture', '/~dobiapa2/assets/icons/steve.webp');
+    $viewState->set('verified-display-name', 'Login');
+    $viewState->set('verified-profile-link', '/~dobiapa2/login');
+    $viewState->set('verified-profile-picture', '/~dobiapa2/assets/icons/steve.webp');
     if (isset($_COOKIE['token'])) {
         updateSessionCookie('',-99999);
     }

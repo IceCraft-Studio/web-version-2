@@ -70,10 +70,10 @@ if ($originalUserData['display_name'] != $displayName) {
     }
     
     if ($changeSuccess && $displayName !== '') {
-        $viewState->set('user-display-name', $displayName);
+        $viewState->set('verified-display-name', $displayName);
     }
     if ($changeSuccess && $displayName === '') {
-        $viewState->set('user-display-name', $username);
+        $viewState->set('verified-display-name', $username);
     }
     $profileUpdated = true;
     $profileUpdateSuccess = $profileUpdateSuccess ? $changeSuccess : false;
