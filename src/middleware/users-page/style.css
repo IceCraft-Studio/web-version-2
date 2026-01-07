@@ -21,6 +21,11 @@
     margin: 0.3em;
 }
 
+.social-links a:hover {
+    border-radius: 0.6em;
+    scale: 105%;
+}
+
 .social-links a[title="Reddit"] {
     background-color: hsl(16, 100%, 50%);
 }
