@@ -47,3 +47,16 @@ th {
     font-family: 'Gantari', sans-serif;
     font-weight: bold;
 }
+
+.page-controls > div {
+    width: 50%;
+    display: flex;
+}
+
+.page-controls:nth-child(1) {
+    justify-content: start;
+}
+
+.page-controls:nth-child(2) {
+    justify-content: end;
+}
