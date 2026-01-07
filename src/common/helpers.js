@@ -103,10 +103,23 @@ async function validateImageAspectRatio(objectUrl, targetRatio) {
  * @param {Element} element Element to alter.
  * @param {boolean} $state When `true` remove attribute `disabled`, when `false` add it.
  */
-function setElementActivation(element,$state = true) {
+function setElementEnabled(element,$state = true) {
     if ($state) {
         element.removeAttribute('disabled');
     } else {
-        element.setAttribute('disabled','1');
+        element.setAttribute('disabled','');
+    }
+}
+
+/**
+ * Activates or deactivates element's readonly property.
+ * @param {Element} element Element to alter.
+ * @param {boolean} $state When `true` remove attribute `readonly`, when `false` add it.
+ */
+function setElementEditable(element,$state = true) {
+    if ($state) {
+        element.removeAttribute('readonly');
+    } else {
+        element.setAttribute('readonly','');
     }
 }

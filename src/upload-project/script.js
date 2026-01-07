@@ -143,7 +143,7 @@ async function main() {
 		uploadIndexes.links++;
 		uploadCounter.links++;
 		elements.addLinkButton.parentElement.insertAdjacentHTML('beforebegin',generateLinkAdder(uploadIndexes.links));
-		setElementActivation(elements.addLinkButton,uploadCounter.links < MAX_LINK_AMOUNT);
+		elements.addLinkButton.disabled = !(uploadCounter.links < MAX_LINK_AMOUNT);
 	});
 	elements.addFileButton.addEventListener('click', (e) => {
 		e.preventDefault();
@@ -156,7 +156,7 @@ async function main() {
 		document.getElementById(`input-file-upload-${uploadIndexes.files}`).addEventListener('change',(e) => {
 			validateFileUpload(e.target.files[0],elements,e.target);
 		})
-		setElementActivation(elements.addFileButton,uploadCounter.files < MAX_FILE_AMOUNT);
+		elements.addFileButton.disabled = !(uploadCounter.files < MAX_FILE_AMOUNT);
 	});
 
 }
@@ -391,6 +391,12 @@ async function verifySlugAvailability(slug, category) {
 	return jsonData?.available;
 }
 
+function imageButtonCopy(event) {
+	event.preventDefault();
+	navigator.clipboard.writeText(objectUrl.slice(5)); // remove blob: as GitHub Markdown API destroyes it
+	tempClassForTime(event.target, COPIED_CLASS, 4000);
+}
+
 async function insertGalleryFileUrl(objectUrl, elements, galleryIndex) {
 	let imgElement = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] img`
@@ -401,11 +407,7 @@ async function insertGalleryFileUrl(objectUrl, elements, galleryIndex) {
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] button`
 	);
 	imgButtonElement?.classList.remove(HIDDEN_CLASS);
-	imgButtonElement.addEventListener('click', (e) => {
-		e.preventDefault();
-		navigator.clipboard.writeText(objectUrl.slice(5)); // remove blob: as GitHub Markdown API destroyes it
-		tempClassForTime(imgButtonElement, COPIED_CLASS, 4000);
-	});
+	imgButtonElement.addEventListener('click', imageButtonCopy);
 	let hiddenInput = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] input[type="hidden"]`
 	);

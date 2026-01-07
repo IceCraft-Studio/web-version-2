@@ -27,10 +27,10 @@ async function main () {
     elements.inputDeleteProfilePicture.addEventListener('input',(e) => {
         if (e.target.checked) {
             elements.containerProfilePicture.classList.add('disabled');
-            setElementActivation(elements.inputProfilePicture,false);
+            elements.inputProfilePicture.disabled = true;
         } else {
             elements.containerProfilePicture.classList.remove('disabled');
-            setElementActivation(elements.inputProfilePicture);
+            elements.inputProfilePicture.disabled = false;
         }
     });
     elements.containerProfilePicture.addEventListener('click',(e) => {
@@ -50,7 +50,7 @@ async function main () {
     document.querySelectorAll('input').forEach((element) => {
         element.addEventListener('input', () => {
             if (!globalSubmitActivate) {
-                setElementActivation(elements.submitButton);
+                elements.submitButton.disabled = false;
                 globalSubmitActivate = true;
             }
         }) 
