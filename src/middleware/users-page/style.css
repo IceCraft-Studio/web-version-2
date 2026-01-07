@@ -1,4 +1,27 @@
 .social-links img {
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
+    filter: var(--svg-icon-color-dark);
+}
+
+.social-links a {
+    color: var(--color-text-dark);
+    padding: 0.5em;
+    border-radius: 0.25em;
+}
+
+.social-links a[title="Reddit"] {
+    background-color: hsl(16, 100%, 50%);
+}
+.social-links a[title="Twitter"] {
+    background-color: hsl(203, 79%, 53%);
+}
+.social-links a[title="Instagram"] {
+    background-color: hsl(328, 60%, 49%);
+}
+.social-links a[title="Discord"] {
+    background-color: hsl(235, 83%, 59%);
+}
+.social-links a[title="Website"] {
+    background-color: var(--color-1-dark);
 }
