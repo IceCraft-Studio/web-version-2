@@ -630,9 +630,10 @@ img.no-select {
 
 /* Paging */
 .page-controls {
-    width: 90%;
+    width: 92%;
     display: flex;
     flex-direction: row;
+    max-width: 55em;
 }
 
 .page-controls > div {
