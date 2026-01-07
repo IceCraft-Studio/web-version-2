@@ -202,8 +202,8 @@ function saveUserProfilePicture($username, $fileLocation)
     }
 
     return (
-        saveImageAsWebpOrGif($fileLocation,$profilePictureFullPath, 600, 600) &&
-        saveImageAsWebpOrGif($fileLocation,$profilePicturePreviewPath, 150, 150)
+        saveImageAsWebpOrGif($fileLocation,$profilePictureFullPath, 384, 384) &&
+        saveImageAsWebpOrGif($fileLocation,$profilePicturePreviewPath, 96, 96)
     );
 }
 

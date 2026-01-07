@@ -256,8 +256,8 @@ function saveProjectThumbnail($category,$slug,$fileLocation) {
     }
 
     return (
-        saveImageAsWebpOrGif($fileLocation,$thumbnailFullPath, 1280, 720) &&
-        saveImageAsWebpOrGif($fileLocation,$thumbnailPreviewPath, 320, 180)
+        saveImageAsWebpOrGif($fileLocation,$thumbnailFullPath, 960, 540) &&
+        saveImageAsWebpOrGif($fileLocation,$thumbnailPreviewPath, 480, 270)
     );
 }
 
@@ -323,7 +323,7 @@ function addProjectGalleryImage($category,$slug,$fileLocation,$fileName,$caption
     }
     $projectGalleryImagePath = $projectGalleryDirectory . '/' . $fileName;
 
-    if (!saveImageAsWebpOrGif($fileLocation,$projectGalleryImagePath, 1280, 720)) {
+    if (!saveImageAsWebpOrGif($fileLocation,$projectGalleryImagePath, 960, 540)) {
         return false;
     }
     $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`,`caption`) VALUES (?, ?, ?, ?)  ", "ssss", [$category,$slug,$fileName,$caption]);
