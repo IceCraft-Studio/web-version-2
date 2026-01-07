@@ -1,13 +1,22 @@
+.social-links {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .social-links img {
     width: 1.5em;
     height: 1.5em;
     filter: var(--svg-icon-color-dark);
+    padding: 0 0.3em;
 }
 
 .social-links a {
     color: var(--color-text-dark);
     padding: 0.5em;
     border-radius: 0.25em;
+    display: flex;
+    width: max-content;
+    justify-content: space-between;
 }
 
 .social-links a[title="Reddit"] {
