@@ -4,9 +4,9 @@ const CURRENT_PAGE_CLASS = "current-page";
 $viewState = ViewData::getInstance();
 
 $currentPage = $viewState->get('current-page');
-$userLink = $viewState->get('user-link');
-$userName = $viewState->get('user-display-name');
-$userPictureLink = $viewState->get('user-profile-picture');
+$userLink = $viewState->get('verified-profile-link');
+$userName = $viewState->get('verified-display-name');
+$userPictureLink = $viewState->get('verified-profile-picture');
 
 ?>
 <header id="topbar">

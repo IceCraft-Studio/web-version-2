@@ -48,9 +48,13 @@ if ($rolesData !== false) {
     }
 }
 
+// Check if they are admin
+$isAdmin = $userData['role'] === UserRole::Admin->value || $userData['role'] === UserRole::Owner->value;
+
 // Prepare fields for the page
 $viewState->set('username', $username);
 $viewState->set('profile-role', $roleName);
+$viewState->set('profile-admin', $isAdmin ? '1' : '0');
 $viewState->set('profile-age', $ageDisplay);
 $viewState->set('form-display-name', $userData['display_name']);
 $viewState->set('form-email', $userData['email']);

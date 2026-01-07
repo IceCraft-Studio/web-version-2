@@ -75,6 +75,7 @@ switch ($viewState->get('password-update-state',PasswordUpdateState::NoUpdate)) 
 
 
 $username = $viewState->get('verified-username');
+$isAdmin = $viewState->get('profile-admin','0') === '1';
 $accountAge = $viewState->get('profile-age');
 $roleName = $viewState->get('profile-role');
 
@@ -146,6 +147,9 @@ $csrfToken = getCsrf('profile');
                     </div>
                     <div>
                         Your role is <span class="bold"><?= $roleName ?></span>.
+                        <?php if ($isAdmin): ?>
+                            <a href="/~dobiapa2/users">You can manage users here.</a>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="stat-row">
@@ -171,7 +175,7 @@ $csrfToken = getCsrf('profile');
         <div class="field">
             <label for="input-display-name">Display Name:</label>
             <input id="input-display-name" name="display-name" placeholder="<?= $username ?>" type="text"
-                value="<?= $prefillDisplayName ?>" maxlength="112">
+                value="<?= $prefillDisplayName ?>" maxlength="64">
             <label for="input-email">E-mail Address:</label>
             <input id="input-email" name="email" type="text" placeholder="name@domain.tld" value="<?= $prefillEmail ?>" maxlength="200">
             <label for="input-social-website">Personal Website:</label>

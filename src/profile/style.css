@@ -42,7 +42,7 @@
 
 #profile-picture-container  {
     position: relative;
-    max-width: 10rem;
+    width: 10rem;
     border: 0.2rem solid var(--color-primary);
     background-color: transparent;
     border-radius: 50%;
