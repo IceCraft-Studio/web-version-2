@@ -201,10 +201,9 @@ function saveUserProfilePicture($username, $fileLocation)
         return true;
     }
 
-    [$width,$height] = getimagesize($fileLocation);
     return (
-        saveImageAsWebP($fileLocation,$profilePictureFullPath) &&
-        saveImageAsWebP($fileLocation,$profilePicturePreviewPath,min($width,200),min($height,200))
+        saveImageAsWebpOrGif($fileLocation,$profilePictureFullPath, 600, 600) &&
+        saveImageAsWebpOrGif($fileLocation,$profilePicturePreviewPath, 150, 150)
     );
 }
 
@@ -270,11 +269,8 @@ function changeUserSocial($username, $social, $newLink)
  * @param string $newPassword Their new password.
  * @return bool `true` if the password was successfully changes, `false` otherwise.
  */
-function changeUserPassword($username, $oldPassword, $newPassword)
+function changeUserPassword($username, $newPassword)
 {
-    if (!verifyUserPassword($username, $oldPassword)) {
-        return false;
-    }
     $newHash = password_hash($newPassword, PASSWORD_BCRYPT);
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $result = dbQuery($dbConnection, "UPDATE `user` SET `password_hash` = ? WHERE `username` = ? ", "ss", [$newHash, $username]);

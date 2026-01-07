@@ -37,24 +37,24 @@ function validateImageAspectRatio($srcImage,$aspectRatio,$precision = 0.01) {
 }
 
 /**
- * Saves the specified image as a WEBP at a specified location. (Optionally resampled to specified dimensions.) Supports PNG, JPEG and WEBP.
+ * Saves the specified image as a WEBP at a specified location. (Optionally resampled to specified dimensions.) Supports PNG, JPEG and WEBP. GIF is also 
  * @param mixed $srcImage Path to the image to save.
  * @param mixed $outImage Path where to save the image.
  * @param int $outWidth Output width, use `0` means don't change.
  * @param int $outHeight Output height, `0` means dont't change.
  * @return bool `true` on success, `false` on failure.
  */
-function saveImageAsWebP($srcImage,$outImage,$outWidth = 0,$outHeight = 0) {
+function saveImageAsWebpOrGif($srcImage,$outImage,$outWidth = 0,$outHeight = 0) {
     // Get basic details
     $imageInfo = getimagesize($srcImage);
     if ($imageInfo === false) {
         return false;
     }
     [$width, $height, $type]  = $imageInfo;
-    if ($outWidth === 0) {
+    if ($outWidth === 0 || $outWidth > $width) {
         $outWidth = $width;
     }
-    if ($outHeight === 0) {
+    if ($outHeight === 0 || $outHeight > $height) {
         $outHeight = $height;
     }
     // Load the image properly
@@ -62,6 +62,7 @@ function saveImageAsWebP($srcImage,$outImage,$outWidth = 0,$outHeight = 0) {
         IMAGETYPE_PNG  => imagecreatefrompng($srcImage),
         IMAGETYPE_JPEG => imagecreatefromjpeg($srcImage),
         IMAGETYPE_WEBP => imagecreatefromwebp($srcImage),
+        IMAGETYPE_GIF => imagecreatefromgif($srcImage),
         default => false
     };
     if ($imageData == false) {
@@ -72,6 +73,10 @@ function saveImageAsWebP($srcImage,$outImage,$outWidth = 0,$outHeight = 0) {
     imagealphablending($newImageData, false);
     imagesavealpha($newImageData, true);
     imagecopyresampled($newImageData,$imageData,0,0,0,0,$outWidth,$outHeight,$width,$height);
-    // Save as WEBP
-    return imagewebp($newImageData,$outImage);
+    // Save as WEBP or GIF
+    if ($type === IMAGETYPE_GIF) {
+        return imagegif($newImageData,$outImage);
+    } else {
+        return imagewebp($newImageData,$outImage);
+    }
 }

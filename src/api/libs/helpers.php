@@ -64,32 +64,59 @@ function getDbAccessObject()
 
 /**
  * Initializes the CSRF token into the `$_SESSION['csrf-token']`.
- * @param bool $force Set to `true` to force replacing an exisiting token. 
+ * @param string $formId Unique identifier for the form it's meant to be used for.
  * @return void
  */
-function initCsrf($force = false)
+function initCsrf($formId)
 {
-    if (session_status() === PHP_SESSION_NONE)
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
-    if (isset($_SESSION['csrf-token']) && !$force) {
-        return;
     }
-    $_SESSION['csrf-token'] = bin2hex(random_bytes(32));
+    if (!isset($_SESSION['csrf-token'])) {
+        $_SESSION['csrf-token'] = [];
+    }
+    $_SESSION['csrf-token'][$formId] = bin2hex(random_bytes(32));
 }
 
 /**
  * Validates the CSRF by comparing the value in `$_POST` and `$_SESSION`.
+ * @param string $formId Unique identifier for the form it's meant to be used for.
  * @return bool `true` when valid, `false` when invalid.
  */
-function validateCsrf()
+function validateCsrf($formId)
 {
-    if (session_status() === PHP_SESSION_NONE)
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
-    if (!isset($_POST['csrf-token']) || !isset($_SESSION['csrf-token']) || ($_POST['csrf-token'] !== $_SESSION['csrf-token'])) {
-        initCsrf(true);
+    }
+    if (
+        !isset($_POST['csrf-token']) || 
+        !isset($_SESSION['csrf-token']) || 
+        !isset($_SESSION['csrf-token'][$formId]) ||
+        $_POST['csrf-token'] !== $_SESSION['csrf-token'][$formId]
+    ) {
         return false;
     }
+    $_SESSION['csrf-token'][$formId] = '';
     return true;
+}
+
+/**
+ * Returns the CSRF token so it can be used in a form.
+ * @param string $formId Unique identifier for the form it's meant to be used for.
+ * @return string The token or empty string when it doesn't exist.
+ */
+function getCsrf($formId)
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    if (
+        !isset($_SESSION['csrf-token']) || 
+        !isset($_SESSION['csrf-token'][$formId])
+    ) {
+        return '';
+    }
+    return $_SESSION['csrf-token'][$formId];
 }
 
 /**

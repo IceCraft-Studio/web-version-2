@@ -7,7 +7,7 @@ require __DIR__ . "/enums.php";
 $username = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
 
-$csrfLegit = validateCsrf();
+$csrfLegit = validateCsrf('login');
 $userPasswordLegit = verifyUserPassword($username,$password);
 
 $userBanned = false;
@@ -26,9 +26,11 @@ $viewState = ViewData::getInstance();
 $viewState->set('form-username',$username);
 if (!$csrfLegit) {
     $viewState->set('login-error',LoginFormError::CsrfInvalid);
-    initCsrf();
+    initCsrf('login');
 } else if ($userBanned) {
     $viewState->set('login-error',LoginFormError::UserBanned);
+    initCsrf('login');
 } else {
     $viewState->set('login-error',LoginFormError::WrongCredentials);
+    initCsrf('login');
 }

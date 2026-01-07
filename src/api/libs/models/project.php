@@ -255,18 +255,17 @@ function saveProjectThumbnail($category,$slug,$fileLocation) {
         return true;
     }
 
-    [$width,$height] = getimagesize($fileLocation);
     return (
-        saveImageAsWebP($fileLocation,$thumbnailFullPath) &&
-        saveImageAsWebP($fileLocation,$thumbnailPreviewPath,min($width,320),min($height,180))
+        saveImageAsWebpOrGif($fileLocation,$thumbnailFullPath, 1280, 720) &&
+        saveImageAsWebpOrGif($fileLocation,$thumbnailPreviewPath, 320, 180)
     );
 }
 
 //## Working with Project Article
 /**
  * Loads project article as markdown and HTML.
- * @param mixed $category The category of the project.
- * @param mixed $slug The unique slug of the project.
+ * @param string $category The category of the project.
+ * @param string $slug The unique slug of the project.
  * @return array|bool `false` when it isn't found, otherwise array with 2 index - `markdown` for Markdown of the article, `html` for HTML of the article.
  */
 function loadProjectArticle($category,$slug) {
@@ -324,7 +323,7 @@ function addProjectGalleryImage($category,$slug,$fileLocation,$fileName,$caption
     }
     $projectGalleryImagePath = $projectGalleryDirectory . '/' . $fileName;
 
-    if (!rename($fileLocation,$projectGalleryImagePath)) {
+    if (!saveImageAsWebpOrGif($fileLocation,$projectGalleryImagePath, 1280, 720)) {
         return false;
     }
     $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`,`caption`) VALUES (?, ?, ?, ?)  ", "ssss", [$category,$slug,$fileName,$caption]);

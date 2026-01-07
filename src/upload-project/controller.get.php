@@ -9,7 +9,7 @@ if ($username === '') {
     redirect('/~dobiapa2/login');
 }
 
-initCsrf();
+initCsrf('upload-project');
 
 $editCategory = $_GET['edit-category'] ?? '';
 $editSlug = $_GET['edit-slug'] ?? '';

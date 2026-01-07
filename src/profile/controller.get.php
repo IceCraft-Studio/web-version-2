@@ -13,7 +13,7 @@ if ($username === '') {
     redirect('/~dobiapa2/login');
 }
 
-initCsrf();
+initCsrf('profile');
 
 // Retrieve user information
 $userData = getUserData($username);

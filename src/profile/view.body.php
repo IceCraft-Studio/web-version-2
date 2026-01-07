@@ -67,6 +67,10 @@ switch ($viewState->get('password-update-state',PasswordUpdateState::NoUpdate)) 
         $passwordMessage = 'Password changed successfully! You need to login again on other browsers and devices.';
         $successPassword = true;
         break;
+    case PasswordUpdateState::Failure:
+        $passwordMessage = 'Password change failed! Critical Server Error! Please try again later.';
+        $successPassword = true;
+        break;
 }
 
 
@@ -83,7 +87,7 @@ $prefillSocialTwitter = htmlspecialchars($viewState->get('form-social-twitter'))
 $prefillSocialInstagram = htmlspecialchars($viewState->get('form-social-instagram'));
 $prefillSocialDiscord = htmlspecialchars($viewState->get('form-social-discord'));
 
-$csrfToken = $_SESSION['csrf-token'];
+$csrfToken = getCsrf('profile');
 ?>
 <main>
     <?php if ($showPictureUpdateBanner): ?>

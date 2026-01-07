@@ -12,35 +12,40 @@ $viewState = ViewData::getInstance();
 $viewState->set('form-username',$username);
 
 // Validate CSRF
-$csrfLegit = validateCsrf();
+$csrfLegit = validateCsrf('register');
 if (!$csrfLegit) {
     $viewState->set('register-error',RegisterFormError::CsrfInvalid);
-    initCsrf();
+    initCsrf('register');
     return;
 }
 // Check if username is valid
 $usernameValid = validateUsername($username);
 if (!$usernameValid) {
     $viewState->set('register-error',RegisterFormError::UsernameInvalid);
+    initCsrf('register');
     return;
 }
 // Check if username is taken
 $userData = getUserData($username);
 if ($userData !== false) {
     $viewState->set('register-error',RegisterFormError::UsernameTaken);
+    initCsrf('register');
     return;
 }
 // Check if password is valid
 $passwordValid = validatePassword($password);
 if (!$passwordValid) {
     $viewState->set('register-error',RegisterFormError::PasswordInvalid);
+    initCsrf('register');
     return;
 }
 // Check if passwords match
 if ($password != $passwordConfirm) {
     $viewState->set('register-error',RegisterFormError::PasswordMismatch);
+    initCsrf('register');
     return;
 }
+
 // Create user and session
 $created = createUser($username,$password);
 if ($created) {
@@ -49,4 +54,6 @@ if ($created) {
     redirect('/~dobiapa2/profile');
 } else {
     $viewState->set('register-error',RegisterFormError::ServerDatabase);
+    initCsrf('register');
+    return;
 }

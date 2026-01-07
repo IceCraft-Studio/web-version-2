@@ -21,7 +21,7 @@ if ($prefillEditing === '1') {
 
 
 // Get session csrf-token
-$csrfToken = $_SESSION['csrf-token'];
+$csrfToken = getCsrf('upload-project');
 ?>
 <main>
     <h1><?= $prefillEditing === '1' ? 'Edit exisiting project' : 'Create a new project' ?></h1>

@@ -4,6 +4,7 @@ enum PasswordUpdateState {
     case PasswordWrong;
     case PasswordInvalid;
     case PasswordMismatch;
+    case Failure;
     case Success;
 }
 enum PictureUpdateState {

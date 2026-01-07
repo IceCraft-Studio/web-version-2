@@ -32,7 +32,7 @@ switch ($viewState->get('register-error', RegisterFormError::None)) {
         $errorMessage = 'Critical server error! Please try again later.';
         break;
 }
-$csrfToken = $_SESSION['csrf-token'];
+$csrfToken = getCsrf('register');
 ?>
 <main>
     <h1>Register</h1>

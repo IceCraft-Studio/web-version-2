@@ -16,7 +16,7 @@ switch ($viewState->get('login-error',LoginFormError::None)) {
         break;
 }
 $prefillUsername = htmlspecialchars($viewState->get('form-username'));
-$csrfToken = $_SESSION['csrf-token'];
+$csrfToken = getCsrf('login');
 ?>
 <main>
     <h1>Login</h1>

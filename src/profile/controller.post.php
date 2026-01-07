@@ -7,7 +7,7 @@ const MAX_ALLOWED_IMAGE_SIZE_MB = 8;
 $viewState = ViewData::getInstance();
 
 //## Authentication
-$csrfLegit = validateCsrf();
+$csrfLegit = validateCsrf('profile');
 
 if (!$csrfLegit) {
     $viewState->set('profile-update-state',ProfileUpdateState::CsrfInvalid);
@@ -54,7 +54,6 @@ $socialReddit = trim($_POST['social-reddit'] ?? '');
 $socialTwitter = trim($_POST['social-twitter'] ?? '');
 $socialInstagram = trim($_POST['social-instagram'] ?? '');
 $socialDiscord = trim($_POST['social-discord'] ?? '');
-
 
 $profileUpdated = false;
 $profileUpdateSuccess = true;
@@ -164,10 +163,15 @@ if ($passwordNew != '') {
         include __DIR__ . '/controller.get.php';
         return;
     }
-    if (!changeUserPassword($username,$password,$passwordNew)) {
+    if (!verifyUserPassword($username, $password)) {
         $viewState->set('password-update-state',PasswordUpdateState::PasswordWrong);
         include __DIR__ . '/controller.get.php';
         return;        
+    }
+    if (!changeUserPassword($username,$passwordNew)) {
+        $viewState->set('password-update-state',PasswordUpdateState::Failure);
+        include __DIR__ . '/controller.get.php';
+        return;  
     }
     destroyUserSessions($username);
     $token = createSession($username,$passwordNew);
