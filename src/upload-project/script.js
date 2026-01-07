@@ -394,7 +394,7 @@ async function verifySlugAvailability(slug, category) {
 function imageButtonCopy(event,url) {
 	event.preventDefault();
 	navigator.clipboard.writeText(url); 
-	tempClassForTime(event.target, COPIED_CLASS, 4000);
+	tempClassForTime(event.currentTarget, COPIED_CLASS, 4000);
 }
 
 async function insertGalleryFileUrl(objectUrl, elements, galleryIndex) {
