@@ -1,6 +1,7 @@
 .social-links {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .social-links img {
@@ -17,6 +18,7 @@
     display: flex;
     width: max-content;
     justify-content: space-between;
+    margin: 0.3em;
 }
 
 .social-links a[title="Reddit"] {
