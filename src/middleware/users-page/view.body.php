@@ -1,11 +1,23 @@
 <?php
 $viewState = ViewData::getInstance();
+
+$userUsername = $viewState->get('page-username');
+$userPicture = $viewState->get('page-profile-picture');
+$socialWebsite = $viewState->get('page-social-website');
+$socialReddit = $viewState->get('page-social-reddit');
+$socialTwitter = $viewState->get('page-social-twitter');
+$socialInstagram = $viewState->get('page-social-instagram');
+$socialDiscord = $viewState->get('page-social-discord');
+
 $viewerIsAdmin = $viewState->get('viewer-admin', false);
+
+
+
 ?>
 <main>
     <div id="profile-section">
         <div>
-            <img>
+            <img src="">
             <h1></h1>
         </div>
             <?php if ($socialWebsite != ''): ?>
