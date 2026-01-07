@@ -45,7 +45,7 @@ $csrfToken = getCsrf('upload-project');
                 <div class="field">
                     <label for="input-thumbnail">Thumbnail:</label>
                     <div>
-                        <p class="thumbnail-size">The image must be JPEG, PNG or WEBP of 8MB at most!</p>
+                        <p class="thumbnail-size">The image must be JPEG, PNG or WEBP of 15MB at most!</p>
                         <p class="thumbnail-ratio">The image needs to have 16:9 aspect ratio!</p>
                     </div>
                     <input id="input-thumbnail" name="thumbnail" type="file" accept=".jpeg,.jpg,.png,.webp"

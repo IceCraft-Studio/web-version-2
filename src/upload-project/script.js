@@ -34,7 +34,7 @@ const ALLOWED_THUMB_IMAGE_TYPES = Object.freeze([
 	'image/webp',
 ]);
 const ALLOWED_ASPECT_RATIO = 16 / 9;
-const MAX_ALLOWED_IMAGE_SIZE_MB = 8;
+const MAX_ALLOWED_IMAGE_SIZE_MB = 15;
 const MAX_ALLOWED_UPLOAD_SIZE_MB = 30;
 const MAX_FILE_AMOUNT = 5;
 const MAX_LINK_AMOUNT = 5;
@@ -432,7 +432,7 @@ function generateGalleryItem(i) {
 	}.">
   </div>
   <label id="gallery-upload-zone" for="gallery-upload-${i}">
-	<span class="size-warning">The image must be JPEG, PNG, GIF or WEBP of 8MB at most!</span>
+	<span class="size-warning">The image must be JPEG, PNG, GIF or WEBP of 15MB at most!</span>
 	<span class="ratio-warning">The image needs to have 16:9 aspect ratio!</span>
     <span>Drop images here, or click to upload.</span>
     <input id="gallery-upload-${i}" name="gallery-upload[${i}]" type="file" accept=".jpeg,.jpg,.png,.gif,.webp"/>

@@ -29,6 +29,11 @@ function redirects($route)
         header("Location: ./home", true, 301);
         exit;
     }
+    // Middleware is internal path only, so any attempts to access it directly from the URL bar are mitigated
+    if (str_starts_with($route,'middleware')) {
+        header("Location: ./home", true, 301);
+        exit;
+    }
 }
 
 /**

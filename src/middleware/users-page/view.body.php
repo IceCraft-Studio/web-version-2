@@ -21,20 +21,21 @@ $viewerIsAdmin = $viewState->get('viewer-admin', false);
             <img src="<?= $userPicture ?>">
             <h1><?= $userDisplayName ?></h1>
         </div>
+        <div class="social-links">
             <?php if ($socialWebsite != ''): ?>
-            <a href="<?= $socialWebsite ?>"></a>
+            <a href="<?= $socialWebsite ?>"><img href="/~dobiapa2/assets/icons/home.svg"> My Personal Website</a>
             <?php endif; ?>
             <?php if ($socialReddit != ''): ?>
-            <a href="https://reddit.com/user/<?= $socialReddit ?>"></a>
+            <a href="https://reddit.com/user/<?= $socialReddit ?>"><img href="/~dobiapa2/assets/icons/socials/reddit.svg"> My Reddit Profile</a>
             <?php endif; ?>
             <?php if ($socialTwitter != ''): ?>
-            <a href="https://x.com/<?= $socialTwitter ?>"></a>
+            <a href="https://x.com/<?= $socialTwitter ?>"><img href="/~dobiapa2/assets/icons/socials/twitter.svg"> My Twitter Profile</a>
             <?php endif; ?>
             <?php if ($socialInstagram != ''): ?>
-            <a href="https://instagram.com/<?= $socialInstagram ?>"></a>
+            <a href="https://instagram.com/<?= $socialInstagram ?>"><img href="/~dobiapa2/assets/icons/socials/instagram.svg"> My Instagram Profile</a>
             <?php endif; ?>
             <?php if ($socialDiscord != ''): ?>
-            <a href="https://discord.gg/<?= $socialDiscord ?>"></a>
+            <a href="https://discord.gg/<?= $socialDiscord ?>"><img href="/~dobiapa2/assets/icons/socials/discord.svg"> My Discord Server</a>
             <?php endif; ?>
         </div>
     </div>

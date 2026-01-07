@@ -16,7 +16,7 @@ switch ($viewState->get('picture-update-state',PictureUpdateState::NoUpdate)) {
         $showPictureUpdateBanner = false;
         break;
     case PictureUpdateState::WrongSize:
-        $pictureMessage = 'Profile picture update failed! The image must be at most 8MB in size!';
+        $pictureMessage = 'Profile picture update failed! The image must be at most 15MB in size!';
         break;
     case PictureUpdateState::WrongType:
         $pictureMessage = 'Profile picture update failed! The image must be in PNG, JPEG or WEBP format!';

@@ -12,7 +12,7 @@ const ALLOWED_IMAGE_TYPES = Object.freeze([
 	'image/webp',
 ]);
 const ALLOWED_ASPECT_RATIO = 1 / 1;
-const MAX_ALLOWED_IMAGE_SIZE_MB = 8;
+const MAX_ALLOWED_IMAGE_SIZE_MB = 15;
 
 let globalSubmitActivate = false;
 
