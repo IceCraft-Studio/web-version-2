@@ -38,8 +38,8 @@ function validateImageAspectRatio($srcImage,$aspectRatio,$precision = 0.01) {
 
 /**
  * Saves the specified image as a WEBP at a specified location. (Optionally resampled to specified dimensions.) Supports PNG, JPEG and WEBP.
- * @param mixed $srcImage Path to the image to save.
- * @param mixed $outImage Path where to save the image.
+ * @param string $srcImage Path to the image to save.
+ * @param string $outImage Path where to save the image.
  * @param int $outWidth Output width, use `0` means don't change.
  * @param int $outHeight Output height, `0` means dont't change.
  * @return bool `true` on success, `false` on failure.
