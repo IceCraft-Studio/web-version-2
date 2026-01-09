@@ -609,7 +609,7 @@ img.no-select {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     margin: 0.5em 2%;
 
@@ -694,6 +694,10 @@ img.no-select {
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0;
+}
+
+.project-card > .user-part {
+    overflow: visible;
 }
 
 /* Page Form (sorting, filters etc.) */
