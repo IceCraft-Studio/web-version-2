@@ -1,5 +1,7 @@
 <?php
 
+$viewState = ViewData::getInstance();
+
 // Project Basic Data
 $pageCategory = $viewState->get('page-category','');
 $pageSlug = $viewState->get('page-slug','');

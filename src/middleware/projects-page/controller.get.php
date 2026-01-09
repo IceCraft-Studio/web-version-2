@@ -24,10 +24,10 @@ $viewState->set('page-slug',$projectSlug);
 $viewState->set('page-title',$projectData['title'] ?? 'Title not found!');
 $viewState->set('page-description',$projectData['description'] ?? 'Description not Found!');
 $viewState->set('page-username',$projectData['username'] ?? '');
-$viewState->set('page-thumbnail',getProjectThumbnailLink($category,$slug,true) ?? '');
-$viewState->set('page-article',(loadProjectArticle($category,$slug) ?? [])['html'] ?? 'Article not found!');
+$viewState->set('page-thumbnail',getProjectThumbnailLink($projectCategory,$projectSlug,true) ?? '');
+$viewState->set('page-article',(loadProjectArticle($projectCategory,$projectSlug) ?? [])['html'] ?? 'Article not found!');
 $viewState->set('page-modified',$projectData['datetime_modified'] ?? 'Unknown');
 $viewState->set('page-created',$projectData['datetime_created'] ?? 'Unknown');
 
-$viewState->set('page-links',loadProjectLinks($category,$slug) ?? []);
-$viewState->set('page-files',loadProjectFiles($category,$slug) ?? []);
+$viewState->set('page-links',loadProjectLinks($projectCategory,$projectSlug) ?? []);
+$viewState->set('page-files',loadProjectFiles($projectCategory,$projectSlug) ?? []);
