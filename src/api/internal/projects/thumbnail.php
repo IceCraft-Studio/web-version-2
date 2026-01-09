@@ -11,7 +11,7 @@ if (($_GET['project'] ?? '') == '' || ($_GET['category'] ?? '') == '') {
 
 $project = $_GET['project'];
 $category = $_GET['category'];
-$variant = $_GET['variant']; //  'full' or 'preview'
+$variant = $_GET['variant'] ?? 'full'; //  'full' or 'preview'
 
 $variantPart = $variant == 'preview' ? '-preview' : '';
 
