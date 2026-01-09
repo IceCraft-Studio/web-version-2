@@ -23,7 +23,11 @@ function markdownGithub(string $data)
         CURLOPT_POST => true,
         CURLOPT_HTTPHEADER => [
             'Accept: application/vnd.github+json',
+            'Accept-Language: en,en-US;q=0.7,cs;q=0.3',
             'Content-Type: application/json',
+            'Cache-Control: no-cache',
+            'Connection: keep-alive',
+            'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0',
             'X-GitHub-Api-Version: 2022-11-28',
         ],
         CURLOPT_POSTFIELDS => $payload,
