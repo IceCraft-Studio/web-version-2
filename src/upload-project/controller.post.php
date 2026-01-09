@@ -123,6 +123,7 @@ function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
 function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
+        header('Gallery' . $index . ': !' . $filePath . '!');
         if (($filePath ?? '') == '') {
             continue;
         }
@@ -222,6 +223,7 @@ $csrfLegit = validateCsrf('upload-project');
 if (!$csrfLegit) {
     $viewState->set('upload-project-state', ProjectUploadState::CsrfInvalid);
     prefillProjectFormValues($viewState);
+    initCsrf('upload-project');
     if ($projectIsEditing) {
         prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
     }
@@ -242,7 +244,7 @@ if ($projectIsEditing) {
         http_response_code(400);
         return;
     }
-    if ($checkExistingProject['username'] !== $username) {
+    if ($checkExistingProject['username'] != $username) {
         http_response_code(401);
         return;
     }
@@ -255,14 +257,17 @@ if ($projectIsEditing) {
     if ($projectDataValidation !== true) {
         $viewState->set('upload-project-state', $projectDataValidation);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     }
     // load and validate thumbnail
     $thumbnailFile = ($_FILES['thumbnail'] ?? [])['tmp_name'] ?? '';
     if ($thumbnailFile != '' && !validateProjectThumbnail($thumbnailFile)) {
         $viewState->set('upload-project-state', ProjectUploadState::ThumbnailInvalid);
-        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     }
     // delete requested uploads
@@ -283,6 +288,7 @@ if ($projectIsEditing) {
     if ($galleryAmount === false) {
         $viewState->set('upload-project-state', ProjectUploadState::GalleryInvalid);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     }
@@ -294,6 +300,7 @@ if ($projectIsEditing) {
     if ($linksAmount === false) {
         $viewState->set('upload-project-state', ProjectUploadState::LinkInvalid);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     }
@@ -306,27 +313,31 @@ if ($projectIsEditing) {
     if ($uploadsAmount === false) {
         $viewState->set('upload-project-state', ProjectUploadState::FileInvalid);
         prefillProjectFormValues($viewState);
-        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     }
     // check amounts
     if (($uploadsExistingAmount + $uploadsAmount + $linksExistingAmount + $linksAmount) < 1) {
         $viewState->set('upload-project-state', ProjectUploadState::NoUploads);
         prefillProjectFormValues($viewState);
-        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     }
     // save data
     if ($thumbnailFile != '' && !saveProjectThumbnail($projectCategory, $projectSlug, $thumbnailFile)) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
-        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     };
     if (!saveProjectArticle($projectCategory, $projectSlug, $markdownArticle)) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
-        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     };
     if (!saveGalleryImages(
@@ -338,7 +349,8 @@ if ($projectIsEditing) {
     )) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
-        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     };
     if (!saveUrlLinks(
@@ -350,7 +362,8 @@ if ($projectIsEditing) {
     )) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
-        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     };
     if (!saveFileUploads(
@@ -363,7 +376,8 @@ if ($projectIsEditing) {
     )) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
-        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     };
 
@@ -373,6 +387,7 @@ if (!$projectIsEditing) {
     if ($checkExistingProject !== false) {
         $viewState->set('upload-project-state', ProjectUploadState::SlugTaken);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         return;
     }
     // load and validate basic project data
@@ -384,6 +399,7 @@ if (!$projectIsEditing) {
     if ($projectDataValidation !== true) {
         $viewState->set('upload-project-state', $projectDataValidation);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         return;
     }
     // load and validate thumbnail
@@ -391,6 +407,7 @@ if (!$projectIsEditing) {
     if ($thumbnailFile == '' || !validateProjectThumbnail($thumbnailFile)) {
         $viewState->set('upload-project-state', ProjectUploadState::ThumbnailInvalid);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         return;
     }
     // load and validate gallery
@@ -400,6 +417,7 @@ if (!$projectIsEditing) {
     if ($galleryAmount === false) {
         $viewState->set('upload-project-state', ProjectUploadState::GalleryInvalid);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         return;
     }
     // load and validate links
@@ -409,6 +427,7 @@ if (!$projectIsEditing) {
     if ($linksAmount === false) {
         $viewState->set('upload-project-state', ProjectUploadState::LinkInvalid);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         return;
     }
     // load and validate files
@@ -419,12 +438,14 @@ if (!$projectIsEditing) {
     if ($uploadsAmount === false) {
         $viewState->set('upload-project-state', ProjectUploadState::FileInvalid);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         return;
     }
     // check amounts
     if ($uploadsAmount + $linksAmount < 1) {
         $viewState->set('upload-project-state', ProjectUploadState::NoUploads);
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         return;
     }
     // save data
@@ -432,12 +453,14 @@ if (!$projectIsEditing) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         header('Error: Create Project');
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         return;
     };
     if (!saveProjectThumbnail($projectCategory, $projectSlug, $thumbnailFile)) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         header('Error: thumnbnail');
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         deleteProject($projectCategory,$projectSlug);
         return;
     };
@@ -445,6 +468,7 @@ if (!$projectIsEditing) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         header('Error: article');
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         deleteProject($projectCategory,$projectSlug);
         return;
     };
@@ -457,6 +481,7 @@ if (!$projectIsEditing) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         header('Error: gallery');
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         deleteProject($projectCategory,$projectSlug);
         return;
     };
@@ -469,6 +494,7 @@ if (!$projectIsEditing) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         header('Error: links');
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         deleteProject($projectCategory,$projectSlug);
         return;
     };
@@ -482,6 +508,7 @@ if (!$projectIsEditing) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         header('Error: uplaod file');
         prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
         deleteProject($projectCategory,$projectSlug);
         return;
     };
