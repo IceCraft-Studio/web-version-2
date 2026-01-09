@@ -1,5 +1,6 @@
 <?php
 enum ProjectUploadState {
+    case NoState;
     case CsrfInvalid;
     case TitleInvalid;
     case DescriptionInvalid;
@@ -11,6 +12,7 @@ enum ProjectUploadState {
     case GalleryInvalid;
     case LinkInvalid;
     case FileInvalid;
+    case NoUploads;
+    case ServerError;
     case Success;
-
 }

@@ -1,6 +1,8 @@
 <?php
 $viewState = ViewData::getInstance();
 
+$projectUploadState = $viewState->get('project-upload-state', ProjectUploadState::NoState);
+
 $prefillEditing = $viewState->get('form-editing', '0');
 $prefillTitle = htmlspecialchars($viewState->get('form-title', ''));
 $prefillDescription = htmlspecialchars($viewState->get('form-description', ''));
@@ -22,6 +24,59 @@ if ($prefillEditing === '1') {
 } else {
     $cardThumbnailSrc = '/~dobiapa2/assets/empty-thumbnail.webp';
 }
+
+// State Processing When returning incorrectly filled form 
+$showErrorBanner = true;
+$errorBannerMessage = '';
+
+switch ($projectUploadState) {
+    case ProjectUploadState::NoState:
+        $showErrorBanner = false;
+        break;
+    case ProjectUploadState::CsrfInvalid:
+        $errorBannerMessage = 'Critical Client Error! Please try resending the form.';
+        break;
+    case ProjectUploadState::TitleInvalid:
+        $errorBannerMessage = 'Upload failed! Title is invalid. Make sure it is between 6 and 96 characters long (inclusive).';
+        break;
+    case ProjectUploadState::DescriptionInvalid:
+        $errorBannerMessage = 'Upload failed! Description is invalid. Make sure it is between 34 and 320 characters long (inclusive).';
+        break;
+    case ProjectUploadState::ThumbnailInvalid:
+        $errorBannerMessage = 'Upload failed! Thumbnail is invalid. Make sure its aspect ratio is 16:9 and its file size is not bigger than 15 MB.';
+        break;
+    case ProjectUploadState::SlugInvalid:
+        $errorBannerMessage = 'Upload failed! Slug is invalid. Make sure it is between 6 and 64 characters long (inclusive).';
+        break;
+    case ProjectUploadState::SlugTaken:
+        $errorBannerMessage = 'Upload failed! This slug is taken, please try another one.';
+        break;
+    case ProjectUploadState::CategoryInvalid:
+        $errorBannerMessage = 'Upload failed! Select a category!';
+        break;
+    case ProjectUploadState::ArticleInvalid:
+        $errorBannerMessage = 'Upload failed! Article is invalid. Make sure it is between 128 and 6144 characters long (inclusive).';
+        break;
+    case ProjectUploadState::GalleryInvalid:
+        $errorBannerMessage = 'Upload failed! Some gallery image is invalid. Make sure their aspect ratio is 16:9 and their file size is not bigger than 15 MB.';
+        break;
+    case ProjectUploadState::LinkInvalid:
+        $errorBannerMessage = 'Upload failed! Link invalid. Make sure its URL is not longer than 200 characters and its display name is not longer than 96 characters.';
+        break;
+    case ProjectUploadState::FileInvalid:
+        $errorBannerMessage = 'Upload failed! File upload invalid. Make sure its file size is not bigger than 30 MB and its display name is not longer than 96 characters.';
+        break;
+    case ProjectUploadState::NoUploads:
+        $errorBannerMessage = 'Upload failed! Make sure to provide at least one link or file upload with your project.';
+        break;
+    case ProjectUploadState::ServerError:
+        $errorBannerMessage = 'Upload failed! Crtical Server Error! Please try again later.';
+        break;
+    case ProjectUploadState::Success:
+        $showErrorBanner = false;
+        break;
+}
+
 function generateGalleryItem($i, $galleryLink, $fileName)
 {
     return '
@@ -76,6 +131,9 @@ function generateLinkItem($i, $urlLink, $displayName) {
 }
 
 function createPreviousGallery($galleryArray) {
+    if ($galleryArray === false) {
+        return;
+    }
     $index = 0;
     foreach ($galleryArray as $galleryRecord) {
         echo generateGalleryItem(
@@ -88,6 +146,9 @@ function createPreviousGallery($galleryArray) {
 }
 
 function createPreviousFileUploads($fileArray) {
+    if ($fileArray === false) {
+        return;
+    }
     $index = 0;
     foreach ($fileArray as $fileRecord) {
         echo generateFileItem(
@@ -101,6 +162,9 @@ function createPreviousFileUploads($fileArray) {
 }
 
 function createPreviousLinks($linkArray) {
+    if ($linkArray === false) {
+        return;
+    }
     $index = 0;
     foreach ($linkArray as $linkRecord) {
         echo generateLinkItem(
@@ -117,8 +181,8 @@ $csrfToken = getCsrf('upload-project');
 ?>
 <main>
     <?php if ($showErrorBanner): ?>
-        <div class="update-banner">
-
+        <div class="update-banner fail">
+            <?= $errorBannerMessage ?>
         </div>
     <?php endif ; ?>
     <h1><?= $prefillEditing === '1' ? 'Edit exisiting project' : 'Create a new project' ?></h1>
@@ -130,18 +194,22 @@ $csrfToken = getCsrf('upload-project');
         <div class="introduction-part">
             <div class="introduction-details">
                 <div class="field">
-                    <label for="input-title">Title of your project:</label>
+                    <label for="input-title" class="<?= $projectUploadState === ProjectUploadState::TitleInvalid ?  'color-required' : '' ?>">
+                        Title of your project:
+                    </label>
                     <input id="input-title" name="title" type="text" value="<?= $prefillTitle ?>" minlength="6"
                         maxlength="96" required>
                 </div>
                 <div class="field">
-                    <label for="input-description">Brief description:</label>
+                    <label for="input-description" class="<?= $projectUploadState === ProjectUploadState::DescriptionInvalid ? 'color-required' : '' ?>">
+                        Brief description:
+                    </label>
                     <textarea id="input-description" name="description" type="text" minlength="24" maxlength="320"
                         required><?= $prefillDescription ?></textarea>
                 </div>
                 <div class="field">
                     <label for="input-thumbnail">Thumbnail:</label>
-                    <div>
+                    <div class="<?= $projectUploadState === ProjectUploadState::ThumbnailInvalid ? 'color-required' : '' ?>">
                         <p class="thumbnail-size">The image must be JPEG, PNG or WEBP of 15MB at most!</p>
                         <p class="thumbnail-ratio">The image needs to have 16:9 aspect ratio!</p>
                     </div>
@@ -176,25 +244,31 @@ $csrfToken = getCsrf('upload-project');
             <div class="field slug-editor">
                 <label for="input-slug">Unique part of the URL for your project:</label>
                 <div class="prefix-container">
-                    <label for="input-slug">/category/</label>
+                    <label for="input-slug">/<?= $prefillCategory === '' ? 'category' : $prefillCategory ?>/</label>
                     <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6"
                         maxlength="64" readonly required>
                 </div>
-                <div class="hint">The slug must be between 6 and 96 characters long and may only contain numbers,
-                    lowercase letters and single hyphens between words. <span id="slug-taken"
-                        class="hidden color-required inline-block">This slug is taken, please try another one.</span>
+                <div class="hint <?= $projectUploadState === ProjectUploadState::SlugInvalid ? 'color-required' : '' ?>">
+                    The slug must be between 6 and 96 characters long and may only contain numbers,
+                    lowercase letters and single hyphens between words. 
+                    <span id="slug-taken" class="<?= $projectUploadState === ProjectUploadState::SlugTaken ? '' : 'hidden' ?> color-required inline-block">
+                        This slug is taken, please try another one.
+                    </span>
                 </div>
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
                 <select id="input-category" name="category" value="<?= $prefillCategory ?>" <?= $prefillEditing === '1' ? 'readonly' : '' ?> required></select>
-                <div class="hint">The category must be selected before you can type in the slug.</div>
+                <div class="hint <?= $projectUploadState === ProjectUploadState::CategoryInvalid ? 'color-required' : '' ?>">
+                    The category must be selected before you can type in the slug.
+                </div>
             </div>
         </div>
         <h2>Article Contents</h2>
         <div class="article-part">
             <div class="article-editor field">
-                <label for="md-input">Your project's article, use <a href="https://github.github.com/gfm/"
+                <label for="md-input" class="<?= $projectUploadState === ProjectUploadState::ArticleInvalid ? 'color-required' : '' ?>">
+                    Your project's article, use <a href="https://github.github.com/gfm/"
                         title="GFM Spec" target="_blank">GitHub Flavored Markdown</a>:</label>
                 <div class="switch-buttons">
                     <button id="btn-edit-article" disabled>Edit</button>

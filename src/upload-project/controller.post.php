@@ -1,5 +1,7 @@
 <?php
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/project.php';
+require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/image.php';
+require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/storage.php';
 require_once __DIR__ . '/enums.php';
 
 const MAX_ALLOWED_IMAGE_SIZE_MB = 15;
@@ -8,7 +10,9 @@ const MAX_ALLOWED_UPLOAD_SIZE_MB = 30;
 const MAX_GALLERY_UPLOADS = 12;
 const MAX_FILE_UPLOADS = 5;
 const MAX_LINK_UPLOADS = 5;
+
 //## Functions
+
 /**
  * Summary of validateProjectData
  * @param string $title The project's title.
@@ -37,6 +41,10 @@ function validateProjectData($title,$description,$category,$slug,$markdownArticl
     return true;
 }
 
+function validateProjectThumbnail($filePath) {
+    return validateImageType($filePath,ALLOWED_THUMBNAIL_IMG_TYPES) && validateImageAspectRatio($filePath,16/9);
+}
+
 /**
  * Validates gallery images
  * @param mixed $fileArray
@@ -53,7 +61,10 @@ function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
         if (filesize($filePath) / (1024**2) > MAX_ALLOWED_IMAGE_SIZE_MB) {
             return false;
         }
-        if (strlen($nameArray[$index] ?? '') > 96) {
+        if (!validateImageAspectRatio($filePath,16/9)) {
+            return false;
+        }
+        if (!validateImageType($filePath,ALLOWED_GALLERY_IMG_TYPES)) {
             return false;
         }
         $uuid = strtolower($uuidArray[$index] ?? '');
@@ -62,7 +73,7 @@ function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
         }
         $uploadsNumber++;
     }
-    return true;
+    return $uploadsNumber - $existingNumber;
 }
 
 function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
@@ -79,7 +90,7 @@ function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
         }
         $uploadsNumber++;
     }
-    return true;
+    return $uploadsNumber - $existingNumber;
 }
 
 function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
@@ -96,40 +107,56 @@ function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
         }
         $uploadsNumber++;
     }
-    return true;
+    return $uploadsNumber - $existingNumber;
 }
 
 
-function saveGalleryImages($fileArray,$uuidArray,$existingNumber = 0) {
+function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
         if ($uploadsNumber >= MAX_GALLERY_UPLOADS) {
             break;
         }
-        
+        $result = addProjectGalleryImage($category,$slug,$filePath,$uuidArray[$index]);
+        if ($result === false) {
+            return false;
+        }
     }
+    return $uploadsNumber - $existingNumber;
 }
 
-function saveUrlLinks($urlArray,$nameArray,$existingNumber = 0) {
+function saveUrlLinks($category,$slug,$urlArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($urlArray as $index => $url) {
         if ($uploadsNumber >= MAX_LINK_UPLOADS) {
             break;
         }
-        
+        $result = addProjectLink($category,$slug,$url,$nameArray[$index] ?? '');
+        if ($result === false) {
+            return false;
+        }
     }
+    return $uploadsNumber - $existingNumber;
 }
 
-function saveFileUploads($fileArray,$nameArray,$existingNumber = 0) {
+function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
         if ($uploadsNumber >= MAX_FILE_UPLOADS) {
             break;
         }
+        $directory = getProjectDirectory($category,$slug,'upload');
+        $fileInfo = pathinfo(createSafeFileName($fileNameArray[$index] ?? ''));
+        $fileNameNoExt = $fileInfo['filename'] ?? '';
+        $extension = $fileInfo['extension'] ?? '';
+        $fileName = getAvailablePath($directory,$fileNameNoExt,$extension);
+        $result = addProjectFile($category,$slug,$filePath,$fileName,$displayNameArray[$index] ?? '');
+        if ($result === false) {
+            return false;
+        }
     }
+    return $uploadsNumber - $existingNumber;
 }
-
-
 
 function fixMarkdownLinks($markdownData,$category,$slug) {
     $prefix = 'https://zwa.toad.cz/api/internal/projects/gallery.php?category=' . $category . '&slug=' . $slug . '&file_name=';
@@ -159,12 +186,27 @@ function prefillProjectFormValues($viewState) {
     $viewState->set('form-editing', ($_POST['editing'] ?? '') === '1' ? '1' : '0');
 }
 
+function prefillProjectPreviousUploads($category,$slug,$viewState) {
+    $viewState->set('form-previous-gallery',loadProjectGalleryImages($category,$slug) ?: []);
+    $viewState->set('form-previous-links',loadProjectLinks($category,$slug) ?: []);
+    $viewState->set('form-previous-files',loadProjectFiles($category,$slug) ?: []);
+}
+
+//## Script
+
 $viewState = ViewData::getInstance();
+
+$projectSlug = $_POST['slug'] ?? '';
+$projectCategory = $_POST['category'] ?? '';
+$projectIsEditing = ($_POST['editing'] ?? '0') === '1';
 
 $csrfLegit = validateCsrf('upload-project');
 if (!$csrfLegit) {
     $viewState->set('upload-project-state', ProjectUploadState::CsrfInvalid);
     prefillProjectFormValues($viewState);
+    if ($projectIsEditing) {
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
+    }
     return;
 }
 
@@ -173,10 +215,6 @@ if ($username === '') {
     http_response_code(401);
     return;
 }
-
-$projectSlug = $_POST['slug'] ?? '';
-$projectCategory = $_POST['category'] ?? '';
-$projectIsEditing = ($_POST['editing'] ?? '0') === '1';
 
 $checkExistingProject = getProjectData($projectCategory,$projectSlug);
 
@@ -190,7 +228,126 @@ if ($projectIsEditing) {
         http_response_code(401);
         return;
     }
+    // load and validate basic project data
+    $title = $_POST['title'] ?? '';
+    $description = $_POST['description'] ?? '';
+    $markdownArticle = fixMarkdownLinks($_POST['markdown-article'] ?? '',$projectCategory,$projectSlug);
 
+    $projectDataValidation = validateProjectData($title,$description,$projectCategory,$projectSlug,$markdownArticle);
+    if ($projectDataValidation !== true) {
+        $viewState->set('upload-project-state', $projectDataValidation);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // load and validate thumbnail
+    $thumbnailFile = ($_FILES['thumbnail'] ?? [])['tmp_name'] ?? '';
+    if ($thumbnailFile !== '' && !validateProjectThumbnail($thumbnailFile)) {
+        $viewState->set('upload-project-state', ProjectUploadState::ThumbnailInvalid);
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // delete requested uploads
+    foreach (($_POST['gallery-delete-name'] ?? []) as $deleteGalleryName) {
+        removeProjectGalleryImage($projectCategory,$projectSlug,$deleteGalleryName);
+    }
+    foreach (($_POST['link-delete-url'] ?? []) as $deleteLinkUrl) {
+        removeProjectLink($projectCategory,$projectSlug,$deleteLinkUrl);
+    }
+    foreach (($_POST['file-delete-name'] ?? []) as $deleteFileName) {
+        removeProjectFile($projectCategory,$projectSlug,$deleteFileName);
+    }
+    // load and validate gallery
+    $galleryFilesArray = ($_FILES['gallery-upload'] ?? [])['tmp_name'] ?? [];
+    $galleryUuidsArray = $_POST['gallery-uuid'] ?? [];
+    $galleryExistingAmount = count(loadProjectGalleryImages($projectCategory,$projectSlug) ?: []);
+    $galleryAmount = validateGalleryUploads($galleryFilesArray,$galleryUuidsArray,$galleryExistingAmount);
+    if ($galleryAmount === false) {
+        $viewState->set('upload-project-state', ProjectUploadState::GalleryInvalid);
+        prefillProjectFormValues($viewState);
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
+        return;
+    }
+    // load and validate links
+    $linkUrlsArray = $_POST['link-url'] ?? [];
+    $linkNamesArray = $_POST['link-name'] ?? [];
+    $linksExistingAmount = count(loadProjectLinks($projectCategory,$projectSlug) ?: []);
+    $linksAmount = validateLinkUploads($linkUrlsArray,$linkNamesArray,$linksExistingAmount);
+    if ($linksAmount === false) {
+        $viewState->set('upload-project-state', ProjectUploadState::LinkInvalid);
+        prefillProjectFormValues($viewState);
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
+        return;
+    }
+    // load and validate files
+    $uploadFilesArray = ($_FILES['file-upload'] ?? [])['tmp_name'] ?? [];
+    $uploadFileNamesArray = ($_FILES['file-upload'] ?? [])['name'] ?? [];
+    $uploadDisplayNamesArray = $_POST['file-name'] ?? [];
+    $uploadsExistingAmount = count(loadProjectFiles($projectCategory,$projectSlug) ?: []);
+    $uploadsAmount = validateFileUploads($uploadFilesArray,$uploadDisplayNamesArray,$uploadsExistingAmount);
+    if ($uploadsAmount === false) {
+        $viewState->set('upload-project-state', ProjectUploadState::FileInvalid);
+        prefillProjectFormValues($viewState);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // check amounts
+    if (($uploadsExistingAmount + $uploadsAmount + $linksExistingAmount + $linksAmount) < 1) {
+        $viewState->set('upload-project-state', ProjectUploadState::NoUploads);
+        prefillProjectFormValues($viewState);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // save data
+    if ($thumbnailFile !== '' && !saveProjectThumbnail($projectCategory, $projectSlug, $thumbnailFile)) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        prefillProjectFormValues($viewState);
+        return;
+    };
+    if (!saveProjectArticle($projectCategory, $projectSlug, $markdownArticle)) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        prefillProjectFormValues($viewState);
+        return;
+    };
+    if (!saveGalleryImages(
+        $projectCategory, 
+        $projectSlug, 
+        $galleryFilesArray,
+        $galleryUuidsArray,
+        $galleryExistingAmount
+    )) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        prefillProjectFormValues($viewState);
+        return;
+    };
+    if (!saveUrlLinks(
+            $projectCategory, 
+            $projectSlug, 
+            $linkUrlsArray,
+            $linkNamesArray,
+            $linksExistingAmount
+    )) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        prefillProjectFormValues($viewState);
+        return;
+    };
+    if (!saveFileUploads(
+        $projectCategory, 
+        $projectSlug, 
+        $uploadFilesArray,
+        $uploadFileNamesArray,
+        $uploadDisplayNamesArray,
+        $uploadsExistingAmount
+    )) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        prefillProjectFormValues($viewState);
+        return;
+    };
 
 }
 //## Uploading a new project
@@ -200,9 +357,112 @@ if (!$projectIsEditing) {
         prefillProjectFormValues($viewState);
         return;
     }
+    // load and validate basic project data
+    $title = $_POST['title'] ?? '';
+    $description = $_POST['description'] ?? '';
+    $markdownArticle = $_POST['markdown-article'] ?? '';
 
+    $projectDataValidation = validateProjectData($title,$description,$projectCategory,$projectSlug,$markdownArticle);
+    if ($projectDataValidation !== true) {
+        $viewState->set('upload-project-state', $projectDataValidation);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // load and validate thumbnail
+    $thumbnailFile = ($_FILES['thumbnail'] ?? [])['tmp_name'] ?? '';
+    if ($thumbnailFile === '' || !validateProjectThumbnail($thumbnailFile)) {
+        $viewState->set('upload-project-state', ProjectUploadState::ThumbnailInvalid);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // load and validate gallery
+    $galleryFilesArray = ($_FILES['gallery-upload'] ?? [])['tmp_name'] ?? [];
+    $galleryUuidsArray = $_POST['gallery-uuid'] ?? [];
+    $galleryAmount = validateGalleryUploads($galleryFilesArray,$galleryUuidsArray);
+    if ($galleryAmount === false) {
+        $viewState->set('upload-project-state', ProjectUploadState::GalleryInvalid);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // load and validate links
+    $linkUrlsArray = $_POST['link-url'] ?? [];
+    $linkNamesArray = $_POST['link-name'] ?? [];
+    $linksAmount = validateLinkUploads($linkUrlsArray,$linkNamesArray);
+    if ($linksAmount === false) {
+        $viewState->set('upload-project-state', ProjectUploadState::LinkInvalid);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // load and validate files
+    $uploadFilesArray = ($_FILES['file-upload'] ?? [])['tmp_name'] ?? [];
+    $uploadFileNamesArray = ($_FILES['file-upload'] ?? [])['name'] ?? [];
+    $uploadDisplayNamesArray = $_POST['file-name'] ?? [];
+    $uploadsAmount = validateFileUploads($uploadFilesArray,$uploadDisplayNamesArray);
+    if ($uploadsAmount === false) {
+        $viewState->set('upload-project-state', ProjectUploadState::FileInvalid);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // check amounts
+    if ($uploadsAmount + $linksAmount < 1) {
+        $viewState->set('upload-project-state', ProjectUploadState::NoUploads);
+        prefillProjectFormValues($viewState);
+        return;
+    }
+    // save data
+    if (!createProject($projectCategory, $projectSlug, $username,$title,$description)) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        return;
+    };
+    if (!saveProjectThumbnail($projectCategory, $projectSlug, $thumbnailFile)) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        deleteProject($projectCategory,$projectSlug);
+        return;
+    };
+    if (!saveProjectArticle($projectCategory, $projectSlug, $markdownArticle)) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        deleteProject($projectCategory,$projectSlug);
+        return;
+    };
+    if (!saveGalleryImages(
+        $projectCategory, 
+        $projectSlug, 
+        $galleryFilesArray,
+        $galleryUuidsArray
+    )) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        deleteProject($projectCategory,$projectSlug);
+        return;
+    };
+    if (!saveUrlLinks(
+            $projectCategory, 
+            $projectSlug, 
+            $linkUrlsArray,
+            $linkNamesArray
+    )) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        deleteProject($projectCategory,$projectSlug);
+        return;
+    };
+    if (!saveFileUploads(
+        $projectCategory, 
+        $projectSlug, 
+        $uploadFilesArray,
+        $uploadFileNamesArray,
+        $uploadDisplayNamesArray
+    )) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        deleteProject($projectCategory,$projectSlug);
+        return;
+    };
 }
 
 
 
-redirect('/~dobiapa2/projects/' . $category . '/' . $slug);
+redirect('/~dobiapa2/projects/' . $projectCategory . '/' . $projectSlug);

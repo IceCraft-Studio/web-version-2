@@ -7,7 +7,7 @@
  * @param mixed $extension File extension, when empty assumes a file without extension.
  * @return string Returns the full path where it is possible to create a new file.
  */
-function getAvailablepath($directory,$name,$extension = '') {
+function getAvailablePath($directory,$name,$extension = '') {
     if (!str_ends_with($directory,'/')) {
         $directory = $directory . '/';
     }

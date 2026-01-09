@@ -6,13 +6,13 @@ require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
 
 # Validation
-if (($_POST['slug'] ?? '') === '' || ($_POST['category'] ?? '') === '') {
+if (($_GET['project'] ?? '') === '' || ($_GET['category'] ?? '') === '') {
     http_response_code(400);
     exit;
 }
 
-$slug = $_POST['slug'];
-$category = $_POST['category'];
+$slug = $_GET['project'];
+$category = $_GET['category'];
 
 $projectData = getProjectData($category,$project);
 
@@ -36,6 +36,8 @@ if ($username != $projectData['username']) {
     }
 }
 
-if (deleteProject($category,$slug)) {
+if (!deleteProject($category,$slug)) {
     http_response_code(500);
+} else {
+    redirect('/~dobiapa2/projects');
 };
