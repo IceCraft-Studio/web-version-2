@@ -604,6 +604,17 @@ img.no-select {
     width: 100%;
 }
 
+/* Project Listing */
+#projects-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#projects-section > * {
+    margin: 0.5em;
+}
+
 /* Project Card Styles */
 .project-card a {
     text-decoration: none;
