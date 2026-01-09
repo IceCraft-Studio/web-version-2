@@ -123,7 +123,7 @@ function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
 function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
-        header('Gallery' . $index . ': !' . $filePath . '!');
+        header('Gallery' . $index . ': !' . (string)(($filePath ?? '') == '') . '!');
         if (($filePath ?? '') == '') {
             continue;
         }
