@@ -55,6 +55,9 @@ function validateProjectThumbnail($filePath) {
 function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
+        if (($filePath ?? '' ) === '') {
+            continue;
+        }
         if ($uploadsNumber >= MAX_GALLERY_UPLOADS) {
             break;
         }
@@ -79,6 +82,9 @@ function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
 function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($urlArray as $index => $url) {
+        if (($url ?? '') === '') {
+            continue;
+        }
         if ($uploadsNumber >= MAX_LINK_UPLOADS) {
             break;
         }
@@ -96,6 +102,9 @@ function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
 function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
+        if (($filePath ?? '') === '') {
+            continue;
+        }
         if ($uploadsNumber >= MAX_FILE_UPLOADS) {
             break;
         }
@@ -114,6 +123,9 @@ function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
 function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
+        if (($filePath ?? '') === '') {
+            continue;
+        }
         if ($uploadsNumber >= MAX_GALLERY_UPLOADS) {
             break;
         }
@@ -128,6 +140,9 @@ function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber
 function saveUrlLinks($category,$slug,$urlArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($urlArray as $index => $url) {
+        if (($url ?? '') === '') {
+            continue;
+        }
         if ($uploadsNumber >= MAX_LINK_UPLOADS) {
             break;
         }
@@ -142,6 +157,9 @@ function saveUrlLinks($category,$slug,$urlArray,$nameArray,$existingNumber = 0) 
 function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
+        if (($filePath ?? '') === '') {
+            continue;
+        }
         if ($uploadsNumber >= MAX_FILE_UPLOADS) {
             break;
         }

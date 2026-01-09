@@ -109,16 +109,14 @@ Fields:
 - `category`
 - `slug`
 - `article`
--
-
-
-## Admin Only
 
 ### Manage User
 
-### Manage Post
+Fields:
+- `user-action` Select an option to run an action on a user.
+- `new-password` Set a new password for the user.
+- `confirm-password` Confirm the user's new password.
 
-### Manage Links
 
 # Database
 

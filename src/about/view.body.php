@@ -22,5 +22,17 @@
         <p>
             We also have accounts across multiple other sites where you can find us too!
         </p>
+        <div>
+            <a href="github.com/IceCraft-Studio">GitHub Page</a>
+        </div>
+        <div>
+            <a href="https://mcpedl.com/user/paveldobcz23/">MCPEDL Page</a>
+        </div>
+        <div>
+            <a href="https://modrinth.com/organization/icecraft-studio">Modrinth</a>
+        </div>
+        <div>
+            <a href="https://marketplace.visualstudio.com/publishers/IceCraftStudio">VS Code Marketplace</a>
+        </div>
     </div>
 </main>
