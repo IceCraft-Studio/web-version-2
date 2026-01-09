@@ -179,7 +179,7 @@ function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameA
         $fileInfo = pathinfo(createSafeFileName($fileNameArray[$index] ?? ''));
         $fileName = getAvailablePath($directory,$fileInfo['filename'] ?? '',$fileInfo['extension'] ?? '');
         $fileInfo = pathinfo($fileName);
-        $fileName = ($fileInfo['filename'] ?? '') . ($fileInfo['extension'] ?? '');
+        $fileName = ($fileInfo['filename'] ?? '') . '.' . ($fileInfo['extension'] ?? '');
         $result = addProjectFile($category,$slug,$filePath,$fileName,$displayNameArray[$index] ?? '');
         if ($result === false) {
             return false;
