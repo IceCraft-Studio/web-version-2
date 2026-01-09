@@ -15,9 +15,11 @@ $filePath = resolveDataPath('project/' . $category . '/' . $project . '/gallery/
 
 if (!file_exists($filePath)) {
     http_response_code(404);
+    header('test: exists');
 } else {
     $imageInfo = getimagesize($filePath);
     if ($imageInfo === false) {
+        header('test: info');
         http_response_code(404);
         exit;
     }
@@ -30,9 +32,10 @@ if (!file_exists($filePath)) {
         case IMAGETYPE_WEBP:
             header('Content-Type: image/webp');
             break;
-    default:
-        http_response_code(404);
-        exit;
+        default:
+            header('test: type');
+            http_response_code(404);
+            exit;
     }
 
     header('Content-Length: ' . filesize($filePath));
