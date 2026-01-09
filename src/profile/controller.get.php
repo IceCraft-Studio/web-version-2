@@ -9,8 +9,7 @@ $viewState = ViewData::getInstance();
 
 // Redirect if token is invalid
 $username = $viewState->get('verified-username', '');
-header('Test: !' . strlen($username) . '!');
-if ($username === '') {
+if ($username == '') {
     header('Test2: !' . 'redirect' . '!');
     redirect('/~dobiapa2/login');
 }
