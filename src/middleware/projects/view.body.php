@@ -85,7 +85,7 @@ function generateCategoryLinks() {
         return;
     }
     foreach ($categories as $categoryRecord) {
-        echo '<a href="/~dobiapa2/projects/' . $categoryRecord['id'] ?? '' . '">' . $categoryRecord['name'] ?? '' . '</a>';
+        echo '<a href="/~dobiapa2/projects/' . ($categoryRecord['id'] ?? '') . '">' . ($categoryRecord['name'] ?? '') . '</a>';
     }
 }
 
