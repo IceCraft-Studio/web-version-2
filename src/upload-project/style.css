@@ -152,19 +152,29 @@ textarea {
     box-sizing: border-box;
 }
 
-.gallery-image input[type='text'] {
-    margin: 0.5rem 0;
-    max-width: 20rem;
-}
-
 .hint {
     font-family: JetBrainsMono;
     font-size: 0.8em;
     margin: 0.1rem;
 }
 
-.gallery-image label {
-    margin: 0;
+.gallery-image label, 
+.gallery-image .image-title {
+    margin: 0 0 0.5rem 0;
+}
+
+.delete-item {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.delete-item img {
+    filter: var(--svg-icon-color-dark);
+}
+
+.delete-item:hover img {
+    filter: var(--svg-icon-color-dark);
 }
 
 button.gallery-container {
@@ -214,13 +224,6 @@ button.gallery-container:active img {
 
 button.gallery-container:active {
     transform: scale(102%);
-}
-
-form #gallery-preview div.field {
-    padding: 0;
-    margin: 0;
-    background-color: transparent;
-    border-radius: 0;
 }
 
 #gallery-preview {

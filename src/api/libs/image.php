@@ -39,10 +39,10 @@ function validateImageAspectRatio($srcImage,$aspectRatio,$precision = 0.01) {
 /**
  * Saves the specified image as a WEBP at a specified location. (Optionally resampled to specified dimensions.) Supports PNG, JPEG and WEBP. GIF is also 
  * @param mixed $srcImage Path to the image to save.
- * @param mixed $outImage Path where to save the image.
+ * @param mixed $outImage Path where to save the image. WITHOUT THE EXTENSION!
  * @param int $outWidth Output width, use `0` means don't change.
  * @param int $outHeight Output height, `0` means dont't change.
- * @return bool `true` on success, `false` on failure.
+ * @return string|bool Output path with extension on success, `false` on failure.
  */
 function saveImageAsWebpOrGif($srcImage,$outImage,$outWidth = 0,$outHeight = 0) {
     // Get basic details
@@ -73,10 +73,12 @@ function saveImageAsWebpOrGif($srcImage,$outImage,$outWidth = 0,$outHeight = 0) 
     imagealphablending($newImageData, false);
     imagesavealpha($newImageData, true);
     imagecopyresampled($newImageData,$imageData,0,0,0,0,$outWidth,$outHeight,$width,$height);
-    // Save as WEBP or GIF
-    if ($type === IMAGETYPE_GIF) {
-        return imagegif($newImageData,$outImage);
-    } else {
-        return imagewebp($newImageData,$outImage);
+    // Save as WEBP or GIF and return the new path or `false`
+    if ($type === IMAGETYPE_GIF && imagegif($newImageData,$outImage . '.gif')) {
+        return $outImage . '.gif';
+    } else if (imagewebp($newImageData,$outImage . '.webp')) {
+        return $outImage . '.webp';
     }
+    return false;
+
 }

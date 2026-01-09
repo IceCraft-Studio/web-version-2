@@ -652,3 +652,21 @@ img.no-select {
 .page-controls > div > a {
     padding: 0.35em;
 }
+
+/* Banner to show server-side validation messages after sending forms */
+.update-banner {
+    font-size: 1.5em;
+    padding: 0.8em;
+    border: 0.2em solid var(--color-primary);
+    border-radius: 0.5em;
+    text-align: center;
+}
+
+.update-banner.fail {
+    color: var(--color-text-dark);
+    background-color: var(--color-important-red)
+}
+.update-banner.success {
+    color: var(--color-text-dark);
+    background-color: var(--color-success-green);
+}

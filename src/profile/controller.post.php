@@ -29,7 +29,7 @@ if (isset($_POST['delete-profile-picture'])) {
     }
 } else if (isset($_FILES['profile-picture']) && ($_FILES['profile-picture']['tmp_name'] ?? '') !== '') {
     $imgTempPath = $_FILES['profile-picture']['tmp_name'];
-    if (filesize($imgTempPath)/(1000 ** 2) > 8) {
+    if (filesize($imgTempPath)/(1000 ** 2) > MAX_ALLOWED_IMAGE_SIZE_MB) {
         $viewState->set('picture-update-state',PictureUpdateState::WrongSize);
     } else if (!validateImageType($imgTempPath,ALLOWED_PROFILE_PICTURE_IMG_TYPES)) {
         $viewState->set('picture-update-state',PictureUpdateState::WrongType);

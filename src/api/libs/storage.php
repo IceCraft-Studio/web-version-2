@@ -42,3 +42,18 @@ function removeDirRecursive($directory) {
     }
     rmdir($directory);
 }
+
+/**
+ * Creates a safe file name by keeping only safe characters like letters, numbers hyphens and dots.
+ * @param mixed $fileName The original text string to be converted into a file name.
+ * @return string
+ */
+function createSafeFileName($fileName) {
+    $fileName = strtolower($fileName);
+    $fileName = preg_replace('/[\s_]/', '-', $fileName);
+    $fileName = preg_replace('/[^A-z0-9-\.]/', '', $fileName);
+    if (strlen($fileName) > 120) {
+        $fileName = substr($fileName,0,120);
+    }
+    return $fileName;
+}

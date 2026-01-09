@@ -8,6 +8,10 @@ $prefillSlug = htmlspecialchars($viewState->get('form-slug', ''));
 $prefillCategory = htmlspecialchars($viewState->get('form-category', ''));
 $prefillMarkdown = htmlspecialchars($viewState->get('form-markdown-article', ''));
 
+$previousGalleryArray = $viewState->get('form-previous-gallery');
+$previousLinksArray = $viewState->get('form-previous-links');
+$previousFilesArray = $viewState->get('form-previous-files');
+
 $username = $viewState->get('verified-username', '');
 $displayName = $viewState->get('verified-display-name', '');
 $profilePicture = $viewState->get('verified-profile-picture', '');
@@ -18,12 +22,105 @@ if ($prefillEditing === '1') {
 } else {
     $cardThumbnailSrc = '/~dobiapa2/assets/empty-thumbnail.webp';
 }
+function generateGalleryItem($i, $galleryLink, $fileName)
+{
+    return '
+<li data-old-gallery-index="' . $i . '" class="gallery-image edit-inserted">
+    <span class="image-title">Previous Image #' . $i + 1 . '</span>
+    <button class="gallery-container">
+        <img src="' . $galleryLink . '" alt="Previous Image #' . $i + 1 . '">
+    </button>
+    <button class="delete-item" data-index="' . $i . '">
+        <img src="/~dobiapa2/assets/icons/bin.svg">
+        <span>Delete Image</span>
+    </button>
+    <input name="gallery-delete-name[' . $i . ']" value="' . $fileName . '" type="hidden" disabled>
+</li>';
+}
 
+function generateFileItem($i, $fileLink, $displayName, $fileName)
+{
+	return '
+<li data-old-file-index="' . $i . '" class="edit-inserted">
+	<div class="field">
+		<p>Previous File #' . $i + 1 . ' to download the project.</p>
+        <a href="' . $fileLink . '">Download the old file upload #' . $i + 1 . '.</a>
+        <label for="old-input-file-name-' . $i . '">Display Name:</label>
+        <input type="text" name="old-file-name[' . $i . ']" id="old-input-file-name-' . $i . '" value="' .  $displayName . '" readonly>
+        <button class="delete-item" data-index="' . $i . '">
+            <img src="/~dobiapa2/assets/icons/bin.svg">
+        <span>Delete Image</span>
+        </button>
+        <input name="file-delete-name[' . $i . ']" value="' . $fileName . '" type="hidden" disabled>
+    </div>
+</li>';
+}
+
+
+function generateLinkItem($i, $urlLink, $displayName) {
+	return '
+<li data-old-link-index="' . $i . '" class="edit-inserted">
+    <div class="field">
+        <p>Previous Link #' . $i + 1 . ' to download the project.</p>
+        <label for="old-input-link-url-' . $i . '">URL:</label>
+        <input type="text" name="old-link-url[' . $i . ']" id="old-input-link-url-' . $i . '" value="' . $urlLink . '" readonly>
+        <label for="old-input-link-name-' . $i . '">Display Name:</label>
+        <input type="text" name="old-link-name[' . $i . ']" id="old-input-link-name-' . $i . '" value="' . $displayName . '" readonly>
+        <button class="delete-item" data-index="' . $i . '">
+            <img src="/~dobiapa2/assets/icons/bin.svg">
+        <span>Delete Image</span>
+        </button>
+        <input name="link-delete-url[' . $i . ']" value="' . $urlLink . '" type="hidden" disabled>
+    </div>
+</li>';
+}
+
+function createPreviousGallery($galleryArray) {
+    $index = 0;
+    foreach ($galleryArray as $galleryRecord) {
+        echo generateGalleryItem(
+            $index,
+            htmlspecialchars($galleryRecord['link'] ?? ''),
+            htmlspecialchars($galleryRecord['file_name'] ?? '')
+        );
+        $index++;
+    }
+}
+
+function createPreviousFileUploads($fileArray) {
+    $index = 0;
+    foreach ($fileArray as $fileRecord) {
+        echo generateFileItem(
+            $index,
+            htmlspecialchars($fileRecord['link'] ?? ''),
+            htmlspecialchars($fileRecord['display_name'] ?? ''),
+            htmlspecialchars($fileRecord['file_name'] ?? '')
+        );
+        $index++;
+    }
+}
+
+function createPreviousLinks($linkArray) {
+    $index = 0;
+    foreach ($linkArray as $linkRecord) {
+        echo generateLinkItem(
+            $index,
+            htmlspecialchars($linkRecord['url'] ?? ''),
+            htmlspecialchars($linkRecord['display_name'] ?? '')
+        );
+        $index++;
+    }
+}
 
 // Get session csrf-token
 $csrfToken = getCsrf('upload-project');
 ?>
 <main>
+    <?php if ($showErrorBanner): ?>
+        <div class="update-banner">
+
+        </div>
+    <?php endif ; ?>
     <h1><?= $prefillEditing === '1' ? 'Edit exisiting project' : 'Create a new project' ?></h1>
     <div>
         Fields marked with <span class="color-required">*</span> are required!
@@ -81,7 +178,7 @@ $csrfToken = getCsrf('upload-project');
                 <div class="prefix-container">
                     <label for="input-slug">/category/</label>
                     <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6"
-                        maxlength="64" disabled required>
+                        maxlength="64" readonly required>
                 </div>
                 <div class="hint">The slug must be between 6 and 96 characters long and may only contain numbers,
                     lowercase letters and single hyphens between words. <span id="slug-taken"
@@ -90,7 +187,7 @@ $csrfToken = getCsrf('upload-project');
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
-                <select id="input-category" name="category" value="<?= $prefillCategory ?>" <?= $prefillEditing === '1' ? 'disabled' : '' ?> required></select>
+                <select id="input-category" name="category" value="<?= $prefillCategory ?>" <?= $prefillEditing === '1' ? 'readonly' : '' ?> required></select>
                 <div class="hint">The category must be selected before you can type in the slug.</div>
             </div>
         </div>
@@ -103,16 +200,19 @@ $csrfToken = getCsrf('upload-project');
                     <button id="btn-edit-article" disabled>Edit</button>
                     <button id="btn-preview-article">Preview</button>
                 </div>
-                <textarea id="md-input" name="markdown-article" minlength="128" maxlength="4096"
+                <textarea id="md-input" name="markdown-article" minlength="128" maxlength="6144"
                     required><?= $prefillMarkdown ?></textarea>
                 <div id="md-preview" class="hidden"></div>
             </div>
             <div class="article-gallery">
                 <div class="gallery-info hint">
                     You can upload up to 12 images to put inside your article. Click them to get
-                    their link to use them in markdown of your article.
+                    their link to use them in markdown of your article. Unused links will be ignored.
                 </div>
                 <ul id="gallery-preview">
+                    <?php
+                        createPreviousGallery($previousGalleryArray);
+                    ?>
                     <!-- This content is generated by a JS script!  -->
                 </ul>
             </div>
@@ -123,7 +223,7 @@ $csrfToken = getCsrf('upload-project');
                 The project needs to provide at least 1 file or link and at most 5 of each for the audience to download.
             </div>
             <div>
-                Max file upload size is 30MB. Max URL length is 200 characters. 
+                Max file upload size is 30MB. File names are preserved but modified to be safe. Max URL length is 200 characters. 
             </div>
             <div>
                 Display name can be up to 96 characters long. 
@@ -133,6 +233,9 @@ $csrfToken = getCsrf('upload-project');
             <div class="field">
                 <h3>Add a link</h3>
                 <ul id="link-adder" class="adder">
+                    <?php
+                        createPreviousLinks($previousLinksArray);
+                    ?>
                     <li>
                         <button class="add-another" title="Add another link to your project.">
                             <div>
@@ -145,7 +248,9 @@ $csrfToken = getCsrf('upload-project');
             <div class="field">
                 <h3>Upload a file</h3>
                 <ul id="file-adder" class="adder">
-
+                    <?php
+                        createPreviousFileUploads($previousFilesArray);
+                    ?>
                     <li>
                         <button class="add-another" title="Add another file to your project.">
                             <div>

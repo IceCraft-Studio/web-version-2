@@ -51,7 +51,7 @@ async function main() {
 		files: -1,
 		links: -1
 	};
-	let markdownEdited = false;
+	let markdownEdited = true;
 	let slugVerificationTimer = null;
 	const elements = {
 		titleInput: document.querySelector('input#input-title'),
@@ -81,7 +81,7 @@ async function main() {
 	const uploadCounter = {
 		gallery: elements.galleryPreview?.querySelectorAll(`.${EDIT_INSERTED_CLASS}`)?.length ?? 0,
 		links: elements.linkAdder?.querySelectorAll(`.${EDIT_INSERTED_CLASS}`)?.length ?? 0,
-		files: elements.galleryPreview?.querySelectorAll(`.${EDIT_INSERTED_CLASS}`)?.length ?? 0,
+		files: elements.fileAdder?.querySelectorAll(`.${EDIT_INSERTED_CLASS}`)?.length ?? 0,
 	};
 
 	// Dynamically fetch available categories from the backend
@@ -134,7 +134,7 @@ async function main() {
 			e.preventDefault();
 		}
 	});
-	//Add link and file buttons
+	// Add link and file buttons
 	elements.addLinkButton.addEventListener('click', (e) => {
 		e.preventDefault();
 		if (uploadCounter.links >= MAX_LINK_AMOUNT) {
@@ -157,6 +157,44 @@ async function main() {
 			validateFileUpload(e.target.files[0],elements,e.target);
 		})
 		elements.addFileButton.disabled = !(uploadCounter.files < MAX_FILE_AMOUNT);
+	});
+	if (IS_EDITING) {
+		return;
+	}
+	// Edit Project - Copy Previous Image Links
+	elements.galleryPreview.querySelectorAll('.gallery-container').forEach((imageButton) => {
+		imageButton.addEventListener((e) => {
+			imageButtonCopy(e,e.currentTarget?.querySelector('img')?.src ?? '');
+		});
+	});
+	// Edit Project - Delete Buttons
+	elements.galleryPreview.querySelectorAll('.delete-item').forEach((deleteButton) => {
+		deleteButton.addEventListener((e) => {
+			let index = e.currentTarget.dataset.index;
+			elements.galleryPreview.querySelector(`li[data-old-gallery-index="${index}"]`).classList.add(HIDDEN_CLASS);
+			elements.galleryPreview.querySelector(`input[name="gallery-delete-name[${index}]"]`).disabled = false;
+			uploadCounter.gallery--;
+			// Remove the link from the articles text
+			$link = elements.galleryPreview.querySelector(`li[data-old-gallery-index="${index}"] .gallery-container img`).src;
+			markdownEdited = true;
+			elements.markdownInput.value = elements.markdownInput.value.replace($link,'');
+		});
+	});
+	elements.linkAdder.querySelectorAll('.delete-item').forEach((deleteButton) => {
+		deleteButton.addEventListener((e) => {
+			let index = e.currentTarget.dataset.index;
+			elements.linkAdder.querySelector(`li[data-old-link-index="${index}"]`).classList.add(HIDDEN_CLASS);
+			elements.linkAdder.querySelector(`input[name="link-delete-url[${index}]"]`).disabled = false;
+			uploadCounter.links--;
+		});
+	});
+	elements.fileAdder.querySelectorAll('.delete-item').forEach((deleteButton) => {
+		deleteButton.addEventListener((e) => {
+			let index = e.currentTarget.dataset.index;
+			elements.fileAdder.querySelector(`li[data-old-file-index="${index}"]`).classList.add(HIDDEN_CLASS);
+			elements.fileAdder.querySelector(`input[name="file-delete-name[${index}]"]`).disabled = false;
+			uploadCounter.files--;
+		});
 	});
 
 }
@@ -201,7 +239,7 @@ function handleCategoryUpdate(event, elements) {
 	if (event.target.value != '') {
 		event.target.querySelector('option[value=""]')?.remove();
 		elements.slugPrefix.textContent = `/${event.target.value}/`;
-		elements.slugInput.removeAttribute('disabled');
+		elements.slugInput.removeAttribute('readonly');
 	}
 }
 
@@ -413,7 +451,8 @@ async function insertGalleryFileUrl(objectUrl, elements, galleryIndex) {
 	let hiddenInput = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] input[type="hidden"]`
 	);
-	hiddenInput?.setAttribute('value', objectUrl);
+	$splitObjectUrl = objectUrl.split('/');
+	hiddenInput?.setAttribute('value', splitObjectUrl[splitObjectUrl.length - 1]);
 }
 
 //## Dynamic HTML Generators
@@ -425,12 +464,7 @@ async function insertGalleryFileUrl(objectUrl, elements, galleryIndex) {
 function generateGalleryItem(i) {
 	return `
 <li class="gallery-image" data-gallery-index="${i}">
-  <div class="field">
-    <label for="gallery-caption-${i}">Image #${i + 1}</label>
-    <input id="gallery-caption-${i}" name="gallery-caption[${i}]" type="text" placeholder="Caption of Image #${
-		i + 1
-	}.">
-  </div>
+  <span class="image-title">Image #${i + 1}</span>
   <label id="gallery-upload-zone" for="gallery-upload-${i}">
 	<span class="size-warning">The image must be JPEG, PNG, GIF or WEBP of 15MB at most!</span>
 	<span class="ratio-warning">The image needs to have 16:9 aspect ratio!</span>
@@ -440,7 +474,7 @@ function generateGalleryItem(i) {
   <button class="gallery-container hidden">
     <img alt="Image #${i + 1}">
   </button>
-  <input name="gallery-browser-url[${i}]" type="hidden">
+  <input name="gallery-uuid[${i}]" type="hidden">
 </li>`;
 }
 
@@ -530,6 +564,9 @@ async function markdownGithub(data) {
 	const req = new Request(MARKDOWN_URL, options);
 
 	const response = await fetch(req);
+	if (!response.ok) {
+		return "Failed generating preview! Invalid response from GitHub API."
+	}
 	return await response.text();
 }
 

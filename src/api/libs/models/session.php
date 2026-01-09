@@ -39,11 +39,11 @@ function createSession($username,$password,$duration = DEFAULT_SESSION_LENGTH) {
 /**
  * Verifies session's existance and returns the username for the session.
  * @param string $token Token of the session to verify.
- * @return string|null The username or null if the session's invalid.
+ * @return string|bool The username or `false` if the session's invalid.
  */
 function verifySession($token = '') {
     if ($token == '') {
-        return null;
+        return false;
     }
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $stmt = $dbConnection->prepare("SELECT `username`, `expires` FROM `session` WHERE `token` = ? LIMIT 1");
@@ -54,13 +54,13 @@ function verifySession($token = '') {
         $username = $row['username'];
         $expires = $row['expires'];
     } else {
-        $username = null;
+        $username = false;
     } 
     $stmt->close();
     
     if (isset($expires) && strtotime($expires) < time()) {
         destroySession($token);
-        return null;
+        return false;
     }
 
     return $username;

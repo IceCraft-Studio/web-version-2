@@ -20,7 +20,7 @@ if (str_starts_with($currentRoute, 'home')) {
 
 // User Display Logic
 $username = verifySession($_COOKIE['token'] ?? '');
-if ($username != null) {
+if ($username != false) {
     $userData = getUserData($username);
     if (($userData['display_name'] ?? '') === '') {
         $displayName = $username;
