@@ -55,7 +55,7 @@ function generateDownloadLinks($linksArray) {
     <?php if ($viewerAdmin || $viewerCreator): ?>
     <div class="project-actions">  
         <a href="/~dobiapa2/upload-project?edit-category=<?= $pageCategory ?>&edit-slug=<?= $pageSlug ?>" <?= $viewerCreator ? '' : 'disabled'?>>Edit this Project</a>
-        <a href="/~dobiapa2/api/internal/projects/delete-project.php?category=<?= $pageCategory ?>&slug=<?= $pageSlug ?>">Delete this Project</a>
+        <a href="/~dobiapa2/api/internal/projects/delete-project.php?category=<?= $pageCategory ?>&project=<?= $pageSlug ?>">Delete this Project</a>
     </div>
     <?php endif ; ?>
     <div class="creator-container">

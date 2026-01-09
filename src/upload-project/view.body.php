@@ -20,7 +20,7 @@ $profilePicture = $viewState->get('verified-profile-picture', '');
 $userLink = getUserLink($username);
 
 if ($prefillEditing === '1') {
-    $cardThumbnailSrc = '/~dobiapa2/api/internal/projects/thumbnail.php?variant=preview&category=' . $prefillCategory . '&slug=' . $prefillSlug;
+    $cardThumbnailSrc = '/~dobiapa2/api/internal/projects/thumbnail.php?variant=preview&category=' . $prefillCategory . '&project=' . $prefillSlug;
 } else {
     $cardThumbnailSrc = '/~dobiapa2/assets/empty-thumbnail.webp';
 }

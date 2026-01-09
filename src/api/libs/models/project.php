@@ -75,7 +75,7 @@ enum ProjectSort: string
  */
 function getProjectThumbnailLink($category, $slug, $full = false)
 {
-    return THUMBNAIL_URL_START . '?category=' . $category . '&slug=' . $slug . ($full ? '' : '&variant=preview');
+    return THUMBNAIL_URL_START . '?category=' . $category . '&project=' . $slug . ($full ? '' : '&variant=preview');
 }
 
 /**
