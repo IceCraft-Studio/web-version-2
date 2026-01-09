@@ -131,7 +131,7 @@ function generateLinkItem($i, $urlLink, $displayName) {
 }
 
 function createPreviousGallery($galleryArray) {
-    if ($galleryArray === false) {
+    if (!is_array($galleryArray)) {
         return;
     }
     $index = 0;
@@ -146,7 +146,7 @@ function createPreviousGallery($galleryArray) {
 }
 
 function createPreviousFileUploads($fileArray) {
-    if ($fileArray === false) {
+    if (!is_array($fileArray)) {
         return;
     }
     $index = 0;
@@ -162,7 +162,7 @@ function createPreviousFileUploads($fileArray) {
 }
 
 function createPreviousLinks($linkArray) {
-    if ($linkArray === false) {
+    if (!is_array($linkArray)) {
         return;
     }
     $index = 0;
