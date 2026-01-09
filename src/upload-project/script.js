@@ -168,6 +168,7 @@ async function main() {
 	// Edit Project - Delete Buttons
 	elements.galleryPreview.querySelectorAll('.delete-item').forEach((deleteButton) => {
 		deleteButton.addEventListener('click',(e) => {
+			e.preventDefault();
 			let index = e.currentTarget.dataset.index;
 			elements.galleryPreview.querySelector(`li[data-old-gallery-index="${index}"]`).classList.add(HIDDEN_CLASS);
 			elements.galleryPreview.querySelector(`input[name="gallery-delete-name[${index}]"]`).disabled = false;
@@ -180,6 +181,7 @@ async function main() {
 	});
 	elements.linkAdder.querySelectorAll('.delete-item').forEach((deleteButton) => {
 		deleteButton.addEventListener('click',(e) => {
+			e.preventDefault();
 			let index = e.currentTarget.dataset.index;
 			elements.linkAdder.querySelector(`li[data-old-link-index="${index}"]`).classList.add(HIDDEN_CLASS);
 			elements.linkAdder.querySelector(`input[name="link-delete-url[${index}]"]`).disabled = false;
@@ -188,6 +190,7 @@ async function main() {
 	});
 	elements.fileAdder.querySelectorAll('.delete-item').forEach((deleteButton) => {
 		deleteButton.addEventListener('click',(e) => {
+			e.preventDefault();
 			let index = e.currentTarget.dataset.index;
 			elements.fileAdder.querySelector(`li[data-old-file-index="${index}"]`).classList.add(HIDDEN_CLASS);
 			elements.fileAdder.querySelector(`input[name="file-delete-name[${index}]"]`).disabled = false;
