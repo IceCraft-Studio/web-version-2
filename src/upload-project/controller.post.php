@@ -344,13 +344,6 @@ if ($projectIsEditing) {
         prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     };
-    if (!saveProjectArticle($projectCategory, $projectSlug, $markdownArticle)) {
-        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
-        prefillProjectFormValues($viewState);
-        initCsrf('upload-project');
-        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
-        return;
-    };
     if (saveGalleryImages(
         $projectCategory, 
         $projectSlug, 
@@ -358,6 +351,13 @@ if ($projectIsEditing) {
         $galleryUuidsArray,
         $galleryExistingAmount
     ) === false) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
+        return;
+    };
+    if (!saveProjectArticle($projectCategory, $projectSlug, $markdownArticle)) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
         initCsrf('upload-project');
