@@ -8,6 +8,11 @@ $projectsList = $viewState->get('projects-list',[]);
 $projectsCategory = $viewState->get('projects-category','');
 $projectsCategoryName = $viewState->get('projects-category-name','');
 
+$projectsPageTitle = 'All Projects';
+if ($projectsCategory !== '') {
+    $projectsPageTitle = 'Projects - ' . $projectsCategoryName;
+}
+
 // Paging Data
 $lastPageNumber = $viewState->get('paging-last-page',1);
 $currentPageNumber = $viewState->get('paging-page',1);
@@ -20,6 +25,7 @@ if (!in_array($currentSize, $defaultSizes)) {
 }
 $currentSort = $viewState->get('paging-sort','title');
 $currentOrder = $viewState->get('paging-order','asc');
+
 
 function generateProjectCard($category,$slug,$title,$description,$thumbnailLink,$username,$modified) {
     $projectLink = getProjectLink($category,$slug);

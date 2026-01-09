@@ -4,7 +4,7 @@ $projectsCategory = $viewState->get('projects-category','');
 $projectsCategoryName = $viewState->get('projects-category-name','');
 
 $projectsPageTitle = 'All Projects';
-if ($projectCategory !== '') {
+if ($projectsCategory !== '') {
     $projectsPageTitle = 'Projects - ' . $projectsCategoryName;
 }
 ?>
