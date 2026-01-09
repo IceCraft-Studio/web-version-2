@@ -43,7 +43,8 @@ const MAX_GALLERY_AMOUNT = 12;
 const EDIT_INSERTED_CLASS = 'edit-inserted';
 const COPIED_CLASS = 'copied';
 
-const IS_EDITING = document.querySelector("input[name='editing'")?.value == '1';
+const IS_EDITING = document.querySelector('input[name="editing"')?.value == '1';
+console.log(IS_EDITING)
 
 async function main() {
 	let uploadIndexes = {
