@@ -430,17 +430,20 @@ if (!$projectIsEditing) {
     // save data
     if (!createProject($projectCategory, $projectSlug, $username,$title,$description)) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        header('Error: Create Project');
         prefillProjectFormValues($viewState);
         return;
     };
     if (!saveProjectThumbnail($projectCategory, $projectSlug, $thumbnailFile)) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        header('Error: thumnbnail');
         prefillProjectFormValues($viewState);
         deleteProject($projectCategory,$projectSlug);
         return;
     };
     if (!saveProjectArticle($projectCategory, $projectSlug, $markdownArticle)) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        header('Error: article');
         prefillProjectFormValues($viewState);
         deleteProject($projectCategory,$projectSlug);
         return;
@@ -452,6 +455,7 @@ if (!$projectIsEditing) {
         $galleryUuidsArray
     )) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        header('Error: gallery');
         prefillProjectFormValues($viewState);
         deleteProject($projectCategory,$projectSlug);
         return;
@@ -463,6 +467,7 @@ if (!$projectIsEditing) {
             $linkNamesArray
     )) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        header('Error: links');
         prefillProjectFormValues($viewState);
         deleteProject($projectCategory,$projectSlug);
         return;
@@ -475,6 +480,7 @@ if (!$projectIsEditing) {
         $uploadDisplayNamesArray
     )) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        header('Error: uplaod file');
         prefillProjectFormValues($viewState);
         deleteProject($projectCategory,$projectSlug);
         return;
