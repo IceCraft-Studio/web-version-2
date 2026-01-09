@@ -1,7 +1,7 @@
 <?php
 $viewState = ViewData::getInstance();
 
-$projectUploadState = $viewState->get('project-upload-state', ProjectUploadState::NoState);
+$projectUploadState = $viewState->get('upload-project-state', ProjectUploadState::NoState);
 
 $prefillEditing = $viewState->get('form-editing', '0');
 $prefillTitle = htmlspecialchars($viewState->get('form-title', ''));
