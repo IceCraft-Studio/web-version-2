@@ -126,7 +126,6 @@ function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber
         if (($filePath ?? '') == '') {
             continue;
         }
-        header('Gallery' . $index . ': !' . (string)(($filePath ?? '') == '') . '!');
         if ($uploadsNumber >= MAX_GALLERY_UPLOADS) {
             break;
         }

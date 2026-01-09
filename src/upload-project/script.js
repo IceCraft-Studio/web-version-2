@@ -84,8 +84,6 @@ async function main() {
 		files: elements.fileAdder?.querySelectorAll(`.${EDIT_INSERTED_CLASS}`)?.length ?? 0,
 	};
 
-	// Dynamically fetch available categories from the backend
-	fillCategories(elements.categorySelect);
 	// Handle changing category
 	elements.categorySelect.addEventListener('change', (e) => {
 		slugVerificationTimer = queueAvailibilityVerification(elements,slugVerificationTimer);
@@ -240,35 +238,6 @@ function handleCategoryUpdate(event, elements) {
 		event.target.querySelector('option[value=""]')?.remove();
 		elements.slugPrefix.textContent = `/${event.target.value}/`;
 		elements.slugInput.removeAttribute('readonly');
-	}
-}
-
-/**
- * Fetches categories from our API and fills them as OPTION elements.
- * @param {HTMLSelectElement} selectElement Select element to fill with OPTION elements.
- */
-async function fillCategories(selectElement) {
-	selectElement.insertAdjacentHTML('beforeend', `<option value=""></option>`);
-
-	const reqHeaders = new Headers();
-	reqHeaders.set('Accept', 'application/json');
-	reqHeaders.set('Content-Type', 'application/json');
-
-	const options = {
-		method: 'POST',
-		headers: reqHeaders,
-		body: '',
-	};
-	const req = new Request(LIST_CATEGORIES_ENDPOINT, options);
-
-	const response = await fetch(req);
-	const jsonData = await response.json();
-
-	for (const category of jsonData['categories']) {
-		selectElement.insertAdjacentHTML(
-			'beforeend',
-			`<option value="${category.id}">${category.name}</option>`
-		);
 	}
 }
 

@@ -176,6 +176,26 @@ function createPreviousLinks($linkArray) {
     }
 }
 
+function createCategorySelection($prefillCategory) {
+    $categories = getCategories() ?: [];
+    $savedCategories = [
+        '<option value="" selected></option>'
+    ];
+    foreach ($categories as $categoryRecord) {
+    if ($prefillCategory == $categoryRecord['id']) {
+        $selectedString = 'selected';
+        $savedCategories[0] = '';
+    } else {
+        $selectedString = '';
+    }
+    $savedCategories[] =  '<option value="' . $categoryRecord['id'] . '" ' . $selectedString  . '>' . $categoryRecord['name'] . '</option>';
+    }
+    foreach ($savedCategories as $savedCategory) {
+        echo $savedCategory;
+    }
+
+}
+
 // Get session csrf-token
 $csrfToken = getCsrf('upload-project');
 ?>
@@ -258,7 +278,11 @@ $csrfToken = getCsrf('upload-project');
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
-                <select id="input-category" name="category" value="<?= $prefillCategory ?>" <?= $prefillEditing === '1' ? 'readonly' : '' ?> required></select>
+                <select id="input-category" name="category" <?= $prefillEditing == '1' ? 'readonly' : '' ?> required>
+                    <?php
+                        createCategorySelection($prefillCategory);
+                    ?>
+                </select>
                 <div class="hint <?= $projectUploadState === ProjectUploadState::CategoryInvalid ? 'color-required' : '' ?>">
                     The category must be selected before you can type in the slug.
                 </div>
