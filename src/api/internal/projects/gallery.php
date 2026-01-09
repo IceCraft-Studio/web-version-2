@@ -16,20 +16,25 @@ $filePath = resolveDataPath('project/' . $category . '/' . $project . '/gallery/
 if (!file_exists($filePath)) {
     http_response_code(404);
 } else {
-    switch (getFileExt($filePath)) {
-        case 'png':
-            header('Content-Type: image/png');
-            break;
-        case 'jpeg':
-        case 'jpg':
-            header('Content-Type: image/jpeg');
-            break;
-        case 'webp':
-            header('Content-Type: image/webp');
-            break;
-        case 'gif':
+    $imageInfo = getimagesize($filePath);
+    if ($imageInfo === false) {
+        http_response_code(404);
+        exit;
+    }
+    $imageType = $imageInfo[2];
+
+    switch ($imageType) {
+        case IMAGETYPE_GIF:
             header('Content-Type: image/gif');
             break;
+        case IMAGETYPE_WEBP:
+            header('Content-Type: image/webp');
+            break;
+    default:
+        http_response_code(404);
+        exit;
     }
+    
+    header('Content-Length: ' . filesize($filePath));
     readfile($filePath);
 }

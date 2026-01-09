@@ -317,7 +317,7 @@ function getUserData($username)
  * @param array<string> $filters Array with 1 index, `role`. If the string isn't empty, it is used to filter out results.
  * @param UserSort $sortBy How to sort the users.
  * @param bool $sortAscending When `true` 'ASC' is used in the SQL query.
- * @return array
+ * @return array|bool Array of users based on the parameters, `false` on failure.
  */
 function getUserList($listNumber, $listItems, $filters = ['role' => ''], $sortBy = UserSort::Modified, $sortAscending = false) { 
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -360,4 +360,19 @@ function getUserCount($filters = ['role' => '']) {
 function getRoles() {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     return dbQuery($dbConnection,'SELECT * FROM `role`');
+}
+
+/**
+ * Retrieves the role name for a given ID.
+ * @param string $roleId The role ID.
+ * @return string|bool Name of the role or `false` if the role isn't found.
+ */
+function getRoleName($roleId)
+{
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, 'SELECT `name` FROM `role` WHERE `id` = ?','s', [$roleId]);
+    if ($result === false || count($result) === 0) {
+        return false;
+    }
+    return $result[0]['name'] ?? false;
 }

@@ -604,6 +604,83 @@ img.no-select {
     width: 100%;
 }
 
+/* Project Card Styles */
+.project-card a {
+    text-decoration: none;
+}
+
+.project-card a:hover h3 {
+    text-decoration: underline;
+}
+
+.project-card {
+    max-width: 25em;
+    border-radius: 0.5em;
+    background-color: var(--color-1);
+}
+
+.project-card:hover {
+    background-color: var(--color-2);
+}
+
+.project-card .user-part a {
+    display: flex;
+    align-items: center;
+    padding: 0.3em;
+}
+
+.project-card .user-part a:hover {
+    text-decoration: underline;
+}
+.project-card .user-part span {
+    padding-left: 0.2em;
+}
+
+.project-card .user-part img {
+    width: 2em;
+    height: 2em;
+    border: 0.2rem var(--color-primary) solid;
+    border-radius: 50%;
+}
+
+.project-card .project-part img {
+    width: 75%;
+    border-top: 0.25em solid var(--color-text);
+    padding: 0 12.5%;
+}
+    
+.project-card .project-part h3 {
+    height: 1.4em;
+    padding: 0 0.5em;
+}
+
+.project-card .project-part p.description {
+    height: 3.6em;
+    padding: 0.3em 0.5em;
+    color: var(--color-text);
+}
+
+.project-card .project-part p.modified {
+    border-top: 0.25em solid var(--color-text);
+    padding: 0.3em 0.5em;
+    color: var(--color-text);
+}
+
+.project-card:hover .project-part p.modified {
+    border-color: var(--color-primary-toned);
+}
+
+.project-card:hover .project-part img {
+    border-color: var(--color-primary-toned);
+}
+
+.project-card * {
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
 /* Page Form (sorting, filters etc.) */
 
 .page-form > form {

@@ -122,7 +122,7 @@ Fields:
 
 # Database
 
-The general structure of the database is described in the file `src/database.sql`.
+The general structure of the database is described in the file `database.sql`.
 This file can be called to recreate empty database tables used for the purposes of this website.
 
 # File system

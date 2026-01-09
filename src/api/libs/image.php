@@ -42,9 +42,10 @@ function validateImageAspectRatio($srcImage,$aspectRatio,$precision = 0.01) {
  * @param mixed $outImage Path where to save the image. WITHOUT THE EXTENSION!
  * @param int $outWidth Output width, use `0` means don't change.
  * @param int $outHeight Output height, `0` means dont't change.
+ * @param bool $noExtension If `true`, save the file without extension.
  * @return string|bool Output path with extension on success, `false` on failure.
  */
-function saveImageAsWebpOrGif($srcImage,$outImage,$outWidth = 0,$outHeight = 0) {
+function saveImageAsWebpOrGif($srcImage,$outImage,$outWidth = 0,$outHeight = 0,$noExtension = false) {
     // Get basic details
     $imageInfo = getimagesize($srcImage);
     if ($imageInfo === false) {
@@ -74,10 +75,10 @@ function saveImageAsWebpOrGif($srcImage,$outImage,$outWidth = 0,$outHeight = 0) 
     imagesavealpha($newImageData, true);
     imagecopyresampled($newImageData,$imageData,0,0,0,0,$outWidth,$outHeight,$width,$height);
     // Save as WEBP or GIF and return the new path or `false`
-    if ($type === IMAGETYPE_GIF && imagegif($newImageData,$outImage . '.gif')) {
-        return $outImage . '.gif';
-    } else if (imagewebp($newImageData,$outImage . '.webp')) {
-        return $outImage . '.webp';
+    if ($type === IMAGETYPE_GIF && imagegif($newImageData,$outImage . ($noExtension ? '' : '.gif'))) {
+        return $outImage . ($noExtension ? '' : '.gif');
+    } else if (imagewebp($newImageData,$outImage . ($noExtension ? '' : '.webp'))) {
+        return $outImage . ($noExtension ? '' : '.webp');
     }
     return false;
 

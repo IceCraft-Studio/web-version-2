@@ -372,12 +372,8 @@ function addProjectGalleryImage($category, $slug, $fileLocation, $imageUuid)
     if ($saveResult === false) {
         return false;
     }
-    if (str_ends_with($saveResult,'.gif')) {
-        $fileName = $imageUuid . '.gif';
-    } else {
-        $fileName = $imageUuid . '.webp';
-    }
-    $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`) VALUES (?, ?, ?, ?)  ", "ssss", [$category, $slug, $fileName]);
+    
+    $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`) VALUES (?, ?, ?, ?)  ", "ssss", [$category, $slug, $imageUuid]);
     $success = ($result !== false && $result !== 0);
     if ($success) {
         updateProjectDateModified($category, $slug);
@@ -534,7 +530,7 @@ function getProjectData($category, $slug)
  * @param string[] $filters Array with 2 indexes, `username` and `category`. If the string isn't empty, it is used to filter out results.
  * @param ProjectSort $sortBy How to sort the projects.
  * @param bool $sortAscending When `true` 'ASC' is used in the SQL query.
- * @return array
+ * @return array|bool Array of projects based on the parameters, `false` on failure.
  */
 function getProjectList($listNumber, $listItems, $filters = ['category' => '', 'username' => ''], $sortBy = ProjectSort::Modified, $sortAscending = false)
 {
@@ -589,6 +585,21 @@ function getCategories()
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     return dbQuery($dbConnection, 'SELECT * FROM `category`');
+}
+
+/**
+ * Retrieves the category name for a given ID.
+ * @param string $categoryId The category ID.
+ * @return string|bool Name of the category or `false` if the category isn't found.
+ */
+function getCategoryName($categoryId)
+{
+    $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $result = dbQuery($dbConnection, 'SELECT `name` FROM `category` WHERE `id` = ?','s', [$categoryId]);
+    if ($result === false || count($result) === 0) {
+        return false;
+    }
+    return $result[0]['name'] ?? false;
 }
 
 /**

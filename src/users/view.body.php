@@ -1,10 +1,24 @@
 <?php
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/paging.php'; 
 
 $viewState = ViewData::getInstance();
-$usersList = $viewState->get('users-list');
-$lastPageNumber = $viewState->get('last-page');
-$currentPageNumber = (int) ($_GET['page'] ?? '1');
 
+// User Data
+$usersList = $viewState->get('users-list',[]);
+
+// Paging Data
+$lastPageNumber = $viewState->get('paging-last-page',1);
+$currentPageNumber = $viewState->get('paging-page',1);
+
+$defaultSizes = ['10', '25', '50', '100', '200'];
+
+$currentSize = (string) ($viewState->get('paging-size',25));
+if (!in_array($currentSize, $defaultSizes)) {
+    $defaultSizes[] = $currentSize;
+}
+$currentRole = $viewState->get('paging-role','');
+$currentSort = $viewState->get('paging-sort','username');
+$currentOrder = $viewState->get('paging-order','asc');
 
 function generateUserTableData($usersList)
 {
@@ -20,52 +34,6 @@ function generateUserTableData($usersList)
         echo '</tr>';
     }
 }
-
-function createPageLink($requestUrl, $params, $page) {
-    $newParams = $params;
-    $newParams['page'] = $page;
-    $questionMarkIndex = strpos($requestUrl, '?');
-    if ($questionMarkIndex !== false) {
-        $requestUrl = substr($requestUrl,0,$questionMarkIndex);
-    }
-    return $requestUrl . '?' . http_build_query($newParams);
-}
-
-function generatePageControls($page,$lastPage) {
-    $firstPage = 1;
-    echo "<div>";
-    if ($page > $firstPage) {
-        $link = createPageLink($_SERVER['REQUEST_URI'],$_GET,$firstPage);
-        echo '<a href="' . $link . '">&lt;&lt; First Page</a>';
-    }
-    if ($page > $firstPage+1) {
-        $link = createPageLink($_SERVER['REQUEST_URI'],$_GET,$page-1);
-        echo '<a href="' . $link . '">&lt; Previous Page</a>';
-    }
-    echo "</div><div>";
-    if ($page < $lastPage-1) {
-        $link = createPageLink($_SERVER['REQUEST_URI'],$_GET,$page+1);
-        echo '<a href="' . $link . '">Next Page &gt;</a>';
-    }
-    if ($page < $lastPage) {
-        $link = createPageLink($_SERVER['REQUEST_URI'],$_GET,$lastPage);
-        echo '<a href="' . $link . '">Last Page &gt;&gt;</a>';
-    }
-    echo "</div>";
-}
-
-$defaultSizes = ['10', '25', '50', '100', '200'];
-
-$currentSize = $_GET['size'] ?? '25';
-if (!in_array($currentSize, $defaultSizes)) {
-    $defaultSizes[] = $currentSize;
-}
-$currentRole = $_GET['role'] ?? '';
-$currentSort = $_GET['sort'] ?? 'username';
-$currentOrder = $_GET['order'] ?? 'asc';
-
-
-
 
 ?>
 <main>

@@ -328,7 +328,7 @@ async function processGalleryFileUpload(
 	uploadCounter
 ) {
 	//Check file size and type
-	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
+	const sizeMB = file.size / 1024 ** 2;
 	if (
 		sizeMB > MAX_ALLOWED_IMAGE_SIZE_MB ||
 		!ALLOWED_IMAGE_TYPES.includes(file.type)
@@ -365,7 +365,7 @@ async function processGalleryFileUpload(
 
 async function validateThumbnail(file, elements) {
 	//Check file size and type
-	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
+	const sizeMB = file.size / 1024 ** 2;
 	if (
 		sizeMB > MAX_ALLOWED_IMAGE_SIZE_MB ||
 		!ALLOWED_THUMB_IMAGE_TYPES.includes(file.type)
@@ -395,7 +395,7 @@ async function validateThumbnail(file, elements) {
 }
 
 function validateFileUpload(file, elements, target) {
-	const sizeMB = file.size / 1000 ** 2; //MB (1000) not MiB (1024)!
+	const sizeMB = file.size / 1024 ** 2;
 	if (sizeMB > MAX_ALLOWED_UPLOAD_SIZE_MB) {
 		target.value = null;
 		return false;

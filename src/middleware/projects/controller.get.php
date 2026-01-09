@@ -9,45 +9,40 @@ const SORT_CREATED = 'created';
 
 $viewState = ViewData::getInstance();
 
-$currentRoute = normalizeUriRoute($_SERVER['REQUEST_URI']);
+$currentRoute = $viewState->get('normalized-route');
+
+// Handle all projects page vs category specific page
 if ($currentRoute == 'projects') {
-    $viewState->set('projects-category','');
+    $category = '';
+    $categoryName = '';
 } else {
-    $allCategories = getCategories();
-    if ($allCategories === false) {
-        http_response_code(500);
-        return;
-    }
-    $category = substr($currentRoute,9);
-    $categoryExists = false;
-    foreach ($allCategories as $someCategory) {
-        if ($someCategory['id'] == $category) {
-            $categoryExists = true;
-            break;
-        }
-    }
-    if (!$categoryExists) {
+    $explodedRoute = explode('/',$currentRoute);
+    $category = $explodedRoute[1] ?? '';
+    $categoryName = getCategoryName($category);
+    if ($categoryName === false) {
         http_response_code(404);
         return;
     }
-    $viewState->set('projects-category',$category);
 }
+$viewState->set('projects-category',$category);
+$viewState->set('projects-category-name',$categoryName);
 
 // Ensure `page` is a number higher than 1
-$page = $_GET['page'] ?? 1;
-$page = is_numeric($page) ? $page : 1;
+$page = $_GET['page'] ?? '1';
+$page = ctype_digit($page) ? (int) $page : 1;
 if ($page < 1) {
     $page = 1;
 }
 // Ensure `size` is a number between 6 and 200
-$size = $_GET['size'] ?? 10;
-$size = is_numeric($size) ? $size : 10;
+$size = $_GET['size'] ?? '20';
+$size = ctype_digit($size) ? (int) $size : 20;
 if ($size < 6) {
     $size = 6;
 }
 if ($size > 200) {
     $size = 200;
 }
+
 // Ensure order and sort is set correctly
 $order = $_GET['order'] ?? ORDER_DESCENDING;
 
@@ -64,4 +59,23 @@ switch ($_GET['sort'] ?? SORT_MODIFIED) {
         break;
 }
 
-$viewState->set('projects-list', getProjectList($page, $size, ['category' => '', 'username' => ''], $sort, $order == ORDER_ASCENDING));
+$viewState->set('paging-page',$page);
+$viewState->set('paging-size',$size);
+$viewState->set('paging-sort',$sort);
+$viewState->set('paging-order',$order);
+
+// Get required data from the database
+$amount = getProjectCount(['category' => $category, 'username' => '']);
+if ($amount === false) {
+    http_response_code(500);
+    return;
+}
+$lastPage = ceil($amount/$size);
+$viewState->set('paging-last-page',$lastPage);
+
+$projectsList = getProjectList($page, $size, ['category' => $category, 'username' => ''], $sort, $order == ORDER_ASCENDING);
+if ($projectsList === false) {
+    http_response_code(500);
+    return;
+}
+$viewState->set('projects-list', $projectsList);

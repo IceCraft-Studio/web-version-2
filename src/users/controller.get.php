@@ -26,14 +26,14 @@ if (!$isAdmin) {
 }
 
 // Ensure `page` is a number higher than 1
-$page = $_GET['page'] ?? 1;
-$page = is_numeric($page) ? $page : 1;
+$page = $_GET['page'] ?? '1';
+$page = ctype_digit($page) ? (int) $page : 1;
 if ($page < 1) {
     $page = 1;
 }
 // Ensure `size` is a number between 10 and 500
-$size = $_GET['size'] ?? 10;
-$size = is_numeric($size) ? $size : 10;
+$size = $_GET['size'] ?? '25';
+$size = ctype_digit($size) ? (int)  $size : 10;
 if ($size < 10) {
     $size = 10;
 }
@@ -46,24 +46,44 @@ $order = $_GET['order'] ?? ORDER_ASCENDING;
 switch ($_GET['sort'] ?? SORT_USERNAME) {
     case SORT_USERNAME:
         $sort = UserSort::Username;
+        $viewState->set('paging-sort',SORT_USERNAME);
         break;
     case SORT_DISPLAY_NAME:
         $sort = UserSort::DisplayName;
+        $viewState->set('paging-sort',SORT_DISPLAY_NAME);
         break;
     case SORT_ROLE:
         $sort = UserSort::Role;
+        $viewState->set('paging-sort',SORT_ROLE);
         break;
     case SORT_CREATED:
     default:
         $sort = UserSort::Created;
+        $viewState->set('paging-sort',SORT_CREATED);
         break;
 }
 
 $roleFilter = $_GET['role'] ?? '';
 
-$amount = getUserCount(['role' => $roleFilter]);
-$lastPage = ceil($amount/$size);
-$viewState->set('last-page',$lastPage);
+$viewState->set('paging-page',$page);
+$viewState->set('paging-size',$size);
+$viewState->set('paging-order',$order);
+$viewState->set('paging-role',$role);
 
-$viewState->set('users-list', getUserList($page, $size, ['role' => $roleFilter], $sort, $order == ORDER_ASCENDING));
+$amount = getUserCount(['role' => $roleFilter]);
+if ($amount === false) {
+    http_response_code(500);
+    return;
+}
+$lastPage = ceil($amount/$size);
+$viewState->set('paging-last-page',$lastPage);
+
+$usersList = getUserList($page, $size, ['role' => $roleFilter], $sort, $order == ORDER_ASCENDING);
+if ($usersList === false) {
+    http_response_code(500);
+    return;
+}
+
+$viewState->set('users-list', $usersList);
+
 
