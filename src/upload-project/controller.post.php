@@ -88,7 +88,16 @@ function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
         if ($uploadsNumber >= MAX_LINK_UPLOADS) {
             break;
         }
-        if (strlen($url ?? '') > 200) {
+        if (!preg_match('/^[a-z]*:\/\//', $url)) {
+            $url = 'https://' . $url;
+        }
+        if (!preg_match('/^https?:\/\//', $url)) {
+            return false;
+        }
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            return false;
+        }
+        if (strlen($url) > 200) {
             return false;
         }
         if (strlen($nameArray[$index] ?? '') > 96) {
@@ -145,6 +154,9 @@ function saveUrlLinks($category,$slug,$urlArray,$nameArray,$existingNumber = 0) 
         }
         if ($uploadsNumber >= MAX_LINK_UPLOADS) {
             break;
+        }
+        if (!preg_match('/^[a-z]*:\/\//', $url)) {
+            $url = 'https://' . $url;
         }
         $result = addProjectLink($category,$slug,$url,$nameArray[$index] ?? '');
         if ($result === false) {

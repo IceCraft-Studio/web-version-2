@@ -61,7 +61,7 @@ switch ($projectUploadState) {
         $errorBannerMessage = 'Upload failed! Some gallery image is invalid. Make sure their aspect ratio is 16:9 and their file size is not bigger than 15 MB.';
         break;
     case ProjectUploadState::LinkInvalid:
-        $errorBannerMessage = 'Upload failed! Link invalid. Make sure its URL is not longer than 200 characters and its display name is not longer than 96 characters.';
+        $errorBannerMessage = 'Upload failed! Link invalid. Make sure its URL is valid, uses HTTP or HTTPS and is not longer than 200 characters and its display name is not longer than 96 characters.';
         break;
     case ProjectUploadState::FileInvalid:
         $errorBannerMessage = 'Upload failed! File upload invalid. Make sure its file size is not bigger than 30 MB and its display name is not longer than 96 characters.';
@@ -125,7 +125,7 @@ function generateLinkItem($i, $urlLink, $displayName) {
             <img src="/~dobiapa2/assets/icons/bin.svg">
         <span>Delete Image</span>
         </button>
-        <input name="link-delete-url[' . $i . ']" value="' . $urlLink . '" type="hidden" disabled>
+        <input name="link-delete-url[' . $i . ']" value="' . htmlspecialchars($urlLink, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '" type="hidden" disabled>
     </div>
 </li>';
 }
@@ -321,7 +321,7 @@ $csrfToken = getCsrf('upload-project');
                 The project needs to provide at least 1 file or link and at most 5 of each for the audience to download.
             </div>
             <div>
-                Max file upload size is 30MB. File names are preserved but modified to be safe. Max URL length is 200 characters. 
+                Max file upload size is 30MB. File names are preserved but modified to be safe. Make sure the URL is valid HTTP(S) and not longer than 200 charactetrs.
             </div>
             <div>
                 Display name can be up to 96 characters long. 

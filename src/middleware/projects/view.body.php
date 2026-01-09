@@ -54,7 +54,7 @@ function generateProjectCard($category,$slug,$title,$description,$thumbnailLink,
     </div>
     <a href="' . $projectLink . '">
         <div class="project-part">
-            <img src="' . htmlspecialchars($thumbnailLink) . '" alt="Project Card Thumbnail">
+            <img src="' . $thumbnailLink . '" alt="Project Card Thumbnail">
             <h3 title="' . htmlspecialchars($title) . '">' . htmlspecialchars($title) . '</h3>
             <p class="description" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</p>
             <p class="modified">Date Modified: <time datetime="' . $datetimeTechnical . '">' . $datetimeHuman . '</time></p>

@@ -34,7 +34,7 @@ function generateDownloadFiles($filesArray) {
         } else {
             $displayName = $fileRecord['display_name'];
         }
-        echo '<a href="' . htmlspecialchars($link) . '" target="_blank">Download - ' . htmlspecialchars($displayName) . '</a>';
+        echo '<a href="' . $link . '" target="_blank">Download - ' . htmlspecialchars($displayName) . '</a>';
     }
 }
 
@@ -46,7 +46,7 @@ function generateDownloadLinks($linksArray) {
         } else {
             $displayName = $linkRecord['display_name'];
         }
-        echo '<a href="' . htmlspecialchars($url) . '" target="_blank">' . htmlspecialchars($displayName) . '</a>';
+        echo '<a href="' . htmlspecialchars($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '" target="_blank">' . htmlspecialchars($displayName) . '</a>';
     }
 }
 
