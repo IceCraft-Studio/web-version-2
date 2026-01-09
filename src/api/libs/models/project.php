@@ -409,6 +409,7 @@ function loadProjectGalleryImages($category, $slug)
     if ($result === false) {
         return false;
     }
+    $finalArray = [];
     foreach ($result as $galleryRow) {
         $fileName = $galleryRow['file_name'] ?? '';
         $linkToImage = GALLERY_URL_START . '?category=' . $category . '&project=' . $slug . '&file_name=' . $fileName;
@@ -498,6 +499,7 @@ function loadProjectFiles($category, $slug)
     if ($result === false) {
         return false;
     }
+    $finalArray = [];
     foreach ($result as $uploadRow) {
         $fileName = $uploadRow['file_name'] ?? '';
         $linkToUpload = FILE_DOWNLOAD_URL_START . '?category=' . $category . '&project=' . $slug . '&file_name=' . $fileName;

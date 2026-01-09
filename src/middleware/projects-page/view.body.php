@@ -23,7 +23,7 @@ $viewerCreator = $viewState->get('verified-username','') === $pageUsername;
 
 $pageModifiedString = $pageModified === 'Unknown' ? 'Unknown' : date('d/m/Y', strtotime($pageModified));
 $pageCreatedString = $pageCreated === 'Unknown' ? 'Unknown' : date('d/m/Y', strtotime($pageCreated));
-$pageCategoryName = getCategoryName($category) ?? 'Unknown';
+$pageCategoryName = getCategoryName($pageCategory) ?? 'Unknown';
 
 $pageCreatorData = getUserData($pageUsername);
 $pageCreatorDisplayName = ($pageCreatorData['display_name'] ?? '') == '' ? $pageUsername : $pageCreatorData['display_name'];
@@ -82,7 +82,7 @@ function generateDownloadLinks($linksArray) {
         <?= $pageDescription ?>
     </p>
     <div id="project-article">
-        <?= $projectArticle ?>
+        <?= $pageArticle ?>
     </div>
     <h2>Project Links</h2>
     <div id="download-links">
