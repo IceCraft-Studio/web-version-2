@@ -44,10 +44,7 @@ if ($size > 500) {
 $order = $_GET['order'] ?? ORDER_ASCENDING;
 
 switch ($_GET['sort'] ?? SORT_USERNAME) {
-    case SORT_USERNAME:
-        $sort = UserSort::Username;
-        $viewState->set('paging-sort',SORT_USERNAME);
-        break;
+
     case SORT_DISPLAY_NAME:
         $sort = UserSort::DisplayName;
         $viewState->set('paging-sort',SORT_DISPLAY_NAME);
@@ -57,10 +54,15 @@ switch ($_GET['sort'] ?? SORT_USERNAME) {
         $viewState->set('paging-sort',SORT_ROLE);
         break;
     case SORT_CREATED:
-    default:
         $sort = UserSort::Created;
         $viewState->set('paging-sort',SORT_CREATED);
         break;
+    case SORT_USERNAME:
+    default:
+        $sort = UserSort::Username;
+        $viewState->set('paging-sort',SORT_USERNAME);
+        break;
+
 }
 
 $roleFilter = $_GET['role'] ?? '';
@@ -78,7 +80,7 @@ if ($amount === false) {
 $lastPage = ceil($amount/$size);
 $viewState->set('paging-last-page',$lastPage);
 
-$usersList = getUserList($page, $size, ['role' => $roleFilter], $sort, $order == ORDER_ASCENDING);
+$usersList = getUserList($page, $size, ['role' => $roleFilter], $sort, $order != ORDER_DESCENDING);
 if ($usersList === false) {
     http_response_code(500);
     return;

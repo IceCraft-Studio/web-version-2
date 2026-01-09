@@ -64,19 +64,19 @@ if ($size > 200) {
 // Ensure order and sort is set correctly
 $order = $_GET['order'] ?? ORDER_DESCENDING;
 
-switch ($_GET['sort'] ?? SORT_MODIFIED) {
-    case SORT_TITLE:
-        $sort = ProjectSort::Title;
-        $viewState->set('paging-sort',SORT_TITLE);
-        break;
+switch ($_GET['sort'] ?? SORT_TITLE) {
     case SORT_CREATED:
         $sort = ProjectSort::Created;
         $viewState->set('paging-sort',SORT_CREATED);
         break;
     case SORT_MODIFIED:
-    default:
         $sort = ProjectSort::Modified;
         $viewState->set('paging-sort',SORT_MODIFIED);
+        break;
+    default:
+    case SORT_TITLE:
+        $sort = ProjectSort::Title;
+        $viewState->set('paging-sort',SORT_TITLE);
         break;
 }
 
@@ -93,7 +93,7 @@ if ($amount === false) {
 $lastPage = ceil($amount/$size);
 $viewState->set('paging-last-page',$lastPage);
 
-$projectsList = getProjectList($page, $size, ['category' => '', 'username' => $userUsername], $sort, $order == ORDER_ASCENDING);
+$projectsList = getProjectList($page, $size, ['category' => '', 'username' => $userUsername], $sort, $order != ORDER_DESCENDING);
 if ($projectsList === false) {
     http_response_code(500);
     return;
