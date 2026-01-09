@@ -308,7 +308,7 @@ $csrfToken = getCsrf('upload-project');
             <div class="article-gallery">
                 <div class="gallery-info hint">
                     You can upload up to 12 images to put inside your article. Click them to get
-                    their link to use them in markdown of your article. Unused links will be ignored.
+                    their link to use them in markdown of your article.
                 </div>
                 <ul id="gallery-preview">
                     <?php

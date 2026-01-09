@@ -312,6 +312,9 @@ form h2 {
 .article-part:has(ul#gallery-preview li.gallery-image[data-gallery-index="2"]) {
     flex-direction: column;
 }
+.article-part:has(ul#gallery-preview li.gallery-image[data-gallery-index="2"]) .article-gallery {
+    width: auto;
+}
 
 /* File and Link Adding Styles */
 

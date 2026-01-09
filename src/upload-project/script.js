@@ -426,7 +426,7 @@ async function insertGalleryFileUrl(objectUrl, elements, galleryIndex) {
 	let hiddenInput = document.querySelector(
 		`#${GALLERY_PREVIEW_ID} > li[data-gallery-index="${galleryIndex}"] input[type="hidden"]`
 	);
-	$splitObjectUrl = objectUrl.split('/');
+	let splitObjectUrl = objectUrl.split('/');
 	hiddenInput?.setAttribute('value', splitObjectUrl[splitObjectUrl.length - 1]);
 }
 
