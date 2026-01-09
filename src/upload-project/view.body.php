@@ -278,11 +278,14 @@ $csrfToken = getCsrf('upload-project');
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
-                <select id="input-category" name="category" <?= $prefillEditing == '1' ? 'readonly' : '' ?> required>
+                <select id="input-category" name="category" <?= $prefillEditing == '1' ? 'disabled' : '' ?> required>
                     <?php
                         createCategorySelection($prefillCategory);
                     ?>
                 </select>
+                <?php if ($prefillEditing == '1'): ?>
+                <input type="hidden" name="category" value="<?= $prefillCategory ?>">
+                <?php endif ; ?>
                 <div class="hint <?= $projectUploadState === ProjectUploadState::CategoryInvalid ? 'color-required' : '' ?>">
                     The category must be selected before you can type in the slug.
                 </div>
