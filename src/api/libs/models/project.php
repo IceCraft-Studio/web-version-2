@@ -373,7 +373,7 @@ function addProjectGalleryImage($category, $slug, $fileLocation, $imageUuid)
         return false;
     }
 
-    $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`) VALUES (?, ?, ?, ?)  ", "ssss", [$category, $slug, $imageUuid]);
+    $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`) VALUES (?, ?, ?)", "sss", [$category, $slug, $imageUuid]);
     $success = ($result !== false && $result !== 0);
     if ($success) {
         updateProjectDateModified($category, $slug);
