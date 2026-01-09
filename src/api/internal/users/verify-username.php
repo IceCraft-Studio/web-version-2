@@ -15,7 +15,7 @@ require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
 //Common Headers
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     http_response_code(405);
     echo json_encode(['error' => 'API Requests have to be made with the POST method!']);
     exit;

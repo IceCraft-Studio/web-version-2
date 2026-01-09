@@ -27,7 +27,7 @@ if (isset($_POST['delete-profile-picture'])) {
     } else {
         $viewState->set('picture-update-state',PictureUpdateState::Failure);        
     }
-} else if (isset($_FILES['profile-picture']) && ($_FILES['profile-picture']['tmp_name'] ?? '') !== '') {
+} else if (isset($_FILES['profile-picture']) && ($_FILES['profile-picture']['tmp_name'] ?? '') != '') {
     $imgTempPath = $_FILES['profile-picture']['tmp_name'];
     if (filesize($imgTempPath)/(1000 ** 2) > MAX_ALLOWED_IMAGE_SIZE_MB) {
         $viewState->set('picture-update-state',PictureUpdateState::WrongSize);
@@ -68,7 +68,7 @@ if ($originalUserData['display_name'] != $displayName) {
         $changeSuccess = changeUserDisplayName($username,$displayName);
     }
     
-    if ($changeSuccess && $displayName !== '') {
+    if ($changeSuccess && $displayName != '') {
         $viewState->set('verified-display-name', $displayName);
     }
     if ($changeSuccess && $displayName == '') {

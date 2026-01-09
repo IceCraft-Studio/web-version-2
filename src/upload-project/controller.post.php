@@ -259,7 +259,7 @@ if ($projectIsEditing) {
     }
     // load and validate thumbnail
     $thumbnailFile = ($_FILES['thumbnail'] ?? [])['tmp_name'] ?? '';
-    if ($thumbnailFile !== '' && !validateProjectThumbnail($thumbnailFile)) {
+    if ($thumbnailFile != '' && !validateProjectThumbnail($thumbnailFile)) {
         $viewState->set('upload-project-state', ProjectUploadState::ThumbnailInvalid);
         prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         prefillProjectFormValues($viewState);
@@ -317,7 +317,7 @@ if ($projectIsEditing) {
         return;
     }
     // save data
-    if ($thumbnailFile !== '' && !saveProjectThumbnail($projectCategory, $projectSlug, $thumbnailFile)) {
+    if ($thumbnailFile != '' && !saveProjectThumbnail($projectCategory, $projectSlug, $thumbnailFile)) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
         prefillProjectFormValues($viewState);

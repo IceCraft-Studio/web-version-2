@@ -77,7 +77,7 @@ function getUserPictureLink($username,$full = false) {
  */
 function getUserDirectory($username,$subdir = '') {
     $userDirectory = resolveDataPath('user/' . $username);
-    if ($subdir !== '') {
+    if ($subdir != '') {
         $userDirectory .= '/' . $subdir;
     }
     if (!is_dir($userDirectory)) {

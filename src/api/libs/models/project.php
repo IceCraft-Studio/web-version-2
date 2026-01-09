@@ -110,7 +110,7 @@ function getProjectEditLink($category, $slug)
 function getProjectDirectory($category, $slug, $subdir = '')
 {
     $projectDirectory = resolveDataPath('project/' . $category . '/' . $slug);
-    if ($subdir !== '') {
+    if ($subdir != '') {
         $projectDirectory .= '/' . $subdir;
     }
     if (!is_dir($projectDirectory)) {

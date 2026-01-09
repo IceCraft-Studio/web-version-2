@@ -11,7 +11,7 @@ $projectsCategory = $viewState->get('projects-category','');
 $projectsCategoryName = $viewState->get('projects-category-name','');
 
 $projectsPageTitle = 'All Projects';
-if ($projectsCategory !== '') {
+if ($projectsCategory != '') {
     $projectsPageTitle = 'Projects - ' . $projectsCategoryName;
 }
 
@@ -91,7 +91,7 @@ function generateCategoryLinks() {
 
 ?>
 <main>
-    <?php if ($viewerUsername !== ''): ?>
+    <?php if ($viewerUsername != ''): ?>
     <div>
         <a href="/~dobiapa2/upload-project">Create a new Project!</a>
     </div>

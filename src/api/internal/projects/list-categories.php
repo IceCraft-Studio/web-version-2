@@ -13,7 +13,7 @@ require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/project.php';
 
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     http_response_code(405);
     echo json_encode(['error' => 'This API Request requires the POST method!']);
     exit;
