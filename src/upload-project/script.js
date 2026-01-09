@@ -173,19 +173,23 @@ async function main() {
 			elements.galleryPreview.querySelector(`li[data-old-gallery-index="${index}"]`).classList.add(HIDDEN_CLASS);
 			elements.galleryPreview.querySelector(`input[name="gallery-delete-name[${index}]"]`).disabled = false;
 			uploadCounter.gallery--;
+			galleryUpdate(elements, uploadIndexes, uploadCounter);
 			// Remove the link from the articles text
 			$link = elements.galleryPreview.querySelector(`li[data-old-gallery-index="${index}"] .gallery-container img`).src;
 			markdownEdited = true;
 			elements.markdownInput.value = elements.markdownInput.value.replace($link,'');
 		});
 	});
+	console.log(elements.linkAdder.querySelectorAll('.delete-item'));
 	elements.linkAdder.querySelectorAll('.delete-item').forEach((deleteButton) => {
 		deleteButton.addEventListener('click',(e) => {
+			console.log('event added')
 			e.preventDefault();
 			let index = e.currentTarget.dataset.index;
 			elements.linkAdder.querySelector(`li[data-old-link-index="${index}"]`).classList.add(HIDDEN_CLASS);
 			elements.linkAdder.querySelector(`input[name="link-delete-url[${index}]"]`).disabled = false;
 			uploadCounter.links--;
+			elements.addLinkButton.disabled = !(uploadCounter.links < MAX_LINK_AMOUNT);
 		});
 	});
 	elements.fileAdder.querySelectorAll('.delete-item').forEach((deleteButton) => {
@@ -195,6 +199,7 @@ async function main() {
 			elements.fileAdder.querySelector(`li[data-old-file-index="${index}"]`).classList.add(HIDDEN_CLASS);
 			elements.fileAdder.querySelector(`input[name="file-delete-name[${index}]"]`).disabled = false;
 			uploadCounter.files--;
+			elements.addFileButton.disabled = !(uploadCounter.links < MAX_LINK_AMOUNT);
 		});
 	});
 
