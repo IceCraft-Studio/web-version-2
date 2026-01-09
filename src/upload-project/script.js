@@ -44,7 +44,6 @@ const EDIT_INSERTED_CLASS = 'edit-inserted';
 const COPIED_CLASS = 'copied';
 
 const IS_EDITING = document.querySelector('input[name="editing"')?.value == '1';
-console.log(IS_EDITING)
 
 async function main() {
 	let uploadIndexes = {
@@ -157,7 +156,7 @@ async function main() {
 		})
 		elements.addFileButton.disabled = !(uploadCounter.files < MAX_FILE_AMOUNT);
 	});
-	if (IS_EDITING) {
+	if (!IS_EDITING) {
 		return;
 	}
 	// Edit Project - Copy Previous Image Links
@@ -181,10 +180,8 @@ async function main() {
 			elements.markdownInput.value = elements.markdownInput.value.replace($link,'');
 		});
 	});
-	console.log(elements.linkAdder.querySelectorAll('.delete-item'));
 	elements.linkAdder.querySelectorAll('.delete-item').forEach((deleteButton) => {
 		deleteButton.addEventListener('click',(e) => {
-			console.log('event added')
 			e.preventDefault();
 			let index = e.currentTarget.dataset.index;
 			elements.linkAdder.querySelector(`li[data-old-link-index="${index}"]`).classList.add(HIDDEN_CLASS);
