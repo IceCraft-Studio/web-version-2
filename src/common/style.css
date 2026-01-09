@@ -609,6 +609,10 @@ img.no-select {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0.5em 2%;
+
 }
 
 #projects-section > * {
