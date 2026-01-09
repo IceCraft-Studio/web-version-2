@@ -10,7 +10,7 @@ if (!$csrfLegit) {
 }
 
 $username = $viewState->get('verified-username', '');
-if ($username === '') {
+if ($username == '') {
     http_response_code(401);
     return;
 }
@@ -23,13 +23,13 @@ if ($userData === false) {
 }
 
 $userRole = $userData['role'];
-if ($userRole === UserRole::Admin->value) {
+if ($userRole == UserRole::Admin->value) {
     http_response_code(401);
     return;
 }
 
 $verifiedRole = $viewState->get('verified-role');
-$isAdmin = $verifiedRole === UserRole::Admin->value || $verifiedRole === UserRole::Owner;
+$isAdmin = $verifiedRole == UserRole::Admin->value || $verifiedRole === UserRole::Owner;
 
 if (!$isAdmin) {
     http_response_code(401);

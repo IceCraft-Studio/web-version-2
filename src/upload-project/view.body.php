@@ -244,7 +244,7 @@ $csrfToken = getCsrf('upload-project');
             <div class="field slug-editor">
                 <label for="input-slug">Unique part of the URL for your project:</label>
                 <div class="prefix-container">
-                    <label for="input-slug">/<?= $prefillCategory === '' ? 'category' : $prefillCategory ?>/</label>
+                    <label for="input-slug">/<?= $prefillCategory == '' ? 'category' : $prefillCategory ?>/</label>
                     <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6"
                         maxlength="64" readonly required>
                 </div>

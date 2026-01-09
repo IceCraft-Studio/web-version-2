@@ -22,7 +22,7 @@ if (str_starts_with($currentRoute, 'home')) {
 $username = verifySession($_COOKIE['token'] ?? '');
 if ($username != false) {
     $userData = getUserData($username);
-    if (($userData['display_name'] ?? '') === '') {
+    if (($userData['display_name'] ?? '') == '') {
         $displayName = $username;
     } else {
         $displayName = $userData['display_name'];

@@ -16,7 +16,7 @@ if (!$csrfLegit) {
 }
 
 $username = $viewState->get('verified-username','');
-if ($username === '') {
+if ($username == '') {
     redirect('/~dobiapa2/login');
 }
 
@@ -71,7 +71,7 @@ if ($originalUserData['display_name'] != $displayName) {
     if ($changeSuccess && $displayName !== '') {
         $viewState->set('verified-display-name', $displayName);
     }
-    if ($changeSuccess && $displayName === '') {
+    if ($changeSuccess && $displayName == '') {
         $viewState->set('verified-display-name', $username);
     }
     $profileUpdated = true;

@@ -13,7 +13,7 @@ $viewState = ViewData::getInstance();
 $username = $viewState->get('verified-username');
 $role = $viewState->get('verified-role');
 
-if ($username === '') {
+if ($username == '') {
     redirect('/~dobiapa2/login');
 }
 

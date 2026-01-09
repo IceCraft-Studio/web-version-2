@@ -55,7 +55,7 @@ function validateProjectThumbnail($filePath) {
 function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
-        if (($filePath ?? '' ) === '') {
+        if (($filePath ?? '' ) == '') {
             continue;
         }
         if ($uploadsNumber >= MAX_GALLERY_UPLOADS) {
@@ -82,7 +82,7 @@ function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
 function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($urlArray as $index => $url) {
-        if (($url ?? '') === '') {
+        if (($url ?? '') == '') {
             continue;
         }
         if ($uploadsNumber >= MAX_LINK_UPLOADS) {
@@ -102,7 +102,7 @@ function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
 function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
-        if (($filePath ?? '') === '') {
+        if (($filePath ?? '') == '') {
             continue;
         }
         if ($uploadsNumber >= MAX_FILE_UPLOADS) {
@@ -123,7 +123,7 @@ function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
 function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
-        if (($filePath ?? '') === '') {
+        if (($filePath ?? '') == '') {
             continue;
         }
         if ($uploadsNumber >= MAX_GALLERY_UPLOADS) {
@@ -140,7 +140,7 @@ function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber
 function saveUrlLinks($category,$slug,$urlArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($urlArray as $index => $url) {
-        if (($url ?? '') === '') {
+        if (($url ?? '') == '') {
             continue;
         }
         if ($uploadsNumber >= MAX_LINK_UPLOADS) {
@@ -157,7 +157,7 @@ function saveUrlLinks($category,$slug,$urlArray,$nameArray,$existingNumber = 0) 
 function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
-        if (($filePath ?? '') === '') {
+        if (($filePath ?? '') == '') {
             continue;
         }
         if ($uploadsNumber >= MAX_FILE_UPLOADS) {
@@ -229,7 +229,7 @@ if (!$csrfLegit) {
 }
 
 $username = $viewState->get('verified-username','');
-if ($username === '') {
+if ($username == '') {
     http_response_code(401);
     return;
 }
@@ -388,7 +388,7 @@ if (!$projectIsEditing) {
     }
     // load and validate thumbnail
     $thumbnailFile = ($_FILES['thumbnail'] ?? [])['tmp_name'] ?? '';
-    if ($thumbnailFile === '' || !validateProjectThumbnail($thumbnailFile)) {
+    if ($thumbnailFile == '' || !validateProjectThumbnail($thumbnailFile)) {
         $viewState->set('upload-project-state', ProjectUploadState::ThumbnailInvalid);
         prefillProjectFormValues($viewState);
         return;

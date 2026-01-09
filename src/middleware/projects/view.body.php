@@ -121,7 +121,7 @@ function generateCategoryLinks() {
                 <label for="select-page-sort">Sort by:</label>
                 <select id="select-page-sort" name="sort">
                     <option value="title" <?= $currentSort === 'title' ? 'selected' : '' ?>>Title</option>
-                    <option value="modified" <?= $currentSort === 'modified' ? 'selected' : '' ?>>Modified
+                    <option value="modified" <?= $currentSort == 'modified' ? 'selected' : '' ?>>Modified
                     </option>
                     <option value="created" <?= $currentSort === 'created' ? 'selected' : '' ?>>Created</option>
                 </select>

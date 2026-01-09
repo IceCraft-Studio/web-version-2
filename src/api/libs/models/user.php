@@ -148,7 +148,7 @@ function validateUserDisplayName($displayName) {
  * @return bool The result of the validation.
  */
 function validateUserEmail($email) {
-    return (filter_var($email,FILTER_VALIDATE_EMAIL) !== false || $email === '') && strlen($email) <= 200;
+    return (filter_var($email,FILTER_VALIDATE_EMAIL) !== false || $email == '') && strlen($email) <= 200;
 }
 
 /**
@@ -191,7 +191,7 @@ function saveUserProfilePicture($username, $fileLocation)
     $profilePictureFullPath = $userDirectory . '/profile-picture.webp';
     $profilePicturePreviewPath = $userDirectory . '/profile-picture-preview.webp';
 
-    if ($fileLocation === '') {
+    if ($fileLocation == '') {
         if (file_exists($profilePictureFullPath)) {
             unlink(($profilePictureFullPath));
         }

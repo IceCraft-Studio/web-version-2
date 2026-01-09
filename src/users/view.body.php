@@ -55,27 +55,27 @@ function generateUserTableData($usersList)
             <div>
                 <label for="select-page-sort">Filter Role:</label>
                 <select id="select-page-sort" name="role">
-                    <option value="" <?= $currentRole === '' ? 'selected' : '' ?>>All Roles</option>
-                    <option value="ban" <?= $currentRole === 'ban' ? 'selected' : '' ?>>Banned</option>
-                    <option value="user" <?= $currentRole === 'user' ? 'selected' : '' ?>>User</option>
-                    <option value="admin" <?= $currentRole === 'admin' ? 'selected' : '' ?>>Administrator</option>
-                    <option value="owner" <?= $currentRole === 'owner' ? 'selected' : '' ?>>Website Owner</option>
+                    <option value="" <?= $currentRole == '' ? 'selected' : '' ?>>All Roles</option>
+                    <option value="ban" <?= $currentRole == 'ban' ? 'selected' : '' ?>>Banned</option>
+                    <option value="user" <?= $currentRole == 'user' ? 'selected' : '' ?>>User</option>
+                    <option value="admin" <?= $currentRole == 'admin' ? 'selected' : '' ?>>Administrator</option>
+                    <option value="owner" <?= $currentRole == 'owner' ? 'selected' : '' ?>>Website Owner</option>
                 </select>
             </div>
             <div>
                 <label for="select-page-sort">Sort by:</label>
                 <select id="select-page-sort" name="sort">
-                    <option value="username" <?= $currentSort === 'username' ? 'selected' : '' ?>>Username</option>
-                    <option value="display_name" <?= $currentSort === 'display_name' ? 'selected' : '' ?>>Display Name
+                    <option value="username" <?= $currentSort == 'username' ? 'selected' : '' ?>>Username</option>
+                    <option value="display_name" <?= $currentSort == 'display_name' ? 'selected' : '' ?>>Display Name
                     </option>
-                    <option value="created" <?= $currentSort === 'created' ? 'selected' : '' ?>>Created</option>
+                    <option value="created" <?= $currentSort == 'created' ? 'selected' : '' ?>>Created</option>
                 </select>
             </div>
             <div>
                 <label for="select-page-order">Sort order:</label>
                 <select id="select-page-order" name="order">
-                    <option value="asc" <?= $currentOrder === 'asc' ? 'selected' : '' ?>>Ascending</option>
-                    <option value="desc" <?= $currentOrder === 'desc' ? 'selected' : '' ?>>Descending</option>
+                    <option value="asc" <?= $currentOrder == 'asc' ? 'selected' : '' ?>>Ascending</option>
+                    <option value="desc" <?= $currentOrder == 'desc' ? 'selected' : '' ?>>Descending</option>
                 </select>
             </div>
             <input type="submit" value="Apply">

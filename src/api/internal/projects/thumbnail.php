@@ -4,7 +4,7 @@ require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/helpers.php';
 $defaultThumbnail = $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/assets/empty-thumbnail.webp';
 
 # Validation
-if (($_GET['project'] ?? '') === '' || ($_GET['category'] ?? '') === '') {
+if (($_GET['project'] ?? '') == '' || ($_GET['category'] ?? '') == '') {
     http_response_code(400);
     exit;
 }

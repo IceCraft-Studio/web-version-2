@@ -2,7 +2,7 @@
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/helpers.php';
 
 # Validation
-if (($_GET['project'] ?? '') === '' || ($_GET['category'] ?? '') === '' || ($_GET['file_name'] ?? '') === '') {
+if (($_GET['project'] ?? '') == '' || ($_GET['category'] ?? '') == '' || ($_GET['file_name'] ?? '') == '') {
     http_response_code(400);
     exit;
 }

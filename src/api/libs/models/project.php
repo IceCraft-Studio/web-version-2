@@ -287,7 +287,7 @@ function saveProjectThumbnail($category, $slug, $fileLocation)
     $thumbnailFullPath = $projectDirectory . '/thumbnail.webp';
     $thumbnailPreviewPath = $projectDirectory . '/thumbnail-preview.webp';
 
-    if ($fileLocation === '') {
+    if ($fileLocation == '') {
         if (file_exists($thumbnailFullPath)) {
             unlink(($thumbnailFullPath));
         }
@@ -372,7 +372,7 @@ function addProjectGalleryImage($category, $slug, $fileLocation, $imageUuid)
     if ($saveResult === false) {
         return false;
     }
-    
+
     $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`) VALUES (?, ?, ?, ?)  ", "ssss", [$category, $slug, $imageUuid]);
     $success = ($result !== false && $result !== 0);
     if ($success) {

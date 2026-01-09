@@ -73,7 +73,7 @@ function loadMethodController($requestRoute, $requestMethod)
 {
     $requestMethod = strtolower($requestMethod);
     // HEAD method should respond with identical headers to GET.
-    if ($requestMethod === 'head') {
+    if ($requestMethod == 'head') {
         $requestMethod = 'get';
     }
     // Check for exisiting controller 

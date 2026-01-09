@@ -5,7 +5,7 @@ require_once __DIR__ . '/enums.php';
 $viewState = ViewData::getInstance();
 
 $username = $viewState->get('verified-username', '');
-if ($username === '') {
+if ($username == '') {
     redirect('/~dobiapa2/login');
 }
 
@@ -14,7 +14,7 @@ initCsrf('upload-project');
 // Check for editing query
 $editCategory = $_GET['edit-category'] ?? '';
 $editSlug = $_GET['edit-slug'] ?? '';
-if ($editCategory === '' || $editSlug === '') {
+if ($editCategory == '' || $editSlug == '') {
     return;
 }
 // When editing get data

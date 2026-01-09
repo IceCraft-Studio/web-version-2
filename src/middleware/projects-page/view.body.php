@@ -24,12 +24,12 @@ $pageCreatedString = $pageCreated === 'Unknown' ? 'Unknown' : date('d/m/Y', strt
 $pageCategoryName = getCategoryName($category) ?? 'Unknown';
 
 $pageCreatorData = getUserData($pageUsername);
-$pageCreatorDisplayName = ($pageCreatorData['display_name'] ?? '') === '' ? $pageUsername : $pageCreatorData['display_name'];
+$pageCreatorDisplayName = ($pageCreatorData['display_name'] ?? '') == '' ? $pageUsername : $pageCreatorData['display_name'];
 
 function generateDownloadFiles($filesArray) {
     foreach ($filesArray as $fileRecord) {
         $link = $fileRecord['link'] ?? '';
-        if (($linkRecord['display_name'] ?? '') === '') {
+        if (($linkRecord['display_name'] ?? '') == '') {
             $displayName = $fileRecord['file_name'] ?? 'Unknown File Name';
         } else {
             $displayName = $fileRecord['display_name'];
@@ -41,7 +41,7 @@ function generateDownloadFiles($filesArray) {
 function generateDownloadLinks($linksArray) {
     foreach ($linksArray as $linkRecord) {
         $url = $linkRecord['url'] ?? '';
-        if (($linkRecord['display_name'] ?? '') === '') {
+        if (($linkRecord['display_name'] ?? '') == '') {
             $displayName = $url;
         } else {
             $displayName = $linkRecord['display_name'];

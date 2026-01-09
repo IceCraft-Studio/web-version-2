@@ -33,7 +33,7 @@ function getAvailablePath($directory,$name,$extension = '') {
  */
 function removeDirRecursive($directory) {
     foreach (scandir($directory) as $file) {
-        if ($file === '.' || $file === '..') continue;
+        if ($file == '.' || $file == '..') continue;
         $fullPath = $directory . '/' . $file;
         if (is_dir($fullPath)) {
             removeDirRecursive($fullPath);

@@ -30,7 +30,7 @@ if ($userData['role'] === UserRole::Banned->value && !$viewerIsAdmin) {
     return;
 }
 
-if (($userData['display_name'] ?? '') === '') {
+if (($userData['display_name'] ?? '') == '') {
     $userDisplayName = $userUsername;
 } else { 
     $userDisplayName = $userData['display_name'];

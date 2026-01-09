@@ -6,7 +6,7 @@ require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/session.php';
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
 
 # Validation
-if (($_GET['project'] ?? '') === '' || ($_GET['category'] ?? '') === '') {
+if (($_GET['project'] ?? '') == '' || ($_GET['category'] ?? '') == '') {
     http_response_code(400);
     exit;
 }
