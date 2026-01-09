@@ -172,7 +172,7 @@ textarea {
 }
 
 .delete-item img {
-    filter: var(--svg-icon-color-dark);
+    filter: var(--svg-icon-color);
 }
 
 .delete-item:hover img {

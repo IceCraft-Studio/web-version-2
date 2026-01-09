@@ -104,7 +104,7 @@ function generateFileItem($i, $fileLink, $displayName, $fileName)
         <input type="text" name="old-file-name[' . $i . ']" id="old-input-file-name-' . $i . '" value="' .  $displayName . '" readonly>
         <button class="delete-item" data-index="' . $i . '">
             <img src="/~dobiapa2/assets/icons/bin.svg">
-        <span>Delete Image</span>
+        <span>Delete File</span>
         </button>
         <input name="file-delete-name[' . $i . ']" value="' . $fileName . '" type="hidden" disabled>
     </div>
@@ -123,7 +123,7 @@ function generateLinkItem($i, $urlLink, $displayName) {
         <input type="text" name="old-link-name[' . $i . ']" id="old-input-link-name-' . $i . '" value="' . $displayName . '" readonly>
         <button class="delete-item" data-index="' . $i . '">
             <img src="/~dobiapa2/assets/icons/bin.svg">
-        <span>Delete Image</span>
+        <span>Delete Link</span>
         </button>
         <input name="link-delete-url[' . $i . ']" value="' . htmlspecialchars($urlLink, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '" type="hidden" disabled>
     </div>
