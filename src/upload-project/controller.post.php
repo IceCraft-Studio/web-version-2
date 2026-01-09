@@ -180,6 +180,7 @@ function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameA
         $fileNameNoExt = $fileInfo['filename'] ?? '';
         $extension = $fileInfo['extension'] ?? '';
         $fileName = getAvailablePath($directory,$fileNameNoExt,$extension);
+        $fileName = pathinfo($fileName)['filename'];
         $result = addProjectFile($category,$slug,$filePath,$fileName,$displayNameArray[$index] ?? '');
         if ($result === false) {
             return false;
