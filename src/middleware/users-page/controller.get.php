@@ -9,6 +9,8 @@ const SORT_CREATED = 'created';
 
 $viewState = ViewData::getInstance();
 
+initCsrf('users-page');
+
 //## Basic User Data
 $userUsername = explode('/',$viewState->get('normalized-route'))[1];
 $viewState->set('page-username',$userUsername);

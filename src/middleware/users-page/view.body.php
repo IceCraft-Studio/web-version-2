@@ -32,6 +32,16 @@ $viewerIsAdmin = $viewState->get('viewer-admin', false);
 
 ?>
 <main>
+    <?php if ($showActionBanner): ?>
+    <div class="update-banner <?= $successAction ? 'success' : 'fail'?>">
+        <?= $actionMessage ?>
+    </div>
+    <?php endif; ?>
+    <?php if ($showPasswordBanner): ?>
+    <div class="update-banner <?= $successPassword ? 'success' : 'fail'?>">
+        <?= $passwordMessage ?>
+    </div>
+    <?php endif; ?>
     <div id="profile-section">
         <div>
             <img src="<?= $userPicture ?>">
@@ -55,7 +65,7 @@ $viewerIsAdmin = $viewState->get('viewer-admin', false);
             <?php endif; ?>
         </div>
     </div>
-    <?php if ($viewerIsAdmin): ?>
+    <?php if ($viewerIsAdmin && !($userRole === UserRole::Admin->value)): ?>
         <div id="admin-panel">
             <form method="post">
                 <div>
@@ -72,9 +82,6 @@ $viewerIsAdmin = $viewState->get('viewer-admin', false);
                         </option>
                         <option value="clear-name">
                             Clear Display Name
-                        </option>
-                        <option value="delete-projects">
-                            Delete All Projects
                         </option>
                         <option value="delete-user">
                             Delete User

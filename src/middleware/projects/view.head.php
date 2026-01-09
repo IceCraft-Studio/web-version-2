@@ -1,4 +1,5 @@
 <?php
+$viewState = ViewData::getInstance();
 $projectsCategory = $viewState->get('projects-category','');
 $projectsCategoryName = $viewState->get('projects-category-name','');
 
