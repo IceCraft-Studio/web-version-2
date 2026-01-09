@@ -284,8 +284,8 @@ function saveProjectThumbnail($category, $slug, $fileLocation)
     if ($projectDirectory === false) {
         return false;
     }
-    $thumbnailFullPath = $projectDirectory . '/thumbnail.webp';
-    $thumbnailPreviewPath = $projectDirectory . '/thumbnail-preview.webp';
+    $thumbnailFullPath = $projectDirectory . '/thumbnail';
+    $thumbnailPreviewPath = $projectDirectory . '/thumbnail-preview';
 
     if ($fileLocation == '') {
         if (file_exists($thumbnailFullPath)) {
@@ -367,7 +367,7 @@ function addProjectGalleryImage($category, $slug, $fileLocation, $imageUuid)
         return false;
     }
     $projectGalleryImagePath = $projectGalleryDirectory . '/' . $imageUuid;
-    $saveResult = saveImageAsWebpOrGif($fileLocation, $projectGalleryImagePath, 960, 540);
+    $saveResult = saveImageAsWebpOrGif($fileLocation, $projectGalleryImagePath, 960, 540,true);
 
     if ($saveResult === false) {
         return false;

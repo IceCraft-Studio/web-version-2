@@ -188,8 +188,8 @@ function saveUserProfilePicture($username, $fileLocation)
     if ($userDirectory === false) {
         return false;
     }
-    $profilePictureFullPath = $userDirectory . '/profile-picture.webp';
-    $profilePicturePreviewPath = $userDirectory . '/profile-picture-preview.webp';
+    $profilePictureFullPath = $userDirectory . '/profile-picture';
+    $profilePicturePreviewPath = $userDirectory . '/profile-picture-preview';
 
     if ($fileLocation == '') {
         if (file_exists($profilePictureFullPath)) {
