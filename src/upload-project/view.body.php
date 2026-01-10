@@ -217,14 +217,14 @@ $csrfToken = getCsrf('upload-project');
                     <label for="input-title" class="<?= $projectUploadState === ProjectUploadState::TitleInvalid ?  'color-required' : '' ?>">
                         Title of your project:
                     </label>
-                    <input id="input-title" name="title" value="<?= $prefillTitle ?>" minlength="6"
+                    <input id="input-title" type="text" name="title" value="<?= $prefillTitle ?>" minlength="6"
                         maxlength="96" required>
                 </div>
                 <div class="field">
                     <label for="input-description" class="<?= $projectUploadState === ProjectUploadState::DescriptionInvalid ? 'color-required' : '' ?>">
                         Brief description:
                     </label>
-                    <textarea id="input-description" name="description" type="text" minlength="24" maxlength="320"
+                    <textarea id="input-description" name="description" minlength="24" maxlength="320"
                         required><?= $prefillDescription ?></textarea>
                 </div>
                 <div class="field">
