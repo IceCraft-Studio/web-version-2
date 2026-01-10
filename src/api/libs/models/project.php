@@ -240,14 +240,13 @@ function updateProjectDateModified($category, $slug)
  * @param string $category The project category.
  * @param string $slug The project slug.
  * @param string $newTitle new title for the project.
- * @return bool `true` on success, `false` on failure.
+ * @return int|bool 1 or 0 on success, `false` on failure.
  */
 function changeProjectTitle($category, $slug, $newTitle)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $result = dbQuery($dbConnection, "UPDATE `project` SET `title` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$newTitle, $category, $slug]);
-    $success = ($result !== false && $result !== 0);
-    return $success;
+    return $result;
 }
 
 /**
@@ -255,14 +254,13 @@ function changeProjectTitle($category, $slug, $newTitle)
  * @param string $category The project category.
  * @param string $slug The project slug.
  * @param string $newDescription The new description for the project.
- * @return bool `true` on success, `false` on failure.
+ * @return int|bool 1 or 0 on success, `false` on failure.
  */
 function changeProjectDescription($category, $slug, $newDescription)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $result = dbQuery($dbConnection, "UPDATE `project` SET `description` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$newDescription, $category, $slug]);
-    $success = ($result !== false && $result !== 0);
-    return $success;
+    return $result;
 }
 
 /**
