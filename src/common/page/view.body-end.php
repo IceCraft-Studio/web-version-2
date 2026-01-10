@@ -1,6 +1,6 @@
 <footer id="footer">
     <div class="left-part">
-        <span>Made by PavelDobCZ23</span>
+        <span>Made by <a href="/~dobiapa2/users/paveldobcz23">PavelDobCZ23</a></span>
         <span>IceCraft Studio 2020 - <?=date('Y')?> ©</span>
     </div>
     <div class="right-part">
