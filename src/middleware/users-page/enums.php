@@ -1,5 +1,5 @@
 <?php
-enum PasswordUpdateState {
+enum ManagePasswordState {
     case NoUpdate;
     case PasswordInvalid;
     case PasswordMismatch;
@@ -7,7 +7,7 @@ enum PasswordUpdateState {
     case Success;
 }
 
-enum ProfileUpdateState {
+enum UserActionState {
     case NoUpdate;
     case CsrfInvalid;
     case Failure;

@@ -114,7 +114,12 @@ function createUser($username, $password, $role = UserRole::User)
  * @return void
  */
 function deleteUser($username) {
+    require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/models/project.php";
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
+    $userProjects = getProjectList(1,999999,['category' => '','username' => $username]);
+    foreach ($userProjects as $deleteProject) {
+        deleteProject($deleteProject['category'],$deleteProject['slug']);
+    }
     $resultUser = dbQuery($dbConnection, "DELETE FROM `user` WHERE `username` = ?", "ss", [$username]);
     removeDirRecursive(getUserDirectory($username));
 }

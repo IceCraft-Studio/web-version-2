@@ -36,11 +36,10 @@ if (!$isAdmin) {
     return;
 }
 
-
 // Run the action on user
 switch ($userAction) {
     case 'ban-user':
-        if ($currentUserRole === UserRole::Banned->value) {
+        if ($userRole == UserRole::Banned->value) {
             changeUserRole($userUsername,UserRole::User->value);
         } else {
             changeUserRole($userUsername,UserRole::Banned->value);
