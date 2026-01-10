@@ -12,6 +12,10 @@ h2, .page-description, #download-links, #download-files {
     font-family: JetBrainsMono, monospace;
 }
 
+#download-links a, #download-files a {
+    margin: 0.5em;
+}
+
 #full-thumbnail {
     max-width: 95%;
     border: 0.5em solid var(--color-primary);
