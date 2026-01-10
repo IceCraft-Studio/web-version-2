@@ -60,8 +60,8 @@ switch ($userAction) {
         redirect('/~dobiapa2/users');
 }
 
-if ($userAction == '') {
-    if ($actionSuccess) {
+if ($userAction != '') {
+    if ($actionSuccess ?? false) {
         $viewState->set('user-manage-state', UserActionState::Success);
     } else {
         $viewState->set('user-manage-state', UserActionState::Failure);
