@@ -6,7 +6,7 @@ class ViewData
 {
     /**
      * Static reference to the only instance of the class.
-     * @var 
+     * @var ViewData
      */
     private static ?self $instance = null;
 

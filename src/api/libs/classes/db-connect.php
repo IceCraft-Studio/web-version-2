@@ -6,7 +6,7 @@ class DbConnect
 {
     /**
      * Static reference to the only instance of the class.
-     * @var 
+     * @var DbConnect
      */
     private static ?self $instance = null;
 
