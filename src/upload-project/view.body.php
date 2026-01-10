@@ -86,7 +86,7 @@ function generateGalleryItem($i, $galleryLink, $fileName)
         <img src="' . $galleryLink . '" alt="Previous Image #' . $i + 1 . '">
     </button>
     <button class="delete-item" data-index="' . $i . '">
-        <img src="/~dobiapa2/assets/icons/bin.svg">
+        <img src="/~dobiapa2/assets/icons/bin.svg" alt="Bin icon">
         <span>Delete Image</span>
     </button>
     <input name="gallery-delete-name[' . $i . ']" value="' . $fileName . '" type="hidden" disabled>
@@ -103,7 +103,7 @@ function generateFileItem($i, $fileLink, $displayName, $fileName)
         <label for="old-input-file-name-' . $i . '">Display Name:</label>
         <input type="text" name="old-file-name[' . $i . ']" id="old-input-file-name-' . $i . '" value="' .  $displayName . '" readonly>
         <button class="delete-item" data-index="' . $i . '">
-            <img src="/~dobiapa2/assets/icons/bin.svg">
+            <img src="/~dobiapa2/assets/icons/bin.svg" alt="Bin icon">
         <span>Delete File</span>
         </button>
         <input name="file-delete-name[' . $i . ']" value="' . $fileName . '" type="hidden" disabled>
@@ -122,7 +122,7 @@ function generateLinkItem($i, $urlLink, $displayName) {
         <label for="old-input-link-name-' . $i . '">Display Name:</label>
         <input type="text" name="old-link-name[' . $i . ']" id="old-input-link-name-' . $i . '" value="' . $displayName . '" readonly>
         <button class="delete-item" data-index="' . $i . '">
-            <img src="/~dobiapa2/assets/icons/bin.svg">
+            <img src="/~dobiapa2/assets/icons/bin.svg" alt="Bin icon">
         <span>Delete Link</span>
         </button>
         <input name="link-delete-url[' . $i . ']" value="' . htmlspecialchars($urlLink, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '" type="hidden" disabled>
@@ -266,7 +266,7 @@ $csrfToken = getCsrf('upload-project');
                 <div class="prefix-container">
                     <label for="input-slug">/<?= $prefillCategory == '' ? 'category' : $prefillCategory ?>/</label>
                     <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6"
-                        maxlength="64" <?= $prefillCategory == '' || $prefillEditing == '1' ? 'readonly' : '' ?> required>
+                        maxlength="64" <?= ($prefillCategory == '' || $prefillEditing == '1') ? 'readonly' : '' ?> required>
                 </div>
                 <div class="hint <?= $projectUploadState === ProjectUploadState::SlugInvalid ? 'color-required' : '' ?>">
                     The slug must be between 6 and 96 characters long and may only contain numbers,
@@ -278,7 +278,7 @@ $csrfToken = getCsrf('upload-project');
             </div>
             <div class="field category-selection">
                 <label for="input-category">Category:</label>
-                <select id="input-category" name="category" <?= $prefillEditing == '1' ? 'disabled' : '' ?> required>
+                <select id="input-category" name="category" <?= $prefillEditing == '1' ? 'disabled' : '' ?> <?= $prefillEditing == '1' ? '' : 'required' ?>>
                     <?php
                         createCategorySelection($prefillCategory);
                     ?>
