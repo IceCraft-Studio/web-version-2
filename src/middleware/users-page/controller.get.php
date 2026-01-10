@@ -72,7 +72,7 @@ if ($size > 200) {
     $size = 200;
 }
 // Ensure order and sort is set correctly
-$order = $_GET['order'] ?? ORDER_DESCENDING;
+$order = $_GET['order'] ?? ORDER_ASCENDING;
 
 switch ($_GET['sort'] ?? SORT_TITLE) {
     case SORT_CREATED:
