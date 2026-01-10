@@ -1,3 +1,66 @@
-.category-link-container a {
+* {
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+h2, .page-description, #download-links, #download-files {
+    width: 90%;
+}
+
+#download-links, #download-files {
+    font-size: 1.3rem;
+    font-family: JetBrainsMono, monospace;
+}
+
+#full-thumbnail {
+    max-width: 95%;
+    border: 0.5em solid var(--color-primary);
+    margin: 1em;
+}
+
+#info-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#info-row div {
+    width: max-content;
+    margin: 1em;
+}
+
+#project-article {
+    max-width: 95vw;
+    margin: 1em 2.5vw;
+    padding: 0.5em;
+}
+
+#project-article img {
+    max-width: 100%;
+}
+
+.project-actions a {
     margin: 0.5em;
+}
+
+.creator-container {
+    margin: 1em;
+}
+
+.creator-container a {
+    display: flex;
+    align-items: center;
+    padding: 0.3em;
+}
+
+.creator-container span {
+    padding-left: 0.2em;
+}
+
+.creator-container img {
+    width: 2em;
+    height: 2em;
+    border: 0.2rem var(--color-primary) solid;
+    border-radius: 50%;
 }

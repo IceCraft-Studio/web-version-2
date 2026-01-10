@@ -38,6 +38,9 @@ function generateDownloadFiles($filesArray) {
         }
         echo '<a href="' . $link . '" target="_blank">Download - ' . htmlspecialchars($displayName) . '</a>';
     }
+    if (count($filesArray) === 0) {
+        echo '<p> No files uploaded to our server for download. </p>';
+    }
 }
 
 function generateDownloadLinks($linksArray) {
@@ -49,6 +52,9 @@ function generateDownloadLinks($linksArray) {
             $displayName = $linkRecord['display_name'];
         }
         echo '<a href="' . htmlspecialchars($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '" target="_blank">' . htmlspecialchars($displayName) . '</a>';
+    }
+    if (count($linksArray) === 0) {
+        echo '<p> No external links for the project provided. </p>';
     }
 }
 
@@ -71,7 +77,7 @@ function generateDownloadLinks($linksArray) {
     <h1 class="page-title">
         <?= $pageTitle ?>
     </h1>
-    <img src="<?= $pageThumbnail ?>" alt="Project Thumbnail">
+    <img id="full-thumbnail" src="<?= $pageThumbnail ?>" alt="Project Thumbnail">
     <div id="info-row">
         <div>Created on: <span class="bold"><?= $pageCreatedString ?></span></div>
         <div>Modified on: <span class="bold"><?=  $pageModifiedString ?></span></div>
