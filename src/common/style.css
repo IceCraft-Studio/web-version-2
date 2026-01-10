@@ -502,7 +502,7 @@ button:disabled {
     color: hsl(0, 100%, 68%);
 }
 
-#footer > .right-part > a {
+#footer a {
     color: var(--color-link-dark);
 }
 
