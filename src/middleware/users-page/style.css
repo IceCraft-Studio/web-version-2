@@ -1,3 +1,22 @@
+#profile-section {
+    display: flex;
+    align-items: center;
+}
+
+#profile-section h1 {
+    font-size: 2.5em;
+    padding: 0.5em;
+}
+
+#profile-section img {
+    width: 10rem;
+    border: 0.2rem solid var(--color-primary);
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 0;
+    margin: 1em;
+}
+
 .social-links {
     display: flex;
     justify-content: space-evenly;
