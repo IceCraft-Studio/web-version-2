@@ -70,6 +70,7 @@ switch ($adminManageState) {
 
 switch ($adminPasswordState) {
     case UserActionState::NoUpdate:
+        echo 'no update';
         $showPasswordBanner = false;
         break;
     case UserActionState::CsrfInvalid:
