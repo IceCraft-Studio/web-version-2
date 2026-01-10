@@ -17,7 +17,6 @@ if (!in_array($currentSize, $defaultSizes)) {
     $defaultSizes[] = $currentSize;
 }
 $currentRole = $viewState->get('paging-role','');
-echo '!' . $currentRole . '!';
 $currentSort = $viewState->get('paging-sort','username');
 $currentOrder = $viewState->get('paging-order','asc');
 
