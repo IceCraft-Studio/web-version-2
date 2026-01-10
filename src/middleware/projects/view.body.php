@@ -43,7 +43,6 @@ $currentOrder = $viewState->get('paging-order','asc');
             createCategoryLinks();
         ?>
     </div>
-    </div>
     <h2>List of projects</h2>
     <div class="page-form">
         <form method="get">
