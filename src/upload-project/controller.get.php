@@ -24,6 +24,11 @@ if ($projectData === false) {
     return;
 }
 
+if ($projectData['username'] != $username) {
+    http_response_code(401);
+    return;
+}
+
 $viewState->set('form-category',$editCategory);
 $viewState->set('form-slug',$editSlug);
 $viewState->set('form-editing','1');
