@@ -188,8 +188,8 @@ function saveUserProfilePicture($username, $fileLocation)
     if ($userDirectory === false) {
         return false;
     }
-    $profilePictureFullPath = $userDirectory . '/profile-picture';
-    $profilePicturePreviewPath = $userDirectory . '/profile-picture-preview';
+    $profilePictureFullPath = $userDirectory . '/profile-picture.webp';
+    $profilePicturePreviewPath = $userDirectory . '/profile-picture-preview.webp';
 
     if ($fileLocation == '') {
         if (file_exists($profilePictureFullPath)) {
@@ -202,8 +202,8 @@ function saveUserProfilePicture($username, $fileLocation)
     }
 
     return (
-        saveImageAsWebpOrGif($fileLocation,$profilePictureFullPath, 384, 384) &&
-        saveImageAsWebpOrGif($fileLocation,$profilePicturePreviewPath, 96, 96)
+        (saveImageAsWebpOrGif($fileLocation,$profilePictureFullPath, 384, 384,true) !== false) &&
+        (saveImageAsWebpOrGif($fileLocation,$profilePicturePreviewPath, 96, 96, true) !== false)
     );
 }
 

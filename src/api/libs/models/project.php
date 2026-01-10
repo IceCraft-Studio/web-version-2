@@ -276,8 +276,8 @@ function saveProjectThumbnail($category, $slug, $fileLocation)
     if ($projectDirectory === false) {
         return false;
     }
-    $thumbnailFullPath = $projectDirectory . '/thumbnail';
-    $thumbnailPreviewPath = $projectDirectory . '/thumbnail-preview';
+    $thumbnailFullPath = $projectDirectory . '/thumbnail.webp';
+    $thumbnailPreviewPath = $projectDirectory . '/thumbnail-preview.webp';
 
     if ($fileLocation == '') {
         if (file_exists($thumbnailFullPath)) {
@@ -290,8 +290,8 @@ function saveProjectThumbnail($category, $slug, $fileLocation)
     }
 
     return (
-        (saveImageAsWebpOrGif($fileLocation, $thumbnailFullPath, 960, 540) !== false) &&
-        (saveImageAsWebpOrGif($fileLocation, $thumbnailPreviewPath, 480, 270) !== false)
+        (saveImageAsWebpOrGif($fileLocation, $thumbnailFullPath, 960, 540, true) !== false) &&
+        (saveImageAsWebpOrGif($fileLocation, $thumbnailPreviewPath, 480, 270, true) !== false)
     );
 }
 
