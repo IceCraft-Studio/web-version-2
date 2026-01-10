@@ -21,11 +21,11 @@ if ($userData === false) {
 }
 // Check if the viewer of the page is admin
 $verifiedRole = $viewState->get('verified-role');
-$viewerIsAdmin = $verifiedRole === UserRole::Admin->value || $verifiedRole === UserRole::Owner;
+$viewerIsAdmin = $verifiedRole == UserRole::Admin->value || $verifiedRole == UserRole::Owner;
 $viewState->set('viewer-admin',$viewerIsAdmin);
 
 // Banned users can only be seen by admins
-if ($userData['role'] === UserRole::Banned->value && !$viewerIsAdmin) {
+if ($userData['role'] == UserRole::Banned->value && !$viewerIsAdmin) {
     http_response_code(401);
     return;
 }
@@ -36,7 +36,10 @@ if (($userData['display_name'] ?? '') == '') {
     $userDisplayName = $userData['display_name'];
 }
 
-$viewState->set('page-user-role',$userData['role']);
+$userRole = $userData['role'];
+$userIsAdmin = $userRole == UserRole::Admin->value || $userRole == UserRole::Owner->value;
+$viewState->set('page-user-admin', $userIsAdmin);
+$viewState->set('page-user-role',$userRole);
 $viewState->set('page-display-name',$userDisplayName);
 $viewState->set('page-social-website',$userData['social_website'] ?? '');
 $viewState->set('page-social-reddit',$userData['social_reddit'] ?? '');

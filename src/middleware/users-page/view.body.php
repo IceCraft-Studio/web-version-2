@@ -7,6 +7,7 @@ $viewState = ViewData::getInstance();
 $userUsername = htmlspecialchars($viewState->get('page-username', ''));
 $userDisplayName = htmlspecialchars($viewState->get('page-display-name', ''));
 $userRole = htmlspecialchars($viewState->get('page-user-role', ''));
+$userIsAdmin = $viewState->get('page-user-admin', false);
 $userPicture = $viewState->get('page-picture-link', '');
 $socialWebsite = htmlspecialchars($viewState->get('page-social-website', ''));
 $socialReddit = htmlspecialchars($viewState->get('page-social-reddit', ''));
@@ -65,7 +66,7 @@ $viewerIsAdmin = $viewState->get('viewer-admin', false);
             <?php endif; ?>
         </div>
     </div>
-    <?php if ($viewerIsAdmin && !($userRole === UserRole::Admin->value)): ?>
+    <?php if ($viewerIsAdmin && !$userIsAdmin): ?>
         <div id="admin-panel">
             <form method="post">
                 <div>

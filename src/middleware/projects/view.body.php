@@ -33,7 +33,7 @@ function generateProjectCard($category,$slug,$title,$description,$thumbnailLink,
     $projectLink = getProjectLink($category,$slug);
 
     $userData = getUserData($username);
-    if (($userData['display_name'] ?? '')) {
+    if (($userData['display_name'] ?? '') == '') {
         $displayName = $username;
     } else {
         $displayName = htmlspecialchars($userData['display_name']);
