@@ -120,6 +120,7 @@ function deleteUser($username) {
     foreach ($userProjects as $deleteProject) {
         deleteProject($deleteProject['category'],$deleteProject['slug']);
     }
+    destroyUserSessions($username);
     $resultUser = dbQuery($dbConnection, "DELETE FROM `user` WHERE `username` = ?", "s", [$username]);
     removeDirRecursive(getUserDirectory($username));
 }
