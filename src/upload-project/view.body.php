@@ -179,7 +179,7 @@ function createPreviousLinks($linkArray) {
 function createCategorySelection($prefillCategory) {
     $categories = getCategories() ?: [];
     $savedCategories = [
-        '<option value="" selected></option>'
+        '<option value="" selected> </option>'
     ];
     foreach ($categories as $categoryRecord) {
     if ($prefillCategory == $categoryRecord['id']) {
@@ -217,7 +217,7 @@ $csrfToken = getCsrf('upload-project');
                     <label for="input-title" class="<?= $projectUploadState === ProjectUploadState::TitleInvalid ?  'color-required' : '' ?>">
                         Title of your project:
                     </label>
-                    <input id="input-title" name="title" type="text" value="<?= $prefillTitle ?>" minlength="6"
+                    <input id="input-title" name="title" value="<?= $prefillTitle ?>" minlength="6"
                         maxlength="96" required>
                 </div>
                 <div class="field">
@@ -242,7 +242,7 @@ $csrfToken = getCsrf('upload-project');
                     <div class="project-card">
                         <div class="user-part">
                             <a href="<?= $userLink ?>" target="_blank">
-                                <img src="<?= $profilePicture ?>">
+                                <img src="<?= $profilePicture ?>" alt="Profile Picture">
                                 <span>
                                     <?= $displayName ?>
                                 </span>
@@ -250,7 +250,7 @@ $csrfToken = getCsrf('upload-project');
                         </div>
                         <div class="project-part">
                             <img src="<?= $cardThumbnailSrc ?>" alt="Project Card Thumbnail">
-                            <h3 title="<?= $prefillTitle ?>"><?= $prefillTitle ?></h3>
+                            <h3 title="<?= $prefillTitle ?> "><?= $prefillTitle ?></h3>
                             <p class="description" title="<?= $prefillDescription ?>"><?= $prefillDescription ?></p>
                             <p class="modified">Date Modified: <time
                                     datetime="<?= date('Y-m-d') ?>"><?= date('d/m/Y') ?></time></p>
@@ -339,9 +339,9 @@ $csrfToken = getCsrf('upload-project');
                     ?>
                     <li>
                         <button class="add-another" title="Add another link to your project.">
-                            <div>
+                            <span>
                                 + Add Link
-                            </div>
+                            </span>
                         </button>
                     </li>
                 </ul>
@@ -354,9 +354,9 @@ $csrfToken = getCsrf('upload-project');
                     ?>
                     <li>
                         <button class="add-another" title="Add another file to your project.">
-                            <div>
+                            <span>
                                 + Add File
-                            </div>
+                            </span>
                         </button>
                     </li>
                 </ul>
