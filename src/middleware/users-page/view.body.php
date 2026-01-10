@@ -40,6 +40,9 @@ $viewerIsAdmin = $viewState->get('viewer-admin', false);
 $adminManageState = $viewState->get('user-manage-state', UserActionState::NoUpdate);
 $adminPasswordState = $viewState->get('user-password-state', ManagePasswordState::NoUpdate);
 
+
+echo $adminManageState->name;
+
 $showActionBanner = true;
 $showPasswordBanner = true;
 
@@ -70,7 +73,6 @@ switch ($adminManageState) {
 
 switch ($adminPasswordState) {
     case UserActionState::NoUpdate:
-        echo 'no update';
         $showPasswordBanner = false;
         break;
     case UserActionState::CsrfInvalid:
@@ -151,14 +153,12 @@ if ($viewerIsAdmin) {
                     </select>
                 </div>
                 <div>
-                    <div>
-                        <label for="input-password-new">New Password:</label>
-                        <input id="input-password-new" name="password-new" type="password" value="">
-                    </div>
-                    <div>
-                        <label for="input-password-confirm">Confirm New Password:</label>
-                        <input id="input-password-confirm" name="password-confirm" type="password" value="">
-                    </div>
+                    <label for="input-password-new">New Password:</label>
+                    <input id="input-password-new" name="password-new" type="password" value="">
+                </div>
+                <div>
+                    <label for="input-password-confirm">Confirm New Password:</label>
+                    <input id="input-password-confirm" name="password-confirm" type="password" value="">
                 </div>
                 <input type="submit" value="Run Action">
             </form>
