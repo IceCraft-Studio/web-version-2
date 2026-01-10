@@ -10,6 +10,8 @@ h2, .page-description, #download-links, #download-files {
 #download-links, #download-files {
     font-size: 1.3rem;
     font-family: JetBrainsMono, monospace;
+    display: flex;
+    flex-direction: column;
 }
 
 #download-links a, #download-files a {

@@ -337,6 +337,20 @@ if ($projectIsEditing) {
         return;
     }
     // save data
+    if (changeProjectTitle($projectCategory,$projectSlug,$title) === false) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
+        return;
+    }
+    if (changeProjectDescription($projectCategory,$projectSlug,$description) === false) {
+        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
+        prefillProjectFormValues($viewState);
+        initCsrf('upload-project');
+        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
+        return;
+    }
     if ($thumbnailFile != '' && !saveProjectThumbnail($projectCategory, $projectSlug, $thumbnailFile)) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
@@ -357,7 +371,7 @@ if ($projectIsEditing) {
         prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     };
-    if (!saveProjectArticle($projectCategory, $projectSlug, $markdownArticle)) {
+    if (saveProjectArticle($projectCategory, $projectSlug, $markdownArticle) === false) {
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
         initCsrf('upload-project');
@@ -391,6 +405,7 @@ if ($projectIsEditing) {
         prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
         return;
     };
+    updateProjectDateModified($projectCategory,$projectSlug);
 
 }
 //## Uploading a new project

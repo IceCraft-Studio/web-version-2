@@ -247,9 +247,6 @@ function changeProjectTitle($category, $slug, $newTitle)
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $result = dbQuery($dbConnection, "UPDATE `project` SET `title` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$newTitle, $category, $slug]);
     $success = ($result !== false && $result !== 0);
-    if ($success) {
-        updateProjectDateModified($category, $slug);
-    }
     return $success;
 }
 
@@ -265,9 +262,6 @@ function changeProjectDescription($category, $slug, $newDescription)
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $result = dbQuery($dbConnection, "UPDATE `project` SET `description` = ? WHERE `category` = ? AND `slug` = ? ", "sss", [$newDescription, $category, $slug]);
     $success = ($result !== false && $result !== 0);
-    if ($success) {
-        updateProjectDateModified($category, $slug);
-    }
     return $success;
 }
 
@@ -376,9 +370,6 @@ function addProjectGalleryImage($category, $slug, $fileLocation, $imageUuid)
 
     $result = dbQuery($dbConnection, "INSERT INTO `project_gallery` (`category`,`slug`,`file_name`) VALUES (?, ?, ?)", "sss", [$category, $slug, $imageUuid]);
     $success = ($result !== false && $result !== 0);
-    if ($success) {
-        updateProjectDateModified($category, $slug);
-    }
     return $success;
 }
 function removeProjectGalleryImage($category, $slug, $fileName)
@@ -396,9 +387,6 @@ function removeProjectGalleryImage($category, $slug, $fileName)
         $success = unlink($projectGalleryImagePath);
     } else {
         return false;
-    }
-    if ($success) {
-        updateProjectDateModified($category, $slug);
     }
     return $success;
 }
@@ -427,9 +415,6 @@ function addProjectLink($category, $slug, $url, $displayName)
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $result = dbQuery($dbConnection, "INSERT INTO `project_link` (`category`,`slug`,`url`,`display_name`) VALUES (?, ?, ?, ?)  ", "ssss", [$category, $slug, $url, $displayName]);
     $success = ($result !== false && $result !== 0);
-    if ($success) {
-        updateProjectDateModified($category, $slug);
-    }
     return $success;
 }
 
@@ -438,9 +423,6 @@ function removeProjectLink($category, $slug, $url)
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     $result = dbQuery($dbConnection, "DELETE FROM `project_link` WHERE `category` = ? AND `slug` = ? AND `url` = ? ", "sss", [$category, $slug, $url]);
     $success = ($result !== false && $result !== 0);
-    if ($success) {
-        updateProjectDateModified($category, $slug);
-    }
     return $success;
 }
 
@@ -465,9 +447,6 @@ function addProjectFile($category, $slug, $fileLocation, $fileName, $displayName
     }
     $result = dbQuery($dbConnection, "INSERT INTO `project_upload` (`category`,`slug`,`file_name`,`display_name`) VALUES (?, ?, ?, ?)  ", "ssss", [$category, $slug, $fileName, $displayName]);
     $success = ($result !== false && $result !== 0);
-    if ($success) {
-        updateProjectDateModified($category, $slug);
-    }
     return $success;
 }
 
@@ -486,9 +465,6 @@ function removeProjectFile($category, $slug, $fileName)
         $success = unlink($projectUploadPath);
     } else {
         return false;
-    }
-    if ($success) {
-        updateProjectDateModified($category, $slug);
     }
     return $success;
 }
