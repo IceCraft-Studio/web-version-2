@@ -36,6 +36,10 @@
     flex-wrap: wrap;
 }
 
+#admin-panel select {
+    font-size: 1em;
+}
+
 .social-links {
     display: flex;
     justify-content: space-evenly;
