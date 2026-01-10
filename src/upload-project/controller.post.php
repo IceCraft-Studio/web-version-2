@@ -337,14 +337,7 @@ if ($projectIsEditing) {
         return;
     }
     // save data
-    if (changeProjectTitle($projectCategory,$projectSlug,$title) === false) {
-        echo 'title error';
-        $viewState->set('upload-project-state', ProjectUploadState::ServerError);
-        prefillProjectFormValues($viewState);
-        initCsrf('upload-project');
-        prefillProjectPreviousUploads($projectCategory,$projectSlug,$viewState);
-        return;
-    }
+
     if (changeProjectDescription($projectCategory,$projectSlug,$description) === false) {
         echo 'desc error';
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
