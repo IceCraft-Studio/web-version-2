@@ -30,6 +30,10 @@
     font-weight: bold;
 }
 
+#admin-panel form {
+    display: flex;
+}
+
 .social-links {
     display: flex;
     justify-content: space-evenly;
