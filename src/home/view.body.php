@@ -1,4 +1,6 @@
 <?php
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/html-gen.php';
+
 $viewState = ViewData::getInstance();
 $projectsList = $viewState->get('projects-list');
 ?>
