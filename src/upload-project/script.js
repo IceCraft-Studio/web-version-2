@@ -102,6 +102,7 @@ async function main() {
 	// Title card update
 	elements.titleInput.addEventListener('input', () => {
 		elements.previewTitle.textContent = elements.titleInput.value;
+		elements.previewTitle.setAttribute('title',elements.titleInput.value);
 	});
 	// Description correction and card update
 	elements.descriptionInput.addEventListener('input', () => {
