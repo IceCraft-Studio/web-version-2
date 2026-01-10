@@ -1,3 +1,9 @@
 .category-link-container a {
     margin: 0.5em;
 }
+
+.category-link-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
