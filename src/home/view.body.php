@@ -1,3 +1,7 @@
+<?php
+$viewState = ViewData::getInstance();
+$projectsList = $viewState->get('projects-list');
+?>
 <main>
     <img id="main-logo" src="/~dobiapa2/assets/icecraft-logo-wide.webp" class="no-select" alt="IceCraft Studio Logo">
     <h1>Free Minecraft mods, VS Code extensions, Steam Workshop items and more!</h1>
@@ -12,12 +16,11 @@
             of the game. Our goal is to make enjoyable experiences for everyone and for free!
         </p>
     </div>
+    <h2>Recently Added Projects</h2>
     <div id="add-ons" class="media-table">
-        <h2>Latest Projects</h2>
-        <img class="next" loading="lazy">
-        <a>
-            <img class="current" loading="lazy" src="">
-        </a>
+        <?php
+            createProjectsListing($projectsList);
+        ?>
     </div>
     <div id="collaborations" class="info-table">
         <h2>Partners</h2>

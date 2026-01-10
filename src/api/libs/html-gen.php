@@ -35,7 +35,7 @@ function generateProjectCard($category,$slug,$title,$description,$username,$modi
     </div>
     <a href="' . $projectLink . '">
         <div class="project-part">
-            <img src="' . $thumbnailLink . '" alt="Project Card Thumbnail">
+            <img src="' . $thumbnailLink . '" alt="' . htmlspecialchars($title) . '\'s Thumbnail" loading="lazy">
             <h3 title="' . htmlspecialchars($title) . '">' . htmlspecialchars($title) . '</h3>
             <p class="description" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</p>
             <p class="modified">Updated on: <time datetime="' . $datetimeTechnical . '">' . $datetimeHuman . '</time></p>

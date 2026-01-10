@@ -35,8 +35,8 @@ class ViewData
 
     /**
      * Set a value in the state.
-     * @param string $key
-     * @param mixed $value
+     * @param string $key Key to set.
+     * @param mixed $value Value to set.
      * @return void
      */
     public function set(string $key, $value): void
@@ -46,8 +46,8 @@ class ViewData
 
     /**
      * Get a value from the state.
-     * @param string $key
-     * @param mixed $default
+     * @param string $key Key to get.
+     * @param mixed $default Replacement value in case of missing key.
      */
     public function get(string $key, $default = null)
     {
