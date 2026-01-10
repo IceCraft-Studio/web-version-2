@@ -1,10 +1,10 @@
 <?php
 /**
- * Summary of createPageLink
- * @param mixed $requestUrl
- * @param mixed $params
- * @param mixed $page
- * @return string
+ * Crates links for paging preserving GET URL parameters.
+ * @param mixed $requestUrl The URL of the paging web page.
+ * @param mixed $params The parameters to preserve. Usually `$_GET`.
+ * @param mixed $page The page number for the link.
+ * @return string The result URL link.
  */
 function createPageLink($requestUrl, $params, $page) {
     $newParams = $params;
@@ -17,9 +17,9 @@ function createPageLink($requestUrl, $params, $page) {
 }
 
 /**
- * Summary of generatePageControls
- * @param mixed $page
- * @param mixed $lastPage
+ * Simple algorithm to `echo` page control links to move to next, previous, first and last page.
+ * @param mixed $page The current page to generate the links for.
+ * @param mixed $lastPage The last page of the listing.
  * @return void
  */
 function generatePageControls($page,$lastPage) {

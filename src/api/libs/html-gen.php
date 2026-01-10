@@ -45,11 +45,12 @@ function generateProjectCard($category,$slug,$title,$description,$username,$modi
 }
 
 /**
- * Echo's project card HTML of all projects in the array.
+ * `echo`'s project card HTML of all projects in the array.
  * @param array $projectsArray Array of project data from the database.
+ * @param string $noItemsMessage Present this string when the array is empty. (Optional.)
  * @return void
  */
-function createProjectsListing($projectsArray) {
+function createProjectsListing($projectsArray, $noItemsMessage = '') {
     foreach ($projectsArray as $projectRecord) {
         $category = $projectRecord['category'] ?? '';
         $slug = $projectRecord['slug'] ?? '';
@@ -62,10 +63,13 @@ function createProjectsListing($projectsArray) {
             $projectRecord['datetime_modified'] ?? ''
         );
     }
+    if (count($projectsArray) === 0) {
+        echo $noItemsMessage;
+    }
 }
 
 /**
- * Echo's links to all categories that exist in the database.
+ * `echo`'s links to all categories that exist in the database.
  * @return void
  */
 function createCategoryLinks() {

@@ -78,7 +78,7 @@ $currentOrder = $viewState->get('paging-order','asc');
     </div>
     <div id="projects-section">
         <?php
-            createProjectsListing($projectsList);
+            createProjectsListing($projectsList,'<p> Empty page. </p>');
         ?>
     </div>
     <div class="page-controls">

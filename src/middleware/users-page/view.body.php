@@ -142,7 +142,7 @@ $showPasswordBanner = false;
     </div>
     <div id="projects-section">
         <?php
-            createProjectsListing($projectsList);
+            createProjectsListing($projectsList, '<p> This user hasn\'t uploaded any projects yet. </p>');
         ?>
     </div>
     <div class="page-controls">

@@ -264,11 +264,11 @@ function changeProjectDescription($category, $slug, $newDescription)
 }
 
 /**
- * Takes a specified file on the server and sets it as the profile picture for the given user. If empty deleted the file.
- * @param mixed $category
- * @param mixed $slug
- * @param mixed $fileLocation
- * @return bool
+ * Takes a specified file on the server and sets it as the thumbnail for a given project. If empty deleted the file.
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @param mixed $fileLocation The current image's file location.
+ * @return bool `true` on success, `false` on failure.
  */
 function saveProjectThumbnail($category, $slug, $fileLocation)
 {
@@ -351,7 +351,14 @@ function saveProjectArticle($category, $slug, $markdownData)
 }
 
 //## Working with Project Gallery
-
+/**
+ * Adds a new image to the project's gallery.
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @param mixed $fileLocation The current file location of the image.
+ * @param mixed $imageUuid Unique UUID for the image file name.
+ * @return bool `true` on success, `false` on failure.
+ */
 function addProjectGalleryImage($category, $slug, $fileLocation, $imageUuid)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -370,6 +377,14 @@ function addProjectGalleryImage($category, $slug, $fileLocation, $imageUuid)
     $success = ($result !== false && $result !== 0);
     return $success;
 }
+
+/**
+ * Summary of removeProjectGalleryImage
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @param mixed $fileName
+ * @return bool `true` on success, `false` on failure.
+ */
 function removeProjectGalleryImage($category, $slug, $fileName)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -389,6 +404,12 @@ function removeProjectGalleryImage($category, $slug, $fileName)
     return $success;
 }
 
+/**
+ * Summary of loadProjectGalleryImages
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @return array{file_name: string, link: string}|bool
+ */
 function loadProjectGalleryImages($category, $slug)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -407,7 +428,14 @@ function loadProjectGalleryImages($category, $slug)
 }
 
 //## Working with Project Links
-
+/**
+ * Summary of addProjectLink
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @param mixed $url
+ * @param mixed $displayName
+ * @return bool `true` on success, `false` on failure.
+ */
 function addProjectLink($category, $slug, $url, $displayName)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -416,6 +444,13 @@ function addProjectLink($category, $slug, $url, $displayName)
     return $success;
 }
 
+/**
+ * Summary of removeProjectLink
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @param mixed $url
+ * @return bool `true` on success, `false` on failure.
+ */
 function removeProjectLink($category, $slug, $url)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -424,6 +459,12 @@ function removeProjectLink($category, $slug, $url)
     return $success;
 }
 
+/**
+ * Summary of loadProjectLinks
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @return array{url: string, display_name: string}|bool Array containing the URL and display name of the link.
+ */
 function loadProjectLinks($category, $slug)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -431,7 +472,15 @@ function loadProjectLinks($category, $slug)
 }
 
 //## Working with Project Files
-
+/**
+ * Summary of addProjectFile
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @param mixed $fileLocation
+ * @param mixed $fileName
+ * @param mixed $displayName
+ * @return bool
+ */
 function addProjectFile($category, $slug, $fileLocation, $fileName, $displayName)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -448,6 +497,13 @@ function addProjectFile($category, $slug, $fileLocation, $fileName, $displayName
     return $success;
 }
 
+/**
+ * Removes a project download file.
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @param mixed $fileName
+ * @return bool
+ */
 function removeProjectFile($category, $slug, $fileName)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
@@ -467,6 +523,12 @@ function removeProjectFile($category, $slug, $fileName)
     return $success;
 }
 
+/**
+ * Retrieves all download files for a specific project.
+ * @param string $category The project category.
+ * @param string $slug The project slug.
+ * @return array{display_name: mixed, file_name: mixed, link: string[]|bool}
+ */
 function loadProjectFiles($category, $slug)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
