@@ -351,6 +351,7 @@ function saveProjectArticle($category, $slug, $markdownData)
     if ($htmlData === false) {
         return false;
     }
+    $htmlData = fixGithubHtml($htmlData);
     if (file_put_contents($projectArticleHtmlPath, $htmlData) === false) {
         return false;
     }

@@ -31,3 +31,5 @@ $viewState->set('page-created',$projectData['datetime_created'] ?? 'Unknown');
 
 $viewState->set('page-links',loadProjectLinks($projectCategory,$projectSlug) ?? []);
 $viewState->set('page-files',loadProjectFiles($projectCategory,$projectSlug) ?? []);
+
+## Use Regex To Fix Stupid GitHuub api
