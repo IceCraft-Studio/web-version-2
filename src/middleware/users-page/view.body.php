@@ -40,9 +40,6 @@ $viewerIsAdmin = $viewState->get('viewer-admin', false);
 $adminManageState = $viewState->get('user-manage-state', UserActionState::NoUpdate);
 $adminPasswordState = $viewState->get('user-password-state', ManagePasswordState::NoUpdate);
 
-
-echo $adminManageState->name;
-
 $showActionBanner = true;
 $showPasswordBanner = true;
 

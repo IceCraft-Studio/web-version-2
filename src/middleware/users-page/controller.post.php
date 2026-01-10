@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/enums.php";
+require_once __DIR__ . "/enums.php";
 
 $viewState = ViewData::getInstance();
 
