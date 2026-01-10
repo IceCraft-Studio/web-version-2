@@ -19,7 +19,7 @@ $projectsList = $viewState->get('projects-list');
     <h2>Recently Added Projects</h2>
     <div id="add-ons" class="media-table">
         <?php
-            createProjectsListing($projectsList);
+            createProjectsListing($projectsList, 'Could not load projects.');
         ?>
     </div>
     <div id="collaborations" class="info-table">
