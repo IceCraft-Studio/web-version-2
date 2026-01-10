@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/project.php';
+require __DIR__ . "/enums.php";
 
 const ORDER_ASCENDING = 'asc';
 const ORDER_DESCENDING = 'desc';
@@ -8,8 +9,6 @@ const SORT_MODIFIED = 'modified';
 const SORT_CREATED = 'created';
 
 $viewState = ViewData::getInstance();
-
-initCsrf('users-page');
 
 //## Basic User Data
 $userUsername = explode('/',$viewState->get('normalized-route'))[1];
@@ -21,7 +20,7 @@ if ($userData === false) {
 }
 // Check if the viewer of the page is admin
 $verifiedRole = $viewState->get('verified-role');
-$viewerIsAdmin = $verifiedRole == UserRole::Admin->value || $verifiedRole == UserRole::Owner;
+$viewerIsAdmin = $verifiedRole == UserRole::Admin->value || $verifiedRole == UserRole::Owner->value;
 $viewState->set('viewer-admin',$viewerIsAdmin);
 
 // Banned users can only be seen by admins
@@ -38,6 +37,11 @@ if (($userData['display_name'] ?? '') == '') {
 
 $userRole = $userData['role'];
 $userIsAdmin = $userRole == UserRole::Admin->value || $userRole == UserRole::Owner->value;
+
+if ($viewerIsAdmin && !$userIsAdmin) {
+    initCsrf('users-page');
+}
+
 $viewState->set('page-user-admin', $userIsAdmin);
 $viewState->set('page-user-role',$userRole);
 $viewState->set('page-display-name',$userDisplayName);

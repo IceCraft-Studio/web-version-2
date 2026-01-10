@@ -1,10 +1,12 @@
 <?php
+require __DIR__ . "/enums.php";
 
 $viewState = ViewData::getInstance();
 
 // Redirect if token is invalid
 $csrfLegit = validateCsrf('users-page');
 if (!$csrfLegit) {
+    $viewState->set('user-manage-state', UserActionState::CsrfInvalid);
     require __DIR__ . '/controller.get.php';
     return;
 }
@@ -15,7 +17,7 @@ if ($username == '') {
     return;
 }
 
-$userUsername = explode('/',$viewState->get('normalized-route'))[1];
+$userUsername = explode('/', $viewState->get('normalized-route'))[1];
 $userData = getUserData($userUsername);
 if ($userData === false) {
     http_response_code(404);
@@ -36,26 +38,35 @@ if (!$isAdmin) {
     return;
 }
 
+$userAction = $_POST['user-action'] ?? '';
+
 // Run the action on user
 switch ($userAction) {
     case 'ban-user':
         if ($userRole == UserRole::Banned->value) {
-            changeUserRole($userUsername,UserRole::User->value);
+            $actionSuccess = changeUserRole($userUsername, UserRole::User->value);
         } else {
-            changeUserRole($userUsername,UserRole::Banned->value);
+            $actionSuccess = changeUserRole($userUsername, UserRole::Banned->value);
         }
         break;
     case 'promote-admin':
-        changeUserRole($userUsername,UserRole::Admin->value);
+        $actionSuccess = changeUserRole($userUsername, UserRole::Admin->value);
         break;
     case 'clear-name':
-        changeUserDisplayName($userUsername,'');
+        $actionSuccess = changeUserDisplayName($userUsername, '');
         break;
     case 'delete-user':
         deleteUser($userUsername);
         redirect('/~dobiapa2/users');
 }
 
+if ($userAction == '') {
+    if ($actionSuccess) {
+        $viewState->set('user-manage-state', UserActionState::Success);
+    } else {
+        $viewState->set('user-manage-state', UserActionState::Failure);
+    }
+}
 
 // Change password if requested
 $passwordNew = $_POST['password-new'] ?? '';
@@ -63,17 +74,21 @@ $passwordConfirm = $_POST['password-confirm'] ?? '';
 
 if ($passwordNew != '') {
     if (!validatePassword($passwordNew)) {
+        $viewState->set('user-password-state', ManagePasswordState::PasswordInvalid);
         include __DIR__ . '/controller.get.php';
         return;
     }
     if ($passwordNew != $passwordConfirm) {
+        $viewState->set('user-password-state', ManagePasswordState::PasswordMismatch);
         include __DIR__ . '/controller.get.php';
         return;
     }
-    if (!changeUserPassword($userUsername,$passwordNew)) {
+    if (!changeUserPassword($userUsername, $passwordNew)) {
+        $viewState->set('user-password-state', ManagePasswordState::Failure);
         include __DIR__ . '/controller.get.php';
-        return;  
+        return;
     }
+    $viewState->set('user-password-state', ManagePasswordState::Success);
     destroyUserSessions($userUsername);
 }
 

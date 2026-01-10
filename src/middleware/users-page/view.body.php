@@ -8,7 +8,6 @@ $viewState = ViewData::getInstance();
 $userUsername = htmlspecialchars($viewState->get('page-username', ''));
 $userDisplayName = htmlspecialchars($viewState->get('page-display-name', ''));
 $userRole = htmlspecialchars($viewState->get('page-user-role', ''));
-$userIsAdmin = $viewState->get('page-user-admin', false);
 $userCreated = $viewState->get('page-user-created','');
 $userPicture = $viewState->get('page-picture-link', '');
 $socialWebsite = htmlspecialchars($viewState->get('page-social-website', ''));
@@ -35,20 +34,69 @@ $currentSort = $viewState->get('paging-sort','title');
 $currentOrder = $viewState->get('paging-order','asc');
 
 // Admin Data
+$userIsAdmin = $viewState->get('page-user-admin', false);
 $viewerIsAdmin = $viewState->get('viewer-admin', false);
 
-$showActionBanner = false;
-$showPasswordBanner = false;
+$adminManageState = $viewState->get('user-manage-state', UserActionState::NoUpdate);
+$adminPasswordState = $viewState->get('user-password-state', ManagePasswordState::NoUpdate);
+
+$showActionBanner = true;
+$showPasswordBanner = true;
+
+$passwordMessage = '';
+$actionMessage = '';
+
+$passwordSuccess = false;
+$actionSuccess = false;
+
+switch ($adminManageState) {
+    case ManagePasswordState::NoUpdate:
+        $showActionBanner = false;
+        break;
+    case ManagePasswordState::PasswordInvalid:
+        $passwordMessage = 'Password update failed! Make sure it is at least 8 characters long and contains at least a single number, uppercase letter and lowercase letter.';
+        break;
+    case ManagePasswordState::PasswordMismatch:
+        $passwordMessage = 'Password update failed! Passwords do not match.';
+        break;
+    case ManagePasswordState::Failure:
+        $passwordMessage = 'Password update failed! Server error.';
+        break;
+    case ManagePasswordState::Success:
+        $passwordMessage = 'Password updated successfully!.';
+        break;
+}
+
+
+switch ($adminPasswordState) {
+    case UserActionState::NoUpdate:
+        $showPasswordBanner = false;
+        break;
+    case UserActionState::CsrfInvalid:
+        $actionMessage = 'Critical client error! Please try resending the form.';
+        break;
+    case UserActionState::Failure:
+        $actionMessage = 'Requested action has failed.';
+        break;
+    case UserActionState::Success:
+        $actionMessage = 'Requested action was successful.';
+        break;
+}
+
+$csrfToken = '';
+if ($viewerAdmin) {
+    $csrfToken = getCsrf('users-page');
+}
 
 ?>
 <main>
     <?php if ($showActionBanner): ?>
-    <div class="update-banner <?= $successAction ? 'success' : 'fail'?>">
+    <div class="update-banner <?= $actionSuccess ? 'success' : 'fail'?>">
         <?= $actionMessage ?>
     </div>
     <?php endif; ?>
     <?php if ($showPasswordBanner): ?>
-    <div class="update-banner <?= $successPassword ? 'success' : 'fail'?>">
+    <div class="update-banner <?= $passwordSuccess ? 'success' : 'fail'?>">
         <?= $passwordMessage ?>
     </div>
     <?php endif; ?>
