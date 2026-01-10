@@ -49,7 +49,7 @@ $showPasswordBanner = false;
     </div>
     <?php endif; ?>
     <div id="profile-section">
-        <div>
+        <div class="user-header">
             <img src="<?= $userPicture ?>">
             <h1><?= $userDisplayName ?></h1>
         </div>

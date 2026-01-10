@@ -1,14 +1,14 @@
-#profile-section {
+#profile-section .user-header {
     display: flex;
     align-items: center;
 }
 
-#profile-section h1 {
+#profile-section .user-header h1 {
     font-size: 2.5em;
     padding: 0.5em;
 }
 
-#profile-section img {
+#profile-section .user-header img {
     width: 10rem;
     border: 0.2rem solid var(--color-primary);
     background-color: transparent;
