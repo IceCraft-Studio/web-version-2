@@ -234,7 +234,7 @@ $csrfToken = getCsrf('upload-project');
                         <p class="thumbnail-ratio">The image needs to have 16:9 aspect ratio!</p>
                     </div>
                     <input id="input-thumbnail" name="thumbnail" type="file" accept=".jpeg,.jpg,.png,.webp"
-                        <?= $prefillEditing === '1' ? '' : 'required' ?>></input>
+                        <?= $prefillEditing === '1' ? '' : 'required' ?>>
                 </div>
             </div>
             <div class="introduction-preview">
