@@ -179,7 +179,7 @@ function createPreviousLinks($linkArray) {
 function createCategorySelection($prefillCategory) {
     $categories = getCategories() ?: [];
     $savedCategories = [
-        '<option value="" selected> </option>'
+        '<option value="" selected>No category selected</option>'
     ];
     foreach ($categories as $categoryRecord) {
     if ($prefillCategory == $categoryRecord['id']) {
@@ -250,7 +250,7 @@ $csrfToken = getCsrf('upload-project');
                         </div>
                         <div class="project-part">
                             <img src="<?= $cardThumbnailSrc ?>" alt="Project Card Thumbnail">
-                            <h3 title="<?= $prefillTitle ?> "><?= $prefillTitle ?></h3>
+                            <h3 <?= $prefillTitle == '' ? '' : 'title="' . $prefillTitle . '"' ?>><?= $prefillTitle ?></h3>
                             <p class="description" title="<?= $prefillDescription ?>"><?= $prefillDescription ?></p>
                             <p class="modified">Date Modified: <time
                                     datetime="<?= date('Y-m-d') ?>"><?= date('d/m/Y') ?></time></p>
