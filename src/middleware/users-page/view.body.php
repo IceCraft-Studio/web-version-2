@@ -131,6 +131,7 @@ if ($viewerIsAdmin) {
     </div>
     <?php if ($viewerIsAdmin && !$userIsAdmin): ?>
         <div id="admin-panel">
+            <h2>User Management</h2>
             <form method="post">
                 <div>
                     <label for="input-user-action">Manage User Action:</label>
