@@ -134,7 +134,7 @@ function validateUsername($username)
 }
 
 /**
- * Returns `true` when the string is less than 112 characters (inclusive), otherwise `false`. 
+ * Returns `true` when the string is less than 64 characters (inclusive), otherwise `false`. 
  * @param string $displayName The string to test.
  * @return bool The result of the validation.
  */

@@ -664,6 +664,7 @@ img.no-select {
     height: 2em;
     border: 0.2rem var(--color-primary) solid;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .project-card .project-part img {
