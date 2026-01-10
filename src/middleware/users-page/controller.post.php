@@ -47,6 +47,9 @@ switch ($userAction) {
             $actionSuccess = changeUserRole($userUsername, UserRole::User->value);
         } else {
             $actionSuccess = changeUserRole($userUsername, UserRole::Banned->value);
+            if ($actionSuccess) {
+                destroyUserSessions($userUsername);
+            }
         }
         break;
     case 'promote-admin':
