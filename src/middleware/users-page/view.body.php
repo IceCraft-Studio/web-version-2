@@ -103,7 +103,7 @@ if ($viewerIsAdmin) {
     <?php endif; ?>
     <div id="profile-section">
         <div class="user-header">
-            <img src="<?= $userPicture ?>">
+            <img src="<?= $userPicture ?>" alt="<?= $userDisplayName ?>">
             <h1><?= $userDisplayName ?></h1>
             <div class="member-since">
                 Member Since: <time datetime="<?= $createdTechnical ?>"><?= $createdHuman ?></time>
@@ -111,19 +111,19 @@ if ($viewerIsAdmin) {
         </div>
         <div class="social-links">
             <?php if ($socialWebsite != ''): ?>
-            <a href="<?= $socialWebsite ?>" title="Website" target="_blank"><img src="/~dobiapa2/assets/icons/home.svg"> My Personal Website</a>
+            <a href="<?= $socialWebsite ?>" title="Website" target="_blank"><img src="/~dobiapa2/assets/icons/home.svg" alt="Home icon"> My Personal Website</a>
             <?php endif; ?>
             <?php if ($socialReddit != ''): ?>
-            <a href="https://reddit.com/user/<?= $socialReddit ?>" title="Reddit" target="_blank"><img src="/~dobiapa2/assets/icons/socials/reddit.svg"> My Reddit Profile</a>
+            <a href="https://reddit.com/user/<?= $socialReddit ?>" title="Reddit" target="_blank"><img src="/~dobiapa2/assets/icons/socials/reddit.svg" alt="Reddit icon"> My Reddit Profile</a>
             <?php endif; ?>
             <?php if ($socialTwitter != ''): ?>
-            <a href="https://x.com/<?= $socialTwitter ?>" title="Twitter" target="_blank"><img src="/~dobiapa2/assets/icons/socials/twitter.svg"> My Twitter Profile</a>
+            <a href="https://x.com/<?= $socialTwitter ?>" title="Twitter" target="_blank"><img src="/~dobiapa2/assets/icons/socials/twitter.svg" alt="Twitter icon"> My Twitter Profile</a>
             <?php endif; ?>
             <?php if ($socialInstagram != ''): ?>
-            <a href="https://instagram.com/<?= $socialInstagram ?>" title="Instagram" target="_blank"><img src="/~dobiapa2/assets/icons/socials/instagram.svg"> My Instagram Profile</a>
+            <a href="https://instagram.com/<?= $socialInstagram ?>" title="Instagram" target="_blank"><img src="/~dobiapa2/assets/icons/socials/instagram.svg" alt="Instagram icon"> My Instagram Profile</a>
             <?php endif; ?>
             <?php if ($socialDiscord != ''): ?>
-            <a href="https://discord.gg/<?= $socialDiscord ?>" title="Discord" target="_blank"><img src="/~dobiapa2/assets/icons/socials/discord.svg"> My Discord Server</a>
+            <a href="https://discord.gg/<?= $socialDiscord ?>" title="Discord" target="_blank"><img src="/~dobiapa2/assets/icons/socials/discord.svg" alt="Discord icon"> My Discord Server</a>
             <?php endif; ?>
         </div>
     </div>

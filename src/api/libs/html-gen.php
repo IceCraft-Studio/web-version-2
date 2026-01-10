@@ -29,7 +29,7 @@ function generateProjectCard($category,$slug,$title,$description,$username,$modi
 <div class="project-card">
     <div class="user-part">
         <a href="' . $userLink . '">
-            <img src="' .  $userPictureLink . '">
+            <img src="' .  $userPictureLink . '" alt="' . $displayName .'\'s profile picture">
             <span>' . $displayName . '</span>
         </a>
     </div>
