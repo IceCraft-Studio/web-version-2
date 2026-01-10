@@ -51,7 +51,7 @@ $actionSuccess = false;
 
 switch ($adminPasswordState) {
     case ManagePasswordState::NoUpdate:
-        $showActionBanner = false;
+        $showPasswordBanner = false;
         break;
     case ManagePasswordState::PasswordInvalid:
         $passwordMessage = 'Password update failed! Make sure it is at least 8 characters long and contains at least a single number, uppercase letter and lowercase letter.';
@@ -64,12 +64,13 @@ switch ($adminPasswordState) {
         break;
     case ManagePasswordState::Success:
         $passwordMessage = 'Password updated successfully!.';
+        $passwordSuccess = true;
         break;
 }
 
 switch ($adminManageState) {
     case UserActionState::NoUpdate:
-        $showPasswordBanner = false;
+        $showActionBanner = false;
         break;
     case UserActionState::CsrfInvalid:
         $actionMessage = 'Critical client error! Please try resending the form.';
@@ -79,6 +80,7 @@ switch ($adminManageState) {
         break;
     case UserActionState::Success:
         $actionMessage = 'Requested action was successful.';
+        $actionSuccess = true;
         break;
 }
 
