@@ -2,8 +2,8 @@
 :root {
 	/* Light Colors */
 	--color-primary-toned-light: hsl(216, 94%, 70%);
-	--color-1-light: hsla(215, 30%, 90%, 0.8);
-	--color-2-light: hsl(215, 30%, 80%);
+	--color-1-light: hsla(214, 14%, 80%, 0.8);
+	--color-2-light: hsl(215, 26%, 70%);
 	--color-2-trans-light: hsla(215, 30%, 80%, 0.68);
 	--color-text-light: hsl(215, 10%, 5%);
 	--color-text-disabled-light: hsl(215, 5%, 30%);

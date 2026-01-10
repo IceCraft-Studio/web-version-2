@@ -65,6 +65,14 @@ a {
     display: inline-block;
 }
 
+:root[data-theme='dark'] a:hover {
+    filter: brightness(1.2) saturate(1.2);
+}
+
+:root[data-theme='light'] a:hover {
+    filter: brightness(0.6) saturate(1.2);
+}
+
 /* FORM ELEMENTS */
 
 textarea:focus-visible,
