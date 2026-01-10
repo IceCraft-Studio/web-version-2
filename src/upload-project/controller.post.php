@@ -338,6 +338,7 @@ if ($projectIsEditing) {
     }
     // save data
     if (changeProjectTitle($projectCategory,$projectSlug,$title) === false) {
+        echo 'title error';
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
         initCsrf('upload-project');
@@ -345,6 +346,7 @@ if ($projectIsEditing) {
         return;
     }
     if (changeProjectDescription($projectCategory,$projectSlug,$description) === false) {
+        echo 'desc error';
         $viewState->set('upload-project-state', ProjectUploadState::ServerError);
         prefillProjectFormValues($viewState);
         initCsrf('upload-project');

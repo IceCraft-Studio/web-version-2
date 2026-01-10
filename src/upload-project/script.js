@@ -506,11 +506,12 @@ async function generatePreview(inputElement, outputElement) {
 			const a = img.parentElement;
 			// The links has the original URL stored in 'data-canonical-src' attribute
 			const canonical = img.getAttribute('data-canonical-src');
-			// Check if it actually points to our website
-			if (!canonical.startsWith(`${location.protocol}//${location.host}`))
-				return;
-			// Add the blob prefix to the img src to make the browser interpret it as url object
-			img.src = 'blob:' + canonical;
+			// if it is a browser object, add blob:
+			if (canonical.startsWith(`${location.protocol}//${location.host}`) && !canonical.startsWith(`${location.protocol}//${location.host}/~dobiapa2/api`)) {
+				img.src = 'blob:' + canonical;
+			} else {
+				img.src = canonical;
+			}
 			// Replace the link with the img alone
 			a.replaceWith(img);
 		});

@@ -10,7 +10,7 @@ $viewState->set('normalized-route',$currentRoute);
 
 if (str_starts_with($currentRoute, 'home')) {
     $viewState->set('current-page', 'home');
-} elseif (str_starts_with($currentRoute, 'projects') || str_starts_with($currentRoute, 'users/')) {
+} elseif (str_starts_with($currentRoute, 'projects') || str_starts_with($currentRoute, 'users') || str_starts_with($currentRoute, 'upload-project')) {
     $viewState->set('current-page', "projects");
 } elseif (str_starts_with($currentRoute, 'about')) {
     $viewState->set('current-page', 'about');
