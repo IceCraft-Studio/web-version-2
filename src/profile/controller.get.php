@@ -1,8 +1,20 @@
 <?php
 require_once __DIR__ . '/enums.php';
 
+/**
+* The amount of seconds in minute.
+* @var int
+*/
 const SECONDS_IN_MINUTE = 60;
+/**
+* The amount of seconds in hour.
+* @var int
+*/
 const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * 60;
+/**
+* The amount of seconds in day.
+* @var int
+*/
 const SECONDS_IN_DAY = SECONDS_IN_HOUR * 24;
 
 $viewState = ViewData::getInstance();

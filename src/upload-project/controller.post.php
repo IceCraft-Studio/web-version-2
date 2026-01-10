@@ -4,17 +4,37 @@ require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/image.php';
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/storage.php';
 require_once __DIR__ . '/enums.php';
 
-const MAX_ALLOWED_IMAGE_SIZE_MB = 15;
-const MAX_ALLOWED_UPLOAD_SIZE_MB = 30;
 
+/**
+ * Maximum file upload size for images in MB.
+ * @var int
+ */
+const MAX_ALLOWED_IMAGE_SIZE_MB = 15;
+/**
+ * Maximum file upload size for files in MB.
+ * @var int
+ */
+const MAX_ALLOWED_UPLOAD_SIZE_MB = 30;
+/**
+ * Maximum amount of uploaded gallery images.
+ * @var int
+ */
 const MAX_GALLERY_UPLOADS = 12;
+/**
+ * Maximum amount of uploaded files.
+ * @var int
+ */
 const MAX_FILE_UPLOADS = 5;
+/**
+ * Maximum amount of uploaded links.
+ * @var int
+ */
 const MAX_LINK_UPLOADS = 5;
 
 //## Functions
 
 /**
- * Summary of validateProjectData
+ * Validates all basic project data.
  * @param string $title The project's title.
  * @param string $description The project's description.
  * @param string $category The project's category.
@@ -41,16 +61,25 @@ function validateProjectData($title,$description,$category,$slug,$markdownArticl
     return true;
 }
 
+/**
+ * Validates the thumbnail for the project. Must be 16:9 aspect ratio, format of PNG, JPEG or WEBP and no bigger than 15 MB.
+ * @param string $filePath Where the thumbnail is saved as a file.
+ * @return bool `true` when valid, `false` otherwise.
+ */
 function validateProjectThumbnail($filePath) {
-    return validateImageType($filePath,ALLOWED_THUMBNAIL_IMG_TYPES) && validateImageAspectRatio($filePath,16/9);
+    return (
+        validateImageType($filePath,ALLOWED_THUMBNAIL_IMG_TYPES) && 
+        validateImageAspectRatio($filePath,16/9) &&
+        (filesize($filePath) / (1024**2) <= MAX_ALLOWED_IMAGE_SIZE_MB)
+    );
 }
 
 /**
- * Validates gallery images
- * @param mixed $fileArray
- * @param mixed $uuidArray
- * @param mixed $existingNumber
- * @return bool
+ * Validates gallery images in numerous ways.
+ * @param array $fileArray Array where the file paths for the images are stored.
+ * @param array $uuidArray Array where the UUIDs for the images are stored.
+ * @param int $existingNumber How many gallery images have been previously uploaded.
+ * @return bool `true` when all are valid, `false` otherwise.
  */
 function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
@@ -79,6 +108,13 @@ function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
     return $uploadsNumber - $existingNumber;
 }
 
+/**
+ * Validates link uploads in numerous ways.
+ * @param array $urlArray Array where the URLs for the links are stored.
+ * @param array $nameArray Array where the display names for the links are stored.
+ * @param int $existingNumber How manlinks have been previously uploaded.
+ * @return bool `true` when all are valid, `false` otherwise.
+ */
 function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     $usedUrls = [];
@@ -113,6 +149,13 @@ function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
     return $uploadsNumber - $existingNumber;
 }
 
+/**
+ * Validates file uploads in numerous ways.
+ * @param array $fileArray Array where the file paths for the files are stored.
+ * @param array $nameArray Array where the display names for the files are stored.
+ * @param int $existingNumber How many file uploads have been previously uploaded.
+ * @return bool `true` when all are valid, `false` otherwise.
+ */
 function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
@@ -133,7 +176,15 @@ function validateFileUploads($fileArray,$nameArray,$existingNumber = 0) {
     return $uploadsNumber - $existingNumber;
 }
 
-
+/**
+ * Saves gallery images to the database and filesystem.
+ * @param string $category The project's category.
+ * @param string $slug The project's slug.
+ * @param array $fileArray The array where the gallery image files are stored.
+ * @param array $uuidArray The array where the gallery image UUIDs are stored.
+ * @param int $existingNumber How many gallery images have been previously uploaded.
+ * @return bool|int `false` when failed, otherwise the amount of uploaded gallery images.
+ */
 function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
@@ -151,6 +202,15 @@ function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber
     return $uploadsNumber - $existingNumber;
 }
 
+/**
+ * Saves link uploads to the database and filesystem.
+ * @param string $category The project's category.
+ * @param string $slug The project's slug.
+ * @param array $urlArray The array where the link URLs are stored.
+ * @param array $nameArray The array where the link display names are stored.
+ * @param int $existingNumber How many link uploads have been previously uploaded.
+ * @return bool|int `false` when failed, otherwise the amount of uploaded links.
+ */
 function saveUrlLinks($category,$slug,$urlArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($urlArray as $index => $url) {
@@ -171,6 +231,16 @@ function saveUrlLinks($category,$slug,$urlArray,$nameArray,$existingNumber = 0) 
     return $uploadsNumber - $existingNumber;
 }
 
+/**
+ * Saves file uploads to the database and filesystem.
+ * @param string $category The project's category.
+ * @param string $slug The project's slug.
+ * @param array $fileArray The array where the file upload locations are stored.
+ * @param array $fileNameArray The array where the file upload file names are stored.
+ * @param array $displayNameArray The array where the file upload display names are stored.
+ * @param int $existingNumber How many file uploads have been previously uploaded.
+ * @return bool|int `false` when failed, otherwise the amount of uploaded files.
+ */
 function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
     foreach ($fileArray as $index => $filePath) {
@@ -193,6 +263,13 @@ function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameA
     return $uploadsNumber - $existingNumber;
 }
 
+/**
+ * Replaces the UUID links generated by the browser with real links to the images inside of markdown article.
+ * @param string $markdownData The markdown input data.
+ * @param string $category The category of the project.
+ * @param string $slug The slug of the project.
+ * @return string The fixed markdown string.
+ */
 function fixMarkdownLinks($markdownData,$category,$slug) {
     $prefix = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/gallery.php?category=' . $category . '&project=' . $slug . '&file_name=';
     $markdownData = preg_replace_callback(
@@ -221,6 +298,13 @@ function prefillProjectFormValues($viewState) {
     $viewState->set('form-editing', ($_POST['editing'] ?? '') === '1' ? '1' : '0');
 }
 
+/**
+ * Prefills `upload-project` previous upload fields used when returning the edit form cause of an error.
+ * @param string $category The project's category.
+ * @param string $slug The project's slug.
+ * @param ViewData $viewState Valid `ViewData` instance to set the values.
+ * @return void
+ */
 function prefillProjectPreviousUploads($category,$slug,$viewState) {
     $viewState->set('form-previous-gallery',loadProjectGalleryImages($category,$slug) ?: []);
     $viewState->set('form-previous-links',loadProjectLinks($category,$slug) ?: []);

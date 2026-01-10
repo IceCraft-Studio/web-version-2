@@ -1,11 +1,35 @@
 <?php
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/api/libs/models/user.php";
 
+/**
+ * Text to indicate in GET parameter `order` to be ascending.
+ * @var string
+ */
 const ORDER_ASCENDING = 'asc';
+/**
+ * Text to indicate in GET parameter `order` to be descending.
+ * @var string
+ */
 const ORDER_DESCENDING = 'desc';
+/**
+ * Text to indicate in GET parameter `sort` to sort by username.
+ * @var string
+ */
 const SORT_USERNAME = 'username';
+/**
+ * Text to indicate in GET parameter `sort` to sort by display name.
+ * @var string
+ */
 const SORT_DISPLAY_NAME = 'display_name';
+/**
+ * Text to indicate in GET parameter `sort` to sort by role.
+ * @var string
+ */
 const SORT_ROLE = 'role';
+/**
+ * Text to indicate in GET parameter `sort` to sort by date created.
+ * @var string
+ */
 const SORT_CREATED = 'created';
 
 $viewState = ViewData::getInstance();

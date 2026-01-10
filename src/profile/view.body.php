@@ -1,5 +1,13 @@
 <?php
+/**
+* Class used to indicate successfull banner.
+* @var string
+*/
 const CLASS_SUCCESS = 'success';
+/**
+* Class used to indicate failed banner.
+* @var string
+*/
 const CLASS_FAIL = 'fail';
 
 $viewState = ViewData::getInstance();

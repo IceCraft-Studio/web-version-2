@@ -22,8 +22,8 @@ function validateImageType($srcImage,$validTypes) {
 
 /**
  * Validates that the given image's dimensions match the given aspect ratio.
- * @param mixed $srcImage The path to the source image.
- * @param mixed $aspectRatio The target aspect ratio that needs to match.
+ * @param string $srcImage The path to the source image.
+ * @param float|int $aspectRatio The target aspect ratio that needs to match.
  * @param float $precision Optionally set the magin of error for precision - 0 means exact match is required to return `true`.
  * @return bool Result of the validation.
  */
@@ -38,8 +38,8 @@ function validateImageAspectRatio($srcImage,$aspectRatio,$precision = 0.01) {
 
 /**
  * Saves the specified image as a WEBP at a specified location. (Optionally resampled to specified dimensions.) Supports PNG, JPEG and WEBP. GIF is also 
- * @param mixed $srcImage Path to the image to save.
- * @param mixed $outImage Path where to save the image. WITHOUT THE EXTENSION!
+ * @param string $srcImage Path to the image to save.
+ * @param string $outImage Path where to save the image. WITHOUT THE EXTENSION!
  * @param int $outWidth Output width, use `0` means don't change.
  * @param int $outHeight Output height, `0` means dont't change.
  * @param bool $noExtension If `true`, save the file without extension.

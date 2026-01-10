@@ -1,4 +1,8 @@
 <?php
+/**
+* Class used to highlight warning.
+* @var string
+*/
 const CLASS_HIGHLIGHT = 'warning-highlight';
 $viewState = ViewData::getInstance();
 $prefillUsername = htmlspecialchars($viewState->get('form-username'));

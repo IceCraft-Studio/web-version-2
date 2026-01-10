@@ -44,9 +44,21 @@ enum UserSocial: string
  * Sort values for the SQL query used to get list of projects.
  */
 enum UserSort: string{
+    /**
+     * Sort by username.
+     */
     case Username = 'username';
+    /**
+     * Sort by display name.
+     */
     case DisplayName = 'display_name';
+    /**
+     * Sort by role.
+     */
     case Role = 'role';
+    /**
+     * Sort by the datetime created.
+     */
     case Created = 'datetime_created';
 }
 
@@ -162,7 +174,6 @@ function validateUserEmail($email) {
  * @param string $social The string to test.
  * @return bool The result of the validation.
  */
-
 function validateUserSocial($social) {
     return strlen($social) <= 150;
 }
@@ -184,8 +195,8 @@ function validatePassword($password)
 
 /**
  * Takes a specified file on the server and sets it as the profile picture for the given user. If empty deletes the file.
- * @param mixed $username Username to update it for.
- * @param mixed $fileLocation Where the image file is currently stored.
+ * @param string $username Username to update it for.
+ * @param string $fileLocation Where the image file is currently stored.
  * @return bool `true` on success, `false` on failure.
  */
 function saveUserProfilePicture($username, $fileLocation)

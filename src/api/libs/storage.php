@@ -2,9 +2,9 @@
 
 /**
  * Given a file name in a certain directory, returns path with the same name if available, or tries appending numbers to the name until it finds available one.
- * @param mixed $directory Directory to test the file names in.
- * @param mixed $name The file name without the extension.
- * @param mixed $extension File extension, when empty assumes a file without extension.
+ * @param string $directory Directory to test the file names in.
+ * @param string $name The file name without the extension.
+ * @param string $extension File extension, when empty assumes a file without extension.
  * @return string Returns the full path where it is possible to create a new file.
  */
 function getAvailablePath($directory,$name,$extension = '') {
@@ -28,7 +28,7 @@ function getAvailablePath($directory,$name,$extension = '') {
 
 /**
  * Recursively removes an entire directory tree stemming from the specified directory.
- * @param mixed $directory Directory to remove.
+ * @param string $directory Directory to remove.
  * @return void
  */
 function removeDirRecursive($directory) {
@@ -45,7 +45,7 @@ function removeDirRecursive($directory) {
 
 /**
  * Creates a safe file name by keeping only safe characters like letters, numbers hyphens and dots.
- * @param mixed $fileName The original text string to be converted into a file name.
+ * @param string $fileName The original text string to be converted into a file name.
  * @return string
  */
 function createSafeFileName($fileName) {

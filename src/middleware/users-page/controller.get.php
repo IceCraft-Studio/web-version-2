@@ -2,10 +2,30 @@
 require_once $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/project.php';
 require_once __DIR__ . "/enums.php";
 
+/**
+ * Text to indicate in GET parameter `order` to be ascending.
+ * @var string
+ */
 const ORDER_ASCENDING = 'asc';
+/**
+ * Text to indicate in GET parameter `order` to be descending.
+ * @var string
+ */
 const ORDER_DESCENDING = 'desc';
+/**
+ * Text to indicate in GET parameter `sort` to sort by title.
+ * @var string
+ */
 const SORT_TITLE = 'title';
+/**
+ * Text to indicate in GET parameter `sort` to sort by date modified.
+ * @var string
+ */
 const SORT_MODIFIED = 'modified';
+/**
+ * Text to indicate in GET parameter `sort` to sort by date created.
+ * @var string
+ */
 const SORT_CREATED = 'created';
 
 $viewState = ViewData::getInstance();

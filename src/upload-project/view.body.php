@@ -77,6 +77,13 @@ switch ($projectUploadState) {
         break;
 }
 
+/**
+ * /upload-project/ - Generates a gallery item for the edit page.
+ * @param int $i The index of the item.
+ * @param string $galleryLink Link to the gallery item.
+ * @param string $fileName File name of the gallery item.
+ * @return string HTML data representing the item.
+ */
 function generateGalleryItem($i, $galleryLink, $fileName)
 {
     return '
@@ -93,6 +100,14 @@ function generateGalleryItem($i, $galleryLink, $fileName)
 </li>';
 }
 
+/**
+ * /upload-project/ - Generates a file upload item for the edit page.
+ * @param int $i The index of the item.
+ * @param string $fileLink Link to the upload item.
+ * @param string $displayName Display name of the upload item.
+ * @param string $fileName File name of the upload item.
+ * @return string HTML data representing the item.
+ */
 function generateFileItem($i, $fileLink, $displayName, $fileName)
 {
 	return '
@@ -112,6 +127,13 @@ function generateFileItem($i, $fileLink, $displayName, $fileName)
 }
 
 
+/**
+ * /upload-project/ - Generates a URL link item for the edit page.
+ * @param int $i The index of the item.
+ * @param string $urlLink URL of the link item.
+ * @param string $displayName Display name of the link item.
+ * @return string HTML data representing the item.
+ */
 function generateLinkItem($i, $urlLink, $displayName) {
 	return '
 <li data-old-link-index="' . $i . '" class="edit-inserted">
@@ -130,6 +152,11 @@ function generateLinkItem($i, $urlLink, $displayName) {
 </li>';
 }
 
+/**
+ * `echo`'s array of provided gallery items as their HTML.
+ * @param array $galleryArray The gallery items.
+ * @return void
+ */
 function createPreviousGallery($galleryArray) {
     if (!is_array($galleryArray)) {
         return;
@@ -145,6 +172,11 @@ function createPreviousGallery($galleryArray) {
     }
 }
 
+/**
+ * `echo`'s array of provided file upload items as their HTML.
+ * @param array $fileArray The file upload items.
+ * @return void
+ */
 function createPreviousFileUploads($fileArray) {
     if (!is_array($fileArray)) {
         return;
@@ -161,6 +193,11 @@ function createPreviousFileUploads($fileArray) {
     }
 }
 
+/**
+ * `echo`'s array of provided url link items as their HTML.
+ * @param array $linkArray The url link items.
+ * @return void
+ */
 function createPreviousLinks($linkArray) {
     if (!is_array($linkArray)) {
         return;
@@ -176,6 +213,11 @@ function createPreviousLinks($linkArray) {
     }
 }
 
+/**
+ * Generates select,option HTML for all categories and selects the prefilled option.
+ * @param string $prefillCategory The prefilled option.
+ * @return void
+ */
 function createCategorySelection($prefillCategory) {
     $categories = getCategories() ?: [];
     $savedCategories = [

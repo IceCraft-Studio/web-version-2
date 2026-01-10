@@ -2,6 +2,7 @@
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/db-setup.php";
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/helpers.php';
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/models/user.php';
+
 /*
     API Endpoint - /api/internal/users/verify-username
     Request Method - POST

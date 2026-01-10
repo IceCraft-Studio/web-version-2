@@ -20,7 +20,12 @@ $currentRole = $viewState->get('paging-role','');
 $currentSort = $viewState->get('paging-sort','username');
 $currentOrder = $viewState->get('paging-order','asc');
 
-function generateUserTableData($usersList)
+/**
+ * `echo`'s rows for a table of user records.
+ * @param array $usersList The list of user.
+ * @return void
+ */
+function createUserTableData($usersList)
 {
     foreach ($usersList as $user) {
         $userUsername = $user['username'] ?? '';
@@ -91,7 +96,7 @@ function generateUserTableData($usersList)
                 <th>Datetime Created</th>
             </tr>
             <?php
-                generateUserTableData($usersList)
+                createUserTableData($usersList)
             ?>
         </table>
     </div>

@@ -31,7 +31,12 @@ $pageCategoryName = getCategoryName($pageCategory) ?? 'Unknown';
 $pageCreatorData = getUserData($pageUsername);
 $pageCreatorDisplayName = ($pageCreatorData['display_name'] ?? '') == '' ? $pageUsername : $pageCreatorData['display_name'];
 
-function generateDownloadFiles($filesArray) {
+/**
+ * /middleware/projects-page/ - `echo`'s HTML links to project files for downoad.
+ * @param array $filesArray The array with the file data.
+ * @return void
+ */
+function gcreateDownloadFiles($filesArray) {
     foreach ($filesArray as $fileRecord) {
         $link = $fileRecord['link'] ?? '';
         if (($linkRecord['display_name'] ?? '') == '') {
@@ -46,7 +51,12 @@ function generateDownloadFiles($filesArray) {
     }
 }
 
-function generateDownloadLinks($linksArray) {
+/**
+ * /middleware/projects-page/ - `echo`'s HTML links to provided project URLs.
+ * @param array $linksArray The array with the link data.
+ * @return void
+ */
+function createDownloadLinks($linksArray) {
     foreach ($linksArray as $linkRecord) {
         $url = $linkRecord['url'] ?? '';
         if (($linkRecord['display_name'] ?? '') == '') {
@@ -96,13 +106,13 @@ function generateDownloadLinks($linksArray) {
     <h2>Project Links</h2>
     <div id="download-links">
         <?php
-            generateDownloadLinks($pageLinks);
+            createDownloadLinks($pageLinks);
         ?>
     </div>
     <h2>Project Files</h2>
     <div id="download-files">
         <?php
-            generateDownloadFiles($pageFiles);
+            gcreateDownloadFiles($pageFiles);
         ?>
     </div>
 </main>

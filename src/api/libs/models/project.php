@@ -267,7 +267,7 @@ function changeProjectDescription($category, $slug, $newDescription)
  * Takes a specified file on the server and sets it as the thumbnail for a given project. If empty deleted the file.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @param mixed $fileLocation The current image's file location.
+ * @param string $fileLocation The current image's file location.
  * @return bool `true` on success, `false` on failure.
  */
 function saveProjectThumbnail($category, $slug, $fileLocation)
@@ -323,8 +323,8 @@ function loadProjectArticle($category, $slug)
 
 /**
  * Saves project article as markdown and also HTML.
- * @param mixed $category The category of the project.
- * @param mixed $slug The unique slug of the project.
+ * @param string $category The category of the project.
+ * @param string $slug The unique slug of the project.
  * @return bool `false` on failure, `true` on success.
  */
 function saveProjectArticle($category, $slug, $markdownData)
@@ -355,8 +355,8 @@ function saveProjectArticle($category, $slug, $markdownData)
  * Adds a new image to the project's gallery.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @param mixed $fileLocation The current file location of the image.
- * @param mixed $imageUuid Unique UUID for the image file name.
+ * @param string $fileLocation The current file location of the image.
+ * @param string $imageUuid Unique UUID for the image file name.
  * @return bool `true` on success, `false` on failure.
  */
 function addProjectGalleryImage($category, $slug, $fileLocation, $imageUuid)
@@ -379,10 +379,10 @@ function addProjectGalleryImage($category, $slug, $fileLocation, $imageUuid)
 }
 
 /**
- * Summary of removeProjectGalleryImage
+ * Removes gallery image from the project based on its file name.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @param mixed $fileName
+ * @param string $fileName The file name of the image.
  * @return bool `true` on success, `false` on failure.
  */
 function removeProjectGalleryImage($category, $slug, $fileName)
@@ -405,10 +405,10 @@ function removeProjectGalleryImage($category, $slug, $fileName)
 }
 
 /**
- * Summary of loadProjectGalleryImages
+ * Retrieves all gallery images for a specific project.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @return array{file_name: string, link: string}|bool
+ * @return array{file_name: string, link: string}|bool `false` on failure, otherwise an array of arrays containing gallery image data.
  */
 function loadProjectGalleryImages($category, $slug)
 {
@@ -429,11 +429,11 @@ function loadProjectGalleryImages($category, $slug)
 
 //## Working with Project Links
 /**
- * Summary of addProjectLink
+ * Adds a link to the list of project uploads.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @param mixed $url
- * @param mixed $displayName
+ * @param string $url The URL of the link.
+ * @param string $displayName The display name of the link.
  * @return bool `true` on success, `false` on failure.
  */
 function addProjectLink($category, $slug, $url, $displayName)
@@ -448,7 +448,7 @@ function addProjectLink($category, $slug, $url, $displayName)
  * Removes link from the project based on its URL.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @param mixed $url The url of the link to delete.
+ * @param string $url The url of the link to delete.
  * @return bool `true` on success, `false` on failure.
  */
 function removeProjectLink($category, $slug, $url)
@@ -460,10 +460,10 @@ function removeProjectLink($category, $slug, $url)
 }
 
 /**
- * Summary of loadProjectLinks
+ * Retrieves all links for a specific project.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @return array{url: string, display_name: string}|bool Array of arrays containing the URL and display name of the links.
+ * @return array{url: string, display_name: string}|bool Array of arrays containing the URL and display name of the links. `false` on failure.
  */
 function loadProjectLinks($category, $slug)
 {
@@ -473,13 +473,13 @@ function loadProjectLinks($category, $slug)
 
 //## Working with Project Files
 /**
- * Summary of addProjectFile
+ * Adds a file to the list of project uploads.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @param mixed $fileLocation
- * @param mixed $fileName
- * @param mixed $displayName
- * @return bool
+ * @param string $fileLocation Where the file currently located.
+ * @param string $fileName How to name the file.
+ * @param string $displayName The file's display name.
+ * @return bool `true` on success, `false` on failure.
  */
 function addProjectFile($category, $slug, $fileLocation, $fileName, $displayName)
 {
@@ -501,8 +501,8 @@ function addProjectFile($category, $slug, $fileLocation, $fileName, $displayName
  * Removes a project download file.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @param mixed $fileName
- * @return bool
+ * @param string $fileName File name of the file to remove.
+ * @return bool `true` on success, `false` on failure.
  */
 function removeProjectFile($category, $slug, $fileName)
 {
@@ -527,7 +527,7 @@ function removeProjectFile($category, $slug, $fileName)
  * Retrieves all download files for a specific project.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @return array{display_name: mixed, file_name: mixed, link: string[]|bool}
+ * @return array{display_name: string, file_name: string, link: string}|bool `false` when failed, otherwise array of arrays containing project file data.
  */
 function loadProjectFiles($category, $slug)
 {
@@ -589,7 +589,6 @@ function getProjectList($listNumber, $listItems, $filters = ['category' => '', '
     return dbQuery($dbConnection, "SELECT * FROM `project` WHERE `category` = ? AND `username` = ? ORDER BY `$sortColumn` $order LIMIT ? OFFSET ?", "ssii", [$filters['category'], $filters['username'], $listItems, $offset]);
 }
 
-
 /**
  * Returns the amount of projects.
  * @param array $filters Array with 2 indexes, `category` and `username`. If the string isn't empty, it is used to filter out results.
@@ -644,7 +643,7 @@ function getCategoryName($categoryId)
 /**
  * Add a new category.
  * @param string $id ID of the added category.
- * @param mixed $name Name of the added category.
+ * @param string $name Name of the added category.
  * @return bool `true` on success, `false` on failure.
  */
 function addCategory($id, $name)
@@ -657,7 +656,7 @@ function addCategory($id, $name)
 /**
  * Edit the category's name.
  * @param string $id ID of the category to edit.
- * @param mixed $newName New name of the category.
+ * @param string $newName New name of the category.
  * @return bool `true` on success, `false` on failure.
  */
 function editCategoryName($id, $newName)
@@ -670,7 +669,7 @@ function editCategoryName($id, $newName)
 /**
  * Remove category with replacement. MAYBE ADD LATER.
  * @param string $id ID of the category to remove.
- * @param mixed $newName New category for projects with this category.
+ * @param string $newName New category for projects with this category.
  * @return bool `true` on success, `false` on failure.
  */
 function removeCategory($id, $newCategory)

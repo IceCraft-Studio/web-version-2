@@ -1,4 +1,8 @@
 <?php
+/**
+ * The class for highlighting the current page category in navigation.
+ * @var string
+ */
 const CURRENT_PAGE_CLASS = "current-page";
 
 $viewState = ViewData::getInstance();
