@@ -31,7 +31,7 @@ if ($userRole == UserRole::Admin->value) {
 }
 
 $verifiedRole = $viewState->get('verified-role');
-$isAdmin = $verifiedRole == UserRole::Admin->value || $verifiedRole === UserRole::Owner;
+$isAdmin = $verifiedRole == UserRole::Admin->value || $verifiedRole === UserRole::Owner->value;
 
 if (!$isAdmin) {
     http_response_code(401);
