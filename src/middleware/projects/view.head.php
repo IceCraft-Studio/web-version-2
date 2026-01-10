@@ -9,4 +9,4 @@ if ($projectsCategory != '') {
 }
 ?>
 <title><?= $projectsPageTitle ?> | IceCraft Studio</title>
-<link href="/~dobiapa2/middleware/projects-page/style.css" rel="stylesheet" type="text/css">
+<link href="/~dobiapa2/middleware/projects/style.css" rel="stylesheet" type="text/css">

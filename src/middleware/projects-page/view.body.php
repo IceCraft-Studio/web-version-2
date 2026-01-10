@@ -21,8 +21,8 @@ $pageFiles = $viewState->get('page-files',[]);
 $viewerAdmin = $viewState->get('viewer-admin',false);
 $viewerCreator = $viewState->get('verified-username','') === $pageUsername;
 
-$pageModifiedString = $pageModified === 'Unknown' ? 'Unknown' : date('d/m/Y', strtotime($pageModified));
-$pageCreatedString = $pageCreated === 'Unknown' ? 'Unknown' : date('d/m/Y', strtotime($pageCreated));
+$pageModifiedString = $pageModified === 'Unknown' ? 'Unknown' : date('d/m/Y H:i', strtotime($pageModified));
+$pageCreatedString = $pageCreated === 'Unknown' ? 'Unknown' : date('d/m/Y H:i', strtotime($pageCreated));
 $pageCategoryName = getCategoryName($pageCategory) ?? 'Unknown';
 
 $pageCreatorData = getUserData($pageUsername);
@@ -81,7 +81,7 @@ function generateDownloadLinks($linksArray) {
     <div id="info-row">
         <div>Created on: <span class="bold"><?= $pageCreatedString ?></span></div>
         <div>Modified on: <span class="bold"><?=  $pageModifiedString ?></span></div>
-        <div>Category: <span class="bold"><?=  $pageCategoryName ?></span></div>
+        <div>Category: <a href="/~dobiapa2/projects/<?= $pageCategory ?>" class="bold"><?=  $pageCategoryName ?></a></div>
     </div>
     <h2>Description</h2>
     <p class="page-description">

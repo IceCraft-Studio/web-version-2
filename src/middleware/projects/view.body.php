@@ -59,7 +59,7 @@ function generateProjectCard($category,$slug,$title,$description,$thumbnailLink,
             <p class="description" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</p>
             <p class="modified">Date Modified: <time datetime="' . $datetimeTechnical . '">' . $datetimeHuman . '</time></p>
         </div>
-    <a/>
+    </a>
 </div>';
 }
 
@@ -74,7 +74,7 @@ function createProjectsListing($projectsArray) {
             $projectRecord['description'] ?? '',
             getProjectThumbnailLink($category,$slug),
             $projectRecord['username'] ?? '',
-            $projectRecord['modified'] ?? ''
+            $projectRecord['datetime_modified'] ?? ''
         );
     }
 }
