@@ -61,7 +61,7 @@ switch ($projectUploadState) {
         $errorBannerMessage = 'Upload failed! Some gallery image is invalid. Make sure their aspect ratio is 16:9 and their file size is not bigger than 15 MB.';
         break;
     case ProjectUploadState::LinkInvalid:
-        $errorBannerMessage = 'Upload failed! Link invalid. Make sure its URL is valid, uses HTTP or HTTPS and is not longer than 200 characters and its display name is not longer than 96 characters.';
+        $errorBannerMessage = 'Upload failed! Link invalid. Make sure its URL is unique and valid, uses HTTP(S) and is no longer than 200 characters and its display name is not longer than 96 characters.';
         break;
     case ProjectUploadState::FileInvalid:
         $errorBannerMessage = 'Upload failed! File upload invalid. Make sure its file size is not bigger than 30 MB and its display name is not longer than 96 characters.';
