@@ -19,7 +19,7 @@ $socialDiscord = htmlspecialchars($viewState->get('page-social-discord', ''));
 $projectsList = $viewState->get('projects-list', []);
 
 $createdTechnical = date("Y-m-d\TH:i",strtotime($userCreated));
-$createdHuman = date("'M j, Y'",strtotime($userCreated));
+$createdHuman = date("M j, Y",strtotime($userCreated));
 
 // Paging Data
 $lastPageNumber = $viewState->get('paging-last-page',1);

@@ -41,6 +41,7 @@ $userIsAdmin = $userRole == UserRole::Admin->value || $userRole == UserRole::Own
 $viewState->set('page-user-admin', $userIsAdmin);
 $viewState->set('page-user-role',$userRole);
 $viewState->set('page-display-name',$userDisplayName);
+$viewState->set('page-user-created',$userData['datetime_created']);
 $viewState->set('page-social-website',$userData['social_website'] ?? '');
 $viewState->set('page-social-reddit',$userData['social_reddit'] ?? '');
 $viewState->set('page-social-twitter',$userData['social_twitter'] ?? '');

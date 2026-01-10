@@ -23,7 +23,7 @@ function generateProjectCard($category,$slug,$title,$description,$username,$modi
     $userPictureLink = getUserPictureLink($username);
 
     $datetimeTechnical = date("Y-m-d\TH:i",strtotime($modified));
-    $datetimeHuman = date("d/m/Y H:i",strtotime($modified));
+    $datetimeHuman = date("M j, Y H:i",strtotime($modified));
 
     return '
 <div class="project-card">
@@ -38,7 +38,7 @@ function generateProjectCard($category,$slug,$title,$description,$username,$modi
             <img src="' . $thumbnailLink . '" alt="Project Card Thumbnail">
             <h3 title="' . htmlspecialchars($title) . '">' . htmlspecialchars($title) . '</h3>
             <p class="description" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</p>
-            <p class="modified">Date Modified: <time datetime="' . $datetimeTechnical . '">' . $datetimeHuman . '</time></p>
+            <p class="modified">Updated on: <time datetime="' . $datetimeTechnical . '">' . $datetimeHuman . '</time></p>
         </div>
     </a>
 </div>';
