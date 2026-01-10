@@ -324,7 +324,7 @@ $csrfToken = getCsrf('upload-project');
                 The project needs to provide at least 1 file or link and at most 5 of each for the audience to download.
             </div>
             <div>
-                Max file upload size is 30MB. File names are preserved but modified to be safe. Make sure the URL is valid HTTP(S) and not longer than 200 charactetrs.
+                Max file upload size is 30MB. File names are preserved but modified to be safe. Make sure the link is a unique valid HTTP(S) URL no longer than 200 charactetrs.
             </div>
             <div>
                 Display name can be up to 96 characters long. 

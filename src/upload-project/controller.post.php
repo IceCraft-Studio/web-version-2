@@ -81,6 +81,7 @@ function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
 
 function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
+    $usedUrls = [];
     foreach ($urlArray as $index => $url) {
         if (($url ?? '') == '') {
             continue;
@@ -100,6 +101,10 @@ function validateLinkUploads($urlArray,$nameArray,$existingNumber = 0) {
         if (strlen($url) > 200) {
             return false;
         }
+        if (in_array($url,$usedUrls)) {
+            return false;
+        }
+        $usedUrls[] = $url;
         if (strlen($nameArray[$index] ?? '') > 96) {
             return false;
         }

@@ -445,10 +445,10 @@ function addProjectLink($category, $slug, $url, $displayName)
 }
 
 /**
- * Summary of removeProjectLink
+ * Removes link from the project based on its URL.
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @param mixed $url
+ * @param mixed $url The url of the link to delete.
  * @return bool `true` on success, `false` on failure.
  */
 function removeProjectLink($category, $slug, $url)
@@ -463,7 +463,7 @@ function removeProjectLink($category, $slug, $url)
  * Summary of loadProjectLinks
  * @param string $category The project category.
  * @param string $slug The project slug.
- * @return array{url: string, display_name: string}|bool Array containing the URL and display name of the link.
+ * @return array{url: string, display_name: string}|bool Array of arrays containing the URL and display name of the links.
  */
 function loadProjectLinks($category, $slug)
 {
