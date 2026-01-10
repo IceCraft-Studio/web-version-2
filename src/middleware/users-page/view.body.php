@@ -52,7 +52,7 @@ $actionMessage = '';
 $passwordSuccess = false;
 $actionSuccess = false;
 
-switch ($adminManageState) {
+switch ($adminPasswordState) {
     case ManagePasswordState::NoUpdate:
         $showActionBanner = false;
         break;
@@ -70,7 +70,7 @@ switch ($adminManageState) {
         break;
 }
 
-switch ($adminPasswordState) {
+switch ($adminManageState) {
     case UserActionState::NoUpdate:
         $showPasswordBanner = false;
         break;
@@ -89,7 +89,7 @@ $csrfToken = '';
 if ($viewerIsAdmin) {
     $csrfToken = getCsrf('users-page');
 }
-echo $showActionBanner === true;
+
 ?>
 <main>
     <?php if ($showActionBanner): ?>
