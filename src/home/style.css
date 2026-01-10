@@ -42,6 +42,6 @@ div.info-table,div.media-table {
     text-align: center;
 }
 
-#add-ons * {
+#add-ons > * {
     margin: 0.75em;
 }
