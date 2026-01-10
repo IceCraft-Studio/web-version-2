@@ -24,16 +24,13 @@ if ($userData === false) {
     return;
 }
 
-$userRole = $userData['role'];
-if ($userRole == UserRole::Admin->value) {
-    http_response_code(401);
-    return;
-}
-
+// Page viewer role
 $verifiedRole = $viewState->get('verified-role');
 $isAdmin = $verifiedRole == UserRole::Admin->value || $verifiedRole === UserRole::Owner->value;
+//Page user role
+$userRole = $userData['role'];
 
-if (!$isAdmin) {
+if (($userRole == UserRole::Admin->value && $verifiedRole != UserRole::Owner->value) || !$isAdmin) {
     http_response_code(401);
     return;
 }
