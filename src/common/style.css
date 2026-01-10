@@ -65,11 +65,11 @@ a {
     display: inline-block;
 }
 
-:root[data-theme='dark'] a:hover {
+:root[data-theme='dark'] a:hover:not(:has(*)) {
     filter: brightness(1.2) saturate(1.2);
 }
 
-:root[data-theme='light'] a:hover {
+:root[data-theme='light'] a:hover:not(:has(*)) {
     filter: brightness(0.6) saturate(1.2);
 }
 
