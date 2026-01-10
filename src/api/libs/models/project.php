@@ -151,10 +151,10 @@ function createProject($category, $slug, $username, $title, $description)
 function deleteProject($category, $slug)
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    $resultProject = dbQuery($dbConnection, "DELETE FROM `project` WHERE `category` = ? AND `slug` = ? ", "ss", [$category, $slug]);
     $resultGallery = dbQuery($dbConnection, "DELETE FROM `project_gallery` WHERE `category` = ? AND `slug` = ? ", "ss", [$category, $slug]);
     $resultUpload = dbQuery($dbConnection, "DELETE FROM `project_upload` WHERE `category` = ? AND `slug` = ? ", "ss", [$category, $slug]);
     $resultLink = dbQuery($dbConnection, "DELETE FROM `project_link` WHERE `category` = ? AND `slug` = ? ", "ss", [$category, $slug]);
+    $resultProject = dbQuery($dbConnection, "DELETE FROM `project` WHERE `category` = ? AND `slug` = ? ", "ss", [$category, $slug]);
     removeDirRecursive(getProjectDirectory($category, $slug));
     return true;
 }
