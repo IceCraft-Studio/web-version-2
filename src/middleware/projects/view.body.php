@@ -1,4 +1,5 @@
 <?php
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/html-gen.php';
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/paging.php';
 
 $viewState = ViewData::getInstance();
@@ -28,67 +29,6 @@ if (!in_array($currentSize, $defaultSizes)) {
 $currentSort = $viewState->get('paging-sort','title');
 $currentOrder = $viewState->get('paging-order','asc');
 
-
-function generateProjectCard($category,$slug,$title,$description,$thumbnailLink,$username,$modified) {
-    $projectLink = getProjectLink($category,$slug);
-
-    $userData = getUserData($username);
-    if (($userData['display_name'] ?? '') == '') {
-        $displayName = $username;
-    } else {
-        $displayName = htmlspecialchars($userData['display_name']);
-    }
-    $userLink = getUserLink($username);
-    $userPictureLink = getUserPictureLink($username);
-
-    $datetimeTechnical = date("Y-m-d\TH:i",strtotime($modified));
-    $datetimeHuman = date("d/m/Y H:i",strtotime($modified));
-
-    return '
-<div class="project-card">
-    <div class="user-part">
-        <a href="' . $userLink . '">
-            <img src="' .  $userPictureLink . '">
-            <span>' . $displayName . '</span>
-        </a>
-    </div>
-    <a href="' . $projectLink . '">
-        <div class="project-part">
-            <img src="' . $thumbnailLink . '" alt="Project Card Thumbnail">
-            <h3 title="' . htmlspecialchars($title) . '">' . htmlspecialchars($title) . '</h3>
-            <p class="description" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</p>
-            <p class="modified">Date Modified: <time datetime="' . $datetimeTechnical . '">' . $datetimeHuman . '</time></p>
-        </div>
-    </a>
-</div>';
-}
-
-function createProjectsListing($projectsArray) {
-    foreach ($projectsArray as $projectRecord) {
-        $category = $projectRecord['category'] ?? '';
-        $slug = $projectRecord['slug'] ?? '';
-        echo generateProjectCard(
-            $category,
-            $slug,
-            $projectRecord['title'] ?? '',
-            $projectRecord['description'] ?? '',
-            getProjectThumbnailLink($category,$slug),
-            $projectRecord['username'] ?? '',
-            $projectRecord['datetime_modified'] ?? ''
-        );
-    }
-}
-
-function generateCategoryLinks() {
-    $categories = getCategories();
-    if ($categories === false) {
-        return;
-    }
-    foreach ($categories as $categoryRecord) {
-        echo '<a href="/~dobiapa2/projects/' . ($categoryRecord['id'] ?? '') . '">' . ($categoryRecord['name'] ?? '') . '</a>';
-    }
-}
-
 ?>
 <main>
     <?php if ($viewerUsername != ''): ?>
@@ -100,7 +40,7 @@ function generateCategoryLinks() {
     <h2>Category Links</h2>
     <div class="category-link-container">
         <?php
-            generateCategoryLinks();
+            createCategoryLinks();
         ?>
     </div>
     </div>

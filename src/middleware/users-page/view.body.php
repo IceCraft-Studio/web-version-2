@@ -1,4 +1,5 @@
 <?php
+require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/html-gen.php';
 require $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/api/libs/paging.php';
 
 $viewState = ViewData::getInstance();
@@ -30,6 +31,9 @@ $currentOrder = $viewState->get('paging-order','asc');
 
 // Admin Data
 $viewerIsAdmin = $viewState->get('viewer-admin', false);
+
+$showActionBanner = false;
+$showPasswordBanner = false;
 
 ?>
 <main>
@@ -85,7 +89,7 @@ $viewerIsAdmin = $viewState->get('viewer-admin', false);
                             Clear Display Name
                         </option>
                         <option value="delete-user">
-                            Delete User
+                            Delete User (includes Projects)
                         </option>
                     </select>
                 </div>
@@ -136,7 +140,9 @@ $viewerIsAdmin = $viewState->get('viewer-admin', false);
         </form>
     </div>
     <div id="projects-section">
-        
+        <?php
+            createProjectsListing($projectsList);
+        ?>
     </div>
     <div class="page-controls">
         <?php

@@ -37,7 +37,7 @@ if (!$isAdmin) {
 }
 
 
-// Run the action
+// Run the action on user
 switch ($userAction) {
     case 'ban-user':
         if ($currentUserRole === UserRole::Banned->value) {
@@ -54,7 +54,7 @@ switch ($userAction) {
         break;
     case 'delete-user':
         deleteUser($userUsername);
-        break;
+        redirect('/~dobiapa2/users');
 }
 
 
