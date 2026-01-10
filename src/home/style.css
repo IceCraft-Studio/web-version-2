@@ -41,3 +41,7 @@ div.info-table,div.media-table {
     flex: 0 0 6em;
     text-align: center;
 }
+
+#add-ons * {
+    margin: 0.75em;
+}
