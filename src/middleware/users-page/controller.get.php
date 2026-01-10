@@ -18,10 +18,12 @@ if ($userData === false) {
     http_response_code(404);
     return;
 }
-// Check if the viewer of the page is admin
+// Check if the viewer of the page is admin or owner
 $verifiedRole = $viewState->get('verified-role');
 $viewerIsAdmin = $verifiedRole == UserRole::Admin->value || $verifiedRole == UserRole::Owner->value;
+$viewerIsOwner = $verifiedRole == UserRole::Owner->value;
 $viewState->set('viewer-admin',$viewerIsAdmin);
+$viewState->set('viewer-owner',$viewerIsOwner);
 
 // Banned users can only be seen by admins
 if ($userData['role'] == UserRole::Banned->value && !$viewerIsAdmin) {
@@ -38,7 +40,7 @@ if (($userData['display_name'] ?? '') == '') {
 $userRole = $userData['role'];
 $userIsAdmin = $userRole == UserRole::Admin->value || $userRole == UserRole::Owner->value;
 
-if ($viewerIsAdmin && !$userIsAdmin) {
+if (($viewerIsAdmin && !$userIsAdmin) || $viewerIsOwner) {
     initCsrf('users-page');
 }
 

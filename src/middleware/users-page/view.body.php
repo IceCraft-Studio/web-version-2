@@ -36,6 +36,7 @@ $currentOrder = $viewState->get('paging-order','asc');
 // Admin Data
 $userIsAdmin = $viewState->get('page-user-admin', false);
 $viewerIsAdmin = $viewState->get('viewer-admin', false);
+$viewerIsOwner = $viewState->get('viewer-owner', false);
 
 $adminManageState = $viewState->get('user-manage-state', UserActionState::NoUpdate);
 $adminPasswordState = $viewState->get('user-password-state', ManagePasswordState::NoUpdate);
@@ -85,7 +86,7 @@ switch ($adminManageState) {
 }
 
 $csrfToken = '';
-if ($viewerIsAdmin) {
+if ((($viewerIsAdmin && !$userIsAdmin) || $viewerIsOwner)) {
     $csrfToken = getCsrf('users-page');
 }
 
@@ -127,7 +128,7 @@ if ($viewerIsAdmin) {
             <?php endif; ?>
         </div>
     </div>
-    <?php if ($viewerIsAdmin && !$userIsAdmin): ?>
+    <?php if (($viewerIsAdmin && !$userIsAdmin) || $viewerIsOwner): ?>
         <div id="admin-panel">
             <h2>User Management</h2>
             <form method="post">
