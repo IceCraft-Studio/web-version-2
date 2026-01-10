@@ -53,8 +53,8 @@ function generateUserTableData($usersList)
                 </select>
             </div>
             <div>
-                <label for="select-page-sort">Filter Role:</label>
-                <select id="select-page-sort" name="role">
+                <label for="select-page-role">Filter Role:</label>
+                <select id="select-page-role" name="role">
                     <option value="" <?= $currentRole == '' ? 'selected' : '' ?>>All Roles</option>
                     <option value="ban" <?= $currentRole == 'ban' ? 'selected' : '' ?>>Banned</option>
                     <option value="user" <?= $currentRole == 'user' ? 'selected' : '' ?>>User</option>
