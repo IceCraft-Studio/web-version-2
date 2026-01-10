@@ -14,7 +14,7 @@ if (($_GET['project'] ?? '') == '' || ($_GET['category'] ?? '') == '') {
 $slug = $_GET['project'];
 $category = $_GET['category'];
 
-$projectData = getProjectData($category,$project);
+$projectData = getProjectData($category,$slug);
 
 if ($projectData === false) {
     http_response_code(404);
