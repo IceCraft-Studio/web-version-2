@@ -266,7 +266,7 @@ $csrfToken = getCsrf('upload-project');
                 <div class="prefix-container">
                     <label for="input-slug">/<?= $prefillCategory == '' ? 'category' : $prefillCategory ?>/</label>
                     <input id="input-slug" name="slug" type="text" value="<?= $prefillSlug ?>" minlength="6"
-                        maxlength="64" readonly required>
+                        maxlength="64" <?= $prefillCategory == '' || $prefillEditing == '1' ? 'readonly' : '' ?> required>
                 </div>
                 <div class="hint <?= $projectUploadState === ProjectUploadState::SlugInvalid ? 'color-required' : '' ?>">
                     The slug must be between 6 and 96 characters long and may only contain numbers,
