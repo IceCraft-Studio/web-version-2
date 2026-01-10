@@ -160,6 +160,7 @@ if ($viewerIsAdmin) {
                     <input id="input-password-confirm" name="password-confirm" type="password" value="">
                 </div>
                 <input type="submit" value="Run Action">
+                <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
             </form>
         </div>
     <?php endif; ?>
