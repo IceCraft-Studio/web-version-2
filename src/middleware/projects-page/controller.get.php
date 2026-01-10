@@ -15,7 +15,7 @@ if ($projectData === false) {
 
 // Check if the viewer of the page is admin
 $verifiedRole = $viewState->get('verified-role');
-$viewerIsAdmin = $verifiedRole === UserRole::Admin->value || $verifiedRole === UserRole::Owner;
+$viewerIsAdmin = $verifiedRole == UserRole::Admin->value || $verifiedRole == UserRole::Owner->value;
 $viewState->set('viewer-admin',$viewerIsAdmin);
 
 $viewState->set('page-category',$projectCategory);

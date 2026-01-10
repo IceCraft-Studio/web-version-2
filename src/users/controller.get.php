@@ -17,7 +17,7 @@ if ($username == '') {
     redirect('/~dobiapa2/login');
 }
 
-$isAdmin = $role == UserRole::Admin->value || $role  == UserRole::Owner->value;
+$isAdmin = $role == UserRole::Admin->value || $role == UserRole::Owner->value;
 
 // Disallow Regular Users
 if (!$isAdmin) {
@@ -70,7 +70,7 @@ $roleFilter = $_GET['role'] ?? '';
 $viewState->set('paging-page',$page);
 $viewState->set('paging-size',$size);
 $viewState->set('paging-order',$order);
-$viewState->set('paging-role',$role);
+$viewState->set('paging-role',$roleFilter);
 
 $amount = getUserCount(['role' => $roleFilter]);
 if ($amount === false) {
