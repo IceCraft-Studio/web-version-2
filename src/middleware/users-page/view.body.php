@@ -15,6 +15,7 @@ $socialReddit = htmlspecialchars($viewState->get('page-social-reddit', ''));
 $socialTwitter = htmlspecialchars($viewState->get('page-social-twitter', ''));
 $socialInstagram = htmlspecialchars($viewState->get('page-social-instagram', ''));
 $socialDiscord = htmlspecialchars($viewState->get('page-social-discord', ''));
+$projectsList = $viewState->get('projects-list', []);
 
 // Paging Data
 $lastPageNumber = $viewState->get('paging-last-page',1);
