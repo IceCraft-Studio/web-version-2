@@ -84,7 +84,7 @@ switch ($adminPasswordState) {
 }
 
 $csrfToken = '';
-if ($viewerAdmin) {
+if ($viewerIsAdmin) {
     $csrfToken = getCsrf('users-page');
 }
 
