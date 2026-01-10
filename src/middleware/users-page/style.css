@@ -1,11 +1,14 @@
 #profile-section .user-header {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #profile-section .user-header h1 {
     font-size: 2.5em;
     padding: 0.5em;
+    flex-basis: 65%;
 }
 
 #profile-section .user-header img {
@@ -15,6 +18,15 @@
     border-radius: 50%;
     padding: 0;
     margin: 1em;
+}
+
+#profile-section .user-header .member-since {
+    padding: 0.8em;
+}
+
+#profile-section .user-header .member-since time {
+    display: inline-block;
+    font-weight: bold;
 }
 
 .social-links {

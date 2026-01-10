@@ -9,6 +9,7 @@ $userUsername = htmlspecialchars($viewState->get('page-username', ''));
 $userDisplayName = htmlspecialchars($viewState->get('page-display-name', ''));
 $userRole = htmlspecialchars($viewState->get('page-user-role', ''));
 $userIsAdmin = $viewState->get('page-user-admin', false);
+$userCreated = $viewState->get('page-user-created','');
 $userPicture = $viewState->get('page-picture-link', '');
 $socialWebsite = htmlspecialchars($viewState->get('page-social-website', ''));
 $socialReddit = htmlspecialchars($viewState->get('page-social-reddit', ''));
@@ -16,6 +17,9 @@ $socialTwitter = htmlspecialchars($viewState->get('page-social-twitter', ''));
 $socialInstagram = htmlspecialchars($viewState->get('page-social-instagram', ''));
 $socialDiscord = htmlspecialchars($viewState->get('page-social-discord', ''));
 $projectsList = $viewState->get('projects-list', []);
+
+$createdTechnical = date("Y-m-d\TH:i",strtotime($userCreated));
+$createdHuman = date("'M j, Y'",strtotime($userCreated));
 
 // Paging Data
 $lastPageNumber = $viewState->get('paging-last-page',1);
@@ -52,6 +56,9 @@ $showPasswordBanner = false;
         <div class="user-header">
             <img src="<?= $userPicture ?>">
             <h1><?= $userDisplayName ?></h1>
+            <div class="member-since">
+                Member Since: <time datetime="<?= $createdTechnical ?>"><?= $createdHuman ?></time>
+            </div>
         </div>
         <div class="social-links">
             <?php if ($socialWebsite != ''): ?>
