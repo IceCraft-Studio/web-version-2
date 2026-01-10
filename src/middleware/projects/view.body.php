@@ -41,8 +41,8 @@ function generateProjectCard($category,$slug,$title,$description,$thumbnailLink,
     $userLink = getUserLink($username);
     $userPictureLink = getUserPictureLink($username);
 
-    $datetimeTechnical = date("Y-m-d",strtotime($modified));
-    $datetimeHuman = date("d/m/Y",strtotime($modified));
+    $datetimeTechnical = date("Y-m-d\TH:i",strtotime($modified));
+    $datetimeHuman = date("d/m/Y H:i",strtotime($modified));
 
     return '
 <div class="project-card">
