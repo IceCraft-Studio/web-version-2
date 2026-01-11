@@ -83,3 +83,24 @@
 	--color-background-overlay: var(--color-background-overlay-dark);
 	--color-focus-outline: var(--color-focus-outline-dark);
 }
+
+@media print {
+	:root[data-theme='dark'] {
+		color-scheme: light;
+
+		--color-primary-toned: var(--color-primary-toned-light);
+		--color-1: var(--color-1-light);
+		--color-2: var(--color-2-light);
+		--color-2-trans: var(--color-2-trans-light);
+		--color-text: var(--color-text-light);
+		--color-text-disabled: var(--color-text-disabled-light);
+		--svg-icon-color: var(--svg-icon-color-light);
+		--color-pure-contrast: var(--color-pure-contrast-light);
+		--color-contrast: var(--color-contrast-light);
+		--color-pure-anticontrast: var(--color-pure-contrast-dark);
+		--color-anticontrast: var(--color-contrast-dark);
+		--color-input-background: var(--color-input-background-light);
+    	--color-background-overlay: var(--color-background-overlay-light);
+		--color-focus-outline: var(--color-focus-outline-light);
+	}
+}

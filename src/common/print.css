@@ -11,9 +11,8 @@ body {
 	flex-direction: column;
 	margin: 0px;
 	min-height: 100vh;
-	color: black;
-    background-color: white;
 }
+
 
 body::before {
     content: "";
@@ -27,4 +26,16 @@ body::before {
 	background: none;
     pointer-events: none; 
     image-rendering: pixelated;
+}
+
+.project-actions {
+    display: none !important;
+}
+
+.update-banner {
+    display: none !important;
+}
+
+#admin-panel {
+    display: none !important;
 }
