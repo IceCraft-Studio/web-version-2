@@ -37,7 +37,7 @@ body::before {
 }
 
 .project-card {
-    outline: 0.5em solid black;
+    outline: 0.25em solid black;
 }
 
 #admin-panel {
