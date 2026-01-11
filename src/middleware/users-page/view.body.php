@@ -166,6 +166,9 @@ if ((($viewerIsAdmin && !$userIsAdmin) || $viewerIsOwner)) {
         </div>
     <?php endif; ?>
     <h2>Their Projects</h2>
+    <p>
+        Page <?= $currentPageNumber ?> of <?= $lastPageNumber ?>
+    </p>
     <div class="page-form">
         <form method="get">
             <div>

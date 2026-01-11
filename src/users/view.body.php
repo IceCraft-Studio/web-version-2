@@ -43,6 +43,9 @@ function createUserTableData($usersList)
 ?>
 <main>
     <h1 id="page-top">Manage Users</h1>
+    <p>
+        Page <?= $currentPageNumber ?> of <?= $lastPageNumber ?>
+    </p>
     <p>Here you are provided with a list of all users, openning the link on their username leads to their user page
         where you can manage their accounts.</p>
     <div class="page-form">

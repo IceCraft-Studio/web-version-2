@@ -32,7 +32,7 @@ $currentOrder = $viewState->get('paging-order','asc');
 ?>
 <main>
     <?php if ($viewerUsername != ''): ?>
-    <div>
+    <div class="create-project-button">
         <a href="/~dobiapa2/upload-project">Create a new Project!</a>
     </div>
     <?php endif ; ?>
@@ -44,6 +44,9 @@ $currentOrder = $viewState->get('paging-order','asc');
         ?>
     </div>
     <h2>List of projects</h2>
+    <p>
+        Page <?= $currentPageNumber ?> of <?= $lastPageNumber ?>
+    </p>
     <div class="page-form">
         <form method="get">
             <div>
