@@ -637,7 +637,7 @@ img.no-select {
 }
 
 .project-card {
-    max-width: 25em;
+    max-width: min(25em, 86vw);
     border-radius: 0.5em;
     background-color: var(--color-1);
 }
@@ -701,11 +701,18 @@ img.no-select {
 .project-card * {
     overflow: hidden;
     text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    word-break: normal;
     margin: 0;
 }
 
 .project-card > .user-part {
     overflow: visible;
+    max-width: 100%;
+}
+
+.project-card > .project-part {
+    max-width: 100%;
 }
 
 /* Page Form (sorting, filters etc.) */
