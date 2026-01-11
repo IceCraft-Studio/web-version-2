@@ -28,6 +28,8 @@ body::before {
     image-rendering: pixelated;
 }
 
+/* Page specific overrides, uses !important, because it is loaded before the page specific css files. */
+
 .project-actions {
     display: none !important;
 }
@@ -37,11 +39,15 @@ body::before {
 }
 
 .project-card {
-    outline: 0.25em solid black;
+    outline: 0.25em solid black !important;
 }
 
 .create-project-button {
     display: none !important;
+}
+
+.social-links img {
+    filter: var(--svg-icon-color-light) !important;
 }
 
 #admin-panel {
