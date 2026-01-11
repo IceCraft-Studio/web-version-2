@@ -63,7 +63,7 @@ The main bread and butter of our website is the projects so you obviously need s
 
 ![upload 1](https://raw.githubusercontent.com/IceCraft-Studio/web-version-2/refs/heads/main/docs/images/upload-1.png)
 
-This brings you to an interactive page where you can customize your project. You can set basic stuff like title, description and thumbnail on the top<sup>1)</sup>, next to which is a preview of the project card so you can tell if it looks good right away<sup>2)</sup>. Below are 2 important buttons - slug and category selection.<sup>3)</sup> First you select the category of you project and then you are let to select a unique end of your project's URL, which is the slug.
+This brings you to an interactive page where you can customize your project. You can set basic stuff like title, description and thumbnail on the top<sup>1)</sup>, next to which is a preview of the project card so you can tell if it looks good right away<sup>2)</sup>. Below are 2 important buttons - slug and category selection.<sup>3)</sup> First you select the category of you project and then you are allowed to select a unique end of your project's URL, which is the slug.
 
 ![upload 2](https://raw.githubusercontent.com/IceCraft-Studio/web-version-2/refs/heads/main/docs/images/upload-2.png)
 
@@ -72,7 +72,7 @@ markdown format<sup>1)</sup> and you can upload images<sup>2)</sup> like screens
 
 ![upload 3](https://raw.githubusercontent.com/IceCraft-Studio/web-version-2/refs/heads/main/docs/images/upload-3.png)
 
-Last, but very important part of you project is the links. You can find it just on the bottom of the page before the final "Create Project" button<sup>1)</sup>.
+Last, but very important, part of you project is the links. You can find it just on the bottom of the page before the final "Create Project" button<sup>1)</sup>.
 There you need to put at least one link<sup>2)</sup> or file<sup>3)</sup> to your project. You can upload up to 5 of each. The files can be up to 30 MB in size.
 
 ![upload 4](https://raw.githubusercontent.com/IceCraft-Studio/web-version-2/refs/heads/main/docs/images/upload-4.png)
