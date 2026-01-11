@@ -598,18 +598,12 @@ function getProjectCount($filters = ['category' => '', 'username' => ''])
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
     if (($filters['category'] ?? '') == '' && ($filters['username'] ?? '') == '') {
-        echo 'no filter';
         $result = dbQuery($dbConnection, "SELECT COUNT(*) AS `total` FROM `project`");
-    }
-    if (($filters['category'] ?? '') == '') {
-        echo 'filter username';
+    } else if (($filters['category'] ?? '') == '') {
         $result = dbQuery($dbConnection, "SELECT COUNT(*) AS `total` FROM `project` WHERE `username` = ?", "s", [$filters['username']]);
-    }
-    if (($filters['username'] ?? '') == '') {
-        echo 'filter category';
+    } else if (($filters['username'] ?? '') == '') {
         $result = dbQuery($dbConnection, "SELECT COUNT(*) AS `total` FROM `project` WHERE `category` = ?", "s", [$filters['category']]);
     } else {
-        echo 'filter both';
         $result = dbQuery($dbConnection, "SELECT COUNT(*) AS `total` FROM `project` WHERE `category` = ? AND `username` = ?", "ss", [$filters['category'], $filters['username']]);
     }
     if ($result === false || count($result) === 0) {

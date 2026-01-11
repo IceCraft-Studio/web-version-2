@@ -92,7 +92,6 @@ if ($amount === false) {
     http_response_code(500);
     return;
 }
-echo 'amount:' . $amount . ' size:' . $size;
 $lastPage = ceil($amount/$size);
 $viewState->set('paging-last-page',$lastPage);
 
