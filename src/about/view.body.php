@@ -14,7 +14,7 @@
             and once you have your profile you can publish your own projects into any of the categories
             we allow to be uploaded.
 
-            The tutorial to use the website is available on our GitHub.
+            The tutorial to use the website is <a href="https://github.com/IceCraft-Studio/web-version-2/blob/main/docs/Product.md">available on our GitHub.</a>
         </p>
     </div>
     <div>
