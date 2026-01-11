@@ -345,6 +345,7 @@ button:disabled {
     padding: 0.5rem 0.8rem;
 
     color: var(--color-text);
+    filter: none;
     text-decoration: none;
     font-family: 'Gantari', sans-serif;
 	font-size: 1.2rem;
@@ -430,6 +431,7 @@ button:disabled {
     margin: 0.4rem 0;
 
     color: var(--color-text);
+    filter: none;
     text-decoration: none;
     text-align: center;
     font-family: 'Gantari', sans-serif;
