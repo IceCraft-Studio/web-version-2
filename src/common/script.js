@@ -20,6 +20,20 @@ async function main() {
     elements.burgerMenuToggleBtn.addEventListener('keydown', e => {
         if (e.key === "Enter") { toggleLinkDropdown(); }
     });
+
+    /* Paging - disable page selection when changing sort options */
+    let pageForm = document.querySelector('div.page-form');
+    if (pageForm != null) {
+        pageForm.querySelectorAll('select').forEach((element) => {
+            element.addEventListener('change', (e) => {
+                let pageNumberInput = document.getElementById('input-page-number');
+                if (pageNumberInput != null) {
+                    pageNumberInput.value = 1;
+                    pageNumberInput.setAttribute('readonly','');
+                }
+            });
+        })
+    }
 }
 
 main();

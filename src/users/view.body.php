@@ -88,7 +88,7 @@ function createUserTableData($usersList)
             </div>
             <div>
                 <label for="input-page-number">Page Number:</label>
-                <input type="number" id="input-page-number" name="page" min="1" max="<?= $lastPageNumber ?>">
+                <input type="number" id="input-page-number" name="page" value="1" min="1" max="<?= $lastPageNumber ?>">
             </div>
             <input type="submit" value="Apply">
         </form>
