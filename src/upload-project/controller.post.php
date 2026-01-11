@@ -83,6 +83,7 @@ function validateProjectThumbnail($filePath) {
  */
 function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
     $uploadsNumber = $existingNumber;
+    $usedUuids = [];
     foreach ($fileArray as $index => $filePath) {
         if (($filePath ?? '' ) == '') {
             continue;
@@ -103,6 +104,10 @@ function validateGalleryUploads($fileArray,$uuidArray,$existingNumber = 0) {
         if (strlen($uuid) > 36 || strlen($uuid) < 24 || !isStringSafeUrl($uuid)) {
             return false;
         }
+        if (in_array($uuid,$usedUuids)) {
+            return false;
+        }
+        $usedUuids[] = $uuid;
         $uploadsNumber++;
     }
     return $uploadsNumber - $existingNumber;
@@ -194,15 +199,8 @@ function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber
         if ($uploadsNumber >= MAX_GALLERY_UPLOADS) {
             break;
         }
-        $uuid = $uuidArray[$index] ?? '';
-        // We don't trust the client, so in case of wrong data just use a generated file name
-        $directory = getProjectDirectory($category,$slug,'gallery');
-        $fileInfo = pathinfo(createSafeFileName($uuid));
-        $fileName = getAvailablePath($directory,$fileInfo['filename'] ?? '');
-        $fileInfo = pathinfo($fileName);
-        $fileName = $fileInfo['filename'] ?? '';
-        // Save the result
-        $result = addProjectGalleryImage($category,$slug,$filePath,$fileName);
+        $uuid = strtolower($uuidArray[$index] ?? '');
+        $result = addProjectGalleryImage($category,$slug,$filePath,$uuid);
         if ($result === false) {
             return false;
         }

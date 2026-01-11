@@ -9,7 +9,7 @@ if (($_GET['project'] ?? '') == '' || ($_GET['category'] ?? '') == '' || ($_GET[
 
 $project = $_GET['project'];
 $category = $_GET['category'];
-$fileName = $_GET['file_name'];
+$fileName = strtolower($_GET['file_name']);
 
 $filePath = resolveDataPath('project/' . $category . '/' . $project . '/gallery/' . $fileName);
 
