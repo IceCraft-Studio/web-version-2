@@ -745,7 +745,7 @@ img.no-select {
     margin: 0.2em;
 }
 
-.page-form > #input-page-number {
+.page-form #input-page-number {
     width: 6em;
 }
 
