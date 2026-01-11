@@ -745,6 +745,10 @@ img.no-select {
     margin: 0.2em;
 }
 
+.page-form > #input-page-number {
+    width: 6em;
+}
+
 /* Paging */
 .page-controls {
     width: 90%;
