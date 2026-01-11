@@ -279,9 +279,9 @@ function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameA
  * @return string The fixed markdown string.
  */
 function fixMarkdownLinks($markdownData,$category,$slug) {
-    $prefix = 'https?://zwa.toad.cz/~dobiapa2/api/internal/projects/gallery.php?category=' . $category . '&project=' . $slug . '&file_name=';
+    $prefix = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/gallery.php?category=' . $category . '&project=' . $slug . '&file_name=';
     $markdownData = preg_replace_callback(
-        '#https://zwa\.toad\.cz/([0-9a-fA-F-]{36})#',
+        '#https?://zwa\.toad\.cz/([0-9a-fA-F-]{36})#',
         function ($matches) use ($prefix) {
             $uuid = $matches[1];
             return $prefix . $uuid;
