@@ -315,6 +315,11 @@ form h2 {
     width: fit-content;
 }
 
+.article-part:has(ul#gallery-preview li.gallery-image[data-gallery-index="2"]) #gallery-preview {
+        flex-direction: row;
+        width: fit-content;
+}
+
 /* File and Link Adding Styles */
 
 .adder {
