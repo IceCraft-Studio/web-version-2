@@ -75,6 +75,10 @@ $currentOrder = $viewState->get('paging-order','asc');
                     <option value="desc" <?= $currentOrder === 'desc' ? 'selected' : '' ?>>Descending</option>
                 </select>
             </div>
+            <div>
+                <label for="input-page-number">Page Number:</label>
+                <input type="number" id="input-page-number" name="page" min="1" max="<?= $lastPageNumber ?>">
+            </div>
             <input type="submit" value="Apply">
         </form>
     </div>

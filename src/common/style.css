@@ -116,6 +116,7 @@ form div.field {
 input[type='text'],
 input[type='password'],
 input[type='email'],
+input[type='number'],
 input[type='url'] {
     border-radius: 0;
     border: 0.2em solid var(--color-primary);
