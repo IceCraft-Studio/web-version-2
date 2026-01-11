@@ -230,10 +230,10 @@ button.gallery-container:active {
 
 #gallery-preview {
     display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
+    width: min-content;
     gap: 0.6rem;
     padding: 0;
     margin: 0;
@@ -246,7 +246,8 @@ button.gallery-container:active {
     justify-content: center;
 
     aspect-ratio: 16/9;
-    width: 16rem;
+    width: 20rem;
+    box-sizing: border-box;
 
     border: 0.2rem dashed var(--color-primary);
     padding: 0.5rem;
@@ -355,5 +356,10 @@ form h2 {
     }
     .category-selection {
         flex-basis: 3rem;
+    }
+
+    #gallery-preview {
+        flex-direction: row;
+        width: max-content;
     }
 }
