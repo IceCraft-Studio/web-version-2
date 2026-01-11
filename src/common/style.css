@@ -705,6 +705,10 @@ img.no-select {
     border-color: var(--color-primary-toned);
 }
 
+.project-card:hover {
+    box-shadow: 0.3em 0.3em 0.5em var(--color-primary);
+}
+
 .project-card * {
     overflow: hidden;
     text-overflow: ellipsis;
