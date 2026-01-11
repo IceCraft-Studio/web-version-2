@@ -708,11 +708,11 @@ img.no-select {
 
 .project-card > .user-part {
     overflow: visible;
-    max-width: 100%;
+    max-width: min(25em, 86vw);
 }
 
-.project-card > .project-part {
-    max-width: 100%;
+.project-card .project-part {
+    max-width: min(25em, 86vw);
 }
 
 /* Page Form (sorting, filters etc.) */
