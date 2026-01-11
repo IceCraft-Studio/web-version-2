@@ -73,6 +73,10 @@ function fixGithubHtml($htmlData) {
         },
         $htmlData
     );
+
+    // Remove role="table" as it is invalid HTML
+    $pattern = '#<table\b[^>]*\K\s+\brole\s*=\s*(["\']).*?\1#i';
+    $htmlData = preg_replace($pattern, '', $htmlData);
     
     return $htmlData;
 }
