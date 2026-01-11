@@ -741,10 +741,11 @@ img.no-select {
 
 /* Paging */
 .page-controls {
-    width: 92%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     max-width: 55em;
+    font-size: 1.2rem;
 }
 
 .page-controls > div {
@@ -762,6 +763,12 @@ img.no-select {
 
 .page-controls > div > a {
     padding: 0.35em;
+}
+
+@media only screen and (max-width: 28rem) {
+    .page-controls {
+        width: 100%;
+    }
 }
 
 /* Banner to show server-side validation messages after sending forms */
