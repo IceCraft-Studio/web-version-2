@@ -312,7 +312,7 @@ $csrfToken = getCsrf('upload-project');
                 </div>
                 <div class="hint <?= $projectUploadState === ProjectUploadState::SlugInvalid ? 'color-required' : '' ?>">
                     The slug must be between 6 and 96 characters long and may only contain numbers,
-                    lowercase letters and single hyphens between words. 
+                    lowercase letters and separate hyphens. 
                     <span id="slug-taken" class="<?= $projectUploadState === ProjectUploadState::SlugTaken ? '' : 'hidden' ?> color-required inline-block">
                         This slug is taken, please try another one.
                     </span>

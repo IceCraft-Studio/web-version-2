@@ -152,12 +152,12 @@ function dbQuery($connection, $sqlQuery, $types = "", $parameters = [])
 }
 
 /**
- * Checks if the given string is to be used as a safe and fine looking URL. Means only lowercase alphanumeric characters and single hyphens between words.
+ * Checks if the given string is to be used as a safe and fine looking URL. Means only lowercase alphanumeric characters and single hyphens.
  * @param string $str The input string.
  * @return bool Is it, or is it not?
  */
 function isStringSafeUrl($str) {
-    return (preg_match_all('/^[a-z0-9]+(-[a-z0-9]+)*$/',$str) > 0);
+    return (preg_match_all('/^(?!.*--)[a-z0-9-]+$/',$str) > 0);
 }
 
 /**

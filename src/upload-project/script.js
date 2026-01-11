@@ -219,7 +219,7 @@ function validateForm(elements) {
 function correctSlugInput(slug) {
 	return slug
 		.toLowerCase()
-		.replaceAll(/(-$)|(^-)|[^a-z0-9-]/g, '')
+		.replaceAll(/[^a-z0-9-]/g, '')
 		.replaceAll(/-+/g, '-');
 }
 

@@ -52,7 +52,7 @@ $csrfToken = getCsrf('register');
         <div class="hint-container">
             <div class="hint ">
                 <div id="username-hint" class="<?= $hintUsername ? CLASS_HIGHLIGHT : '' ?>">At least 4 characters, may contain only letters,
-                    numbers and single hyphens between words.</div>
+                    numbers and single hyphens.</div>
                 <div id="username-taken">This username is taken! Please try another one.</div>
             </div>
         </div>
