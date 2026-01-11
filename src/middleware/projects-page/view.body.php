@@ -39,7 +39,7 @@ $pageCreatorDisplayName = ($pageCreatorData['display_name'] ?? '') == '' ? $page
 function gcreateDownloadFiles($filesArray) {
     foreach ($filesArray as $fileRecord) {
         $link = $fileRecord['link'] ?? '';
-        if (($linkRecord['display_name'] ?? '') == '') {
+        if (($fileRecord['display_name'] ?? '') == '') {
             $displayName = $fileRecord['file_name'] ?? 'Unknown File Name';
         } else {
             $displayName = $fileRecord['display_name'];

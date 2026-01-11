@@ -260,6 +260,19 @@ div#md-preview {
     overflow: auto;
 }
 
+
+#md-preview img {
+    max-width: 96% !important;
+}
+
+#md-preview * {
+    margin: 0.5em;
+}
+
+#md-preview th, #md-preview td {
+    border: 0.2em solid var(--color-primary);
+}
+
 textarea[name="description"] {
     font-size: 1rem;
     font-family: 'Gantari', sans-serif;
