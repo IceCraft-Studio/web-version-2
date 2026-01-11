@@ -149,8 +149,6 @@ textarea {
     background-color: var(--color-background-overlay);
     border-radius: 0.2em;
 
-    width: 100%;
-    max-width: 20rem;
     box-sizing: border-box;
 }
 
@@ -360,6 +358,6 @@ form h2 {
 
     #gallery-preview {
         flex-direction: row;
-        width: max-content;
+        width: fit-content;
     }
 }
