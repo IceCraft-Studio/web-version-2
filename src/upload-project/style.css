@@ -312,7 +312,7 @@ form h2 {
     flex-direction: column;
 }
 .article-part:has(ul#gallery-preview li.gallery-image[data-gallery-index="2"]) .article-gallery {
-    width: auto;
+    width: fit-content;
 }
 
 /* File and Link Adding Styles */
@@ -354,6 +354,10 @@ form h2 {
     }
     .category-selection {
         flex-basis: 3rem;
+    }
+
+    .article-gallery {
+        width: fit-content;
     }
 
     #gallery-preview {
