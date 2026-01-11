@@ -36,6 +36,10 @@ body::before {
     display: none !important;
 }
 
+.project-card {
+    outline: 0.5em solid black;
+}
+
 #admin-panel {
     display: none !important;
 }
