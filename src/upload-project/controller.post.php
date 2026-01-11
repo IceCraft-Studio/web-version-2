@@ -271,7 +271,7 @@ function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameA
  * @return string The fixed markdown string.
  */
 function fixMarkdownLinks($markdownData,$category,$slug) {
-    $prefix = 'https://zwa.toad.cz/~dobiapa2/api/internal/projects/gallery.php?category=' . $category . '&project=' . $slug . '&file_name=';
+    $prefix = 'https?://zwa.toad.cz/~dobiapa2/api/internal/projects/gallery.php?category=' . $category . '&project=' . $slug . '&file_name=';
     $markdownData = preg_replace_callback(
         '#https://zwa\.toad\.cz/([0-9a-fA-F-]{36})#',
         function ($matches) use ($prefix) {
@@ -508,7 +508,7 @@ if (!$projectIsEditing) {
     // load and validate basic project data
     $title = $_POST['title'] ?? '';
     $description = $_POST['description'] ?? '';
-    $markdownArticle = $_POST['markdown-article'] ?? '';
+    $markdownArticle = fixMarkdownLinks($_POST['markdown-article'] ?? '',$projectCategory,$projectSlug);
 
     $projectDataValidation = validateProjectData($title,$description,$projectCategory,$projectSlug,$markdownArticle);
     if ($projectDataValidation !== true) {

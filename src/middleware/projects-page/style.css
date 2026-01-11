@@ -50,6 +50,10 @@ h2, .page-description, #download-links, #download-files {
     margin: 0.5em;
 }
 
+#project-article th, #project-article td {
+    border: 0.2em solid var(--color-primary);
+}
+
 .project-actions a {
     margin: 0.5em;
 }
