@@ -620,7 +620,7 @@ function getProjectCount($filters = ['category' => '', 'username' => ''])
 function getCategories()
 {
     $dbConnection = DbConnect::getConnection(getDbAccessObject());
-    return dbQuery($dbConnection, 'SELECT * FROM `category`');
+    return dbQuery($dbConnection, 'SELECT * FROM `category` ORDER BY `name` ASC');
 }
 
 /**
