@@ -684,6 +684,7 @@ img.no-select {
 
 .project-card .project-part p.description {
     font-size: 1em;
+    line-height: 1.25em;
     height: 3.6em;
     padding: 0.3em 0.5em;
     color: var(--color-text);
