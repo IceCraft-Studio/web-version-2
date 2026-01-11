@@ -185,7 +185,7 @@ $csrfToken = getCsrf('profile');
             <input id="input-display-name" name="display-name" placeholder="<?= $username ?>" type="text"
                 value="<?= $prefillDisplayName ?>" maxlength="64">
             <label for="input-email">E-mail Address:</label>
-            <input id="input-email" name="email" type="text" placeholder="name@domain.tld" value="<?= $prefillEmail ?>" maxlength="200">
+            <input id="input-email" name="email" type="email" placeholder="name@domain.tld" value="<?= $prefillEmail ?>" maxlength="200">
             <label for="input-social-website">Personal Website:</label>
             <input id="input-social-website" name="social-website" type="text" placeholder="https://example.com" value="<?= $prefillSocialWebsite ?>" maxlength="150">
         </div>

@@ -50,7 +50,7 @@ function removeDirRecursive($directory) {
  */
 function createSafeFileName($fileName) {
     $fileName = strtolower($fileName);
-    $fileName = preg_replace('/[\s_]/', '-', $fileName);
+    $fileName = preg_replace('/[\s\b_]/', '-', $fileName);
     $fileName = preg_replace('/[^A-z0-9-\.]/', '', $fileName);
     if (strlen($fileName) > 120) {
         $fileName = substr($fileName,0,120);

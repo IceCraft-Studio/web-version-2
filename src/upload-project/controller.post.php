@@ -194,7 +194,15 @@ function saveGalleryImages($category,$slug,$fileArray,$uuidArray,$existingNumber
         if ($uploadsNumber >= MAX_GALLERY_UPLOADS) {
             break;
         }
-        $result = addProjectGalleryImage($category,$slug,$filePath,$uuidArray[$index]);
+        $uuid = $uuidArray[$index] ?? '';
+        // We don't trust the client, so in case of wrong data just use a generated file name
+        $directory = getProjectDirectory($category,$slug,'gallery');
+        $fileInfo = pathinfo(createSafeFileName($uuid));
+        $fileName = getAvailablePath($directory,$fileInfo['filename'] ?? '');
+        $fileInfo = pathinfo($fileName);
+        $fileName = $fileInfo['filename'] ?? '';
+        // Save the result
+        $result = addProjectGalleryImage($category,$slug,$filePath,$fileName);
         if ($result === false) {
             return false;
         }
@@ -250,11 +258,13 @@ function saveFileUploads($category,$slug,$fileArray,$fileNameArray,$displayNameA
         if ($uploadsNumber >= MAX_FILE_UPLOADS) {
             break;
         }
+         // We don't trust the client, so in case of wrong data just use a generated file name
         $directory = getProjectDirectory($category,$slug,'upload');
         $fileInfo = pathinfo(createSafeFileName($fileNameArray[$index] ?? ''));
         $fileName = getAvailablePath($directory,$fileInfo['filename'] ?? '',$fileInfo['extension'] ?? '');
         $fileInfo = pathinfo($fileName);
         $fileName = ($fileInfo['filename'] ?? '') . '.' . ($fileInfo['extension'] ?? '');
+        // Save data
         $result = addProjectFile($category,$slug,$filePath,$fileName,$displayNameArray[$index] ?? '');
         if ($result === false) {
             return false;
