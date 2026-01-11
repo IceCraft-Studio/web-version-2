@@ -292,7 +292,9 @@ $csrfToken = getCsrf('upload-project');
                         </div>
                         <div class="project-part">
                             <img src="<?= $cardThumbnailSrc ?>" alt="Project Card Thumbnail">
-                            <h3 <?= $prefillTitle == '' ? '' : 'title="' . $prefillTitle . '"' ?>>Preview Title<?= $prefillTitle ?></h3>
+                            <h3 <?= $prefillTitle == '' ? '' : 'title="' . $prefillTitle . '"' ?>>
+                                <?= trim($prefillTitle ?? '') == '' ? 'Preview Title' : $prefillTitle ?>
+                            </h3>
                             <p class="description" title="<?= $prefillDescription ?>"><?= $prefillDescription ?></p>
                             <p class="modified">Date Modified: <time
                                     datetime="<?= date('Y-m-d') ?>"><?= date('d/m/Y') ?></time></p>
