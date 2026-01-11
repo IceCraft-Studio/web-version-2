@@ -148,7 +148,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\isStringSafeUrl\u0028\u0029",
             "name": "isStringSafeUrl",
-            "summary": "Checks\u0020if\u0020the\u0020given\u0020string\u0020is\u0020to\u0020be\u0020used\u0020as\u0020a\u0020safe\u0020and\u0020fine\u0020looking\u0020URL.\u0020Means\u0020only\u0020lowercase\u0020alphanumeric\u0020characters\u0020and\u0020single\u0020hyphens\u0020between\u0020words.",
+            "summary": "Checks\u0020if\u0020the\u0020given\u0020string\u0020is\u0020to\u0020be\u0020used\u0020as\u0020a\u0020safe\u0020and\u0020fine\u0020looking\u0020URL.\u0020Means\u0020only\u0020lowercase\u0020alphanumeric\u0020characters\u0020and\u0020single\u0020hyphens.",
             "url": "namespaces/default.html#function_isStringSafeUrl"
         },                {
             "fqsen": "\\removeNewLines\u0028\u0029",
