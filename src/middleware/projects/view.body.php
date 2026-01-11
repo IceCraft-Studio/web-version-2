@@ -18,6 +18,7 @@ if ($projectsCategory != '') {
 
 // Paging Data
 $lastPageNumber = $viewState->get('paging-last-page',1);
+echo $lastPageNumber;
 $currentPageNumber = $viewState->get('paging-page',1);
 
 $defaultSizes = ['6', '20', '30', '60', '100'];
