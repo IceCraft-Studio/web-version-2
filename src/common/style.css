@@ -640,6 +640,7 @@ img.no-select {
 
 .project-card {
     max-width: min(25em, 86vw);
+    height: fit-content;
     border-radius: 0.5em;
     background-color: var(--color-1);
 }
@@ -681,6 +682,7 @@ img.no-select {
 }
 
 .project-card .project-part p.description {
+    font-size: 1em;
     height: 3.6em;
     padding: 0.3em 0.5em;
     color: var(--color-text);
