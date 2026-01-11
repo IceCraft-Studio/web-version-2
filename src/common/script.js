@@ -29,7 +29,7 @@ async function main() {
                 let pageNumberInput = document.getElementById('input-page-number');
                 if (pageNumberInput != null) {
                     pageNumberInput.value = 1;
-                    pageNumberInput.setAttribute('readonly','');
+                    pageNumberInput.disabled = true;
                 }
             });
         })
