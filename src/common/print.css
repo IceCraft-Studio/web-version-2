@@ -40,6 +40,10 @@ body::before {
     outline: 0.25em solid black;
 }
 
+.create-project-button {
+    display: none !important;
+}
+
 #admin-panel {
     display: none !important;
 }
