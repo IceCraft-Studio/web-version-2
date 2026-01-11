@@ -699,7 +699,6 @@ img.no-select {
 }
 
 .project-card * {
-    word-break: break-all;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0;
