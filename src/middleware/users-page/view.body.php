@@ -7,6 +7,7 @@ $viewState = ViewData::getInstance();
 // User Data
 $userUsername = htmlspecialchars($viewState->get('page-username', ''));
 $userDisplayName = htmlspecialchars($viewState->get('page-display-name', ''));
+$userEmail = htmlspecialchars($viewState->get('page-email', ''));
 $userRole = htmlspecialchars($viewState->get('page-user-role', ''));
 $userCreated = $viewState->get('page-user-created','');
 $userPicture = $viewState->get('page-picture-link', '');
@@ -126,6 +127,9 @@ if ((($viewerIsAdmin && !$userIsAdmin) || $viewerIsOwner)) {
             <?php if ($socialDiscord != ''): ?>
             <a href="https://discord.gg/<?= $socialDiscord ?>" title="Discord" target="_blank"><img src="/~dobiapa2/assets/icons/socials/discord.svg" alt="Discord icon"> My Discord Server</a>
             <?php endif; ?>
+            <?php if ($viewerIsAdmin && $userEmail != ''): ?>
+            <a href="mailto:<?= $userEmail ?>">User's Email: <span class="bold"><?= $userEmail ?></span></a>
+            <?php endif ; ?>
         </div>
     </div>
     <?php if (($viewerIsAdmin && !$userIsAdmin) || $viewerIsOwner): ?>
@@ -146,6 +150,9 @@ if ((($viewerIsAdmin && !$userIsAdmin) || $viewerIsOwner)) {
                         </option>
                         <option value="clear-name">
                             Clear Display Name
+                        </option>
+                        <option value="clear-picture">
+                            Clear Profile Picture
                         </option>
                         <option value="delete-user">
                             Delete User (includes Projects)

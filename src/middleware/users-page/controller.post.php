@@ -55,6 +55,9 @@ switch ($userAction) {
     case 'clear-name':
         $actionSuccess = changeUserDisplayName($userUsername, '');
         break;
+    case 'clear-picture':
+        $actionSuccess = saveUserProfilePicture($userUsername, '');
+        break;
     case 'delete-user':
         deleteUser($userUsername);
         redirect('/~dobiapa2/users');
