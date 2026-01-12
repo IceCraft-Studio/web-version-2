@@ -244,7 +244,7 @@ button.gallery-container:active {
     justify-content: center;
 
     aspect-ratio: 16/9;
-    width: 20rem;
+    width: min(20rem,75vw);
     box-sizing: border-box;
 
     border: 0.2rem dashed var(--color-primary);
