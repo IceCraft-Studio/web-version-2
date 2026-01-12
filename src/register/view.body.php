@@ -64,7 +64,7 @@ $csrfToken = getCsrf('register');
             </div>
         </div>
         <div class="hint-container">
-            <div class="hint <?= $hintPassword ? CLASS_HIGHLIGHT : '' ?>">At least 8 characters, may contain at least 1 number, uppercase letter and
+            <div class="hint <?= $hintPassword ? CLASS_HIGHLIGHT : '' ?>">At least 8 characters, must contain at least 1 number, uppercase letter and
                 lowercase letter.</div>
         </div>
         <div class="row">
