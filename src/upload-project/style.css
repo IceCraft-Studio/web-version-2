@@ -335,6 +335,11 @@ form h2 {
 
 /* File and Link Adding Styles */
 
+#downloads-links-heading::after {
+    content: " *";
+    color: var(--color-required-field);
+}
+
 .adder {
     display: flex;
     flex-wrap: wrap;
