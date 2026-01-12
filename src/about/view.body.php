@@ -24,7 +24,7 @@
         </p>
         <ul>
             <li>
-                <a href="github.com/IceCraft-Studio">GitHub Page</a>
+                <a href="https://github.com/IceCraft-Studio">GitHub Page</a>
             </li>
             <li>
                 <a href="https://mcpedl.com/user/paveldobcz23/">MCPEDL Page</a>
