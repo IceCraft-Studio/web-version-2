@@ -106,7 +106,7 @@ if ((($viewerIsAdmin && !$userIsAdmin) || $viewerIsOwner)) {
     <div id="profile-section">
         <div class="user-header">
             <img src="<?= $userPicture ?>" alt="<?= $userDisplayName ?>">
-            <h1><?= $userDisplayName ?></h1>
+            <h1 id="page-top"><?= $userDisplayName ?></h1>
             <div class="member-since">
                 Member Since: <time datetime="<?= $createdTechnical ?>"><?= $createdHuman ?></time>
             </div>
@@ -221,4 +221,5 @@ if ((($viewerIsAdmin && !$userIsAdmin) || $viewerIsOwner)) {
             generatePageControls($currentPageNumber,$lastPageNumber)
         ?>
     </div>
+    <a href="#page-top">Return to top.</a>
 </main>

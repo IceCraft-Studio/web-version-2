@@ -36,7 +36,7 @@ $currentOrder = $viewState->get('paging-order','asc');
         <a href="/~dobiapa2/upload-project">Create a new Project!</a>
     </div>
     <?php endif ; ?>
-    <h1><?= $projectsPageTitle ?></h1>
+    <h1 id="page-top"><?= $projectsPageTitle ?></h1>
     <h2>Category Links</h2>
     <div class="category-link-container">
         <?php
@@ -92,4 +92,5 @@ $currentOrder = $viewState->get('paging-order','asc');
             generatePageControls($currentPageNumber,$lastPageNumber)
         ?>
     </div>
+    <a href="#page-top">Return to top.</a>
 </main>
