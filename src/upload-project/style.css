@@ -260,7 +260,6 @@ div#md-preview {
     overflow: auto;
 }
 
-
 #md-preview img {
     max-width: 96% !important;
 }
@@ -273,12 +272,11 @@ div#md-preview {
     border: 0.2em solid var(--color-primary);
 }
 
-
 #md-preview pre {
-  background-color: var(--color-input-background);
-  border-radius: 0.5em;
-  padding: 0.5em;
-  border: 0.15em solid var(--color-2);
+    background-color: var(--color-input-background);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    border: 0.15em solid var(--color-anticontrast);
 }
 
 textarea[name="description"] {

@@ -51,10 +51,10 @@ h2, .page-description, #download-links, #download-files {
 }
 
 #project-article pre {
-  background-color: var(--color-input-background);
-  border-radius: 0.5em;
-  padding: 0.5em;
-  border: 0.15em solid var(--color-2);
+    background-color: var(--color-input-background);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    border: 0.15em solid var(--color-anticontrast);
 }
 
 .project-actions a {
