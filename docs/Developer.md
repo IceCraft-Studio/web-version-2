@@ -20,7 +20,7 @@ in order to make the website function correctly.
         - All API requests used for access by external parties belong in `/src/api` outside of `/src/api/internal`.
     - All dynamic (e.g. user-generated) assets should be handled as an API request. This API access should use GET method and url query parameters to determine what to load.
     - All AJAX data access and modification (e.g. validating a username is available) should be handled as an API request.
-- This codebase uses mostly functional programming paradigm and minimal amount of OOP.
+- This codebase uses mostly procedular programming paradigm and minimal amount of OOP.
 - The code should aim to be stright forward, with minimal boilerplate and as simple as possible for the desired function. No over-engineering.
 - The HTTP access to a specific pages is done by URL directories. The user SHOULD NOT see file extensions in page URLs!
 - URL parameters are used when they have some semantic sense, not for e.g. routing or any other internal logic. A good use of URL parameters is for paging and filtering of list pages or to indicate what project is being edited.
