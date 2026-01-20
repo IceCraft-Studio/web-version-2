@@ -79,18 +79,16 @@ Fields:
 ### User Profile
 
 Fields:
+
 - `profile-picture` File - Image to use a profile picture.
 - `delete-profile-picture` Checkbox - Indicating if the user wants to delete their picture. 
-
 - `display-name` Text - Name to use to present self instead of the username. Doesn't need to be unique.
 - `email` Email - The user can provide their email.
 - `social-website` Text - Link to a personal website of the user.
-
 - `social-reddit` Text - Link to a reddit account of the user.
 - `social-twitter` Text - Link to a twitter account of the user.
 - `social-instagram` Text - Link to an instagram account of the user.
 - `social-discord` Text - Link to a discord server of the user.
-
 - `password` Password - The current password of the user.
 - `new-password` Password - The new password the user wants to use.
 - `confirm-password` Password - Confirmation of the new password.
@@ -110,6 +108,7 @@ Fields:
 - `link-name[]` Text[] - Display names for the links.
 - `file-upload[]`File[] - Uploaded files (up to 30 MB) to provide with the project.
 - `file-name[]` Text[] - Display names for the files.
+
 Fields (edit only):
 - `gallery-delete-name[]` Hidden[] - Enabled when clicking delete image button, used to delete previously uploaded gallery images.
 - `link-delete-url[]` Hidden[] - Enabled when clicking delete link button, used to delete previously uploaded links.
