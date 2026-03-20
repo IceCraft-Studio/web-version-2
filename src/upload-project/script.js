@@ -198,7 +198,7 @@ async function main() {
 			elements.fileAdder.querySelector(`li[data-old-file-index="${index}"]`).classList.add(HIDDEN_CLASS);
 			elements.fileAdder.querySelector(`input[name="file-delete-name[${index}]"]`).disabled = false;
 			uploadCounter.files--;
-			elements.addFileButton.disabled = !(uploadCounter.links < MAX_LINK_AMOUNT);
+			elements.addFileButton.disabled = !(uploadCounter.files < MAX_FILE_AMOUNT);
 		});
 	});
 

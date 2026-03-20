@@ -20,7 +20,7 @@ in order to make the website function correctly.
         - All API requests used for access by external parties belong in `/src/api` outside of `/src/api/internal`.
     - All dynamic (e.g. user-generated) assets should be handled as an API request. This API access should use GET method and url query parameters to determine what to load.
     - All AJAX data access and modification (e.g. validating a username is available) should be handled as an API request.
-- This codebase uses mostly functional programming paradigm and minimal amount of OOP.
+- This codebase uses mostly procedular programming paradigm and minimal amount of OOP.
 - The code should aim to be stright forward, with minimal boilerplate and as simple as possible for the desired function. No over-engineering.
 - The HTTP access to a specific pages is done by URL directories. The user SHOULD NOT see file extensions in page URLs!
 - URL parameters are used when they have some semantic sense, not for e.g. routing or any other internal logic. A good use of URL parameters is for paging and filtering of list pages or to indicate what project is being edited.
@@ -79,18 +79,16 @@ Fields:
 ### User Profile
 
 Fields:
+
 - `profile-picture` File - Image to use a profile picture.
 - `delete-profile-picture` Checkbox - Indicating if the user wants to delete their picture. 
-
 - `display-name` Text - Name to use to present self instead of the username. Doesn't need to be unique.
 - `email` Email - The user can provide their email.
 - `social-website` Text - Link to a personal website of the user.
-
 - `social-reddit` Text - Link to a reddit account of the user.
 - `social-twitter` Text - Link to a twitter account of the user.
 - `social-instagram` Text - Link to an instagram account of the user.
 - `social-discord` Text - Link to a discord server of the user.
-
 - `password` Password - The current password of the user.
 - `new-password` Password - The new password the user wants to use.
 - `confirm-password` Password - Confirmation of the new password.
@@ -110,10 +108,13 @@ Fields:
 - `link-name[]` Text[] - Display names for the links.
 - `file-upload[]`File[] - Uploaded files (up to 30 MB) to provide with the project.
 - `file-name[]` Text[] - Display names for the files.
+
 Fields (edit only):
 - `gallery-delete-name[]` Hidden[] - Enabled when clicking delete image button, used to delete previously uploaded gallery images.
 - `link-delete-url[]` Hidden[] - Enabled when clicking delete link button, used to delete previously uploaded links.
 - `file-delete-name[]` Hidden[] - Enabled when clicking delete link button, used to delete previously uploaded files.
+
+## Admin
 
 ### Manage User
 
